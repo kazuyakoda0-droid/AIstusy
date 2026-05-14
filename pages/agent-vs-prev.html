@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>これまでのAIとの違い — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .evolve-table {
+    display: grid;
+    grid-template-columns: 160px repeat(3, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+  }
+  .et-head, .et-cell {
+    background: var(--paper);
+    padding: 18px 20px;
+    font-size: 15pt;
+    line-height: 1.7;
+  }
+  .et-head {
+    background: var(--bg-alt);
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .et-head.agent {
+    background: var(--ink); color: var(--paper);
+  }
+  .et-row-label {
+    background: var(--bg-alt);
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 18px 20px;
+    display: flex; align-items: center;
+  }
+  .et-cell.agent {
+    background: var(--accent-soft);
+  }
+
+  .ladder-up {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .rung-simple {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 24px; align-items: center;
+    padding: 22px 28px;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+  }
+  .rung-simple.top {
+    background: var(--ink); color: var(--paper);
+    border-left: 4px solid var(--accent);
+  }
+  .rung-simple .rname {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; line-height: 1.3;
+  }
+  .rung-simple .rdesc {
+    font-size: 15pt; color: var(--ink-soft); line-height: 1.7;
+  }
+  .rung-simple.top .rdesc { color: oklch(0.85 0.008 70); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-6">第6回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">これまでのAIとの違い</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Agent 03 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 06 ／ 自律型AI</div>
+    <h1>これまでのAIとの違い<br><em>"作業者" から "部下" へ。</em></h1>
+  </div>
+  <p class="hero-lede">
+    分類器、対話型AI、エージェント。同じ「AI」と呼ばれるが、人間との関わり方はまったく違う。3つを並べて比較し、「自律する部下」が何を意味するかを掴む。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"指示の与え方" が、根本的に変わる。<br>手順 → タスク → <em>ゴール</em>。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>3世代の比較表</h2>
+      <p class="sub">同じ「AIに仕事を頼む」でも、与える指示の粒度、AIの自律性、人間の関与度がまったく違う。</p>
+    </div>
+  </div>
+
+  <div class="evolve-table">
+    <div class="et-head"></div>
+    <div class="et-head">従来の分類AI</div>
+    <div class="et-head">対話型 生成AI</div>
+    <div class="et-head agent">AIエージェント</div>
+
+    <div class="et-row-label">指示の与え方</div>
+    <div class="et-cell">入力を渡すだけ（自動）</div>
+    <div class="et-cell">毎ターン手動で指示</div>
+    <div class="et-cell agent">ゴールだけ伝える</div>
+
+    <div class="et-row-label">AIの自律性</div>
+    <div class="et-cell">なし（決められた処理）</div>
+    <div class="et-cell">部分的（1ターン応答）</div>
+    <div class="et-cell agent">高い（多段思考＆ツール）</div>
+
+    <div class="et-row-label">複数ステップ</div>
+    <div class="et-cell">不可</div>
+    <div class="et-cell">人間が手順を分割</div>
+    <div class="et-cell agent">AIが自分で計画</div>
+
+    <div class="et-row-label">外部ツール</div>
+    <div class="et-cell">使えない</div>
+    <div class="et-cell">基本使えない</div>
+    <div class="et-cell agent">自分で呼び出す</div>
+
+    <div class="et-row-label">人間の役割</div>
+    <div class="et-cell">運用・監視</div>
+    <div class="et-cell">指示者・コピペ係</div>
+    <div class="et-cell agent">ディレクター・承認者</div>
+
+    <div class="et-row-label">関係の比喩</div>
+    <div class="et-cell">道具</div>
+    <div class="et-cell">作業者</div>
+    <div class="et-cell agent">部下／チームメンバー</div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>同じ仕事を、3世代で頼むと</h2>
+      <p class="sub">「競合A社・B社の決算を比較してまとめて」というタスクを、3つの世代に頼んだときの違い。</p>
+    </div>
+  </div>
+
+  <div class="ladder-up">
+    <div class="rung-simple">
+      <div class="rname">分類AI</div>
+      <div class="rdesc">
+        <strong style="color: var(--ink);">不可能。</strong> 学習データに含まれていない比較の生成はできない。せいぜい「決算が良いか悪いか」のスコアリング止まり。
+      </div>
+    </div>
+    <div class="rung-simple">
+      <div class="rname">対話型 生成AI</div>
+      <div class="rdesc">
+        人間が手順を分割する。「A社の決算PDFをコピペ → AIに渡す → 抽出結果を保存 → B社で同じこと → 比較表を作ってもらう」と、5〜6回の人手介入が必要。
+      </div>
+    </div>
+    <div class="rung-simple top">
+      <div class="rname">AIエージェント</div>
+      <div class="rdesc">
+        ゴールを伝えるだけ。エージェントが「Web検索 → PDF取得 → 数値抽出 → 計算 → 表生成」を自分で計画し、ツールを使って完遂する。人間が見るのは最終成果物のみ。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AIは "作業を代行する道具" を超え、<br>
+  <em>"プロセスを代行する部下"</em> になる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Mindset</div>
+    <div>
+      <h2>"AIへの頼み方" を、アップデートする</h2>
+      <p class="sub">エージェント時代に必要なのは、技術ではなくマインドセットの転換。「手順を教える」を卒業し、「ゴールを定義する」が中心になる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>"手順" ではなく "ゴール" を書く</h3>
+        <p>「まずAをやって、次にB」ではなく「最終的に〇〇という成果物が欲しい」。手順はAIに考えさせる。これが第10回「AIディレクター」の働き方の土台。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>"制約条件" を明示する</h3>
+        <p>自由度が上がる分、暴走を防ぐ制約も書く。「使ってよいデータソース」「やってはいけないこと」「予算上限」「成果物の形式」など、ガードレールが大事。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>"中間の確認" を組み込む</h3>
+        <p>全部任せて最後に開けたら全然違う、を防ぐ。「計画ができたら見せて」「途中経過を報告して」など、要所で人間が介入する設計を。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="tool-use.html">
+      <span class="dir">← Prev ／ Agent 02</span>
+      <span class="nxt">ツールの利用</span>
+    </a>
+    <a href="../index.html#session-7" class="right">
+      <span class="dir">Next Session →</span>
+      <span class="nxt">第7回：コーディングエージェント</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第6回 ／ これまでのAIとの違い</footer>
+</body>
+</html>

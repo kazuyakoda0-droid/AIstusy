@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生成AI — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .gen-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .gen-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .gen-prompt {
+    background: var(--ink); color: var(--paper);
+    padding: 18px 22px;
+    font-family: var(--serif); font-size: 15pt; line-height: 1.7;
+    border-left: 3px solid var(--accent);
+  }
+  .gen-tokens {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .tok {
+    font-family: var(--mono); font-size: 15pt;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 6px 10px;
+  }
+  .tok.cursor {
+    background: var(--accent); color: var(--paper);
+    border-color: var(--accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0.3; } }
+  .gen-label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html">第1回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">生成AI</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Phase 03 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Phase 03 ／ AIの進化の系譜</div>
+    <h1>生成AI<br><em>ゼロから生み出すクリエイター。</em></h1>
+  </div>
+  <p class="hero-lede">
+    過去のパターンを「分類」するだけでなく、文脈を理解し、新しい文章・画像・コードを「生成」する。ChatGPT以降、私たちの仕事を根本から変えつつあるAI。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">膨大な文章を読んできた<em>文豪</em>のように、<br>"次にくる確率が高い言葉"を、一語ずつ紡いでいく。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>仕組み — 「次の単語」を確率で選び続ける</h2>
+      <p class="sub">生成AIは魔法ではなく、確率モデル。「ここまでの文脈なら、次に来る確率が高いのはこの単語」を一語ずつ予測し、それを繰り返して文章を紡いでいる。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="gen-flow">
+      <div class="gen-row">
+        <div class="gen-label">Input ／ プロンプト</div>
+        <div class="gen-prompt">「日本の首都は」</div>
+      </div>
+      <div class="gen-row">
+        <div class="gen-label">次の単語の確率</div>
+        <div class="prob-stack">
+          <div class="prob-row top">
+            <div class="prob-token">東京</div>
+            <div class="prob-bar"><div class="prob-bar-fill" style="width: 88%;"></div></div>
+            <div class="prob-pct">88%</div>
+          </div>
+          <div class="prob-row">
+            <div class="prob-token">京都</div>
+            <div class="prob-bar"><div class="prob-bar-fill" style="width: 6%; background: var(--ink-soft);"></div></div>
+            <div class="prob-pct">6%</div>
+          </div>
+          <div class="prob-row">
+            <div class="prob-token">江戸</div>
+            <div class="prob-bar"><div class="prob-bar-fill" style="width: 3%; background: var(--ink-soft);"></div></div>
+            <div class="prob-pct">3%</div>
+          </div>
+          <div class="prob-row">
+            <div class="prob-token">大阪</div>
+            <div class="prob-bar"><div class="prob-bar-fill" style="width: 2%; background: var(--ink-soft);"></div></div>
+            <div class="prob-pct">2%</div>
+          </div>
+          <div class="prob-row">
+            <div class="prob-token">…</div>
+            <div class="prob-bar"><div class="prob-bar-fill" style="width: 1%; background: var(--ink-soft);"></div></div>
+            <div class="prob-pct">1%</div>
+          </div>
+        </div>
+      </div>
+      <div class="gen-row">
+        <div class="gen-label">Output ／ 生成</div>
+        <div class="gen-tokens">
+          <span class="tok">日本</span>
+          <span class="tok">の</span>
+          <span class="tok">首都</span>
+          <span class="tok">は</span>
+          <span class="tok" style="background: var(--accent-soft); border-color: var(--accent);">東京</span>
+          <span class="tok cursor">▊</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="max-width: 720px; margin: 32px auto 0; text-align: center; font-size: 15pt; color: var(--ink-soft); line-height: 1.85;">
+    これを <strong style="color: var(--ink);">何百回・何千回</strong> 繰り返して、長い文章ができあがる。意味を理解しているわけではなく、確率的に尤もらしい言葉を紡いでいる。
+  </p>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>「ハルシネーション」はなぜ起きるのか</h2>
+      <p class="sub">生成AIは確率的に「もっともらしい言葉」を選ぶ。だから事実を確認しているわけではない。事実と異なる内容を、自信満々に語ることがある。これがハルシネーション（幻覚）。</p>
+    </div>
+  </div>
+
+  <div class="example-card">
+    <div class="example-side">
+      <span class="tag">Hallucination</span>
+      <h3>もっともらしい嘘</h3>
+    </div>
+    <div class="example-content">
+      <div class="bubble-set">
+        <div class="bubble">
+          <div class="who">User</div>
+          <div class="msg">○○株式会社の2023年の売上高は？</div>
+        </div>
+        <div class="bubble ai">
+          <div class="who">AI</div>
+          <div class="msg">○○株式会社の2023年度売上高は <strong style="color: oklch(0.78 0.10 35);">約1,250億円</strong> です。前年比15%増となっており…</div>
+        </div>
+        <div class="bubble">
+          <div class="who">注意</div>
+          <div class="msg" style="background: var(--accent-soft); border-color: var(--accent); color: var(--ink); font-family: var(--sans); font-size: 15pt;">
+            ↑ <strong>これが事実とは限らない。</strong> AIは「決算発表のニュース記事に出てきそうな表現」を確率的に紡いだだけで、実在の数字を参照していない。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Capabilities</div>
+    <div>
+      <h2>何を「生成」できるのか</h2>
+      <p class="sub">文章だけでなく、画像、音声、動画、コード… マルチモーダル化が急速に進んでいる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>テキスト生成</h3>
+        <p>メール、報告書、企画書、要約、翻訳、ブレインストーミング。仕事で発生する文章タスクの大半が対象。「箇条書きから整文」「長文を3行に」「英語に翻訳しつつトーンを丁寧に」など、変換も得意。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>画像生成</h3>
+        <p>「宇宙服を着てスケボーをする猫を、油絵風に」のような言葉から、新しい画像を一から描く。広告・デザイン・プレゼン資料の素材作成で活用が広がっている。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>コード生成</h3>
+        <p>「Excelの売上データを月別集計するマクロ」「PDFから表を抽出するPythonスクリプト」など、業務ツールを自然言語から生成。プログラミング経験のない人にも開発の道が開かれた。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  生成AIは <em>「答えを書く」</em> AI。<br>
+  だからこそ、私たちの仕事の "何を" "どう" 任せるかが問われる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Limits</div>
+    <div>
+      <h2>限界と、正しい付き合い方</h2>
+      <p class="sub">「すごい」と「鵜呑みにできる」は別。生成AIの特性を理解した上で使うことが、業務利用の前提条件。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">Strength</div>
+      <div class="compare-title">得意なこと</div>
+      <ul class="compare-points">
+        <li>文章の要約・整文・翻訳</li>
+        <li>アイデア出し・壁打ち</li>
+        <li>定型ドラフト作成</li>
+        <li>言い回しの提案・トーン変換</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">Weakness</div>
+      <div class="compare-title">苦手なこと・注意点</div>
+      <ul class="compare-points">
+        <li>事実確認（必ず一次情報で裏取りを）</li>
+        <li>複雑な計算（電卓・Excelの方が確実）</li>
+        <li>学習時点より新しい情報</li>
+        <li>機密データの取扱い（情報漏洩リスク）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="machine-learning.html">
+      <span class="dir">← Prev ／ Phase 02</span>
+      <span class="nxt">機械学習 / 深層学習</span>
+    </a>
+    <a href="predict-to-generate.html" class="right">
+      <span class="dir">Next ／ Shift →</span>
+      <span class="nxt">「予測・分類」から「生成」へ</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第1回 ／ 生成AI</footer>
+
+</body>
+</html>

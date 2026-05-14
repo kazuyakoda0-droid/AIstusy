@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自律デバッグ — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .loop-ring {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    max-width: 720px; margin: 0 auto;
+  }
+  .ring-node {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative;
+  }
+  .ring-node.run { background: var(--accent-soft); border-color: var(--accent); }
+  .ring-node.error { background: oklch(0.95 0.04 30); border-color: oklch(0.7 0.10 30); }
+  .ring-node.fix { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .ring-node .lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .ring-node.run .lbl { color: var(--accent); }
+  .ring-node.error .lbl { color: oklch(0.5 0.15 30); }
+  .ring-node.fix .lbl { color: oklch(0.78 0.10 35); }
+  .ring-node h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.3; }
+  .ring-node p { font-size: 15pt; color: var(--ink-soft); line-height: 1.7; }
+  .ring-node.fix p { color: oklch(0.85 0.008 70); }
+
+  .debug-trace {
+    display: flex; flex-direction: column; gap: 14px;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+  }
+  .dt-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 20px; align-items: start;
+  }
+  .dt-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--muted);
+    padding-top: 6px;
+    text-transform: uppercase;
+  }
+  .dt-tag.err { color: oklch(0.5 0.15 30); }
+  .dt-tag.fix { color: var(--accent); }
+  .dt-tag.ok { color: oklch(0.5 0.12 150); }
+  .dt-content {
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.7;
+    padding: 8px 12px;
+    background: var(--bg-alt);
+  }
+  .dt-content.err { background: oklch(0.96 0.03 30); color: oklch(0.4 0.12 30); }
+  .dt-content.fix { background: var(--accent-soft); color: var(--ink); }
+  .dt-content.ok { background: oklch(0.95 0.04 150); color: oklch(0.35 0.10 150); }
+  .dt-content.thought { background: var(--ink); color: var(--paper); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-7">第7回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">自律デバッグ</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Coding 02 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 07 ／ コーディングエージェント</div>
+    <h1>自律デバッグ<br><em>AIが、自分のエラーを自分で直す。</em></h1>
+  </div>
+  <p class="hero-lede">
+    プログラミングで最も時間がかかるのは「エラー解析と修正」。コーディングエージェントは、実行 → エラー検知 → 原因推定 → 修正のループを自分で回し、完成まで導く。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">エラーは、<em>"次の手がかり"</em>。<br>AIはそれを読んで、自分で原因を辿り、自分で直す。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>4ステップのデバッグループ</h2>
+      <p class="sub">これまで人間がやっていた「動かない → エラー文を読む → 原因を考える → 修正」を、AIが内部で繰り返す。</p>
+    </div>
+  </div>
+
+  <div class="loop-ring">
+    <div class="ring-node run">
+      <div class="lbl">Step 01</div>
+      <h3>実行</h3>
+      <p>書いたコードを実行する。動けば次へ。動かなければエラー情報を取得。</p>
+    </div>
+    <div class="ring-node error">
+      <div class="lbl">Step 02</div>
+      <h3>エラー検知</h3>
+      <p>エラーメッセージ、行番号、スタックトレースを読み取る。</p>
+    </div>
+    <div class="ring-node">
+      <div class="lbl">Step 04</div>
+      <h3>再実行</h3>
+      <p>修正を適用して再実行。成功するまで繰り返す。</p>
+    </div>
+    <div class="ring-node fix">
+      <div class="lbl">Step 03</div>
+      <h3>原因推定＆修正</h3>
+      <p>エラー文から原因を推定。コードを修正、ライブラリを追加、設定を変更。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>実際のデバッグループ</h2>
+      <p class="sub">「PDFから表を抽出する」スクリプトを作るときの、エージェント内部の動き。人間は一切介入しないのに、3回のループで完成する。</p>
+    </div>
+  </div>
+
+  <div class="debug-trace">
+    <div class="dt-row">
+      <div class="dt-tag">Round 1</div>
+      <div class="dt-content thought">スクリプトを作成して実行</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-tag err">Error</div>
+      <div class="dt-content err">ImportError: No module named 'tabula'</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-tag fix">Fix</div>
+      <div class="dt-content fix">tabula-py が未インストール。pip install tabula-py を実行する。</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-tag">Round 2</div>
+      <div class="dt-content thought">再実行</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-tag err">Error</div>
+      <div class="dt-content err">JavaNotFoundError: 'java' executable not found in PATH</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-tag fix">Fix</div>
+      <div class="dt-content fix">tabulaにはJavaが必要。代替として pdfplumber に切り替える。</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-tag">Round 3</div>
+      <div class="dt-content thought">pdfplumber でコードを書き直して再実行</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-tag ok">Success</div>
+      <div class="dt-content ok">表データを CSV に出力完了。タスク終了。</div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  プログラミングの最大の時間泥棒は <em>"デバッグ"</em>。<br>
+  それをAIが代行できれば、開発速度は跳ね上がる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Implication</div>
+    <div>
+      <h2>非エンジニアにとっての意味</h2>
+      <p class="sub">プログラミングの本質的な難しさは「動かないものを動かす」こと。これをAIが肩代わりすると、非エンジニアでも実用ツールを内製できる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>"何ができるか" の発想が広がる</h3>
+        <p>「これは無理だろう」と諦めていた業務改善のアイデアが、現実的になる。Excelマクロでは難しかった処理も、Pythonスクリプト＋AIでサクッと実現できる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>"動けばよい" レベルの内製が増える</h3>
+        <p>商用品質のシステムでなくとも、「自分の業務だけで使う小ツール」なら自律デバッグで十分な品質に到達できる。現場発のシャドーITが、健全な内製に転化する可能性。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>注意：完璧ではない</h3>
+        <p>複雑なバグ、設計レベルの問題、外部依存の不具合などはAIだけでは解決できない。「動いた＝正しい」とは限らないので、業務利用前のテストは人間の責任で。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="autonomous-dev.html">
+      <span class="dir">← Prev ／ Coding 01</span>
+      <span class="nxt">コード生成 → 自律開発</span>
+    </a>
+    <a href="nocode-future.html" class="right">
+      <span class="dir">Next ／ Coding 03 →</span>
+      <span class="nxt">実務への恩恵</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第7回 ／ 自律デバッグ</footer>
+</body>
+</html>

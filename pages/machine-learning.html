@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>機械学習 / 深層学習 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  /* page-specific */
+  .pipeline {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 24px; align-items: stretch;
+  }
+  .pipe-node {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .pipe-node.training { background: var(--accent-soft); border-color: var(--accent); }
+  .pipe-node.model { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .pipe-label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pipe-node.training .pipe-label { color: var(--accent); }
+  .pipe-node.model .pipe-label { color: oklch(0.7 0.10 35); }
+  .pipe-name {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; line-height: 1.35;
+  }
+  .pipe-desc {
+    font-size: 15pt; line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .pipe-node.model .pipe-desc { color: oklch(0.78 0.012 70); }
+  .pipe-arrow {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-family: var(--serif);
+    font-size: 28px; font-weight: 100;
+  }
+  /* data dot pile */
+  .data-pile {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .data-pile span {
+    aspect-ratio: 1;
+    background: oklch(0.78 0.012 70);
+  }
+  .data-pile span:nth-child(3n) { background: oklch(0.65 0.10 35); }
+  .data-pile span:nth-child(5n) { background: var(--ink); }
+
+  /* neural net depth */
+  .nn-deep {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    align-items: center;
+    padding: 32px 0;
+  }
+  .nn-deep-col {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    position: relative;
+  }
+  .nn-deep-col::after {
+    content: ""; position: absolute;
+    right: -20%; top: 50%; width: 40%; height: 1px;
+    background: var(--hair-strong);
+    z-index: -1;
+  }
+  .nn-deep-col:last-child::after { display: none; }
+  .nn-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--accent);
+  }
+  .nn-deep-col.input .nn-dot { background: var(--bg-alt); border-color: var(--hair-strong); }
+  .nn-deep-col.output .nn-dot { background: var(--accent); }
+  .nn-deep-label {
+    margin-top: 14px;
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.10em; color: var(--muted);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .nn-deep-sub {
+    font-family: var(--serif); font-size: 15pt;
+    color: var(--ink-soft); line-height: 1.4;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .vs-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .vs-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .vs-card.deep { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .vs-card .label-sm {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .vs-card.deep .label-sm { color: oklch(0.7 0.10 35); }
+  .vs-card h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.35;
+  }
+  .vs-card p { font-size: 15pt; line-height: 1.8; color: var(--ink-soft); }
+  .vs-card.deep p { color: oklch(0.85 0.008 70); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html">第1回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">機械学習 / 深層学習</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Phase 02 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Phase 02 ／ AIの進化の系譜</div>
+    <h1>機械学習／深層学習<br><em>データから特徴を掴む鑑定士。</em></h1>
+  </div>
+  <p class="hero-lede">
+    人間がルールを書くのではなく、AIが大量のデータを観察し、自ら「パターン（特徴）」を見つけ出す。「予測・分類」の精度が劇的に上がった時代。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">何千枚もの実物を見てきた<em>骨董品の鑑定士</em>。<br>"本物" の特徴を、データから掴んでいる。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>仕組み — 「学習」と「予測」の二段構え</h2>
+      <p class="sub">機械学習は2つのフェーズに分かれる。膨大なデータからモデルを作る「学習フェーズ」と、そのモデルを使って未知のものを判定する「予測フェーズ」。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="pipeline">
+      <div class="pipe-node">
+        <div class="pipe-label">Input ／ 学習データ</div>
+        <div class="pipe-name">大量のラベル付きデータ</div>
+        <div class="pipe-desc">過去の例（猫の写真1万枚 + 犬の写真1万枚など）。「正解」と一緒に与える。</div>
+        <div class="data-pile">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node training">
+        <div class="pipe-label">Training ／ 学習</div>
+        <div class="pipe-name">特徴量を自動抽出する</div>
+        <div class="pipe-desc">「猫には三角の耳と細長い目」といった特徴を、データから自分で見つけて重み付けしていく。</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node model">
+        <div class="pipe-label">Output ／ モデル</div>
+        <div class="pipe-name">学習済みモデル</div>
+        <div class="pipe-desc">新しい未知の画像を入れると、確率的に「これは猫」と返してくれる関数。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>機械学習と深層学習の違い — 「層」の深さ</h2>
+      <p class="sub">深層学習（Deep Learning）は機械学習の一種。中間層を何層にも深く重ねることで、より複雑なパターンを掴めるようになった。画像認識のブレイクスルーはここから生まれた。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="nn-deep">
+      <div class="nn-deep-col input">
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-deep-label">Input</div>
+        <div class="nn-deep-sub">画像のピクセル</div>
+      </div>
+      <div class="nn-deep-col">
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-deep-label">Hidden 1</div>
+        <div class="nn-deep-sub">エッジ・線</div>
+      </div>
+      <div class="nn-deep-col">
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-deep-label">Hidden 2</div>
+        <div class="nn-deep-sub">パーツ</div>
+      </div>
+      <div class="nn-deep-col">
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-deep-label">Hidden 3</div>
+        <div class="nn-deep-sub">耳・目・鼻</div>
+      </div>
+      <div class="nn-deep-col">
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-deep-label">Hidden 4</div>
+        <div class="nn-deep-sub">顔の特徴</div>
+      </div>
+      <div class="nn-deep-col output">
+        <div class="nn-dot"></div>
+        <div class="nn-dot"></div>
+        <div class="nn-deep-label">Output</div>
+        <div class="nn-deep-sub">猫 / 犬</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vs-grid" style="margin-top: 32px;">
+    <div class="vs-card">
+      <div class="label-sm">Machine Learning</div>
+      <h3>機械学習</h3>
+      <p>人間が「目の幅」「耳の角度」などの<strong style="color: var(--ink);">特徴量</strong>を設計し、AIに与える。AIはその範囲内でパターンを学ぶ。</p>
+    </div>
+    <div class="vs-card deep">
+      <div class="label-sm">Deep Learning</div>
+      <h3>深層学習</h3>
+      <p>多層の構造により、特徴量そのものをAIが<strong style="color: var(--paper);">自動で</strong>見つけ出す。人間が想像もしなかった特徴を発見することもある。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">In practice</div>
+    <div>
+      <h2>業務での代表例</h2>
+      <p class="sub">「予測・分類」が機械学習の主戦場。今でも多くの業務システムの裏で動いている、現役のAI。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>迷惑メールの自動振り分け</h3>
+        <p>過去の迷惑メール／通常メールを大量に学習し、新着メールの「迷惑度」を確率で判定。ルールでは絶対に捌けない、語彙の揺れにも対応する。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>画像認識（製造業の外観検査）</h3>
+        <p>「不良品の画像」を数千枚学習させると、新しい製品画像から目視レベルの不良を検出できる。ベテラン検査員の代替・補助として広く普及。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>需要予測・離反予測</h3>
+        <p>「過去の売上、天気、曜日、イベント情報」から来週の需要を予測。「過去の顧客行動」から解約しそうな顧客をスコアリング。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  機械学習は <em>「過去のパターンから、未来を予測する」</em> AI。<br>
+  ただし、過去に存在しないものは生み出せない。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Limits</div>
+    <div>
+      <h2>限界 — なぜ「生成AI」が次の段階だったのか</h2>
+      <p class="sub">機械学習は強力だが、本質的には「分類器・予測器」。文章を一から書いたり、新しい絵を描いたりすることは不得意だった。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">Strength</div>
+      <div class="compare-title">得意なこと</div>
+      <ul class="compare-points">
+        <li>分類（カテゴリ分け、迷惑メール判定）</li>
+        <li>予測（売上、需要、故障時期）</li>
+        <li>異常検知（普段と違う動きの検出）</li>
+        <li>レコメンド（似たユーザーが買った商品）</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">Weakness</div>
+      <div class="compare-title">苦手なこと</div>
+      <ul class="compare-points">
+        <li>大量の高品質ラベル付きデータが必要</li>
+        <li>「なぜそう判断したか」が説明しにくい（ブラックボックス）</li>
+        <li>学習データに含まれないパターンに弱い</li>
+        <li>新しいものを「生成」することはできない</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="rule-based.html">
+      <span class="dir">← Prev ／ Phase 01</span>
+      <span class="nxt">ルールベース</span>
+    </a>
+    <a href="generative-ai.html" class="right">
+      <span class="dir">Next ／ Phase 03 →</span>
+      <span class="nxt">生成AI</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第1回 ／ 機械学習・深層学習</footer>
+
+</body>
+</html>

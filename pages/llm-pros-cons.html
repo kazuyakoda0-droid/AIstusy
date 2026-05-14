@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLMの得意・不得意 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .task-matrix {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+  }
+  .task-cell {
+    background: var(--paper);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .task-cell.good { background: var(--accent-soft); }
+  .task-cell.bad { background: var(--bg-alt); }
+  .task-rating {
+    display: flex; gap: 4px;
+  }
+  .task-rating span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--hair-strong);
+  }
+  .task-rating span.on { background: var(--accent); }
+  .task-cell.bad .task-rating span.on { background: var(--ink-soft); }
+  .task-name { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.35; }
+  .task-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .task-cell.good .task-tag { color: var(--accent); }
+  .task-desc { font-size: 15pt; line-height: 1.7; color: var(--ink-soft); }
+  .task-why { font-size: 15pt; color: var(--ink); margin-top: 4px;
+    background: var(--paper); padding: 10px 14px; border-left: 2px solid var(--accent); }
+  .task-cell.good .task-why { background: oklch(0.99 0.005 70); }
+
+  .calc-demo {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .calc-side {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 28px;
+  }
+  .calc-side h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; margin-bottom: 12px;
+  }
+  .calc-num {
+    font-family: var(--mono); font-size: 15pt;
+    background: var(--bg-alt);
+    padding: 14px 18px;
+    margin-bottom: 10px;
+  }
+  .calc-toks {
+    display: flex; gap: 4px; flex-wrap: wrap;
+  }
+  .calc-tok {
+    font-family: var(--mono); font-size: 15pt;
+    padding: 6px 10px;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-2">第2回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">LLMの得意・不得意</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Foundation 02 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 02 ／ LLMの特性</div>
+    <h1>LLMの得意・不得意<br><em>向き不向きを、見極める。</em></h1>
+  </div>
+  <p class="hero-lede">
+    LLMは万能ではない。「言葉のプロ、計算のアマチュア」。任せるべき仕事と、人間が手を出すべき仕事の境目を理解することが、実用化の第一歩。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">語学の達人ではあるが、<em>電卓は苦手</em>。<br>得意な仕事に、的確に任せること。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>得意・不得意マトリクス</h2>
+      <p class="sub">業務でよく発生するタスクを「LLMが得意なもの／苦手なもの」に分けると、適切な使いどころが見えてくる。</p>
+    </div>
+  </div>
+
+  <div class="task-matrix">
+    <div class="task-cell good">
+      <div class="task-tag">★★★★★ ／ 得意</div>
+      <div class="task-name">要約・整文</div>
+      <div class="task-desc">長文を3行に、雑なメモを丁寧な文章に。「圧縮と変換」はLLMの主戦場。</div>
+      <div class="task-why">学習データに大量の「要約された文章」がある。</div>
+    </div>
+    <div class="task-cell good">
+      <div class="task-tag">★★★★★ ／ 得意</div>
+      <div class="task-name">翻訳</div>
+      <div class="task-desc">英⇄日、丁寧⇄カジュアル、業界用語⇄一般語など、自然な言い換えが得意。</div>
+      <div class="task-why">対訳データから言葉の対応関係を学習済み。</div>
+    </div>
+    <div class="task-cell good">
+      <div class="task-tag">★★★★ ／ 得意</div>
+      <div class="task-name">アイデア出し</div>
+      <div class="task-desc">企画の切り口、ネーミング案、想定問答の網羅。「数を出す」のが速い。</div>
+      <div class="task-why">確率モデルゆえに「ありえる候補」を列挙できる。</div>
+    </div>
+    <div class="task-cell good">
+      <div class="task-tag">★★★★ ／ 得意</div>
+      <div class="task-name">ドラフト生成</div>
+      <div class="task-desc">メール、報告書、企画書の「8割完成版」。白紙から始まる労力を解消。</div>
+      <div class="task-why">定型文の構造を膨大に知っている。</div>
+    </div>
+    <div class="task-cell bad">
+      <div class="task-tag">☆☆☆☆ ／ 苦手</div>
+      <div class="task-name">事実確認</div>
+      <div class="task-desc">「○○社の売上は？」のような事実問答は、ハルシネーションの温床。</div>
+      <div class="task-why">事実を参照していない。"それっぽい答え" を確率で組み立てる。</div>
+    </div>
+    <div class="task-cell bad">
+      <div class="task-tag">☆☆☆ ／ 苦手</div>
+      <div class="task-name">複雑な計算</div>
+      <div class="task-desc">桁数の多い掛け算、複雑な数式の評価。簡単な算数でも間違える。</div>
+      <div class="task-why">数字も「トークン」として扱う。計算機構を持たない。</div>
+    </div>
+    <div class="task-cell bad">
+      <div class="task-tag">☆☆☆ ／ 苦手</div>
+      <div class="task-name">最新情報</div>
+      <div class="task-desc">学習時点以降のニュース、新発売の製品、最新の判例などは答えられない。</div>
+      <div class="task-why">知識はある時点でフリーズしている（カットオフ）。</div>
+    </div>
+    <div class="task-cell bad">
+      <div class="task-tag">☆☆ ／ 苦手</div>
+      <div class="task-name">社内固有の情報</div>
+      <div class="task-desc">自社の規程、製品仕様、顧客データなど、LLM単体では知らない。</div>
+      <div class="task-why"><a href="rag.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">RAG</a> や Tool Use で外部から渡す必要がある。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>なぜ計算が苦手なのか — トークンの呪い</h2>
+      <p class="sub">LLMから見ると数字も「文字の並び」。3+4 という計算ですら、内部では「3」「+」「4」「=」「？」というトークン列の続きを確率で予測している。</p>
+    </div>
+  </div>
+
+  <div class="calc-demo">
+    <div class="calc-side">
+      <h3>人間の見え方</h3>
+      <div class="calc-num">8,734 × 269 = ?</div>
+      <p style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7;">桁ごとに掛け算 → 加算。計算アルゴリズムを実行する。</p>
+    </div>
+    <div class="calc-side" style="background: var(--bg-alt);">
+      <h3>LLMの見え方</h3>
+      <div class="calc-toks">
+        <span class="calc-tok">8</span>
+        <span class="calc-tok">7</span>
+        <span class="calc-tok">3</span>
+        <span class="calc-tok">4</span>
+        <span class="calc-tok">×</span>
+        <span class="calc-tok">2</span>
+        <span class="calc-tok">6</span>
+        <span class="calc-tok">9</span>
+        <span class="calc-tok">=</span>
+        <span class="calc-tok">?</span>
+      </div>
+      <p style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7; margin-top: 14px;">トークン列に続いて「ありそうな数字」を確率で予測。実際に掛け算をしていない。</p>
+    </div>
+  </div>
+  <p style="text-align: center; margin-top: 24px; font-size: 15pt; color: var(--ink-soft);">
+    解決策：計算が必要な仕事は、AIに「電卓を呼び出させる」（Tool Use）か、Excelに任せる。
+  </p>
+</section>
+
+<section class="pullquote">
+  LLMを使う側に必要なのは、<br>
+  <em>「これはLLMに向く仕事か？」を見極める目</em>。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Rule of thumb</div>
+    <div>
+      <h2>業務での使い分けのコツ</h2>
+      <p class="sub">迷ったときの判断基準。「答えが揺れていい」「正解が一つではない」仕事はLLM向き。「正確性」「最新性」「事実性」が必須の仕事は人間 or 別の道具へ。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col right">
+      <div class="compare-tag">✓ Use LLM</div>
+      <div class="compare-title">LLMに任せていい仕事</div>
+      <ul class="compare-points">
+        <li>「答えに揺れがあってもいい」叩き台作成</li>
+        <li>文章の整形・要約・翻訳</li>
+        <li>アイデア出し、想定問答の網羅</li>
+        <li>言葉の言い換え、トーンの調整</li>
+        <li>大量テキストからの抽出（ただし要検証）</li>
+      </ul>
+    </div>
+    <div class="compare-col left">
+      <div class="compare-tag">✗ Don't trust</div>
+      <div class="compare-title">LLM単体に任せてはいけない仕事</div>
+      <ul class="compare-points">
+        <li>事実確認・数字の引用（必ず一次情報で検証）</li>
+        <li>複雑な計算・正確な集計（Excel/電卓へ）</li>
+        <li>法的・医療的な最終判断</li>
+        <li>社内データを参照する質問（RAG必須）</li>
+        <li>機密情報をそのままプロンプトに入れる</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="llm-what.html">
+      <span class="dir">← Prev ／ Foundation 01</span>
+      <span class="nxt">LLMとは何か</span>
+    </a>
+    <a href="prompt-4elements.html" class="right">
+      <span class="dir">Next ／ Foundation 03 →</span>
+      <span class="nxt">プロンプトエンジニアリングの基本</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第2回 ／ LLMの得意・不得意</footer>
+</body>
+</html>

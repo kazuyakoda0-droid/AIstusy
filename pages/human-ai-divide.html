@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人間とAIの分業 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .role-split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+  }
+  .role-side {
+    background: var(--paper);
+    padding: 40px 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .role-side.ai { background: var(--ink); color: var(--paper); }
+  .role-side h3 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 28px; line-height: 1.2;
+  }
+  .role-side .tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .role-side.ai .tag { color: oklch(0.78 0.10 35); }
+  .role-side ul {
+    display: flex; flex-direction: column; gap: 10px;
+    list-style: none;
+  }
+  .role-side li {
+    padding-left: 22px; position: relative;
+    font-size: 15pt; line-height: 1.8;
+  }
+  .role-side li::before {
+    content: "◇"; position: absolute; left: 0; top: 4px;
+    color: var(--accent); font-size: 15pt;
+  }
+  .role-side.ai li::before { color: oklch(0.78 0.10 35); }
+
+  .process-line {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-top: 12px;
+  }
+  .stage {
+    padding: 18px 8px;
+    text-align: center;
+    font-size: 15pt;
+    line-height: 1.4;
+    border: 1px solid var(--hair);
+  }
+  .stage.ai { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .stage.human { background: var(--accent-soft); border-color: var(--accent); }
+  .stage .role-name {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stage.ai .role-name { color: oklch(0.7 0.10 35); }
+  .stage.human .role-name { color: var(--accent); }
+  .stage strong { font-family: var(--serif); font-size: 15pt; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-5">第5回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">人間とAIの分業</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Workflow 02 / 02</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 05 ／ ワークフロー自動化</div>
+    <h1>人間とAIの分業<br><em>"AIに任せる" と "人間が決める" の線引き。</em></h1>
+  </div>
+  <p class="hero-lede">
+    AIが情報の仕分けと下準備を行い、人間は最終判断と承認に集中する。これが組み込み型AI時代の基本姿勢。「全部任せる／全部やる」を超えた、賢い分業の設計。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIは <em>"下準備"</em>、人間は <em>"最終判断"</em>。<br>線引きを誤ると、AI化は失敗する。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>役割の基本パターン</h2>
+      <p class="sub">AIに振るべき仕事、人間が残すべき仕事は、ある程度パターン化できる。判定軸は「結果の責任を負うのは誰か」。</p>
+    </div>
+  </div>
+
+  <div class="role-split">
+    <div class="role-side ai">
+      <div class="tag">AI ／ 下準備担当</div>
+      <h3>AIに任せる仕事</h3>
+      <ul>
+        <li>大量データの仕分け・抽出</li>
+        <li>定型ドラフトの作成（メール、報告書）</li>
+        <li>ルールに基づくスコアリング・ルーティング</li>
+        <li>過去事例・規程の検索（RAG）</li>
+        <li>複数案の生成・列挙</li>
+        <li>形式変換・要約・翻訳</li>
+        <li>「あらゆるパターンを網羅すべき」場面の網羅</li>
+      </ul>
+      <p style="color: oklch(0.78 0.10 35); font-family: var(--mono); font-size: 15pt; margin-top: 12px; letter-spacing: 0.1em;">→ 量・速度が求められる仕事</p>
+    </div>
+    <div class="role-side">
+      <div class="tag">Human ／ 判断担当</div>
+      <h3>人間が残す仕事</h3>
+      <ul>
+        <li>方針決定（何を目指すか）</li>
+        <li>例外・微妙な状況の判断</li>
+        <li>顧客・関係者との人間関係の構築</li>
+        <li>最終的な承認・押印・送信</li>
+        <li>創造的な企画の方向付け</li>
+        <li>倫理的・法的な判断</li>
+        <li>結果に対する説明責任</li>
+      </ul>
+      <p style="color: var(--accent); font-family: var(--mono); font-size: 15pt; margin-top: 12px; letter-spacing: 0.1em;">→ 責任と判断が問われる仕事</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>業務プロセスを "色分け" する</h2>
+      <p class="sub">具体的な業務フローで、各ステップを「AI」「人間」「自動」のどれに割り当てるかを設計する。承認プロセスの例。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div style="font-family: var(--serif); font-weight: 700; font-size: 15pt; margin-bottom: 8px; color: var(--ink);">見積書受領 → 承認プロセス</div>
+    <div class="process-line">
+      <div class="stage">
+        <div class="role-name">Event</div>
+        <strong>受信</strong>
+        <div style="font-size: 15pt; color: var(--ink-soft); margin-top: 4px;">取引先から見積書PDF</div>
+      </div>
+      <div class="stage ai">
+        <div class="role-name">AI</div>
+        <strong>抽出</strong>
+        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">金額・品目・納期を構造化</div>
+      </div>
+      <div class="stage ai">
+        <div class="role-name">AI</div>
+        <strong>照合</strong>
+        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">社内規程と照合（RAG）</div>
+      </div>
+      <div class="stage ai">
+        <div class="role-name">AI</div>
+        <strong>ルーティング</strong>
+        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">承認者を自動判定</div>
+      </div>
+      <div class="stage human">
+        <div class="role-name">Human</div>
+        <strong>承認判断</strong>
+        <div style="font-size: 15pt; color: var(--ink-soft); margin-top: 4px;">承認者が最終判断</div>
+      </div>
+      <div class="stage ai">
+        <div class="role-name">AI</div>
+        <strong>起票</strong>
+        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">基幹システムへ自動入力</div>
+      </div>
+      <div class="stage human">
+        <div class="role-name">Human</div>
+        <strong>送付</strong>
+        <div style="font-size: 15pt; color: var(--ink-soft); margin-top: 4px;">取引先へ正式返信</div>
+      </div>
+    </div>
+    <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 20px; line-height: 1.8;">
+      7ステップのうち、人間が "判断" するのは2箇所のみ。それ以外はAI／自動化で処理。<br>
+      ポイント：判断と送付（責任の発生する箇所）には必ず人間を残す。
+    </p>
+  </div>
+</section>
+
+<section class="pullquote">
+  AI化の成否は <em>"線の引き方"</em> で決まる。<br>
+  全部任せても、全部抱えても、うまくいかない。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Principles</div>
+    <div>
+      <h2>分業設計の3原則</h2>
+      <p class="sub">迷ったときの判断基準。第10回で扱う「Human in the Loop」とも繋がる、AI時代の設計思想。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>"責任の発生する瞬間" は、人間に残す</h3>
+        <p>顧客への送信、契約の押印、金銭の振込、法令確認。これらの瞬間は必ず人間の判断と承認を介す。間違いの責任を負える主体は、人間しかいない。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>"量" と "速度" の仕事は、AIに任せる</h3>
+        <p>1日100件の問合せの一次分類、100ページのPDFからの抽出、夜間バッチでの集計。人間がやれば疲弊するだけの仕事は、迷わずAIへ。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>"例外" の処理ルートを必ず用意する</h3>
+        <p>AIが自信を持って判定できないケース、ルールに収まらないケースは、人間にエスカレーションする道を必ず設計する。AIに無理に決めさせない。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="embed-ai.html">
+      <span class="dir">← Prev ／ Workflow 01</span>
+      <span class="nxt">「対話型」から「組み込み型」へ</span>
+    </a>
+    <a href="../index.html#session-6" class="right">
+      <span class="dir">Next Chapter →</span>
+      <span class="nxt">第3章：自律型AIと開発の民主化</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第5回 ／ 人間とAIの分業</footer>
+</body>
+</html>

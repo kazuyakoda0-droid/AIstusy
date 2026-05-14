@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アイデア出しの壁打ち — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .modes {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .mode-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .mode-card.reverse {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+  }
+  .mode-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .mode-card.reverse .mode-tag { color: oklch(0.78 0.10 35); }
+  .mode-card h3 { font-family: var(--serif); font-weight: 800; font-size: 24px; line-height: 1.3; }
+  .mode-card p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .mode-card.reverse p { color: oklch(0.85 0.008 70); }
+
+  .conv-flow {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .msg-row { display: flex; gap: 16px; align-items: flex-start; }
+  .msg-who {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--muted);
+    width: 60px; padding-top: 14px; flex-shrink: 0;
+    text-transform: uppercase;
+  }
+  .msg-bubble {
+    background: var(--bg-alt);
+    padding: 14px 18px;
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.7; flex: 1; max-width: 720px;
+  }
+  .msg-row.ai .msg-bubble {
+    background: var(--ink); color: var(--paper);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-3">第3回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">アイデア出しの壁打ち</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Practice 04 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 03 ／ 個人業務ハック</div>
+    <h1>アイデア出しの壁打ち<br><em>"考える相手" が、いつでもいる。</em></h1>
+  </div>
+  <p class="hero-lede">
+    AIに答えだけを求めない。「私の考えを批判して」「私に質問して」と頼めば、思考のパートナーになる。一人で煮詰まる時間を、対話の時間に変える。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"答えをくれるAI" ではなく、<em>"質問してくるAI"</em>。<br>使い方次第で、頭の中の整理係になる。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>2つのモード — 順引き vs 逆引き</h2>
+      <p class="sub">「アイデアちょうだい」（順引き）と「私に質問して」（逆引き）。後者を使いこなすかで、生産性が変わる。</p>
+    </div>
+  </div>
+
+  <div class="modes">
+    <div class="mode-card">
+      <div class="mode-tag">Mode 01 ／ 順引き</div>
+      <h3>"案をくれ"</h3>
+      <p>「新サービスのネーミング案を10個出して」「新人向けの研修テーマのアイデアを」。AIが候補を列挙してくれる。広く浅く出すのが得意。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent);">→ 数を出すフェーズで有効</p>
+    </div>
+    <div class="mode-card reverse">
+      <div class="mode-tag">Mode 02 ／ 逆引き</div>
+      <h3>"私に質問して"</h3>
+      <p>「ターゲット設定で悩んでいる。私に3つ質問をして、絞り込ませて」。AIがファシリテーターとなり、人間の思考を引き出してくれる。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: oklch(0.78 0.10 35);">→ 自分の考えを言語化するフェーズで有効</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>逆引きプロンプトの実例</h2>
+      <p class="sub">企画のターゲット設定で詰まっているとき、AIに「質問させる」と、こうなる。一人で堂々巡りしていた思考が、対話の中で整理されていく。</p>
+    </div>
+  </div>
+
+  <div class="conv-flow">
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">新企画のターゲット設定で悩んでいます。私に3つ質問をして、ターゲットを絞り込ませてください。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">承知しました。順番にお伺いします。<br><br>
+      Q1: この企画で、ユーザーが「これまで諦めていた・我慢していた」ことは何ですか？</div>
+    </div>
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">朝の身支度の時間がなくて、スキンケアを諦めている人が多いと感じています。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">なるほど。<br>Q2: その人たちは、なぜ "時短化されたスキンケア商品" ではなく、御社の企画を選ぶべきだと考えていますか？</div>
+    </div>
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">…そう言われると、差別化が弱い気がしてきました。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">良い気づきです。<br>Q3: 時間がない朝に "1ステップで終わる" 以外で、ユーザーの本音は何でしょう？（例：罪悪感を消したい、自己肯定感を上げたい、誰かに褒められたい）</div>
+    </div>
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">"忙しくても自分を大切にできている" という感覚かもしれません。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">3つの回答をまとめると、ターゲットは「時短を求める層」ではなく「忙しさの中で自己肯定感を保ちたい20代後半〜30代女性」ではないでしょうか。差別化は時間ではなく "セルフケアの感情価値" で考えると、企画が立ちやすくなりそうです。</div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AIは <em>答えを持っていない</em>。<br>
+  しかし、人間の中にある答えを<em>引き出す手助け</em>はできる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Templates</div>
+    <div>
+      <h2>壁打ちの定番プロンプト</h2>
+      <p class="sub">「ただアイデアちょうだい」を卒業すると、AIは一気に頼れる相棒になる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>批判してもらう</h3>
+        <p>「以下の企画書を、厳しめのマーケティング部長の視点で批判してください。具体的に5つ。」<br>→ 自分では見落とす欠点を、容赦なく指摘してくれる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>異なる視点から見てもらう</h3>
+        <p>「この提案を、(a)新人エンジニア、(b)経理部長、(c)エンドユーザー の3つの視点で評価してください。」<br>→ 一つの企画を多角的に検証できる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>反対意見を出させる</h3>
+        <p>「私の意見：○○ですが、これに最も鋭く反論する人なら、何と言いますか？」<br>→ 反対意見を先に潰せる。後の説得材料になる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>質問でファシリテートさせる</h3>
+        <p>「私に5つ質問してください。一つずつ答えるので、最後にまとめてください。テーマは○○です。」<br>→ AIが取材者・ファシリテーターとして、思考を整理してくれる。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="excel-data.html">
+      <span class="dir">← Prev ／ Practice 03</span>
+      <span class="nxt">データ処理・Excel連携</span>
+    </a>
+    <a href="../index.html#session-4" class="right">
+      <span class="dir">Next Chapter →</span>
+      <span class="nxt">第2章：社内データとの連携</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第3回 ／ アイデア出しの壁打ち</footer>
+</body>
+</html>

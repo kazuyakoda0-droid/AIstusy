@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human in the Loop の原則 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .loop-flow {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 40px;
+  }
+  .lf-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+  }
+  .lf-stage {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 15pt;
+    line-height: 1.5;
+  }
+  .lf-stage.ai { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .lf-stage.human { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .lf-stage .role-lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; opacity: 0.7;
+    margin-bottom: 6px; text-transform: uppercase;
+  }
+  .lf-stage strong { font-family: var(--serif); font-size: 15pt; }
+
+  .checkpoint-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .checkpoint {
+    background: var(--paper); border: 1px solid var(--hair);
+    border-left: 4px solid var(--accent);
+    padding: 24px 28px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .checkpoint .lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .checkpoint h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.3; }
+  .checkpoint p { font-size: 15pt; line-height: 1.7; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-10">第10回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">Human in the Loop</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Governance 02 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 10 ／ ガバナンス</div>
+    <h1>Human in the Loop<br><em>"完全自動化" は、危険。</em></h1>
+  </div>
+  <p class="hero-lede">
+    プロセスの完全自動化はしない。重要な判断には必ず人間が介在し、最終的な責任を負う仕組みを設計する。これはAI時代の運用設計の根幹原則。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIの出力を <em>"承認" する瞬間</em> に、必ず人間がいる。<br>判断と責任は、人間に残す。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>"ループの中" に人間を埋め込む</h2>
+      <p class="sub">プロセスの最後に人間がポンと承認するだけでは足りない。"重要な分岐" のたびに、人間が判断ポイントとして組み込まれている設計を目指す。</p>
+    </div>
+  </div>
+
+  <div class="loop-flow">
+    <div style="font-family: var(--serif); font-weight: 700; font-size: 15pt; margin-bottom: 16px;">契約書ドラフト作成プロセスの例</div>
+    <div class="lf-row">
+      <div class="lf-stage ai">
+        <div class="role-lbl">AI</div>
+        <strong>要件抽出</strong>
+        <div style="font-size: 15pt; opacity: 0.8; margin-top: 4px;">過去契約から要件を抽出</div>
+      </div>
+      <div class="lf-stage human">
+        <div class="role-lbl">Human</div>
+        <strong>① 要件確認</strong>
+        <div style="font-size: 15pt; opacity: 0.9; margin-top: 4px;">抽出漏れがないか確認</div>
+      </div>
+      <div class="lf-stage ai">
+        <div class="role-lbl">AI</div>
+        <strong>ドラフト生成</strong>
+        <div style="font-size: 15pt; opacity: 0.8; margin-top: 4px;">契約書テンプレに沿って作成</div>
+      </div>
+      <div class="lf-stage human">
+        <div class="role-lbl">Human</div>
+        <strong>② 内容確認</strong>
+        <div style="font-size: 15pt; opacity: 0.9; margin-top: 4px;">法務観点で再点検</div>
+      </div>
+      <div class="lf-stage human">
+        <div class="role-lbl">Human</div>
+        <strong>③ 押印・送付</strong>
+        <div style="font-size: 15pt; opacity: 0.9; margin-top: 4px;">正式承認</div>
+      </div>
+    </div>
+    <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 20px; line-height: 1.8;">
+      5ステップのうち3箇所に人間チェックポイントを配置。「最後だけ」ではなく、要所要所で人間が介入する。
+    </p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>"必ず人間" の場所 — 5つの判断ポイント</h2>
+      <p class="sub">どんな業務フローでも、ここだけは絶対にAI任せにしない、という普遍的なチェックポイント。</p>
+    </div>
+  </div>
+
+  <div class="checkpoint-grid">
+    <div class="checkpoint">
+      <div class="lbl">Checkpoint 01</div>
+      <h3>法的・規制関連の最終確認</h3>
+      <p>契約締結、法令遵守判断、行政手続きなど、間違えれば法的責任を負う場面。AIの判定を参考にしつつ、人間が責任者として確認・押印する。</p>
+    </div>
+    <div class="checkpoint">
+      <div class="lbl">Checkpoint 02</div>
+      <h3>金銭・取引の確定</h3>
+      <p>振込、決済、契約金額の確定、価格設定。金額の桁、相手先、タイミング、必ず人間が確認する。AIに「振り込んでおいて」は禁止。</p>
+    </div>
+    <div class="checkpoint">
+      <div class="lbl">Checkpoint 03</div>
+      <h3>人事・評価の決定</h3>
+      <p>採用、評価、解雇、配置。AIに材料を整えさせるのは可、最終決定は必ず人間。被評価者は人間が説明責任を負う。</p>
+    </div>
+    <div class="checkpoint">
+      <div class="lbl">Checkpoint 04</div>
+      <h3>顧客への対外発信</h3>
+      <p>顧客へのメール送信、SNS投稿、プレスリリース。誤った情報、不適切な表現で関係が壊れる。下書きはAI、最終承認は人間。</p>
+    </div>
+    <div class="checkpoint">
+      <div class="lbl">Checkpoint 05</div>
+      <h3>重要な戦略判断</h3>
+      <p>事業方針、投資判断、M&A、組織再編。AIの分析は意思決定の材料、決定そのものは経営者の役割。</p>
+    </div>
+    <div class="checkpoint">
+      <div class="lbl">Checkpoint 06</div>
+      <h3>例外・想定外の処理</h3>
+      <p>AIがルールに収まらないと判定したケース、信頼度が低いと判定したケース。必ず人間にエスカレーションする道を残す。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AIが判断するのは "下準備" まで。<br>
+  <em>"最終的に責任を負う" のは、人間</em>。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Anti-patterns</div>
+    <div>
+      <h2>"自動化しすぎ" の典型パターン</h2>
+      <p class="sub">よくある落とし穴。便利さに引っ張られて、ガードレールを外してしまうパターンを知っておく。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>"承認ボタンを押すだけ" の形骸化</h3>
+        <p>毎日何百件もAIが処理 → 人間は中身を見ずに承認ボタンを押すだけになる。形式的にHuman in the Loopだが、実質はノーチェック。重要度に応じた抜き打ちレビューを組み込む。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>"AIが言ったから" 思考停止</h3>
+        <p>AIの提示する結論を、検証せずに採用する文化。長期的に判断力が衰える。「AIの根拠は何か」「反対の見方はあるか」を問う習慣を組織に根付かせる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>例外処理の道を閉じてしまう</h3>
+        <p>「全件AIで処理」と決め、例外パターンを人間にエスカレートする道を用意しない。AIが無理に判定して誤判定 → 後で大きな問題に。「これは判断つかない」とAIが言えるルートを残す。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="governance.html">
+      <span class="dir">← Prev ／ Governance 01</span>
+      <span class="nxt">リスクとガバナンス</span>
+    </a>
+    <a href="ai-director.html" class="right">
+      <span class="dir">Next ／ Governance 03 →</span>
+      <span class="nxt">AIディレクターの役割</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第10回 ／ Human in the Loop</footer>
+</body>
+</html>

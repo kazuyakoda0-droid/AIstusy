@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIエージェントとは — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .react-loop {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 48px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 24px;
+  }
+  .react-nodes {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+    align-items: center;
+    width: 100%; max-width: 720px;
+  }
+  .rl-node {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .rl-node.action { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .rl-node.thought { background: var(--accent-soft); border-color: var(--accent); }
+  .rl-node .label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .rl-node.action .label { color: oklch(0.78 0.10 35); }
+  .rl-node.thought .label { color: var(--accent); }
+  .rl-node .name {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; margin-bottom: 4px;
+  }
+  .rl-node .desc { font-size: 15pt; color: var(--ink-soft); line-height: 1.6; }
+  .rl-node.action .desc { color: oklch(0.85 0.008 70); }
+  .rl-arrow {
+    text-align: center; color: var(--accent);
+    font-family: var(--serif); font-size: 24px; font-weight: 100;
+  }
+
+  .trace {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 28px 32px;
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.85;
+    border-left: 3px solid var(--accent);
+  }
+  .trace .t { color: oklch(0.78 0.10 35); }
+  .trace .a { color: oklch(0.75 0.10 200); }
+  .trace .o { color: oklch(0.78 0.08 150); }
+  .trace .x { color: oklch(0.7 0.04 30); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-6">第6回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">AIエージェントとは</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Agent 01 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 06 ／ 自律型AI</div>
+    <h1>AIエージェントとは<br><em>"手順" ではなく "ゴール" で動く。</em></h1>
+  </div>
+  <p class="hero-lede">
+    一問一答のAIから、自分で計画を立てて行動するAIへ。「思考→行動→観察」のループを回し、ゴール達成まで自律的にタスクを進める。これがAIエージェント。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"手順を教える部下" ではなく、<em>"目的だけ伝える部下"</em>。<br>あとは自分で考え、調べ、進めてくる。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>ReActループ — エージェントの脳内</h2>
+      <p class="sub">Reasoning（思考）と Acting（行動）の頭文字を取った設計パターン。AIが「考える→道具を使う→結果を見る→また考える」を繰り返す。</p>
+    </div>
+  </div>
+
+  <div class="react-loop">
+    <div class="react-nodes">
+      <div class="rl-node thought">
+        <div class="label">Thought</div>
+        <div class="name">思考</div>
+        <div class="desc">「次に何をすべきか」を判断</div>
+      </div>
+      <div class="rl-arrow">→</div>
+      <div class="rl-node action">
+        <div class="label">Action</div>
+        <div class="name">行動</div>
+        <div class="desc">道具を呼び出し実行</div>
+      </div>
+      <div class="rl-arrow" style="grid-column: 1; grid-row: 2;">↑</div>
+      <div></div>
+      <div class="rl-arrow" style="grid-column: 3; grid-row: 2;">↓</div>
+      <div></div>
+      <div style="grid-column: 2; grid-row: 2;">
+        <div style="font-family: var(--mono); font-size: 15pt; color: var(--muted); letter-spacing: 0.14em; text-align: center; text-transform: uppercase;">Loop</div>
+      </div>
+      <div></div>
+      <div class="rl-node" style="grid-column: 1 / span 3; grid-row: 3; max-width: 320px; margin: 0 auto;">
+        <div class="label">Observation</div>
+        <div class="name">観察</div>
+        <div class="desc">結果を見て次のThoughtへ</div>
+      </div>
+    </div>
+    <p style="font-size: 15pt; color: var(--ink-soft); text-align: center; max-width: 540px; line-height: 1.8;">
+      ゴールに到達するまで、このループを何度も回す。1ターンで終わらない、複雑なタスクをこなせるようになる。
+    </p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>実行ログ — エージェントは内部でこう動いている</h2>
+      <p class="sub">「競合A社とB社の最新決算を比較してまとめて」というゴールを与えたときの、エージェント内部の "つぶやき"。これが ReAct ループの実体。</p>
+    </div>
+  </div>
+
+  <div class="trace">
+    <span class="x">[Goal]</span> 競合A社とB社の最新決算を比較してまとめて<br><br>
+    <span class="t">[Thought]</span> A社のIRページから最新決算を探そう<br>
+    <span class="a">[Action]</span> web_search("A社 IR 決算")<br>
+    <span class="o">[Observation]</span> 検索結果から最新決算PDFのURLを取得<br><br>
+    <span class="t">[Thought]</span> PDFを読み込んで売上と営業利益を抽出する<br>
+    <span class="a">[Action]</span> fetch_pdf(url=A社IR/2024Q4.pdf)<br>
+    <span class="o">[Observation]</span> 売上: 8,500億 / 営業利益: 720億<br><br>
+    <span class="t">[Thought]</span> 同じくB社の決算も取得<br>
+    <span class="a">[Action]</span> web_search("B社 IR 決算")<br>
+    <span class="o">[Observation]</span> B社決算PDFのURLを取得 → fetch<br>
+    <span class="o">[Observation]</span> 売上: 6,200億 / 営業利益: 480億<br><br>
+    <span class="t">[Thought]</span> 2社の数字が揃った。前年比成長率も計算しよう<br>
+    <span class="a">[Action]</span> calculator(...)<br>
+    <span class="o">[Observation]</span> A社: 売上+8% / B社: 売上+12%<br><br>
+    <span class="t">[Thought]</span> 比較サマリーを表形式で出力する<br>
+    <span class="a">[Action]</span> finish(output="比較表 ...")<br>
+    <span class="x">[Done]</span> ゴール達成
+  </div>
+</section>
+
+<section class="pullquote">
+  人間が "手順" を教えなくても、AIが <em>自分で計画を立てる</em>。<br>
+  これがAIエージェントの本質。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Foundation</div>
+    <div>
+      <h2>エージェントを成立させる3要素</h2>
+      <p class="sub">単なる「会話AI」とエージェントを分ける、3つの構成要素。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>計画立案能力（Planning）</h3>
+        <p>ゴールから逆算して、ステップを自分で組み立てる。「まずA、次にB、その結果次第でCかD」と分岐も含めて考える。LLMの推論能力がこれを担う。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>道具を使う能力（<a href="tool-use.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">Tool Use</a>）</h3>
+        <p>Web検索、計算機、データベース、外部APIなど、必要な「道具」を自分で選んで呼び出す。これがあるから "知らない情報" にもアクセスできる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>記憶と自己修正（Memory & Reflection）</h3>
+        <p>過去の試行と失敗を踏まえて、次の行動を変える。「さっきはこの検索ワードでダメだった→言い換えてみよう」というメタ的な振り返り。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-6">
+      <span class="dir">← Back</span>
+      <span class="nxt">第6回トップに戻る</span>
+    </a>
+    <a href="tool-use.html" class="right">
+      <span class="dir">Next ／ Agent 02 →</span>
+      <span class="nxt">ツールの利用（Tool Use）</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第6回 ／ AIエージェントとは</footer>
+</body>
+</html>

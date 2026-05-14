@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「コード生成」から「自律開発」へ — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .shift-stages {
+    display: grid; grid-template-columns: 1fr 100px 1fr; gap: 24px;
+    align-items: stretch;
+  }
+  .stage-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .stage-card.legacy { background: var(--bg-alt); }
+  .stage-card.modern { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .stage-card .tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .stage-card.modern .tag { color: oklch(0.78 0.10 35); }
+  .stage-card h3 { font-family: var(--serif); font-weight: 800; font-size: 22px; line-height: 1.3; }
+  .stage-card p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .stage-card.modern p { color: oklch(0.85 0.008 70); }
+  .stage-flow {
+    margin-top: auto;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stage-flow span {
+    font-family: var(--mono); font-size: 15pt;
+    padding: 6px 10px;
+    background: var(--paper);
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+  }
+  .stage-card.modern .stage-flow span { background: oklch(0.3 0.015 60); color: var(--paper); }
+  .shift-mid {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  .shift-mid .arr { font-family: var(--serif); font-size: 48px; color: var(--accent); font-weight: 100; }
+  .shift-mid .lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .ide-mock {
+    background: oklch(0.18 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 0; overflow: hidden;
+    border: 1px solid oklch(0.32 0.012 60);
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.7;
+  }
+  .ide-bar {
+    background: oklch(0.24 0.012 60);
+    padding: 10px 16px;
+    font-size: 15pt;
+    color: oklch(0.6 0.01 70);
+    border-bottom: 1px solid oklch(0.32 0.012 60);
+    display: flex; gap: 14px;
+  }
+  .ide-bar::before {
+    content: "● ● ●";
+    color: oklch(0.45 0.012 60);
+    letter-spacing: 4px;
+  }
+  .ide-body {
+    padding: 18px 22px;
+  }
+  .ide-body .prompt { color: oklch(0.78 0.10 35); }
+  .ide-body .ai { color: oklch(0.78 0.08 200); }
+  .ide-body .ok { color: oklch(0.78 0.08 150); }
+  .ide-body .err { color: oklch(0.7 0.10 30); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-7">第7回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">「コード生成」から「自律開発」へ</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Coding 01 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 07 ／ コーディングエージェント</div>
+    <h1>コード生成 → 自律開発<br><em>AIが、自分でPCを操作して開発する。</em></h1>
+  </div>
+  <p class="hero-lede">
+    ChatGPTにコードを書かせて人間がコピペする時代は終わり。コーディングエージェントは、エディタ／ターミナル／ファイルシステムを自分で操作し、コードを書き、実行し、テストする。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"コードを書くAI" から、<em>"開発するAI"</em> へ。<br>人間は、要件を伝えて成果物を確認する。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>2世代の開発スタイル</h2>
+      <p class="sub">同じ「AIにコードを頼む」でも、人間の関わり方が一変する。コピペ職人 → ディレクター。</p>
+    </div>
+  </div>
+
+  <div class="shift-stages">
+    <div class="stage-card legacy">
+      <div class="tag">Before ／ 2023</div>
+      <h3>コード生成</h3>
+      <p>ChatGPTに「Pythonで○○を書いて」と頼む → 生成されたコードを人間がコピペ → 自分のエディタで実行 → エラーが出たらまた質問。</p>
+      <div class="stage-flow">
+        <span>人間：仕様を伝える</span>
+        <span>AI：コード生成</span>
+        <span>人間：コピペ＆実行</span>
+        <span>人間：エラーをAIに貼る</span>
+        <span>人間：修正コードをコピペ</span>
+        <span>...繰り返し</span>
+      </div>
+    </div>
+    <div class="shift-mid">
+      <div class="arr">→</div>
+      <div class="lbl">Paradigm Shift</div>
+    </div>
+    <div class="stage-card modern">
+      <div class="tag">Now ／ 2024〜</div>
+      <h3>自律開発</h3>
+      <p>エージェントに「○○というツールが欲しい」と伝える → エージェントが自分でファイルを作り、コードを書き、実行し、エラーを直し、完成させる。</p>
+      <div class="stage-flow">
+        <span>人間：要件を伝える</span>
+        <span>AI：ファイル作成・コード記述</span>
+        <span>AI：実行 → エラー検知</span>
+        <span>AI：自己修正 → 再実行</span>
+        <span>AI：成功 → 報告</span>
+        <span>人間：成果物の確認</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>エージェントが実際に動く様子</h2>
+      <p class="sub">「100枚の現場写真に透かしを入れる」というタスクを与えたときの、ターミナル上での動作イメージ。</p>
+    </div>
+  </div>
+
+  <div class="ide-mock">
+    <div class="ide-bar">~/projects/photo-task</div>
+    <div class="ide-body">
+<span class="prompt">$</span> <span style="color: var(--paper);">claude "現場写真フォルダの全ファイルに『2024年工事完了』の透かしを入れて別フォルダに保存して"</span><br><br>
+<span class="ai">●</span> 了解しました。タスクを計画します。<br>
+<span class="ai">●</span> ① 入力フォルダのファイル一覧を取得<br>
+<span class="ai">●</span> ② Pythonスクリプトを作成<br>
+<span class="ai">●</span> ③ 実行してテスト → 全体実行<br><br>
+<span class="ai">●</span> watermark.py を作成中...<br>
+<span class="ok">✓</span> watermark.py 作成完了 (32 lines)<br><br>
+<span class="ai">●</span> 1枚でテスト実行中...<br>
+<span class="err">✗</span> エラー: ModuleNotFoundError: No module named 'PIL'<br>
+<span class="ai">●</span> Pillow ライブラリが必要なようです。インストールします。<br>
+<span class="prompt">$</span> pip install Pillow<br>
+<span class="ok">✓</span> インストール成功。再実行します。<br><br>
+<span class="ai">●</span> 1枚テスト → 出力確認 → OK<br>
+<span class="ai">●</span> 残り99枚を処理中... [████████░░] 80/100<br>
+<span class="ok">✓</span> 完了：100枚すべてに透かしを入れ、output/ フォルダに保存しました。
+    </div>
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+    エージェントは「コードを書く → 実行 → エラー検知 → 自己修正」のループを、人間の介入なしで回す。これが <a href="auto-debug.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">自律デバッグ</a>。
+  </p>
+</section>
+
+<section class="pullquote">
+  プログラミングは、<em>"言葉で指示する仕事"</em> になる。<br>
+  非エンジニアでも、ツールを内製できる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Tools</div>
+    <div>
+      <h2>主要なコーディングエージェント</h2>
+      <p class="sub">2025年時点の代表例。それぞれ得意領域が違うが、共通するのは「自然言語 → 自律的にコードを書いて実行」というスタイル。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>Claude Code</h3>
+        <p>ターミナルベースで動くコーディングエージェント。プロジェクトディレクトリ全体を理解し、複数ファイルにわたる変更、テスト実行、Gitコミットまで自律的に行う。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>Cursor</h3>
+        <p>VS Code 風のエディタにAIが統合されたIDE。コード補完、エージェント機能、プロジェクト全体への適用などを直感的なUIで操作できる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>GitHub Copilot / Copilot Workspace</h3>
+        <p>GitHub標準のAI開発支援。Issue起票からプルリクエスト作成まで、開発フローに沿った自律支援。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-7">
+      <span class="dir">← Back</span>
+      <span class="nxt">第7回トップに戻る</span>
+    </a>
+    <a href="auto-debug.html" class="right">
+      <span class="dir">Next ／ Coding 02 →</span>
+      <span class="nxt">自律デバッグ</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第7回 ／ コード生成から自律開発へ</footer>
+</body>
+</html>

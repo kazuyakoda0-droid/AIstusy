@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「予測・分類」から「生成」へ — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .shift-grid {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    gap: 32px;
+    align-items: stretch;
+  }
+  .shift-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 40px 32px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .shift-card.from { background: var(--bg-alt); }
+  .shift-card.to {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+  }
+  .shift-label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .shift-card.to .shift-label { color: oklch(0.7 0.10 35); }
+  .shift-card h3 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 32px; line-height: 1.25;
+  }
+  .shift-card .verb {
+    color: var(--accent); font-style: normal;
+  }
+  .shift-card.to .verb { color: oklch(0.78 0.10 35); }
+  .shift-card p {
+    font-size: 15pt; line-height: 1.85;
+    color: var(--ink-soft);
+  }
+  .shift-card.to p { color: oklch(0.85 0.008 70); }
+
+  .shift-divider {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+  }
+  .shift-divider-arrow {
+    font-family: var(--serif); font-size: 56px;
+    color: var(--accent); font-weight: 100; line-height: 1;
+  }
+  .shift-divider-label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--accent);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  .biz-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .biz-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .biz-card.right {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+  .biz-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .biz-card.right .biz-tag { color: var(--accent); }
+  .biz-input, .biz-output {
+    background: var(--bg-alt);
+    padding: 14px 18px;
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.7;
+    border-left: 2px solid var(--hair-strong);
+  }
+  .biz-card.right .biz-input { background: var(--paper); }
+  .biz-card.right .biz-output {
+    border-left-color: var(--accent);
+    background: var(--paper);
+  }
+  .biz-label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .biz-arrow {
+    text-align: center; color: var(--accent);
+    font-family: var(--serif); font-size: 24px; font-weight: 100;
+  }
+  .biz-card h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 20px; line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html">第1回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">「予測・分類」から「生成」へ</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Shift / Paradigm</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Paradigm Shift</div>
+    <h1>「予測・分類」から、<br><em>「生成」へ。</em></h1>
+  </div>
+  <p class="hero-lede">
+    従来のAIとChatGPT以降のAIの違いは、技術の差ではなく「役割」の差。「答えを選ぶAI」が、「答えを書くAI」になった。この一行が、業務での使い方を根本的に変えた。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"既にある選択肢から選ぶAI" から、<br>"白紙にゼロから書くAI" へ。<em>これが分岐点。</em></h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>動詞が変わった — AIに頼める仕事の質</h2>
+      <p class="sub">同じ「AI」でも、できる動詞がまったく違う。従来は「分類する・予測する」しかできなかった。今は「書く・作る・提案する」が頼める。</p>
+    </div>
+  </div>
+
+  <div class="shift-grid">
+    <div class="shift-card from">
+      <div class="shift-label">Until 2022 ／ 従来のAI</div>
+      <h3>AIが <span class="verb">選ぶ</span>。</h3>
+      <p>用意された選択肢の中から、最も確率の高いものを返す。「迷惑メール／通常メール」「不良品／良品」「Aさん／Bさんに似ている」など。</p>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+        <span class="tok" style="background: var(--paper); width: fit-content;">分類する</span>
+        <span class="tok" style="background: var(--paper); width: fit-content;">予測する</span>
+        <span class="tok" style="background: var(--paper); width: fit-content;">検知する</span>
+        <span class="tok" style="background: var(--paper); width: fit-content;">スコアリングする</span>
+      </div>
+    </div>
+
+    <div class="shift-divider">
+      <div class="shift-divider-arrow">→</div>
+      <div class="shift-divider-label">Paradigm Shift</div>
+    </div>
+
+    <div class="shift-card to">
+      <div class="shift-label">From 2023〜 ／ 生成AI</div>
+      <h3>AIが <span class="verb">書く</span>。</h3>
+      <p>事前に選択肢が用意されていなくても、文脈から「ありえる答え」を一から組み立てて返す。文章、画像、コード、企画案、要約… 出力の自由度が桁違い。</p>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+        <span class="tok" style="background: oklch(0.32 0.02 60); color: var(--paper); border-color: oklch(0.32 0.02 60); width: fit-content;">書く</span>
+        <span class="tok" style="background: oklch(0.32 0.02 60); color: var(--paper); border-color: oklch(0.32 0.02 60); width: fit-content;">要約する</span>
+        <span class="tok" style="background: oklch(0.32 0.02 60); color: var(--paper); border-color: oklch(0.32 0.02 60); width: fit-content;">提案する</span>
+        <span class="tok" style="background: oklch(0.32 0.02 60); color: var(--paper); border-color: oklch(0.32 0.02 60); width: fit-content;">構成する</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Side by side</div>
+    <div>
+      <h2>同じ「メール」業務でも、頼める仕事はこう変わる</h2>
+      <p class="sub">分かりやすい例は、メール業務。従来AIは「振り分け」しかできなかったが、生成AIは「返信そのもの」まで書ける。</p>
+    </div>
+  </div>
+
+  <div class="biz-grid">
+    <div class="biz-card">
+      <div class="biz-tag">Conventional AI ／ 分類</div>
+      <h3>迷惑メールの振り分け</h3>
+      <div>
+        <span class="biz-label">Input ／ メール本文</span>
+        <div class="biz-input">「【重要】未払い金がございます。本日中にご対応を…」</div>
+      </div>
+      <div class="biz-arrow">↓</div>
+      <div>
+        <span class="biz-label">Output ／ ラベル</span>
+        <div class="biz-output">→ 迷惑メール（97%）</div>
+      </div>
+      <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 8px;">
+        AIは「迷惑メール／通常メール」のラベルを選んでいるだけ。
+      </p>
+    </div>
+    <div class="biz-card right">
+      <div class="biz-tag">Generative AI ／ 生成</div>
+      <h3>返信メールのドラフト作成</h3>
+      <div>
+        <span class="biz-label">Input ／ 受信メール + 指示</span>
+        <div class="biz-input">「以下の問い合わせに、丁寧かつ簡潔に返信して」</div>
+      </div>
+      <div class="biz-arrow">↓</div>
+      <div>
+        <span class="biz-label">Output ／ 返信ドラフト</span>
+        <div class="biz-output">「○○様<br>お問い合わせありがとうございます。ご質問の件につきまして、以下の通りご回答申し上げます…」</div>
+      </div>
+      <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 8px;">
+        AIは選択肢から選んでいない。文章そのものを書き起こしている。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  従来のAIは <em>「人間の業務の補助」</em>。<br>
+  生成AIは <em>「人間の業務の代行」</em>。<br>
+  これが、組織のAI化のスタートライン。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Implication</div>
+    <div>
+      <h2>業務へのインパクト</h2>
+      <p class="sub">「予測・分類」しかできなかった時代、AIの活躍範囲は限られていた。だが「生成」できるようになった瞬間、ホワイトカラー業務の大半が射程に入った。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>業務の入口が「言葉」になった</h3>
+        <p>従来：AIを使うには学習データの整備、専門家による特徴量設計が必要だった。<br>現在：「こうしたい」と言葉で伝えるだけで使える。誰でもアクセス可能になった。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>「下書き」が一瞬で出る</h3>
+        <p>提案書、メール、企画書、議事録、台本… これまで「白紙から書き始める」のが最大の負荷だった業務が、AIによる8割完成のドラフトから始められるようになった。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>「考える壁打ち相手」が常時いる</h3>
+        <p>従来AIは答えしか返さなかった。生成AIは「質問してくれ」と頼めば質問してくれる。ファシリテーター・編集者・批評家として、思考のパートナーになる。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="generative-ai.html">
+      <span class="dir">← Prev ／ Phase 03</span>
+      <span class="nxt">生成AI</span>
+    </a>
+    <a href="agent-future.html" class="right">
+      <span class="dir">Next ／ The Future →</span>
+      <span class="nxt">AIの進化の先</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第1回 ／ 「予測・分類」から「生成」へ</footer>
+
+</body>
+</html>

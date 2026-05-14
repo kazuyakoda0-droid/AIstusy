@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>データ処理・Excel連携 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .nl-formula {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .nl-box {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 22px 24px;
+  }
+  .nl-box.nl { background: var(--bg-alt); }
+  .nl-box.formula {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    font-family: var(--mono); font-size: 15pt;
+    border-left: 3px solid var(--accent);
+  }
+  .nl-box .label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .nl-box.formula .label { color: oklch(0.7 0.10 35); }
+  .nl-box .request {
+    font-family: var(--serif); font-size: 15pt; line-height: 1.7;
+    color: var(--ink);
+  }
+  .nl-arrow {
+    text-align: center; font-family: var(--serif);
+    font-size: 32px; color: var(--accent); font-weight: 100;
+  }
+  .nl-row { margin-bottom: 24px; }
+
+  .vba-block {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 28px;
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.85;
+    border-left: 3px solid var(--accent);
+  }
+  .vba-block .kw { color: oklch(0.78 0.10 35); }
+  .vba-block .str { color: oklch(0.78 0.08 150); }
+  .vba-block .com { color: oklch(0.55 0.01 70); font-style: italic; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-3">第3回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">データ処理・Excel連携</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Practice 03 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 03 ／ 個人業務ハック</div>
+    <h1>データ処理・Excel連携<br><em>関数を、言葉で書く。</em></h1>
+  </div>
+  <p class="hero-lede">
+    「VLOOKUP の入れ子で、月別・部門別の売上を集計したい」。これまでは検索して試行錯誤していた作業を、自然言語で依頼するだけで、関数もマクロも一発で出てくる。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"こういう集計がしたい" と言葉で頼めば、<br><em>関数とマクロ</em>が返ってくる。Excelの民主化。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>自然言語 → Excel関数</h2>
+      <p class="sub">「こうしたい」を日本語で書くだけで、対応する関数を返してくれる。複雑な入れ子や、IFERROR等のエラーハンドリングも一緒に組み込んでくれる。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="nl-row">
+      <div class="nl-formula">
+        <div class="nl-box nl">
+          <div class="label">Request 01 ／ 自然言語</div>
+          <div class="request">A列の商品コードをもとに、別シートの単価表（B列＝コード、C列＝単価）から単価を持ってきたい。コードがなかったら "未登録" と表示して。</div>
+        </div>
+        <div class="nl-arrow">→</div>
+        <div class="nl-box formula">
+          <div class="label">Output ／ Excel関数</div>
+          =IFERROR(VLOOKUP(A2, 単価表!B:C, 2, FALSE), "未登録")
+        </div>
+      </div>
+    </div>
+
+    <div class="nl-row">
+      <div class="nl-formula">
+        <div class="nl-box nl">
+          <div class="label">Request 02 ／ 自然言語</div>
+          <div class="request">売上データから「2024年の月別売上合計」を出したい。日付はB列、売上はC列にある。</div>
+        </div>
+        <div class="nl-arrow">→</div>
+        <div class="nl-box formula">
+          <div class="label">Output ／ Excel関数</div>
+          =SUMPRODUCT((YEAR($B$2:$B$1000)=2024)*(MONTH($B$2:$B$1000)=ROW()-1)*$C$2:$C$1000)
+        </div>
+      </div>
+    </div>
+
+    <div class="nl-row" style="margin-bottom: 0;">
+      <div class="nl-formula">
+        <div class="nl-box nl">
+          <div class="label">Request 03 ／ 自然言語</div>
+          <div class="request">A列の文字列から、最初の括弧（）の中身だけを取り出したい。</div>
+        </div>
+        <div class="nl-arrow">→</div>
+        <div class="nl-box formula">
+          <div class="label">Output ／ Excel関数</div>
+          =MID(A2, FIND("（",A2)+1, FIND("）",A2)-FIND("（",A2)-1)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>マクロ（VBA）も書ける</h2>
+      <p class="sub">複数シートをまたぐ集計や、定型作業の自動化。プログラミング未経験でも、やりたいことを日本語で書けばVBAコードが返ってくる。</p>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start;">
+    <div class="nl-box nl">
+      <div class="label">Request ／ 自然言語</div>
+      <div class="request">フォルダ内の全Excelファイルを開き、それぞれの「合計」シートのA1セルの値を、新規ブックにファイル名と一緒に転記して保存するマクロを作って。</div>
+    </div>
+    <div class="vba-block">
+<span class="kw">Sub</span> CollectTotals()<br>
+&nbsp;&nbsp;<span class="kw">Dim</span> folder <span class="kw">As</span> <span class="kw">String</span>, file <span class="kw">As</span> <span class="kw">String</span><br>
+&nbsp;&nbsp;<span class="kw">Dim</span> wb <span class="kw">As</span> Workbook, summary <span class="kw">As</span> Workbook<br>
+&nbsp;&nbsp;<span class="kw">Set</span> summary = Workbooks.Add<br>
+&nbsp;&nbsp;folder = <span class="str">"C:\reports\"</span><br>
+&nbsp;&nbsp;file = Dir(folder & <span class="str">"*.xlsx"</span>)<br>
+&nbsp;&nbsp;<span class="kw">Dim</span> i <span class="kw">As</span> <span class="kw">Long</span>: i = 1<br>
+&nbsp;&nbsp;<span class="kw">Do While</span> file &lt;&gt; <span class="str">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="com">' 各ファイルを開いて合計シートのA1を転記</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">Set</span> wb = Workbooks.Open(folder & file)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;summary.Sheets(1).Cells(i, 1).Value = file<br>
+&nbsp;&nbsp;&nbsp;&nbsp;summary.Sheets(1).Cells(i, 2).Value = wb.Sheets(<span class="str">"合計"</span>).Range(<span class="str">"A1"</span>).Value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;wb.Close <span class="kw">False</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;i = i + 1: file = Dir<br>
+&nbsp;&nbsp;<span class="kw">Loop</span><br>
+&nbsp;&nbsp;summary.SaveAs folder & <span class="str">"summary.xlsx"</span><br>
+<span class="kw">End Sub</span>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  これまで <em>「あの人しかできなかった」</em> Excel職人芸が、<br>
+  全員の手元に降りてくる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Workflow</div>
+    <div>
+      <h2>失敗しないコツ — データ仕様を先に伝える</h2>
+      <p class="sub">関数やマクロが「動かない」原因のほとんどは、データの形（列の位置、データ型、シート名）を伝え忘れること。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>シート構成・列構成を必ず伝える</h3>
+        <p>「シート名は『売上』、A列＝日付、B列＝顧客名、C列＝金額、1行目はヘッダー」。これを書くだけで的中率が大きく上がる。サンプルデータを5行貼るのも有効。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>「動かない」をそのまま伝えて修正依頼</h3>
+        <p>エラーメッセージや実際の出力をコピペで送ると、AIが自己修正案を返してくる。「#REF!エラーになる」「思った値と違って○○になる」と具体的に。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>機密データはマスキングする</h3>
+        <p>顧客名・金額の生データをそのまま貼らない。「顧客A、顧客B」「100、200」など、構造は保ったままダミーデータにして渡す。<a href="security.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">セキュリティ</a>の基本。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="summary.html">
+      <span class="dir">← Prev ／ Practice 02</span>
+      <span class="nxt">情報圧縮と要約</span>
+    </a>
+    <a href="brainstorming.html" class="right">
+      <span class="dir">Next ／ Practice 04 →</span>
+      <span class="nxt">アイデア出しの壁打ち</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第3回 ／ データ処理・Excel連携</footer>
+</body>
+</html>

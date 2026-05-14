@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プロンプトエンジニアリングの基本 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .four-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .four-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative;
+  }
+  .four-card .num {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .four-card h3 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 28px; line-height: 1.2;
+  }
+  .four-card .en {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.1em;
+    margin-top: -8px;
+  }
+  .four-card p {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  }
+  .four-card .ex {
+    margin-top: auto;
+    padding: 12px 14px;
+    background: var(--bg-alt);
+    font-family: var(--serif); font-size: 15pt;
+    color: var(--ink); line-height: 1.7;
+    border-left: 2px solid var(--accent);
+  }
+  .four-card .ex span {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--accent);
+    display: block; margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .annotated {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 2;
+  }
+  .annotated .mark {
+    background: var(--accent-soft);
+    border-bottom: 2px solid var(--accent);
+    padding: 2px 4px;
+    position: relative;
+    display: inline-block;
+  }
+  .annotated .mark::after {
+    content: attr(data-tag);
+    position: absolute;
+    bottom: -22px; left: 0;
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--accent);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-2">第2回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">プロンプトエンジニアリングの基本</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Foundation 03 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 02 ／ プロンプト設計</div>
+    <h1>プロンプト4要素<br><em>構造化された指示の作法。</em></h1>
+  </div>
+  <p class="hero-lede">
+    AIは「超優秀だが融通の利かない新入社員」。曖昧な丸投げは曖昧な答えを返す。Role / Context / Task / Format の4つを書き分けるだけで、出力の精度は劇的に変わる。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">新入社員に仕事を頼むときと、<em>同じ作法</em>で。<br>「誰として」「どんな状況で」「何を」「どんな形で」。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>4つの要素</h2>
+      <p class="sub">どんなプロンプトもこの4要素に分解できる。書き始める前に「自分は今、どの要素が抜けているか」を確認するだけで質が変わる。</p>
+    </div>
+  </div>
+
+  <div class="four-grid">
+    <div class="four-card">
+      <div class="num">Element 01</div>
+      <h3>役割</h3>
+      <div class="en">Role</div>
+      <p>AIに「誰として答えてほしいか」を伝える。専門家の口調、視点、語彙が引き出される。</p>
+      <div class="ex">
+        <span>Example</span>
+        あなたはベテランのコピーライターです。
+      </div>
+    </div>
+    <div class="four-card">
+      <div class="num">Element 02</div>
+      <h3>文脈・背景</h3>
+      <div class="en">Context</div>
+      <p>状況、対象、制約条件など、判断の前提を共有する。これがないと一般論しか返ってこない。</p>
+      <div class="ex">
+        <span>Example</span>
+        20代女性向けの時短スキンケアコスメを発売します。価格帯は3,000円前後。
+      </div>
+    </div>
+    <div class="four-card">
+      <div class="num">Element 03</div>
+      <h3>タスク</h3>
+      <div class="en">Task</div>
+      <p>具体的に何をやってほしいか、動詞で明示する。「考えて」「作って」「比べて」など。</p>
+      <div class="ex">
+        <span>Example</span>
+        商品の魅力を伝えるキャッチコピーを提案してください。
+      </div>
+    </div>
+    <div class="four-card">
+      <div class="num">Element 04</div>
+      <h3>出力形式</h3>
+      <div class="en">Format</div>
+      <p>箇条書き／表／JSON／文字数制限など、欲しい形を指定する。後工程の手戻りが激減する。</p>
+      <div class="ex">
+        <span>Example</span>
+        箇条書きで5つ、それぞれ解説付きで。1案30文字以内。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>4要素をマーキングしてみる</h2>
+      <p class="sub">同じ依頼を、4要素を意識して書き直すとこうなる。色付き部分が各要素。書く順番は自由。</p>
+    </div>
+  </div>
+
+  <div class="annotated" style="margin-bottom: 32px;">
+    <span class="mark" data-tag="Role">あなたはベテランのコピーライターです</span>。
+    <span class="mark" data-tag="Context">20代女性向けの時短スキンケアコスメを発売します</span>。
+    <span class="mark" data-tag="Task">商品の魅力を伝えるキャッチコピーを提案してください</span>。
+    <span class="mark" data-tag="Format">箇条書きで5つ、それぞれ解説付きで</span>。
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Before / After</div>
+    <div>
+      <h2>同じ依頼でも、結果がこう変わる</h2>
+      <p class="sub">「丸投げ」と「構造化」、両方で同じ業務を依頼したときの出力品質の差。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">Bad ／ 丸投げ</div>
+      <div class="compare-title">新商品のキャッチコピー考えて</div>
+      <div class="compare-desc">
+        AIの返答：「キラリ☆あなたを輝かせるコスメ」「毎日に小さなご褒美を」… 抽象的、誰向けかも分からない、刺さらない。
+      </div>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">Good ／ 構造化</div>
+      <div class="compare-title">役割 + 文脈 + タスク + 形式</div>
+      <div class="compare-desc">
+        AIの返答：「忙しい朝こそ、3分美容。」「鏡の前で迷う時間、終わり。」… ターゲットの行動・心理に刺さるコピー、5案、選びやすい。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  プロンプトは <em>"祈り" ではなく "設計"</em>。<br>
+  仕事を任せるときと、まったく同じ作法。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Templates</div>
+    <div>
+      <h2>明日から使える、業務テンプレ</h2>
+      <p class="sub">4要素を最初は型として埋めてみる。慣れてくると自然に書けるようになる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>メール返信のドラフト</h3>
+        <p><strong>役割：</strong>あなたは社外向けの丁寧なビジネスメールを書く担当者です。<br>
+        <strong>文脈：</strong>取引先からの値引き要請に、応じられない旨を伝えたい。関係は維持したい。<br>
+        <strong>タスク：</strong>返信メールのドラフトを作成して。<br>
+        <strong>形式：</strong>件名、本文。本文は400字以内、結論先出し。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>議事録の要約</h3>
+        <p><strong>役割：</strong>あなたは経験豊富な議事録作成者です。<br>
+        <strong>文脈：</strong>添付は1時間の会議の文字起こし。出席者はA・B・C。<br>
+        <strong>タスク：</strong>決定事項・未決事項・Next Actionを抽出して。<br>
+        <strong>形式：</strong>3カラムの表。Next Actionには「誰が・いつまでに」を必ず含む。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>企画の壁打ち</h3>
+        <p><strong>役割：</strong>あなたは批判的視点を持つマーケティング部長です。<br>
+        <strong>文脈：</strong>添付は私の新企画書。ターゲット曖昧で悩んでいる。<br>
+        <strong>タスク：</strong>ターゲット設定の弱点を指摘し、絞り込むための質問を3つして。<br>
+        <strong>形式：</strong>指摘 → 質問 → 私の回答欄、を3セット。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="llm-pros-cons.html">
+      <span class="dir">← Prev ／ Foundation 02</span>
+      <span class="nxt">LLMの得意・不得意</span>
+    </a>
+    <a href="../index.html#session-3" class="right">
+      <span class="dir">Next Session →</span>
+      <span class="nxt">第3回：個人業務のAIハック</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第2回 ／ プロンプトエンジニアリングの基本</footer>
+</body>
+</html>

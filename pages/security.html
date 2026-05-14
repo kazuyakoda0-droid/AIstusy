@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>セキュリティとローカル環境 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .deploy-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .deploy-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+    position: relative;
+  }
+  .deploy-card.public { background: oklch(0.96 0.025 30); border-color: oklch(0.75 0.08 30); }
+  .deploy-card.private { background: var(--accent-soft); border-color: var(--accent); }
+  .deploy-card.local { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .deploy-card h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; line-height: 1.3;
+  }
+  .deploy-card .tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .deploy-card.public .tag { color: oklch(0.5 0.15 30); }
+  .deploy-card.private .tag { color: var(--accent); }
+  .deploy-card.local .tag { color: oklch(0.78 0.10 35); }
+  .deploy-card p { font-size: 15pt; line-height: 1.75; color: var(--ink-soft); }
+  .deploy-card.local p { color: oklch(0.85 0.008 70); }
+  .deploy-card .secure {
+    margin-top: auto;
+    font-family: var(--mono); font-size: 15pt;
+    padding: 8px 12px;
+    background: var(--paper);
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+  }
+  .deploy-card.local .secure { background: oklch(0.32 0.02 60); color: var(--paper); }
+
+  .risk-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .risk-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    border-left: 4px solid oklch(0.6 0.10 30);
+    padding: 24px 28px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .risk-card .ico {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: oklch(0.5 0.15 30);
+    text-transform: uppercase;
+  }
+  .risk-card h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; }
+  .risk-card p { font-size: 15pt; line-height: 1.7; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-4">第4回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">セキュリティとローカル環境</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Integration 03 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 04 ／ 安全な運用</div>
+    <h1>セキュリティとローカル環境<br><em>"情報が出ていかない" 仕組みを選ぶ。</em></h1>
+  </div>
+  <p class="hero-lede">
+    AIを業務に組み込むなら、データがどこへ流れるかを把握すること。一般向けChatGPTにそのまま顧客情報を貼るのは事故。用途に応じた運用形態を選ぶ。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">便利さの裏で、<em>情報がどこへ流れるか</em>。<br>用途に応じて、運用形態を選び分ける。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>3つの運用形態</h2>
+      <p class="sub">公開サービス／法人向けセキュアクラウド／オンプレミス。同じ「AI」でも、データの流れ方とセキュリティレベルがまったく違う。</p>
+    </div>
+  </div>
+
+  <div class="deploy-grid">
+    <div class="deploy-card public">
+      <div class="tag">Tier 01</div>
+      <h3>公開サービス<br>（個人版ChatGPT等）</h3>
+      <p>誰でもブラウザから使える。便利だが、入力データが学習に使われる可能性、ログが提供元サーバーに残る可能性がある。</p>
+      <div class="secure">⚠ 機密データは入力禁止</div>
+    </div>
+    <div class="deploy-card private">
+      <div class="tag">Tier 02</div>
+      <h3>法人向けセキュアクラウド<br>（Azure OpenAI / Enterprise等）</h3>
+      <p>提供元との契約で、入力データを学習に使わない／ログを保存しない設定が可能（オプトアウト）。社内利用の本命。</p>
+      <div class="secure">✓ 契約・設定で機密対応可</div>
+    </div>
+    <div class="deploy-card local">
+      <div class="tag">Tier 03</div>
+      <h3>オンプレミス／自社環境<br>（OSS LLMの自社運用）</h3>
+      <p>自社のサーバー／クラウド上にAIを設置。データは外部に一切出ない。医療・金融・防衛など最高機密を扱う領域で採用。</p>
+      <div class="secure">✓✓ 完全に社内で完結</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>典型的なリスク — 何が起きうるか</h2>
+      <p class="sub">「便利だから」と無頓着に使うと起きるトラブル。事例として知っておく。</p>
+    </div>
+  </div>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="ico">Risk 01</div>
+      <h3>情報漏洩</h3>
+      <p>顧客情報・未公開情報を公開AIに貼ると、学習データに取り込まれる、または提供元社内で閲覧される可能性。一度送ったデータは取り戻せない。</p>
+    </div>
+    <div class="risk-card">
+      <div class="ico">Risk 02</div>
+      <h3>シャドーAI</h3>
+      <p>社員が会社の承認なく、勝手に個人アカウントで業務情報を扱う。組織として何が出ていったか把握できない。多くの企業で実際に発生中。</p>
+    </div>
+    <div class="risk-card">
+      <div class="ico">Risk 03</div>
+      <h3>著作権・コンプライアンス</h3>
+      <p>AI生成物に他者の著作物が含まれてしまう、生成された文章に法的・差別的な問題が含まれる、など。生成物の使用前チェックが必要。</p>
+    </div>
+    <div class="risk-card">
+      <div class="ico">Risk 04</div>
+      <h3>誤情報を信じた判断</h3>
+      <p>ハルシネーションされた事実を鵜呑みにして、意思決定・顧客対応に使う。ビジネス上の損害につながる。第10回で扱う Human in the Loop の話。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  「便利さ」だけでなく <em>「どこへ流れるか」</em>。<br>
+  運用形態の選択は、組織の責任。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Policy</div>
+    <div>
+      <h2>社内ポリシー設計の勘所</h2>
+      <p class="sub">「禁止する」ではなく「安全に使える環境を用意する」が、シャドーAIを防ぐ正攻法。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>データ分類のルールを作る</h3>
+        <p>「公開可」「社内秘」「機密」「極秘」など、データを分類し、それぞれに使ってよいAIの種類を明示する。具体例：「公開可なら一般AI可、社内秘以上はセキュアクラウドのみ」。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>オプトアウト設定を必ず確認</h3>
+        <p>法人契約でも、デフォルト設定では「学習に使用」される製品もある。利用前に必ず学習除外（オプトアウト）の設定を確認する。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>社員向けに "使える環境" を提供</h3>
+        <p>禁止だけでは抜け道が生まれる。会社として安全に使える社内AI環境を用意し、「これを使えば安全」と明示する。利用ガイドラインも併設。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>ログと監査</h3>
+        <p>誰が・いつ・何を入力したかをログとして残せる仕組み。トラブル発生時の追跡と、利用実態の把握に必須。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="rag.html">
+      <span class="dir">← Prev ／ Integration 02</span>
+      <span class="nxt">RAG（検索拡張生成）</span>
+    </a>
+    <a href="knowledge-future.html" class="right">
+      <span class="dir">Next ／ Integration 04 →</span>
+      <span class="nxt">社内ナレッジ共有の未来</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第4回 ／ セキュリティとローカル環境</footer>
+</body>
+</html>

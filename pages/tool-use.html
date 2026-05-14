@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ツールの利用（Tool Use） — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .tool-board {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px; align-items: center;
+  }
+  .ai-center {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .ai-center::after {
+    content: ""; position: absolute;
+    inset: -20px; border: 1px dashed var(--hair-strong);
+    border-radius: 50%;
+  }
+  .ai-center .small {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: oklch(0.78 0.10 35);
+    text-transform: uppercase;
+  }
+  .ai-center .big {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 28px;
+  }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .tool {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .tool .tname {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.08em;
+  }
+  .tool .tdesc {
+    font-family: var(--serif); font-size: 15pt;
+    color: var(--ink); line-height: 1.5;
+  }
+
+  .schema {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 28px;
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.85;
+    border-left: 3px solid var(--accent);
+  }
+  .schema .k { color: oklch(0.78 0.10 35); }
+  .schema .s { color: oklch(0.78 0.08 150); }
+  .schema .c { color: oklch(0.55 0.01 70); font-style: italic; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-6">第6回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">ツールの利用（Tool Use）</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Agent 02 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 06 ／ 自律型AI</div>
+    <h1>ツールの利用<br><em>AIに、道具を持たせる。</em></h1>
+  </div>
+  <p class="hero-lede">
+    Function Calling とも呼ばれる、エージェントの中核機能。AIに「Web検索」「計算機」「データベース照会」などの道具を渡し、必要なときに自分で選んで使わせる。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIに <em>"知っていること"</em> だけで答えさせない。<br>必要な道具を渡して、<em>"調べさせる"</em>。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>AIの "道具箱"</h2>
+      <p class="sub">AIに渡せる道具は多種多様。「LLMだけでは苦手な仕事」を、専用ツールに代行させる発想。</p>
+    </div>
+  </div>
+
+  <div class="tool-board">
+    <div>
+      <div class="ai-center">
+        <div class="small">Agent</div>
+        <div class="big">LLM</div>
+        <div class="small">+ Tools</div>
+      </div>
+    </div>
+    <div class="tools-grid">
+      <div class="tool"><div class="tname">web_search</div><div class="tdesc">最新情報の検索</div></div>
+      <div class="tool"><div class="tname">calculator</div><div class="tdesc">正確な計算</div></div>
+      <div class="tool"><div class="tname">read_pdf</div><div class="tdesc">PDFの読み込み</div></div>
+      <div class="tool"><div class="tname">query_db</div><div class="tdesc">社内DB照会</div></div>
+      <div class="tool"><div class="tname">send_email</div><div class="tdesc">メール送信</div></div>
+      <div class="tool"><div class="tname">post_slack</div><div class="tdesc">Slack投稿</div></div>
+      <div class="tool"><div class="tname">create_jira</div><div class="tdesc">チケット起票</div></div>
+      <div class="tool"><div class="tname">run_python</div><div class="tdesc">スクリプト実行</div></div>
+      <div class="tool"><div class="tname">rag_search</div><div class="tdesc">社内ナレッジ検索</div></div>
+    </div>
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8; text-align: center; max-width: 720px; margin-left: auto; margin-right: auto;">
+    AIは「いま自分が知らないこと」「自分が苦手なこと」を、ツールに任せる判断をする。
+  </p>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>ツールの "定義" は、こう渡す</h2>
+      <p class="sub">技術的には、AIにツールを使わせるためにツールの仕様（名前・引数・説明）を渡すだけ。AIは説明文を読んで「いつ呼ぶか」を自分で判断する。</p>
+    </div>
+  </div>
+
+  <div class="schema">
+<span class="c">// AIに渡すツール定義（JSON Schema）</span><br>
+{<br>
+&nbsp;&nbsp;<span class="k">"name"</span>: <span class="s">"query_inventory"</span>,<br>
+&nbsp;&nbsp;<span class="k">"description"</span>: <span class="s">"社内倉庫の在庫状況を商品コードで照会する"</span>,<br>
+&nbsp;&nbsp;<span class="k">"parameters"</span>: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"product_code"</span>: { <span class="k">"type"</span>: <span class="s">"string"</span>, <span class="k">"description"</span>: <span class="s">"7桁の商品コード"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"warehouse"</span>: { <span class="k">"type"</span>: <span class="s">"string"</span>, <span class="k">"description"</span>: <span class="s">"東京/大阪/福岡"</span> }<br>
+&nbsp;&nbsp;}<br>
+}<br><br>
+<span class="c">// AIがこの定義を読んで、ユーザーの質問に応じて呼び出す</span><br>
+<span class="c">// User: 「商品AB12345、東京倉庫にどれくらいある？」</span><br>
+<span class="c">// AI: query_inventory(product_code="AB12345", warehouse="東京")</span>
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+    肝は「説明文」。AIは "description" を読んで、ツールの使いどころを判断する。だから、ツールに渡す説明文はプロンプト設計と同じくらい重要。
+  </p>
+</section>
+
+<section class="pullquote">
+  AIに <em>"全部知らせる"</em> 必要はない。<br>
+  <em>"調べ方を知っている"</em> AIに、必要なときに調べさせる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Use cases</div>
+    <div>
+      <h2>ツール利用が変える業務</h2>
+      <p class="sub">「LLMだけでは無理」と思っていた業務が、ツールを揃えるだけで一気に手の届く範囲に入る。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>正確な計算が必要な仕事</h3>
+        <p>見積金額の集計、利益率計算、複雑な数式評価。AIに直接計算させず、calculator ツールに任せる。「数字に強いAI」が実現する。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>最新情報を踏まえた回答</h3>
+        <p>「今週の競合の動向は？」「最新の法改正は？」 web_search ツールを使わせ、ソース付きで回答。ハルシネーションが激減する。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>社内システムを操作する</h3>
+        <p>「Aさんの来週の予定を空けて」「○○案件のステータスを更新して」など、AIがカレンダー・CRM・基幹システムを直接操作する。アクション型AIへの道。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>コードを書いて実行する</h3>
+        <p>run_python ツールを使わせると、「CSVを読み込んで集計したグラフを描いて」のような依頼に、自分でコードを書いて実行する。次回の「コーディングエージェント」につながる流れ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="ai-agent.html">
+      <span class="dir">← Prev ／ Agent 01</span>
+      <span class="nxt">AIエージェントとは</span>
+    </a>
+    <a href="agent-vs-prev.html" class="right">
+      <span class="dir">Next ／ Agent 03 →</span>
+      <span class="nxt">これまでのAIとの違い</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第6回 ／ ツールの利用（Tool Use）</footer>
+</body>
+</html>

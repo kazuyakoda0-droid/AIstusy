@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用のリスクとガバナンス — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .risk-matrix {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .risk-block {
+    background: var(--paper); border: 1px solid var(--hair);
+    border-top: 4px solid oklch(0.6 0.10 30);
+    padding: 28px 32px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .risk-block .level {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: oklch(0.5 0.15 30);
+    text-transform: uppercase;
+  }
+  .risk-block h3 { font-family: var(--serif); font-weight: 700; font-size: 20px; line-height: 1.3; }
+  .risk-block p { font-size: 15pt; line-height: 1.8; color: var(--ink-soft); }
+  .risk-block .impact {
+    margin-top: auto; padding: 10px 14px;
+    background: var(--bg-alt);
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--ink); line-height: 1.6;
+  }
+  .risk-block.high { border-top-color: oklch(0.55 0.18 25); }
+  .risk-block.med { border-top-color: oklch(0.6 0.15 60); }
+  .risk-block.low { border-top-color: oklch(0.6 0.10 200); }
+  .risk-block.high .level { color: oklch(0.45 0.18 25); }
+  .risk-block.med .level { color: oklch(0.5 0.15 60); }
+  .risk-block.low .level { color: oklch(0.5 0.12 200); }
+
+  .gov-pillars {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  }
+  .pillar {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 24px 20px;
+    display: flex; flex-direction: column; gap: 10px;
+    border-bottom: 4px solid var(--accent);
+  }
+  .pillar .ord {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 32px; color: var(--accent); line-height: 1;
+  }
+  .pillar h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.35; }
+  .pillar p { font-size: 15pt; color: var(--ink-soft); line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-10">第10回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">AI活用のリスクとガバナンス</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Governance 01 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 10 ／ ガバナンス</div>
+    <h1>AIのリスクとガバナンス<br><em>"便利" の裏側にある、組織責任。</em></h1>
+  </div>
+  <p class="hero-lede">
+    情報漏洩、著作権侵害、ハルシネーションによる誤判断、シャドーAIの蔓延。AIを業務に組み込む以上、リスクを把握し、組織として制御する仕組みが必要になる。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"使うかどうか" を議論する時代は終わった。<br><em>"安全に使う仕組み"</em> を設計する時代へ。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>典型的な4つのリスク</h2>
+      <p class="sub">業務でAIを使うときに必ず想定すべきリスク。それぞれ典型的な事故事例とともに理解する。</p>
+    </div>
+  </div>
+
+  <div class="risk-matrix">
+    <div class="risk-block high">
+      <div class="level">Risk 01 ／ High</div>
+      <h3>情報漏洩（シャドーAI）</h3>
+      <p>社員が会社の承認なく個人アカウントのAIに、顧客情報・契約書・機密情報を入力。データは取り戻せず、サービス提供元のサーバーに残る／学習に使われる可能性。</p>
+      <div class="impact">事例：未公開資料を要約させ、後日サービス提供元の問い合わせ事例として漏えい疑惑</div>
+    </div>
+    <div class="risk-block high">
+      <div class="level">Risk 02 ／ High</div>
+      <h3>ハルシネーションによる誤判断</h3>
+      <p>AIが生成した "もっともらしい嘘" を、人間が検証せず意思決定や顧客対応に使用。事実誤認、契約トラブル、ブランド毀損。</p>
+      <div class="impact">事例：AIに作らせた回答に存在しない判例が含まれ、法的トラブルに発展</div>
+    </div>
+    <div class="risk-block med">
+      <div class="level">Risk 03 ／ Medium</div>
+      <h3>著作権・コンプライアンス</h3>
+      <p>AI生成物が他者の著作物に酷似、または差別的・違法な内容を含む。社外利用時に問題化する。</p>
+      <div class="impact">事例：マーケティング画像が著作権侵害を指摘される</div>
+    </div>
+    <div class="risk-block med">
+      <div class="level">Risk 04 ／ Medium</div>
+      <h3>過度な依存・人間の判断力低下</h3>
+      <p>AIの出力を疑わずに鵜呑みにする習慣が定着。検証する力、自分で考える力が衰える。長期的には組織の意思決定能力に影響。</p>
+      <div class="impact">事例：AIの回答を引用ソース未確認のまま顧客に提示</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>ガバナンスの4本柱</h2>
+      <p class="sub">AI利用のリスクを組織として制御するための、定番の枠組み。</p>
+    </div>
+  </div>
+
+  <div class="gov-pillars">
+    <div class="pillar">
+      <div class="ord">01</div>
+      <h3>ポリシー</h3>
+      <p>使ってよいAI、入力してよいデータ、生成物の取扱を明文化。社員向けガイドライン。</p>
+    </div>
+    <div class="pillar">
+      <div class="ord">02</div>
+      <h3>環境</h3>
+      <p>会社承認のセキュアAI環境を提供。<a href="security.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">セキュリティ</a>で扱った3層の選び方。</p>
+    </div>
+    <div class="pillar">
+      <div class="ord">03</div>
+      <h3>監視</h3>
+      <p>誰が・いつ・何を使ったかのログ管理。異常検知、定期的な利用実態レビュー。</p>
+    </div>
+    <div class="pillar">
+      <div class="ord">04</div>
+      <h3>教育</h3>
+      <p>社員のリテラシー教育。「禁止」より「正しい使い方」を伝える。本研修もその一環。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  リスクを <em>"ゼロにする"</em> のではなく、<br>
+  <em>"制御下に置く"</em>。これが組織の責任。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Action</div>
+    <div>
+      <h2>明日から組織として打てる手</h2>
+      <p class="sub">「禁止令」ではシャドーAIを助長するだけ。安全に使える環境とルールをセットで提供する。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>データ分類ルール × AIの組み合わせ表</h3>
+        <p>「公開可なら一般AI可」「社内秘以上はセキュアクラウドのみ」「機密はオンプレ／使用禁止」など、データの種別ごとに使ってよいAIを明示する。曖昧さを残さない。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>承認済みAI環境の用意</h3>
+        <p>社員が安心して使える社内AI環境（オプトアウト済みのセキュアクラウド or 自社環境）を整備。「会社が用意したものを使えば安全」と言い切れる状態に。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>失敗事例の共有文化</h3>
+        <p>「AIにこう使ったら、こんなミスが起きた」という事例を社内で共有する。社員が試した結果から組織が学ぶ。咎めるのではなく、知見化する。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>Human in the Loop の義務化</h3>
+        <p>「重要な判断にはAIだけで決めさせない」を組織のルールとして明文化。次のページで詳述。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-10">
+      <span class="dir">← Back</span>
+      <span class="nxt">第10回トップに戻る</span>
+    </a>
+    <a href="human-in-the-loop.html" class="right">
+      <span class="dir">Next ／ Governance 02 →</span>
+      <span class="nxt">Human in the Loop の原則</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第10回 ／ リスクとガバナンス</footer>
+</body>
+</html>
