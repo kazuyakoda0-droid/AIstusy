@@ -77,6 +77,54 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Pipeline with human gate in middle -->
+      <g transform="translate(40 100)">
+        <rect width="100" height="60" class="ill-warm"/>
+        <text x="50" y="25" class="ill-text-accent" text-anchor="middle">AI A</text>
+        <text x="50" y="45" font-family="var(--serif)" font-size="11" fill="var(--ink)" text-anchor="middle">解析</text>
+      </g>
+      <path d="M 145 130 L 200 130" class="ill-accent-fat"/>
+      <polygon points="200,125 210,130 200,135" class="ill-dot"/>
+
+      <g transform="translate(220 100)">
+        <rect width="100" height="60" class="ill-warm"/>
+        <text x="50" y="25" class="ill-text-accent" text-anchor="middle">AI B</text>
+        <text x="50" y="45" font-family="var(--serif)" font-size="11" fill="var(--ink)" text-anchor="middle">判定</text>
+      </g>
+      <path d="M 325 130 L 365 130" class="ill-accent-fat"/>
+      <polygon points="365,125 375,130 365,135" class="ill-dot"/>
+
+      <!-- Human gate (raised) -->
+      <g transform="translate(385 70)" class="ill-glow">
+        <!-- Flag -->
+        <line x1="60" y1="0" x2="60" y2="35" stroke="var(--accent)" stroke-width="2"/>
+        <polygon points="60,0 95,8 60,16" fill="var(--accent)"/>
+        <rect width="120" height="120" fill="var(--ink)"/>
+        <text x="60" y="42" class="ill-text-accent" text-anchor="middle" style="fill: oklch(0.78 0.10 35);">HUMAN</text>
+        <text x="60" y="62" font-family="var(--serif)" font-size="13" fill="var(--paper)" text-anchor="middle" font-weight="700">承認</text>
+        <text x="60" y="82" font-family="var(--mono)" font-size="11" fill="oklch(0.7 0.015 70)" text-anchor="middle">REVIEW</text>
+        <text x="60" y="102" font-family="var(--mono)" font-size="14" fill="oklch(0.78 0.10 35)" text-anchor="middle">✓</text>
+      </g>
+
+      <path d="M 510 130 L 565 130" class="ill-accent-fat"/>
+      <polygon points="565,125 575,130 565,135" class="ill-dot"/>
+
+      <g transform="translate(585 100)">
+        <rect width="100" height="60" class="ill-warm"/>
+        <text x="50" y="25" class="ill-text-accent" text-anchor="middle">AI C</text>
+        <text x="50" y="45" font-family="var(--serif)" font-size="11" fill="var(--ink)" text-anchor="middle">実行</text>
+      </g>
+      <path d="M 690 130 L 745 130" class="ill-accent-fat"/>
+      <polygon points="745,125 755,130 745,135" class="ill-dot"/>
+
+      <text x="400" y="220" class="ill-text" text-anchor="middle">"判断" の瞬間にだけ、人間が立ち会う</text>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -206,6 +254,58 @@
         <h3>例外処理の道を閉じてしまう</h3>
         <p>「全件AIで処理」と決め、例外パターンを人間にエスカレートする道を用意しない。AIが無理に判定して誤判定 → 後で大きな問題に。「これは判断つかない」とAIが言えるルートを残す。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">Human-in-the-Loop <span class="en">HITL</span></div>
+      <p class="jargon-plain">"最終判断は必ず人間が行う" 運用設計。<span class="like">"AIに下準備、人間に承認" の役割分担を仕組み化する考え方。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">承認ポイント <span class="en">Approval Gate</span></div>
+      <p class="jargon-plain">人間が必ず関与する "ハンコのポイント"。<span class="like">"金額が大きい時" "新規顧客の時" など、リスクが高いところに置く。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ガードレール <span class="en">Guardrail</span></div>
+      <p class="jargon-plain">AIが暴走しないように引いておく "やってはいけない範囲" の柵。<span class="like">"対外発信は禁止" "個人情報は絶対に出さない" など、最低ラインの線引き。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">監査ログ <span class="en">Audit Log</span></div>
+      <p class="jargon-plain">AIが何をしたかを後から追跡できる記録。<span class="like">"いつ／誰が／何の操作をしたか" を残しておく台帳。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">Human-in-the-Loop</h3>
+      <p class="analogy-body">AIが進めるプロセスの要所要所に、人間の承認ポイントを置く設計。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"自動運転 ＋ ハンドル"</h3>
+      <p class="analogy-body">基本はAIが運転するが、緊急時は人間がハンドルを握れる。<br>"絶対に人間が判断する瞬間" を意図的に残しておく。</p>
     </div>
   </div>
 </section>

@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI勉強会 — AIエージェントチームで実現する組織のAI化</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: oklch(0.985 0.004 85);
+    --bg-alt: oklch(0.965 0.006 80);
+    --paper: oklch(0.995 0.003 85);
+    --ink: oklch(0.20 0.012 60);
+    --ink-soft: oklch(0.38 0.014 60);
+    --muted: oklch(0.58 0.010 70);
+    --hair: oklch(0.88 0.008 75);
+    --hair-strong: oklch(0.78 0.012 70);
+    --accent: oklch(0.52 0.135 35);
+    --accent-soft: oklch(0.94 0.030 40);
+    --serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    --sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15pt;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  /* ============== TOP NAV ============== */
+  .topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: color-mix(in oklch, var(--bg) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .topnav-inner {
+    max-width: min(1680px, 92vw); margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--serif); font-weight: 700; font-size: 15pt;
+    letter-spacing: 0.02em;
+  }
+  .brand-mark {
+    width: 28px; height: 28px;
+    background: var(--ink); color: var(--paper);
+    display: grid; place-items: center;
+    font-family: var(--serif); font-weight: 900;
+    font-size: 15pt;
+  }
+  .topnav-links { display: flex; gap: 32px; font-size: 15pt; }
+  .topnav-links a {
+    color: var(--ink-soft); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .topnav-links a:hover { color: var(--accent); }
+  .topnav-meta {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.08em;
+  }
+
+  /* ============== HERO ============== */
+  .hero {
+    max-width: min(1680px, 92vw); margin: 0 auto;
+    padding: 96px 32px 64px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: end;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 24px; height: 1px; background: var(--accent);
+  }
+  .hero-title {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 64px; line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .hero-title em {
+    font-style: normal; color: var(--accent);
+  }
+  .hero-sub {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 15pt; line-height: 1.85;
+    color: var(--ink-soft);
+    max-width: 540px;
+  }
+  .hero-side {
+    border-left: 1px solid var(--hair);
+    padding-left: 40px;
+  }
+  .hero-side h3 {
+    font-family: var(--mono); font-size: 15pt; letter-spacing: 0.16em;
+    color: var(--muted); margin-bottom: 18px; font-weight: 500;
+    text-transform: uppercase;
+  }
+  .hero-side p {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-top: 32px;
+    padding-top: 32px; border-top: 1px solid var(--hair);
+  }
+  .hero-stat-num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 36px; color: var(--ink); line-height: 1;
+  }
+  .hero-stat-lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--muted);
+    margin-top: 8px; text-transform: uppercase;
+  }
+
+  /* ============== BIG IDEA ============== */
+  .bigidea {
+    background: var(--ink); color: var(--paper);
+    margin-top: 64px;
+    padding: 96px 0;
+  }
+  .bigidea-inner {
+    max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
+  }
+  .bigidea-label {
+    font-family: var(--mono); font-size: 15pt; letter-spacing: 0.18em;
+    color: oklch(0.65 0.08 35);
+    text-transform: uppercase; margin-bottom: 32px;
+  }
+  .bigidea-shift {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 48px;
+    align-items: center;
+  }
+  .shift-side {
+    padding: 32px 0;
+  }
+  .shift-side .from {
+    font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em;
+    color: oklch(0.65 0.02 70); margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .shift-side h2 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 38px; line-height: 1.3;
+    color: var(--paper);
+  }
+  .shift-side.left h2 { color: oklch(0.7 0.015 70); }
+  .shift-arrow {
+    font-family: var(--serif); font-size: 48px;
+    color: oklch(0.65 0.10 35); line-height: 1;
+    font-weight: 100;
+  }
+
+  /* ============== ROADMAP ============== */
+  .roadmap {
+    max-width: min(1680px, 92vw); margin: 0 auto;
+    padding: 120px 32px 80px;
+  }
+  .section-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: end; margin-bottom: 64px;
+  }
+  .section-eyebrow {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: ""; width: 24px; height: 1px; background: var(--accent);
+  }
+  .section-title {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 44px; line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+  .section-lede {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+    max-width: 480px;
+  }
+
+  .roadmap-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--hair);
+    border: 1px solid var(--hair);
+  }
+  .rm-chapter {
+    background: var(--paper);
+    padding: 32px 28px 36px;
+    display: flex; flex-direction: column; gap: 20px;
+    transition: background 0.2s;
+  }
+  .rm-chapter:hover { background: var(--bg-alt); }
+  .rm-num {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.12em;
+  }
+  .rm-title {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; line-height: 1.4; color: var(--ink);
+    min-height: 80px;
+  }
+  .rm-sessions {
+    display: flex; flex-direction: column; gap: 10px;
+    padding-top: 20px; border-top: 1px solid var(--hair);
+    margin-top: auto;
+  }
+  .rm-session {
+    display: flex; gap: 12px; align-items: baseline;
+    font-size: 15pt; color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .rm-session:hover { color: var(--accent); }
+  .rm-session-n {
+    font-family: var(--mono); color: var(--muted);
+    font-size: 15pt; min-width: 28px;
+  }
+  .rm-session:hover .rm-session-n { color: var(--accent); }
+
+  /* ============== CHAPTER SECTION ============== */
+  .chapter {
+    border-top: 1px solid var(--hair-strong);
+    padding: 96px 0;
+  }
+  .chapter:nth-of-type(even) { background: var(--bg-alt); }
+  .chapter-inner {
+    max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
+  }
+  .ch-banner {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 64px; margin-bottom: 80px; align-items: start;
+  }
+  .ch-banner-num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 140px; line-height: 0.85;
+    color: var(--accent);
+  }
+  .ch-banner-num-sub {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.18em; color: var(--muted);
+    margin-top: 16px; text-transform: uppercase;
+  }
+  .ch-banner-title {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 40px; line-height: 1.25;
+    margin-bottom: 20px; letter-spacing: -0.005em;
+  }
+  .ch-banner-lede {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+    max-width: 640px;
+  }
+
+  /* ============== SESSION CARD ============== */
+  .session {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 48px;
+    padding: 56px 0;
+    border-top: 1px solid var(--hair);
+  }
+  .session:first-of-type { border-top: 1px solid var(--hair-strong); }
+  .session-meta {
+    position: sticky; top: 100px;
+    align-self: start;
+  }
+  .session-num {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .session-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    background: var(--accent-soft); color: var(--accent);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .session-title {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 24px; line-height: 1.35;
+    color: var(--ink);
+  }
+  .session-body { display: flex; flex-direction: column; gap: 36px; }
+
+  .sb-block {
+    display: grid; grid-template-columns: 120px 1fr; gap: 32px;
+    align-items: start;
+  }
+  .sb-label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--muted);
+    padding-top: 6px;
+    text-transform: uppercase;
+  }
+  .sb-purpose {
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.8; color: var(--ink);
+  }
+  .sb-purpose strong {
+    background: linear-gradient(transparent 60%, var(--accent-soft) 60%);
+    font-weight: 700;
+  }
+
+  /* structure list */
+  .sb-structure { display: flex; flex-direction: column; gap: 18px; }
+  .struct-item {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 20px 24px;
+  }
+  a.struct-link {
+    text-decoration: none; color: inherit;
+    display: block; position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  a.struct-link:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  a.struct-link::after {
+    content: "↗"; position: absolute;
+    top: 18px; right: 22px;
+    font-family: var(--sans); font-size: 15pt;
+    color: var(--accent); opacity: 0.4;
+    transition: opacity 0.2s;
+  }
+  a.struct-link:hover::after { opacity: 1; }
+  .struct-head {
+    font-weight: 700; font-size: 15pt;
+    color: var(--ink); margin-bottom: 8px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .struct-head::before {
+    content: ""; width: 6px; height: 6px;
+    background: var(--accent); flex-shrink: 0;
+    transform: translateY(-2px);
+  }
+  .struct-body {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+    padding-left: 18px;
+  }
+  .struct-sublist {
+    margin-top: 8px;
+    display: flex; flex-direction: column; gap: 4px;
+    font-size: 15pt; color: var(--ink-soft);
+  }
+  .struct-sublist li {
+    list-style: none;
+    padding-left: 18px; position: relative;
+  }
+  .struct-sublist li::before {
+    content: "—"; position: absolute; left: 0;
+    color: var(--muted);
+  }
+
+  /* example */
+  .sb-example {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 28px 32px;
+    font-size: 15pt; line-height: 1.8;
+    border-left: 3px solid var(--accent);
+  }
+  .sb-example-head {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: oklch(0.7 0.1 35);
+    margin-bottom: 14px; text-transform: uppercase;
+  }
+  .sb-example-title {
+    font-family: var(--serif); font-weight: 700;
+    color: oklch(0.96 0.005 70);
+    font-size: 15pt; margin-bottom: 6px;
+  }
+  .sb-example-item + .sb-example-item {
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px solid oklch(0.32 0.01 60);
+  }
+  .sb-example .role {
+    font-family: var(--mono); font-size: 15pt;
+    color: oklch(0.7 0.06 35);
+    letter-spacing: 0.06em;
+    display: block; margin-bottom: 4px;
+  }
+  .quote-bad, .quote-good {
+    margin-top: 8px;
+    padding: 12px 14px;
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.7;
+  }
+  .quote-bad {
+    background: oklch(0.28 0.02 30);
+    border-left: 2px solid oklch(0.6 0.10 30);
+  }
+  .quote-good {
+    background: oklch(0.28 0.025 150);
+    border-left: 2px solid oklch(0.65 0.10 150);
+  }
+  .quote-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em;
+    color: oklch(0.75 0.06 80);
+    margin-bottom: 6px; display: block;
+  }
+
+  /* keywords */
+  .sb-keywords { display: flex; flex-wrap: wrap; gap: 8px; }
+  .kw {
+    font-family: var(--mono); font-size: 15pt;
+    padding: 6px 12px;
+    background: var(--paper);
+    border: 1px solid var(--hair-strong);
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .chapter:nth-of-type(even) .struct-item,
+  .chapter:nth-of-type(even) .kw { background: var(--paper); }
+
+  /* Special diagrams */
+  .diagram-evolve {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; background: var(--paper);
+    border: 1px solid var(--hair);
+  }
+  .de-step {
+    padding: 24px 20px;
+    border-right: 1px solid var(--hair);
+    display: flex; flex-direction: column; gap: 10px;
+    text-decoration: none; color: inherit;
+    transition: background 0.2s;
+    position: relative;
+  }
+  a.de-step:hover { background: var(--accent-soft); }
+  a.de-step::after {
+    content: "↗"; position: absolute;
+    top: 20px; right: 20px;
+    font-family: var(--sans); font-size: 15pt;
+    color: var(--accent); opacity: 0;
+    transition: opacity 0.2s;
+  }
+  a.de-step:hover::after { opacity: 1; }
+  .de-step:last-child { border-right: none; }
+  .de-step-n {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.14em;
+  }
+  .de-step-name {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; color: var(--ink);
+  }
+  .de-step-desc {
+    font-size: 15pt; color: var(--ink-soft); line-height: 1.6;
+  }
+
+  /* Flow diagram for case studies */
+  .flow {
+    display: grid; gap: 12px;
+    background: var(--paper);
+    padding: 24px;
+    border: 1px solid var(--hair);
+  }
+  .flow-row {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 16px; align-items: start;
+  }
+  .flow-n {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--paper); background: var(--accent);
+    padding: 4px 8px; letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .flow-content { font-size: 15pt; line-height: 1.7; color: var(--ink); }
+  .flow-content strong { font-weight: 700; color: var(--ink); }
+
+  /* ============== CLOSING ============== */
+  .closing {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 120px 0;
+  }
+  .closing-inner {
+    max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  }
+  .closing-eyebrow {
+    font-family: var(--mono); font-size: 15pt; letter-spacing: 0.18em;
+    color: oklch(0.7 0.10 35); text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .closing h2 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 44px; line-height: 1.25;
+    letter-spacing: -0.005em;
+  }
+  .closing-side h3 {
+    font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em;
+    color: oklch(0.7 0.015 70); margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .closing-side p {
+    font-size: 15pt; line-height: 1.9;
+    color: oklch(0.85 0.008 70);
+    margin-bottom: 16px;
+  }
+  .closing-actions {
+    margin-top: 36px; padding-top: 36px;
+    border-top: 1px solid oklch(0.3 0.01 60);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .closing-actions a {
+    color: var(--paper); text-decoration: none;
+    font-family: var(--serif); font-size: 15pt;
+    display: flex; align-items: baseline; gap: 14px;
+    padding-bottom: 12px; border-bottom: 1px solid oklch(0.3 0.01 60);
+    transition: color 0.2s;
+  }
+  .closing-actions a:hover { color: oklch(0.78 0.10 35); }
+  .closing-actions a::before {
+    content: "↗"; color: oklch(0.7 0.10 35);
+    font-family: var(--sans);
+  }
+
+  /* ============== FOOTER ============== */
+  footer {
+    padding: 32px;
+    text-align: center;
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    border-top: 1px solid var(--hair);
+  }
+
+  /* responsive */
+  @media (max-width: 980px) {
+    .hero, .section-head, .ch-banner, .session, .closing-inner, .bigidea-shift {
+      grid-template-columns: 1fr; gap: 32px;
+    }
+    .hero-side { border-left: none; padding-left: 0; padding-top: 32px; border-top: 1px solid var(--hair); }
+    .hero-title { font-size: 44px; }
+    .ch-banner-num { font-size: 96px; }
+    .session-meta { position: static; }
+    .roadmap-grid { grid-template-columns: 1fr 1fr; }
+    .sb-block { grid-template-columns: 1fr; gap: 12px; }
+    .shift-arrow { transform: rotate(90deg); justify-self: center; }
+    .diagram-evolve { grid-template-columns: 1fr; }
+    .de-step { border-right: none; border-bottom: 1px solid var(--hair); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= TOP NAV ================= -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">
+      <div class="brand-mark">AI</div>
+      <span>社内勉強会 / AIエージェントチーム</span>
+    </div>
+    <div class="topnav-links">
+      <a href="#roadmap">ロードマップ</a>
+      <a href="#chapter-1">第1章</a>
+      <a href="#chapter-2">第2章</a>
+      <a href="#chapter-3">第3章</a>
+      <a href="#chapter-4">第4章</a>
+      <a href="#closing">総括</a>
+    </div>
+    <div class="topnav-meta">全10回 / 4章構成</div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div>
+    <div class="hero-eyebrow" style="font-size: 15px">KANHOKYO　INTERNAL TRAINING PROGRAM 2026</div>
+    <h1 class="hero-title" style="font-size: 45px">AIエージェントチームで実現する <em>組織のAI化</em></h1>
+    <p class="hero-sub">
+      AIを「便利なツール」として使う段階から、自律して動く「チームメンバー」として迎え入れる段階へ。<br>
+      基礎から実践まで、全10回で組織変革のロードマップを共有します。
+    </p>
+  </div>
+  <aside class="hero-side">
+    <h3 style="font-size: 15px">本研修の到達点</h3>
+    <p style="font-size: 15px">
+      AIを「ただの作業者」ではなく「自律して動くチームメンバー」として扱うマインドセットへの転換を、現場の業務シーンに即して学びます。
+    </p>
+    <p style="font-size: 15px">
+      最終回では、各自が自分の業務フローを分解し、どこをAIチームに任せられるかを設計できる「AIディレクター」としての視点を獲得することを目指します。
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">04</div>
+        <div class="hero-stat-lbl">Chapters</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">10</div>
+        <div class="hero-stat-lbl">Sessions</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-lbl">Use Cases</div>
+      </div>
+    </div>
+  </aside>
+</header>
+
+<!-- ================= BIG IDEA ================= -->
+<section class="bigidea">
+  <div class="bigidea-inner">
+    <div class="bigidea-label">研修を貫くひとつの軸</div>
+    <div class="bigidea-shift">
+      <div class="shift-side left">
+        <div class="from">From ／ これまで</div>
+        <h2>便利なツール、<br>あるいは作業者として<br>AIを使う。</h2>
+      </div>
+      <div class="shift-arrow">→</div>
+      <div class="shift-side">
+        <div class="from">To ／ これから</div>
+        <h2>自律して動くチームメンバーとして、<br>AIに仕事を委ねる。</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROADMAP ================= -->
+<section class="roadmap" id="roadmap">
+  <div class="section-head">
+    <div>
+      <div class="section-eyebrow">Roadmap</div>
+      <h2 class="section-title">4章 × 10回の<br>全体ロードマップ</h2>
+    </div>
+    <p class="section-lede">
+      個人のAI活用から始まり、社内データとの連携、自律型エージェント、そしてエージェントチームによる組織変革まで。段階的にスコープを広げる構成です。
+    </p>
+  </div>
+
+  <div class="roadmap-grid">
+    <div class="rm-chapter">
+      <div class="rm-num">Chapter 01</div>
+      <div class="rm-title">AI活用の基礎と<br>個人の業務効率化</div>
+      <div class="rm-sessions">
+        <a class="rm-session" href="#session-1"><span class="rm-session-n">01</span><span>AIの進化と最終ゴール</span></a>
+        <a class="rm-session" href="#session-2"><span class="rm-session-n">02</span><span>LLMの仕組みとプロンプト</span></a>
+        <a class="rm-session" href="#session-3"><span class="rm-session-n">03</span><span>個人業務のAIハック</span></a>
+      </div>
+    </div>
+    <div class="rm-chapter">
+      <div class="rm-num">Chapter 02</div>
+      <div class="rm-title">自社データ・<br>社内システムとの連携</div>
+      <div class="rm-sessions">
+        <a class="rm-session" href="#session-4"><span class="rm-session-n">04</span><span>社内知識とRAGの基礎</span></a>
+        <a class="rm-session" href="#session-5"><span class="rm-session-n">05</span><span>業務ワークフローの自動化</span></a>
+      </div>
+    </div>
+    <div class="rm-chapter">
+      <div class="rm-num">Chapter 03</div>
+      <div class="rm-title">自律型AIと<br>開発の民主化</div>
+      <div class="rm-sessions">
+        <a class="rm-session" href="#session-6"><span class="rm-session-n">06</span><span>AIエージェントの仕組み</span></a>
+        <a class="rm-session" href="#session-7"><span class="rm-session-n">07</span><span>コーディングエージェント</span></a>
+      </div>
+    </div>
+    <div class="rm-chapter">
+      <div class="rm-num">Chapter 04</div>
+      <div class="rm-title">エージェントチームによる<br>組織変革と未来</div>
+      <div class="rm-sessions">
+        <a class="rm-session" href="#session-8"><span class="rm-session-n">08</span><span>エージェントチームの構築</span></a>
+        <a class="rm-session" href="#session-9"><span class="rm-session-n">09</span><span>業務プロセス全体の委譲</span></a>
+        <a class="rm-session" href="#session-10"><span class="rm-session-n">10</span><span>ガバナンスとAIディレクター</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 1 ================= -->
+<section class="chapter" id="chapter-1" data-screen-label="Chapter 1">
+  <div class="chapter-inner">
+    <div class="ch-banner">
+      <div>
+        <div class="ch-banner-num">01</div>
+        <div class="ch-banner-num-sub">Chapter One</div>
+      </div>
+      <div>
+        <h2 class="ch-banner-title">AI活用の基礎と、個人の業務効率化。</h2>
+        <p class="ch-banner-lede">
+          まずは「AIを正しく理解する」ことから。AIの進化の歴史、LLMの仕組み、そして個人の生産性を底上げする実践テクニックまで。明日からデスクで使える成功体験を作る章です。
+        </p>
+      </div>
+    </div>
+
+    <!-- SESSION 1 -->
+    <article class="session" id="session-1" data-screen-label="Session 01">
+      <div class="session-meta">
+        <div class="session-num">Session 01</div>
+        <div class="session-tag">Foundation</div>
+        <h3 class="session-title">AIの進化と最終ゴール<br>— 生成AIから「エージェントチーム」が動く組織へ</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            研修全体のロードマップを共有し、<strong>AIの進化の歴史と、目指すべき組織の姿（ゴール）</strong>を解像度高く理解する。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">AIの進化</div>
+          <div class="diagram-evolve">
+            <a class="de-step" href="pages/rule-based.html">
+              <div class="de-step-n">Phase 01</div>
+              <div class="de-step-name">ルールベース</div>
+              <div class="de-step-desc">条件分岐する電卓。決められた手順を粛々と実行する。</div>
+            </a>
+            <a class="de-step" href="pages/machine-learning.html">
+              <div class="de-step-n">Phase 02</div>
+              <div class="de-step-name">機械学習 / 深層学習</div>
+              <div class="de-step-desc">データを読み込み特徴を掴む鑑定士。予測・分類が得意。</div>
+            </a>
+            <a class="de-step" href="pages/generative-ai.html">
+              <div class="de-step-n">Phase 03</div>
+              <div class="de-step-name">生成AI</div>
+              <div class="de-step-desc">文脈を理解しゼロから生み出すクリエイター。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/predict-to-generate.html">
+              <div class="struct-head">「予測・分類」から「生成」へ</div>
+              <div class="struct-body">迷惑メールの分類から、返信メールのドラフト作成へ。従来AIとChatGPT以降のAIの決定的な違い。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/agent-future.html">
+              <div class="struct-head">AIの進化の先</div>
+              <div class="struct-body">一問一答のチャットボットから、自律的に動く「AIエージェントチーム」へのパラダイムシフト。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">具体例</div>
+          <div class="sb-example">
+            <div class="sb-example-head">業務の進化イメージ</div>
+            <div class="sb-example-item">
+              <span class="role">分類・抽出</span>
+              「資料の誤字を探して」
+            </div>
+            <div class="sb-example-item">
+              <span class="role">生成</span>
+              「このメモからプレゼン資料の構成を作って」
+            </div>
+            <div class="sb-example-item">
+              <span class="role">エージェント</span>
+              「〇〇の件、関係者にヒアリングして資料にまとめておいて」
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">機械学習</span>
+            <span class="kw">深層学習</span>
+            <span class="kw">生成AI</span>
+            <span class="kw">パラダイムシフト</span>
+            <span class="kw">AIエージェント</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SESSION 2 -->
+    <article class="session" id="session-2" data-screen-label="Session 02">
+      <div class="session-meta">
+        <div class="session-num">Session 02</div>
+        <div class="session-tag">Foundation</div>
+        <h3 class="session-title">LLMの仕組みと「プロンプト」の作法</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            AIが言葉を紡ぐ仕組みをブラックボックスから解放し、<strong>「超優秀だが融通の利かない新入社員」を動かすための適切な指示（プロンプト）構造</strong>を習得する。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/llm-what.html">
+              <div class="struct-head">LLMとは何か</div>
+              <div class="struct-body">「次に来る確率が高い単語」を予測する確率モデル。AIは意味を理解しているのではなく、確率的に尤もらしい言葉を紡いでいる。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/llm-pros-cons.html">
+              <div class="struct-head">LLMの得意・不得意</div>
+              <div class="struct-body">要約・翻訳・アイデア出しが得意な反面、事実確認や複雑な計算が苦手。ハルシネーション（もっともらしい嘘）が起こる原理を理解する。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/prompt-4elements.html">
+              <div class="struct-head">プロンプトエンジニアリングの基本（4要素）</div>
+              <div class="struct-body">
+                <ul class="struct-sublist">
+                  <li>役割（Role）</li>
+                  <li>文脈・背景（Context）</li>
+                  <li>タスク（Task）</li>
+                  <li>出力形式（Format）</li>
+                </ul>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">Before / After</div>
+          <div class="sb-example">
+            <div class="sb-example-head">プロンプト比較</div>
+            <div class="sb-example-title">新商品のキャッチコピー作成</div>
+            <div class="quote-bad">
+              <span class="quote-tag">Bad ／ 曖昧な丸投げ</span>
+              新商品のキャッチコピー考えて
+            </div>
+            <div class="quote-good">
+              <span class="quote-tag">Good ／ 構造化された指示</span>
+              あなたはベテランのコピーライターです<span style="color:oklch(0.7 0.06 35);">（役割）</span>。20代女性向けの時短スキンケアコスメを発売します<span style="color:oklch(0.7 0.06 35);">（文脈）</span>。商品の魅力を伝えるキャッチコピーを<span style="color:oklch(0.7 0.06 35);">（タスク）</span>、箇条書きで5つ、それぞれ解説付きで<span style="color:oklch(0.7 0.06 35);">（出力形式）</span>提案してください。
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">LLM</span>
+            <span class="kw">ハルシネーション</span>
+            <span class="kw">プロンプトエンジニアリング</span>
+            <span class="kw">構造化プロンプト</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SESSION 3 -->
+    <article class="session" id="session-3" data-screen-label="Session 03">
+      <div class="session-meta">
+        <div class="session-num">Session 03</div>
+        <div class="session-tag">Practice</div>
+        <h3 class="session-title">個人業務のAIハック<br>— 文書作成・要約・データ処理の半自動化</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            <strong>明日から各自のデスクですぐに使えるAI活用術</strong>を学び、個人の生産性を劇的に底上げする。まずは個人の成功体験を作る。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/doc-acceleration.html">
+              <div class="struct-head">文書作成の高速化</div>
+              <div class="struct-body">箇条書きの雑なメモから、社外向けの丁寧なビジネスメールや報告書のドラフトを生成。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/summary.html">
+              <div class="struct-head">情報圧縮と要約</div>
+              <div class="struct-body">長大な会議の音声文字起こしやPDF資料から、重要ポイントやTodoを瞬時に抽出。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/excel-data.html">
+              <div class="struct-head">データ処理・Excel連携</div>
+              <div class="struct-body">「こういう集計がしたい」という自然言語から、複雑なExcel関数やマクロ（VBA）を生成。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/brainstorming.html">
+              <div class="struct-head">アイデア出しの壁打ち</div>
+              <div class="struct-body">企画や課題解決における、思考のパートナーとしての活用法。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">ライブデモ</div>
+          <div class="sb-example">
+            <div class="sb-example-head">推奨デモシナリオ</div>
+            <div class="sb-example-item">
+              <span class="role">議事要約</span>
+              <div class="sb-example-title">乱雑な文字起こしの一発整理</div>
+              「決定事項、未決事項、Next Action（誰が・いつまでに・何をするか）を表形式で抽出して」と指示し、一瞬で整理される様子を実演。
+            </div>
+            <div class="sb-example-item">
+              <span class="role">壁打ち / 逆引き</span>
+              <div class="sb-example-title">AIにファシリテートさせる</div>
+              「新企画のターゲット層で悩んでいる。私に3つ質問をして、ターゲットを絞り込ませて」とAIに会話を主導させる逆引きプロンプトの紹介。
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">ドラフト生成</span>
+            <span class="kw">要約抽出</span>
+            <span class="kw">関数生成</span>
+            <span class="kw">壁打ち</span>
+            <span class="kw">逆引きプロンプト</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 2 ================= -->
+<section class="chapter" id="chapter-2" data-screen-label="Chapter 2">
+  <div class="chapter-inner">
+    <div class="ch-banner">
+      <div>
+        <div class="ch-banner-num">02</div>
+        <div class="ch-banner-num-sub">Chapter Two</div>
+      </div>
+      <div>
+        <h2 class="ch-banner-title">自社データ・社内システムとの連携。</h2>
+        <p class="ch-banner-lede">
+          一般的なAIは「自社のこと」を知りません。社内の知識をセキュアに組み込み、既存ワークフローに組み込むための仕組みを学びます。
+        </p>
+      </div>
+    </div>
+
+    <!-- SESSION 4 -->
+    <article class="session" id="session-4" data-screen-label="Session 04">
+      <div class="session-meta">
+        <div class="session-num">Session 04</div>
+        <div class="session-tag">Integration</div>
+        <h3 class="session-title">社内独自の知識をAIに持たせる<br>— セキュアな環境とRAGの基礎</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            一般的なAIが知らない<strong>「自社の知識」を安全に組み込み</strong>、業務特化型の回答を得る仕組みを理解する。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/llm-limit.html">
+              <div class="struct-head">汎用LLMの限界</div>
+              <div class="struct-body">「うちの会社の出張規定はどうなってる？」と聞いても答えられない（あるいは嘘をつく）理由。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/rag.html">
+              <div class="struct-head">RAG（検索拡張生成）とは</div>
+              <div class="struct-body">AIに「オープンブックテスト（持ち込み可のテスト）」を受けさせる仕組み。質問に対し、まず社内マニュアルを検索し、その該当箇所（カンペ）をAIに読ませて回答させる。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/security.html">
+              <div class="struct-head">セキュリティとローカル環境</div>
+              <div class="struct-body">機密データを扱う際の注意点。オンプレミスやセキュアクラウドでのAI運用の重要性（オプトアウトの設定など）。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/knowledge-future.html">
+              <div class="struct-head">社内ナレッジ共有の未来</div>
+              <div class="struct-body">属人化していた「あの人に聞かないと分からない」ノウハウを、AI経由で全社員が24時間引き出せる環境へ。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">具体例</div>
+          <div class="sb-example">
+            <div class="sb-example-head">社内RAGボットへの質問例</div>
+            <div class="sb-example-item">
+              <span class="role">User</span>
+              来月から産休に入ります。必要な手続きを教えて。
+            </div>
+            <div class="sb-example-item">
+              <span class="role">RAG-Bot</span>
+              当社の就業規則第〇条に基づき、以下の手続きが必要です。<br>
+              1. 〇〇フォーム（URL）の提出<br>
+              2. 直属上長への通知<br>
+              3. 人事部への書類提出<br>
+              <span style="color: oklch(0.7 0.06 35); font-size: 15pt;">出典：社内ポータル / 人事規定集2024年版</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">RAG</span>
+            <span class="kw">ベクトルデータベース</span>
+            <span class="kw">社内ナレッジ</span>
+            <span class="kw">セキュア環境</span>
+            <span class="kw">オプトアウト</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SESSION 5 -->
+    <article class="session" id="session-5" data-screen-label="Session 05">
+      <div class="session-meta">
+        <div class="session-num">Session 05</div>
+        <div class="session-tag">Integration</div>
+        <h3 class="session-title">業務ワークフローの自動化<br>— 既存ツールとAIのシームレスな連携</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            AIを<strong>「チャット画面」から解放</strong>し、既存の業務システムやワークフローに組み込んでプロセス全体を自動化する概念を学ぶ。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/embed-ai.html">
+              <div class="struct-head">「対話型AI」から「組み込み型AI」へ</div>
+              <div class="struct-body">人間がいちいちコピペする「つなぎ込み」作業をなくすAPI連携の基礎。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/human-ai-divide.html">
+              <div class="struct-head">人間とAIの分業</div>
+              <div class="struct-body">AIは「情報の仕分けと下準備」を行い、人間は「最終判断と承認ボタンを押すこと」に集中する。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">ケーススタディ</div>
+          <div class="flow">
+            <div style="font-family: var(--serif); font-weight: 700; font-size: 15pt; margin-bottom: 8px; color: var(--ink);">書類の承認（見積・稟議プロセス）</div>
+            <div style="font-size: 15pt; color: var(--ink-soft); margin-bottom: 16px;">
+              <strong style="color: oklch(0.5 0.12 35);">現状の課題：</strong>書類のPDFを目視確認、手作業でのシステム入力、担当部署へのメール連絡。
+            </div>
+            <div class="flow-row">
+              <div class="flow-n">Step 1</div>
+              <div class="flow-content">RPAやZapier/Make等が<strong>メール添付の見積書（PDF）を検知</strong>。</div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-n">Step 2</div>
+              <div class="flow-content">AIがPDFから<strong>「会社名」「品目」「金額」を自動抽出</strong>（構造化データ化）。</div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-n">Step 3</div>
+              <div class="flow-content">AIが社内規定（RAG）と照合し、<strong>「100万円以上なので部長決裁」とルートを自動判定</strong>。</div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-n">Step 4</div>
+              <div class="flow-content">ワークフローツールへ自動入力し、<strong>部長のSlackに承認リクエストを通知</strong>。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">ワークフロー自動化</span>
+            <span class="kw">API連携</span>
+            <span class="kw">RPA</span>
+            <span class="kw">自動ルーティング</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 3 ================= -->
+<section class="chapter" id="chapter-3" data-screen-label="Chapter 3">
+  <div class="chapter-inner">
+    <div class="ch-banner">
+      <div>
+        <div class="ch-banner-num">03</div>
+        <div class="ch-banner-num-sub">Chapter Three</div>
+      </div>
+      <div>
+        <h2 class="ch-banner-title">自律型AIと、開発の民主化。</h2>
+        <p class="ch-banner-lede">
+          「指示待ち」から「自律型」へ。大枠のゴールを与えるだけで、自ら計画を立て、道具を使って実行するエージェントの世界へ踏み込みます。
+        </p>
+      </div>
+    </div>
+
+    <!-- SESSION 6 -->
+    <article class="session" id="session-6" data-screen-label="Session 06">
+      <div class="session-meta">
+        <div class="session-num">Session 06</div>
+        <div class="session-tag">Autonomy</div>
+        <h3 class="session-title">「指示待ち」から「自律型」へ<br>— AIエージェントの仕組み</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            人間の都度指示を必要とせず、大枠の「ゴール」に向けて<strong>自ら思考し、道具を使い、行動する「エージェント」</strong>の概念を理解する。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">ReActの脳内</div>
+          <div class="diagram-evolve">
+            <div class="de-step">
+              <div class="de-step-n">Thought</div>
+              <div class="de-step-name">思考</div>
+              <div class="de-step-desc">「まず〇〇を検索しよう」と次の一手を考える。</div>
+            </div>
+            <div class="de-step">
+              <div class="de-step-n">Action</div>
+              <div class="de-step-name">行動</div>
+              <div class="de-step-desc">道具（Web検索、計算機、DBなど）を呼び出して実行。</div>
+            </div>
+            <div class="de-step">
+              <div class="de-step-n">Observation</div>
+              <div class="de-step-name">観察</div>
+              <div class="de-step-desc">結果を確認し、次のThoughtへループ。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/ai-agent.html">
+              <div class="struct-head">AIエージェントとは</div>
+              <div class="struct-body">「手順」を一つずつ教えなくても、自分で「計画」を立てて実行するAI。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/tool-use.html">
+              <div class="struct-head">ツールの利用（Tool Use / Function Calling）</div>
+              <div class="struct-body">AIが自らの判断で、Webブラウザ、計算機、社内データベースなどの「道具」を使う仕組み。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/agent-vs-prev.html">
+              <div class="struct-head">これまでのAIとの違い</div>
+              <div class="struct-body">「対話相手・作業者」から「自律する部下」へ。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">具体例</div>
+          <div class="sb-example">
+            <div class="sb-example-head">エージェントの挙動シミュレーション</div>
+            <div class="sb-example-title">「競合A社・B社の最新決算を比較サマリーして」</div>
+            <div style="font-size: 15pt; color: oklch(0.78 0.012 70); margin-top: 12px; line-height: 1.9;">
+              <span style="color: oklch(0.7 0.06 35); font-family: var(--mono); font-size: 15pt;">→</span> A社のIRページをWeb検索<br>
+              <span style="color: oklch(0.7 0.06 35); font-family: var(--mono); font-size: 15pt;">→</span> PDFを読み込む<br>
+              <span style="color: oklch(0.7 0.06 35); font-family: var(--mono); font-size: 15pt;">→</span> B社のIRページを検索<br>
+              <span style="color: oklch(0.7 0.06 35); font-family: var(--mono); font-size: 15pt;">→</span> PDFを読み込む<br>
+              <span style="color: oklch(0.7 0.06 35); font-family: var(--mono); font-size: 15pt;">→</span> 内容を比較計算する<br>
+              <span style="color: oklch(0.7 0.06 35); font-family: var(--mono); font-size: 15pt;">→</span> 表形式で出力する
+            </div>
+            <div style="font-size: 15pt; color: oklch(0.75 0.04 35); margin-top: 14px; padding-top: 14px; border-top: 1px solid oklch(0.32 0.01 60);">
+              一連のプロセスを、追加プロンプトなしで自律的に完結させる。
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">AIエージェント</span>
+            <span class="kw">自律型AI</span>
+            <span class="kw">ReAct</span>
+            <span class="kw">Tool Use</span>
+            <span class="kw">Function Calling</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SESSION 7 -->
+    <article class="session" id="session-7" data-screen-label="Session 07">
+      <div class="session-meta">
+        <div class="session-num">Session 07</div>
+        <div class="session-tag">Autonomy</div>
+        <h3 class="session-title">開発現場を変える「コーディングエージェント」<br>— 実務への恩恵</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            プログラミング未経験の現場担当者でも、自身の業務を効率化するツールを<strong>「自然言語」で内製できる（開発の民主化）</strong>時代を実感する。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/autonomous-dev.html">
+              <div class="struct-head">「コード生成」から「自律開発」へ</div>
+              <div class="struct-body">人間がコードをコピペする時代から、エージェントが自らPC上でコードを書き、実行し、テストする時代へ。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/auto-debug.html">
+              <div class="struct-head">AIが自らエラーを直す（自律デバッグ）</div>
+              <div class="struct-body">実行してエラーが出たら、AI自身がエラー文を読み取り「あ、このライブラリが足りないですね」と自ら修正して完成まで導く。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/nocode-future.html">
+              <div class="struct-head">実務への恩恵</div>
+              <div class="struct-body">ノーコード／ローコードの究極形。非エンジニアが「言葉」でツールを作る。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">実演シナリオ</div>
+          <div class="sb-example">
+            <div class="sb-example-head">タスク</div>
+            <div class="sb-example-title">100枚の現場写真に透かしを入れる</div>
+            <div style="font-size: 15pt; line-height: 1.8; margin-top: 12px; color: oklch(0.85 0.008 70);">
+              「このフォルダにある100枚の現場写真すべてに、右下に『2024年工事完了』の透かし文字を入れて、別フォルダに保存するPythonスクリプトを作って実行して」
+            </div>
+            <div style="font-size: 15pt; color: oklch(0.75 0.04 35); margin-top: 16px; padding-top: 16px; border-top: 1px solid oklch(0.32 0.01 60); line-height: 1.8;">
+              エージェントが自らスクリプトを書き、試しに実行し、フォントエラーが出たら自己修正し、タスクを完遂する様子を紹介。
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">コーディングエージェント</span>
+            <span class="kw">Claude Code</span>
+            <span class="kw">Cursor</span>
+            <span class="kw">自律デバッグ</span>
+            <span class="kw">開発の民主化</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 4 ================= -->
+<section class="chapter" id="chapter-4" data-screen-label="Chapter 4">
+  <div class="chapter-inner">
+    <div class="ch-banner">
+      <div>
+        <div class="ch-banner-num">04</div>
+        <div class="ch-banner-num-sub">Chapter Four</div>
+      </div>
+      <div>
+        <h2 class="ch-banner-title">エージェントチームによる、組織変革と未来。</h2>
+        <p class="ch-banner-lede">
+          単体のAIから「役割を持つAIたちのチーム」へ。複雑な業務プロセス全体を委ね、人間は「AIディレクター」として品質と責任に向き合う。研修の集大成です。
+        </p>
+      </div>
+    </div>
+
+    <!-- SESSION 8 -->
+    <article class="session" id="session-8" data-screen-label="Session 08">
+      <div class="session-meta">
+        <div class="session-num">Session 08</div>
+        <div class="session-tag">Team</div>
+        <h3 class="session-title">複数のAIが協働する「エージェントチーム」<br>— 人事評価シミュレーション</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            <strong>異なる役割を持った複数のAIが議論・協働する「マルチエージェント」</strong>の概念と、それによる意思決定の質的向上を学ぶ。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/multi-agent.html">
+              <div class="struct-head">マルチエージェントシステムとは</div>
+              <div class="struct-body">万能な1つのAIより、専門特化した（役割を与えられた）複数のAIのチームのほうが、ハルシネーションが減り、強固な成果を出せる理由。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/ai-board.html">
+              <div class="struct-head">AIの壁打ち・ボードメンバー化</div>
+              <div class="struct-body">経営会議や企画会議に「批判的思考を持つAI」や「顧客視点を持つAI」を同席させ、人間の盲点を補う使い方。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">ケーススタディ</div>
+          <div class="sb-example">
+            <div class="sb-example-head">人事評価の多角化・合議</div>
+            <div class="sb-example-title">課長一人の視点による偏りやバイアスを補正する</div>
+            <div style="margin-top: 14px; color: oklch(0.85 0.008 70); font-size: 15pt; line-height: 1.85;">
+              課長（人間）が対象者の実績を入力。
+            </div>
+            <div class="sb-example-item">
+              <span class="role">Agent A ／ 次長ペルソナ</span>
+              「短期的な売上は良いが、後進育成などのコンピテンシー評価が甘くないか？」
+            </div>
+            <div class="sb-example-item">
+              <span class="role">Agent B ／ 人事部長ペルソナ</span>
+              「来期の全社戦略を考慮すると、チーム全体の底上げ貢献度も評価軸に入れるべきだ」
+            </div>
+            <div style="font-size: 15pt; color: oklch(0.75 0.04 35); margin-top: 16px; padding-top: 16px; border-top: 1px solid oklch(0.32 0.01 60); line-height: 1.8;">
+              AI同士が意見をぶつけ合い、最終的に人間の評価者に「多角的な再評価の材料（レポート）」を提示する。
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">マルチエージェント</span>
+            <span class="kw">ペルソナ</span>
+            <span class="kw">ディスカッション</span>
+            <span class="kw">意思決定支援</span>
+            <span class="kw">認知バイアスの補正</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SESSION 9 -->
+    <article class="session" id="session-9" data-screen-label="Session 09">
+      <div class="session-meta">
+        <div class="session-num">Session 09</div>
+        <div class="session-tag">Team</div>
+        <h3 class="session-title">組織のAI化実践<br>— 専門業務プロセスをAIチームに委譲する</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            本研修の集大成。<strong>複雑な専門業務プロセス全体を、AIエージェントたちの「バケツリレー」によって自動化</strong>するアーキテクチャ設計を学ぶ。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">設計思想</div>
+          <p class="sb-purpose" style="font-size: 15pt;">
+            複雑な業務を「単一のタスク」に分解し、それぞれに特化エージェントを配置する。人間は「承認」ボタンを押すだけ。数日かかっていた各部署間の確認作業が、AIのパイプライン化により数分で完了する。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">ケーススタディ</div>
+          <div class="flow">
+            <div style="font-family: var(--serif); font-weight: 700; font-size: 15pt; margin-bottom: 16px; color: var(--ink);">仕様書受領 〜 受注可否 〜 システム自動入力フロー</div>
+            <div class="flow-row">
+              <div class="flow-n">Phase 1</div>
+              <div class="flow-content"><strong>解析（要件抽出エージェント）</strong><br>顧客からの非定型な仕様書PDFから「検査項目A」「納期: 10/1」などの要件を自動抽出。</div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-n">Phase 2</div>
+              <div class="flow-content"><strong>照合（規格・法令確認エージェント）</strong><br>RAGを用いて、抽出された「検査項目A」と最新のJIS規格や法令・規制値を自動で照らし合わせ、「法的に問題なし」を判定。</div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-n">Phase 3</div>
+              <div class="flow-content"><strong>判定（キャパシティ判定エージェント）</strong><br>社内データベース（稼働状況）を参照し、「現在のラボのリソースで10/1納期での受注が可能か」を判定。</div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-n">Phase 4</div>
+              <div class="flow-content"><strong>実行（システム入力エージェント）</strong><br>受注可能と判断された場合、基幹システムへ必要情報を自動で起票（ドラフト作成）。</div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-n" style="background: var(--ink);">Human</div>
+              <div class="flow-content"><strong>承認</strong><br>人間は最終的に「承認」ボタンを押すだけ。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">エージェントパイプライン</span>
+            <span class="kw">タスク分解</span>
+            <span class="kw">自動化フローの設計</span>
+            <span class="kw">バケツリレー</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SESSION 10 -->
+    <article class="session" id="session-10" data-screen-label="Session 10">
+      <div class="session-meta">
+        <div class="session-num">Session 10</div>
+        <div class="session-tag">Governance</div>
+        <h3 class="session-title">AI時代のガバナンスと、<br>人間が担う「ディレクター」としての新たな役割</h3>
+      </div>
+      <div class="session-body">
+        <div class="sb-block">
+          <div class="sb-label">目的</div>
+          <p class="sb-purpose">
+            AIを安全かつ倫理的に運用するためのリスク管理を徹底し、<strong>「AIを使役する人間」に求められる新たなスキルとマインドセット</strong>を定義して研修を総括する。
+          </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/governance.html">
+              <div class="struct-head">AI活用のリスクとガバナンス</div>
+              <div class="struct-body">情報漏洩（シャドーAIの危険性）、著作権問題、ハルシネーションによる誤った意思決定の恐怖。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/human-in-the-loop.html">
+              <div class="struct-head">Human in the Loop（人間参加型）の原則</div>
+              <div class="struct-body">プロセスの完全自動化の危険性。AIの出力を鵜呑みにせず、重要な判断（法令確認、人事評価、契約書の押印など）には必ず「人間」が介在し、最終的な責任を負う仕組みの必須性。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/ai-director.html">
+              <div class="struct-head">「作業者」から「AIディレクター」へ</div>
+              <div class="struct-body">人間の役割は「自ら手を動かす」から、<strong style="color:var(--accent);">「業務プロセスを設計し、AIチームに適切な指示を出し、結果の品質を評価・責任を持つ」</strong>へとパラダイムシフトする。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/action-plan.html">
+              <div class="struct-head">研修の総括</div>
+              <div class="struct-body">アクションプランの策定。明日から各自が「自分の業務フローをどう分解し、どこをAIチームに任せられるか」を考えるワーク。</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">教訓</div>
+          <div class="sb-example">
+            <div class="sb-example-head">事例紹介</div>
+            <div class="sb-example-title">最終確認は、必ず人間が。</div>
+            <div style="margin-top: 12px; color: oklch(0.85 0.008 70); font-size: 15pt; line-height: 1.85;">
+              AIに契約書を作成させ、そのまま送付して法的トラブルになった事例などを紹介し、Human in the Loop の重要性を説く。
+            </div>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">キーワード</div>
+          <div class="sb-keywords">
+            <span class="kw">ガバナンス</span>
+            <span class="kw">シャドーAI</span>
+            <span class="kw">Human in the Loop</span>
+            <span class="kw">AIディレクター</span>
+            <span class="kw">Responsible AI</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CLOSING ================= -->
+<section class="closing" id="closing" data-screen-label="Closing">
+  <div class="closing-inner">
+    <div>
+      <div class="closing-eyebrow">Action Plan</div>
+      <h2>明日から、何を、<br>どうAIチームに任せるか。</h2>
+    </div>
+    <div class="closing-side">
+      <h3>研修後に各自が取り組むこと</h3>
+      <p>
+        自分の業務フローを書き出し、どこを「分解可能なタスク」として切り出せるかを考える。そして、そのタスクの中で「AIチームに任せられる部分」と「人間が責任を持つべき部分」を仕分けする。
+      </p>
+      <p>
+        AIは目的ではなく手段です。組織として何を達成したいのか、何を維持したいのかを軸に、現場発の活用案を持ち寄りましょう。
+      </p>
+      <div class="closing-actions">
+        <a href="#roadmap">ロードマップに戻る</a>
+        <a href="#session-1">第1回から読み直す</a>
+        <a href="#session-10">最終回（総括）を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  AI勉強会 — Internal Training Program / 全10回 4章構成
+</footer>
+
+<script>
+  // active section in topnav
+  const navLinks = document.querySelectorAll('.topnav-links a');
+  const targets = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(a => {
+          if (a.getAttribute('href') === '#' + id) {
+            a.style.color = 'var(--accent)';
+          } else {
+            a.style.color = '';
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  targets.forEach(t => io.observe(t));
+</script>
+
+</body>
+</html>

@@ -147,6 +147,69 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Scatter plot: classification -->
+      <line x1="60" y1="40" x2="60" y2="240" class="ill-line"/>
+      <line x1="60" y1="240" x2="380" y2="240" class="ill-line"/>
+      <text x="50" y="35" class="ill-text" text-anchor="end">Y</text>
+      <text x="390" y="245" class="ill-text">X</text>
+      <!-- Decision boundary curve -->
+      <path d="M 80 220 Q 200 80 360 60" class="ill-accent-fat ill-dash"/>
+      <!-- Points class A -->
+      <circle cx="100" cy="200" r="4" class="ill-dim"/>
+      <circle cx="130" cy="180" r="4" class="ill-dim"/>
+      <circle cx="160" cy="190" r="4" class="ill-dim"/>
+      <circle cx="120" cy="210" r="4" class="ill-dim"/>
+      <circle cx="180" cy="170" r="4" class="ill-dim"/>
+      <circle cx="200" cy="155" r="4" class="ill-dim"/>
+      <!-- Points class B -->
+      <circle cx="240" cy="90" r="4" class="ill-dot"/>
+      <circle cx="280" cy="80" r="4" class="ill-dot"/>
+      <circle cx="220" cy="100" r="4" class="ill-dot"/>
+      <circle cx="300" cy="100" r="4" class="ill-dot"/>
+      <circle cx="320" cy="90" r="4" class="ill-dot"/>
+      <circle cx="340" cy="120" r="4" class="ill-dot"/>
+
+      <!-- Right side: layers -->
+      <g transform="translate(460 30)">
+        <text x="120" y="0" class="ill-text" text-anchor="middle">NEURAL NETWORK</text>
+        <g transform="translate(0 20)">
+          <circle cx="20" cy="40" r="6" class="ill-soft"/>
+          <circle cx="20" cy="80" r="6" class="ill-soft"/>
+          <circle cx="20" cy="120" r="6" class="ill-soft"/>
+          <circle cx="20" cy="160" r="6" class="ill-soft"/>
+          <circle cx="80" cy="30" r="6" class="ill-warm"/>
+          <circle cx="80" cy="70" r="6" class="ill-warm"/>
+          <circle cx="80" cy="110" r="6" class="ill-warm"/>
+          <circle cx="80" cy="150" r="6" class="ill-warm"/>
+          <circle cx="80" cy="190" r="6" class="ill-warm"/>
+          <circle cx="140" cy="40" r="6" class="ill-warm"/>
+          <circle cx="140" cy="100" r="6" class="ill-warm"/>
+          <circle cx="140" cy="160" r="6" class="ill-warm"/>
+          <circle cx="200" cy="80" r="7" class="ill-dot"/>
+          <circle cx="200" cy="120" r="7" class="ill-dot"/>
+          <!-- connections -->
+          <g stroke="var(--hair-strong)" stroke-width="0.6" fill="none">
+            <line x1="20" y1="40" x2="80" y2="30"/><line x1="20" y1="40" x2="80" y2="70"/><line x1="20" y1="40" x2="80" y2="110"/>
+            <line x1="20" y1="80" x2="80" y2="30"/><line x1="20" y1="80" x2="80" y2="70"/><line x1="20" y1="80" x2="80" y2="110"/>
+            <line x1="20" y1="120" x2="80" y2="110"/><line x1="20" y1="120" x2="80" y2="150"/>
+            <line x1="20" y1="160" x2="80" y2="150"/><line x1="20" y1="160" x2="80" y2="190"/>
+            <line x1="80" y1="30" x2="140" y2="40"/><line x1="80" y1="70" x2="140" y2="40"/><line x1="80" y1="70" x2="140" y2="100"/>
+            <line x1="80" y1="110" x2="140" y2="100"/><line x1="80" y1="150" x2="140" y2="100"/><line x1="80" y1="150" x2="140" y2="160"/>
+            <line x1="80" y1="190" x2="140" y2="160"/>
+            <line x1="140" y1="40" x2="200" y2="80"/><line x1="140" y1="100" x2="200" y2="80"/><line x1="140" y1="100" x2="200" y2="120"/><line x1="140" y1="160" x2="200" y2="120"/>
+          </g>
+          <text x="20" y="215" class="ill-text" text-anchor="middle">IN</text>
+          <text x="110" y="215" class="ill-text" text-anchor="middle">HIDDEN</text>
+          <text x="200" y="215" class="ill-text-accent" text-anchor="middle">OUT</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -332,6 +395,66 @@
         <li>学習データに含まれないパターンに弱い</li>
         <li>新しいものを「生成」することはできない</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">機械学習 <span class="en">Machine Learning</span></div>
+      <p class="jargon-plain">大量のデータから「答えのパターン」をコンピュータ自身に見つけさせる仕組み。<span class="like">人間が「ルール」を書く代わりに、AIが「例題」を解いてコツを掴む。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">深層学習 <span class="en">Deep Learning</span></div>
+      <p class="jargon-plain">機械学習の中でも「人間の脳の神経のような仕組み」を何層も重ねて使う方式。画像や音声に強い。<span class="like">伝言ゲームを100段にしたような構造。各段で少しずつ特徴が抽出される。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">教師あり学習 <span class="en">Supervised Learning</span></div>
+      <p class="jargon-plain">「正解付きの例題」を大量に与えて、AIに正解を当てさせる訓練方法。<span class="like">問題集と解答集をセットで与え、AIが模試で点数を上げていくイメージ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">パラメータ <span class="en">Parameter</span></div>
+      <p class="jargon-plain">学習を通じて自動調整される、AIの中の "つまみ" のような数値。<span class="like">ラジオのチューニングのつまみ。何億個ものつまみを少しずつ回して、最適な周波数に合わせていく。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">過学習 <span class="en">Overfitting</span></div>
+      <p class="jargon-plain">訓練データばかり完璧に覚え、新しい問題が解けなくなる状態。<span class="like">過去問の答えを丸暗記して、ちょっと問題文が違うだけで解けない受験生。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">特徴量 <span class="en">Feature</span></div>
+      <p class="jargon-plain">AIが判断のために注目する「手がかり」のこと。<span class="like">猫の写真を見分けるとき、「耳の形」や「ヒゲ」に注目する、その注目ポイント。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">機械学習</h3>
+      <p class="analogy-body">大量の "例" からパターンを抽出して、新しいデータを分類・予測する技術。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">子供が猫を覚える</h3>
+      <p class="analogy-body">何百匹も見ているうちに、説明されなくても「あ、これも猫」と分かるようになる。<br>AIも、何百万枚の写真を見て同じことを学習する。</p>
     </div>
   </div>
 </section>

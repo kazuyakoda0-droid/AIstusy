@@ -94,6 +94,52 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Iterative cycle -->
+      <g transform="translate(120 60)">
+        <rect width="160" height="60" class="ill-soft"/>
+        <text x="80" y="25" class="ill-text" text-anchor="middle">RUN CODE</text>
+        <text x="80" y="48" font-family="var(--mono)" font-size="11" fill="var(--ink)" text-anchor="middle">$ python main.py</text>
+      </g>
+
+      <g transform="translate(120 160)">
+        <rect width="160" height="80" fill="oklch(0.28 0.02 30)"/>
+        <text x="80" y="22" class="ill-text" text-anchor="middle" style="fill: oklch(0.75 0.1 30);">ERROR</text>
+        <text x="80" y="45" font-family="var(--mono)" font-size="10" fill="oklch(0.85 0.08 30)" text-anchor="middle">ModuleNotFoundError:</text>
+        <text x="80" y="60" font-family="var(--mono)" font-size="10" fill="oklch(0.85 0.08 30)" text-anchor="middle">No module 'PIL'</text>
+        <text x="80" y="75" font-family="var(--mono)" font-size="9" fill="oklch(0.7 0.04 30)" text-anchor="middle">line 3, in &lt;module&gt;</text>
+      </g>
+
+      <!-- AI reading & fixing -->
+      <g transform="translate(360 60)">
+        <text x="100" y="0" class="ill-text-accent" text-anchor="middle">AI READS &amp; FIXES</text>
+        <rect width="200" height="180" class="ill-warm"/>
+        <text x="100" y="30" font-family="var(--serif)" font-size="13" fill="var(--ink)" text-anchor="middle">"なるほど、Pillow が</text>
+        <text x="100" y="50" font-family="var(--serif)" font-size="13" fill="var(--ink)" text-anchor="middle">入っていないようだ"</text>
+        <line x1="20" y1="70" x2="180" y2="70" class="ill-accent ill-dash"/>
+        <text x="100" y="95" font-family="var(--mono)" font-size="11" fill="var(--accent)" text-anchor="middle">$ pip install Pillow</text>
+        <text x="100" y="120" font-family="var(--serif)" font-size="13" fill="var(--ink)" text-anchor="middle">"これで再実行"</text>
+        <text x="100" y="155" font-family="var(--mono)" font-size="11" fill="var(--accent)" text-anchor="middle">$ python main.py ✓</text>
+      </g>
+
+      <!-- Loop arrow -->
+      <g stroke="var(--accent)" stroke-width="1.5" fill="none" stroke-dasharray="3 4">
+        <path d="M 290 200 Q 350 200 360 150"/>
+        <polygon points="360,150 358,160 368,158" fill="var(--accent)"/>
+      </g>
+
+      <!-- Success -->
+      <g transform="translate(620 110)">
+        <rect width="140" height="60" class="ill-warm" style="fill: oklch(0.92 0.10 150); stroke: oklch(0.55 0.18 150);"/>
+        <text x="70" y="25" class="ill-text-accent" text-anchor="middle" style="fill: oklch(0.40 0.18 150);">SUCCESS</text>
+        <text x="70" y="48" font-family="var(--mono)" font-size="11" fill="oklch(0.30 0.18 150)" text-anchor="middle">Done.</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -214,6 +260,58 @@
         <h3>注意：完璧ではない</h3>
         <p>複雑なバグ、設計レベルの問題、外部依存の不具合などはAIだけでは解決できない。「動いた＝正しい」とは限らないので、業務利用前のテストは人間の責任で。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">バグ <span class="en">Bug</span></div>
+      <p class="jargon-plain">プログラムの中の不具合・間違い。<span class="like">"レシピの中の誤字" のようなもの。それだけで料理が失敗する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">デバッグ <span class="en">Debug</span></div>
+      <p class="jargon-plain">バグを見つけて直す作業。プログラマーの仕事の大半。<span class="like">"なぜ料理が失敗したか" を、工程を遡って原因特定するのに似ている。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">エラーメッセージ <span class="en">Error Message</span></div>
+      <p class="jargon-plain">プログラムが動かないときに出てくる、原因のヒント文。<span class="like">"塩がありません" のような警告文。AIはこれを読んで自分で材料を取りに行ける。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">自律デバッグ <span class="en">Self-debugging</span></div>
+      <p class="jargon-plain">AIが出力結果を見て、自分でミスに気付いて直すこと。<span class="like">"煮込みが足りなかった" と気付いてもう5分火にかける、ベテランの調理感覚。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">自律デバッグループ</h3>
+      <p class="analogy-body">実行 → エラー検知 → 自己修正 → 再実行、を人手なしで回す。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"自分で味見する料理人"</h3>
+      <p class="analogy-body">出来上がりを味見して "甘さ足りない" と気付き、自分で砂糖を足す。<br>厨房に張り付いて指示する必要がなくなる。</p>
     </div>
   </div>
 </section>

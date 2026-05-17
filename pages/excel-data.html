@@ -81,6 +81,41 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <text x="180" y="30" class="ill-text" text-anchor="middle">自然言語の依頼</text>
+      <g transform="translate(40 50)">
+        <rect width="280" height="100" class="ill-soft"/>
+        <text x="20" y="40" class="ill-text-soft" style="font-family: var(--serif); font-size: 14px;">「都道府県ごとの</text>
+        <text x="20" y="65" class="ill-text-soft" style="font-family: var(--serif); font-size: 14px;">売上を出して、</text>
+        <text x="20" y="90" class="ill-text-soft" style="font-family: var(--serif); font-size: 14px;">トップ5を出して」</text>
+      </g>
+
+      <g transform="translate(350 90)">
+        <path d="M 0 10 L 60 10" class="ill-accent-fat"/>
+        <polygon points="60,5 70,10 60,15" class="ill-dot"/>
+        <text x="35" y="-5" class="ill-text-accent" text-anchor="middle">AI</text>
+      </g>
+
+      <text x="580" y="30" class="ill-text-accent" text-anchor="middle">関数 / マクロ</text>
+      <g transform="translate(440 50)" font-family="var(--mono)" font-size="12" fill="oklch(0.92 0.008 70)">
+        <rect width="320" height="100" fill="oklch(0.22 0.012 60)"/>
+        <text x="15" y="25" fill="oklch(0.75 0.10 35)">=PIVOTBY(</text>
+        <text x="30" y="45">  data[都道府県],</text>
+        <text x="30" y="65">  data[売上],</text>
+        <text x="30" y="85">  SUM, "売上降順")</text>
+      </g>
+
+      <text x="400" y="195" class="ill-text" text-anchor="middle">RESULT</text>
+      <g transform="translate(180 210)">
+        <rect width="440" height="50" class="ill-warm"/>
+        <text x="20" y="30" class="ill-text-soft" font-family="var(--mono)" font-size="12" style="fill: var(--ink);">東京: 12.4M  /  大阪: 8.9M  /  愛知: 6.2M  /  福岡: 4.8M  /  ...</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -213,6 +248,58 @@
         <h3>機密データはマスキングする</h3>
         <p>顧客名・金額の生データをそのまま貼らない。「顧客A、顧客B」「100、200」など、構造は保ったままダミーデータにして渡す。<a href="security.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">セキュリティ</a>の基本。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">関数 <span class="en">Function</span></div>
+      <p class="jargon-plain">Excelの「=SUM(A1:A10)」のような、決まった計算式。<span class="like">AIに「こういう集計をしたい」と日本語で伝えれば、関数を書いてくれる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">マクロ／VBA <span class="en">Macro / VBA</span></div>
+      <p class="jargon-plain">Excelで繰り返し作業を自動化する小さなプログラム。<span class="like">これまでは情シスや詳しい人しか書けなかったが、AIが代わりに書ける。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Python <span class="en">Python</span></div>
+      <p class="jargon-plain">今もっとも普及している、データ処理が得意なプログラミング言語。<span class="like">ExcelでもAIで扱える時代になり、ますます身近になっている。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">自然言語 <span class="en">Natural Language</span></div>
+      <p class="jargon-plain">人間の普通の話し言葉・書き言葉。<span class="like">"このシートで都道府県ごとの売上を出して" のような、普通の日本語のこと。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">自然言語からの関数／マクロ生成</h3>
+      <p class="analogy-body">"こうしたい" という日本語を、AIが式やコードに翻訳する。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">通訳が、専門家との会話を仲介する</h3>
+      <p class="analogy-body">"Excel関数語" や "VBA語" を話せなくても、日本語で頼めばAIが訳してくれる。<br>もう "詳しい同僚" の手が空くのを待たなくていい。</p>
     </div>
   </div>
 </section>

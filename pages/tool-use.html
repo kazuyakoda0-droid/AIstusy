@@ -97,6 +97,54 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Reasoning AI -->
+      <g transform="translate(40 80)">
+        <rect width="180" height="120" class="ill-warm"/>
+        <text x="90" y="30" class="ill-text-accent" text-anchor="middle">AI</text>
+        <text x="90" y="55" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink); font-size: 13px;">「今の天気は？」</text>
+        <text x="90" y="80" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">→ 天気APIを呼ぶ</text>
+        <text x="90" y="100" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">必要があると判断</text>
+      </g>
+
+      <!-- Function calls -->
+      <g transform="translate(250 60)">
+        <text x="0" y="0" class="ill-text">DECLARED TOOLS</text>
+        <g font-family="var(--mono)" font-size="11" fill="var(--ink)">
+          <rect x="0" y="15" width="220" height="30" class="ill-soft"/>
+          <text x="10" y="35" fill="var(--accent)" font-weight="700">get_weather(</text>
+          <text x="115" y="35">city)</text>
+
+          <rect x="0" y="55" width="220" height="30" class="ill-soft"/>
+          <text x="10" y="75" fill="var(--accent)" font-weight="700">send_email(</text>
+          <text x="105" y="75">to, body)</text>
+
+          <rect x="0" y="95" width="220" height="30" class="ill-soft"/>
+          <text x="10" y="115" fill="var(--accent)" font-weight="700">search_db(</text>
+          <text x="100" y="115">query)</text>
+
+          <rect x="0" y="135" width="220" height="30" class="ill-soft"/>
+          <text x="10" y="155" fill="var(--accent)" font-weight="700">calculate(</text>
+          <text x="95" y="155">expr)</text>
+        </g>
+      </g>
+
+      <!-- Selected tool highlighted -->
+      <g transform="translate(530 65)">
+        <text x="80" y="0" class="ill-text-accent" text-anchor="middle">AI が選ぶ</text>
+        <rect width="220" height="40" class="ill-warm"/>
+        <text x="110" y="25" class="ill-text-accent" text-anchor="middle">get_weather("Tokyo")</text>
+        <text x="110" y="70" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 10px;">↓ EXECUTE</text>
+        <rect y="90" width="220" height="50" fill="var(--ink)"/>
+        <text x="110" y="115" text-anchor="middle" fill="oklch(0.78 0.10 35)" font-family="var(--mono)" font-size="11">{ temp: 22, sky: "晴" }</text>
+        <text x="110" y="160" class="ill-text" text-anchor="middle">→ AI に結果が戻る</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -208,6 +256,58 @@
         <h3>コードを書いて実行する</h3>
         <p>run_python ツールを使わせると、「CSVを読み込んで集計したグラフを描いて」のような依頼に、自分でコードを書いて実行する。次回の「コーディングエージェント」につながる流れ。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">Tool Use <span class="en">Tool Use</span></div>
+      <p class="jargon-plain">AIが自分の判断で外部の道具（検索／計算機／DB）を呼び出して使う機能。<span class="like">"困ったら自分で調べて、必要ならExcelを開く" 行動できる新人。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Function Calling <span class="en">Function Calling</span></div>
+      <p class="jargon-plain">AIに対して "使える関数の一覧" を渡し、状況に応じて呼ばせる仕組み。<span class="like">料理人に "使える調理器具" の一覧を渡しておく。必要に応じて手に取る。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">MCP <span class="en">Model Context Protocol</span></div>
+      <p class="jargon-plain">AIと社内システムをつなぐための、業界共通の "コンセント形状" のような取り決め。<span class="like">USBの規格と同じ思想。みんなが同じ形にすれば、刺せば動く。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">コネクター <span class="en">Connector</span></div>
+      <p class="jargon-plain">GoogleカレンダーやSlackなど、外部サービスとAIをつなぐパーツ。<span class="like">AIに "Slackを使える権限" を渡す、その鍵束のようなもの。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">Tool Use ／ Function Calling</h3>
+      <p class="analogy-body">AIに "使ってよい道具" を渡し、状況に応じて自分で選ばせる仕組み。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"工具箱を持った職人"</h3>
+      <p class="analogy-body">"金づち" "ドライバー" "メジャー"……必要なときに自分で選ぶ。<br>これまでのAIは、口は達者でも、手ぶらで何もできなかった。</p>
     </div>
   </div>
 </section>

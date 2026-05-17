@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>承認ポイントの配置 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .gate-pipe {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; align-items: center;
+    gap: 8px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .gate-step {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair-strong);
+    padding: 12px 18px;
+    font-family: var(--mono); font-size: 15pt;
+    text-align: center;
+    min-width: 100px;
+  }
+  .gate-step.agent { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .gate-step.gate {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+    font-family: var(--serif); font-weight: 700;
+    padding: 12px 20px;
+    position: relative;
+  }
+  .gate-step.gate::before {
+    content: ""; position: absolute;
+    top: -8px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid oklch(0.78 0.10 35);
+  }
+  .gate-arrow {
+    color: var(--accent); font-family: var(--mono); font-size: 15pt;
+  }
+
+  .risk-matrix {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr 1fr;
+    background: var(--hair); gap: 1px;
+    border: 1px solid var(--hair);
+  }
+  .rm-cell {
+    background: var(--paper);
+    padding: 18px 16px;
+    font-size: 15pt;
+    line-height: 1.5;
+  }
+  .rm-head {
+    background: var(--ink); color: var(--paper);
+    font-family: var(--mono); letter-spacing: 0.1em;
+    font-size: 15pt; text-transform: uppercase;
+  }
+  .rm-axis {
+    background: var(--bg-alt);
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex; align-items: center;
+  }
+  .rm-cell.full { background: oklch(0.92 0.04 30); color: oklch(0.35 0.12 30); font-weight: 700; }
+  .rm-cell.spot { background: oklch(0.94 0.04 60); color: oklch(0.40 0.10 60); }
+  .rm-cell.auto { background: oklch(0.92 0.04 150); color: oklch(0.30 0.10 150); }
+
+  .scenarios {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .scen {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 28px;
+  }
+  .scen-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .scen h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.4; margin-bottom: 12px;
+  }
+  .scen .where {
+    margin: 16px 0;
+    padding: 12px 14px;
+    background: var(--bg-alt);
+    border-left: 2px solid var(--accent);
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--ink);
+  }
+  .scen .why { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-9">第9回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">承認ポイントの配置</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Pipeline 03 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 09 ／ 業務委譲</div>
+    <h1>承認ポイントの配置<br><em>人間の "ハンコ" を、どこに置くか。</em></h1>
+  </div>
+  <p class="hero-lede">
+    全自動が正解ではない。リスクが高い箇所だけに「人間の承認ゲート」を置き、それ以外はAIに任せる。"全部見る上司" は AI 化のボトルネックになる。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIに <em>"運転免許"</em> は与える。<br>でも、踏切と高速の合流だけは人間が見る。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>承認ゲートを差し込む — パイプラインの中の "人間の関所"</h2>
+      <p class="sub">エージェントが流れる中で、特定のポイントだけに人間チェックを置く。"全段で承認" にしないのがコツ。</p>
+    </div>
+  </div>
+
+  <div class="gate-pipe">
+    <div class="gate-step agent">A01 抽出</div>
+    <div class="gate-arrow">→</div>
+    <div class="gate-step agent">A02 照合</div>
+    <div class="gate-arrow">→</div>
+    <div class="gate-step agent">A03 判定</div>
+    <div class="gate-arrow">→</div>
+    <div class="gate-step gate">承認 Gate</div>
+    <div class="gate-arrow">→</div>
+    <div class="gate-step agent">A04 起票</div>
+    <div class="gate-arrow">→</div>
+    <div class="gate-step gate">最終 Gate</div>
+    <div class="gate-arrow">→</div>
+    <div class="gate-step agent">A05 通知</div>
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+    "判定" と "起票" の前後に人間ゲートを置く。それ以外は AI が自動で進む。承認ボタンを押すだけで、業務が完結する。
+  </p>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Matrix</div>
+    <div>
+      <h2>リスク×影響度で決める "ゲート密度"</h2>
+      <p class="sub">どこを人間が見るべきか／AIに任せていいかを、リスクマトリクスで仕分ける。</p>
+    </div>
+  </div>
+
+  <div class="risk-matrix">
+    <div class="rm-head"></div>
+    <div class="rm-head">影響度: 小</div>
+    <div class="rm-head">影響度: 中</div>
+    <div class="rm-head">影響度: 大</div>
+
+    <div class="rm-axis">頻度: 高</div>
+    <div class="rm-cell auto"><strong>AIに任せる</strong><br>例: 議事録要約、メール下書き</div>
+    <div class="rm-cell spot"><strong>抜き打ちレビュー</strong><br>例: 月次レポート集計</div>
+    <div class="rm-cell full"><strong>毎回承認</strong><br>例: 顧客向けの自動返信</div>
+
+    <div class="rm-axis">頻度: 中</div>
+    <div class="rm-cell auto"><strong>AIに任せる</strong><br>例: 社内検索の回答</div>
+    <div class="rm-cell spot"><strong>抜き打ちレビュー</strong><br>例: 経費仕分け</div>
+    <div class="rm-cell full"><strong>毎回承認</strong><br>例: 中規模契約の起票</div>
+
+    <div class="rm-axis">頻度: 低</div>
+    <div class="rm-cell spot"><strong>抜き打ちレビュー</strong><br>例: 年次レポート草稿</div>
+    <div class="rm-cell full"><strong>毎回承認</strong><br>例: 採用判定の素案</div>
+    <div class="rm-cell full"><strong>毎回承認＋第三者</strong><br>例: 法令・コンプラ判断</div>
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+    "影響度: 大" の列は、必ず人間ゲートを置く。"頻度: 高 × 影響度: 小" は迷わず自動化する。
+  </p>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Placement Rules</div>
+    <div>
+      <h2>ゲートを置くべき "4 つのポイント"</h2>
+      <p class="sub">パイプラインの中で、特に人間の判断が必要な瞬間はどこか。</p>
+    </div>
+  </div>
+
+  <div class="scenarios">
+    <div class="scen">
+      <div class="scen-tag">Where 01</div>
+      <h3>外部に出ていく直前</h3>
+      <div class="where">顧客・取引先・公的機関に送る "前" にゲート</div>
+      <p class="why">対外コミュニケーションは "出した瞬間に取り消せない"。AIが書いた送信文・契約書・申請書は、最後に人間が目を通す。</p>
+    </div>
+    <div class="scen">
+      <div class="scen-tag">Where 02</div>
+      <h3>金額・数量の閾値を超えた時</h3>
+      <div class="where">"100万円以上の発注" や "1000件超の顧客通知"</div>
+      <p class="why">分岐型パイプラインで、しきい値超過時のみ人間に渡る。普段はAIに任せ、重要時のみ人間が登場するハイブリッド設計。</p>
+    </div>
+    <div class="scen">
+      <div class="scen-tag">Where 03</div>
+      <h3>AIの "確信度" が低い時</h3>
+      <div class="where">AIが "不確か" と判定した結果に対する人間チェック</div>
+      <p class="why">AI自身に "迷ったか" を申告させる。確信度が一定以下なら、自動でエスカレーション。判断責任を人間に戻す。</p>
+    </div>
+    <div class="scen">
+      <div class="scen-tag">Where 04</div>
+      <h3>新規パターン・例外時</h3>
+      <div class="where">"これまでに見たことない形式の依頼" を検知</div>
+      <p class="why">AIの守備範囲外を、AI自身に判定させる。「これは私が処理してよいか？」と聞き返してくる仕組み。例外を扱うのは人間の役目。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  全自動は <em>"判断の放棄"</em>。<br>
+  自動化と承認のバランスこそ、AI時代の設計力。
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">承認ゲート <span class="en">Approval Gate</span></div>
+      <p class="jargon-plain">パイプラインの中に置く "人間チェックポイント"。ここを通らないと次に進めない。<span class="like">空港の出国審査。普段はAIに任せていても、ここだけは必ず人間（の役割）が確認する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">リスクマトリクス <span class="en">Risk Matrix</span></div>
+      <p class="jargon-plain">"頻度 × 影響度" の表で、どこに人間を入れるか整理する考え方。<span class="like">家事を "毎日やる事 × 失敗時の痛み" で仕分ける感覚。失敗が痛い家事は、AIに任せず自分でやる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">確信度（信頼度スコア）<span class="en">Confidence Score</span></div>
+      <p class="jargon-plain">AIが自分の出力に対して "どれくらい自信があるか" の数値。低い時はエスカレーション。<span class="like">"自信なさげな新人が、判断に困って "ちょっといいですか" と上司に聞きにくる" のと同じ仕組み。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">エスカレーション <span class="en">Escalation</span></div>
+      <p class="jargon-plain">"自分では決められない事を、上の人に渡す" こと。AIから人間への引き渡し。<span class="like">コールセンターの "お繋ぎいたします"。一次受けは AI、難しい案件は人間。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">抜き打ちレビュー <span class="en">Spot Audit</span></div>
+      <p class="jargon-plain">全件ではなく、ランダムにサンプルだけ人間が確認する方式。<span class="like">税務調査のような、一部だけ深く見るチェック方式。全件見なくても、品質をかなり担保できる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">フェイルセーフ <span class="en">Fail-safe</span></div>
+      <p class="jargon-plain">"何かおかしい" と検知したら、自動で止めて人間に渡す仕組み。<span class="like">エレベーターの非常停止ボタン。問題発生時、デフォルトで安全側に倒す設計。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">"全部見る" 上司は、業務のボトルネックになる。"重要な時だけ" 関わる上司の方が、組織は速く回る。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">承認ゲートの配置設計</h3>
+      <p class="analogy-body">AIパイプラインの中で、リスクの高い箇所にのみ人間の判断ポイントを差し込む設計手法。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"権限委譲が上手な上司"</h3>
+      <p class="analogy-body">小さい決裁は現場に任せ、自分は重要案件のハンコだけ押す。<br>"全部見たがる上司" は組織のボトルネック。<br>承認ゲートの設計も、まったく同じ知恵を AI 用に応用する作業。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="agent-pipeline.html">
+      <span class="dir">← Prev ／ Pipeline 02</span>
+      <span class="nxt">エージェント・パイプライン設計</span>
+    </a>
+    <a href="process-recovery.html" class="right">
+      <span class="dir">Next ／ Pipeline 04 →</span>
+      <span class="nxt">失敗時のリカバリー設計</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第9回 ／ 承認ポイントの配置</footer>
+</body>
+</html>

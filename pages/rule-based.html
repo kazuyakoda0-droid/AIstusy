@@ -82,6 +82,38 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <text x="80" y="55" class="ill-text">INPUT</text>
+      <rect x="40" y="70" width="120" height="50" class="ill-soft"/>
+      <text x="100" y="100" class="ill-text-soft" text-anchor="middle">mail.subject</text>
+
+      <path d="M 160 95 L 250 95" class="ill-accent"/>
+      <polygon points="200,75 240,95 200,115 160,95" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="200" y="99" class="ill-text-accent" text-anchor="middle">IF</text>
+
+      <path d="M 240 95 L 320 95" class="ill-accent"/>
+      <text x="280" y="88" class="ill-text-accent">YES</text>
+      <rect x="320" y="70" width="160" height="50" class="ill-warm"/>
+      <text x="400" y="100" class="ill-text-soft" text-anchor="middle" style="fill: var(--accent);">経理フォルダへ</text>
+
+      <path d="M 200 115 L 200 170" class="ill-accent ill-dash"/>
+      <text x="220" y="150" class="ill-text-accent">NO</text>
+      <polygon points="200,170 240,190 200,210 160,190" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="200" y="194" class="ill-text-accent" text-anchor="middle">IF</text>
+      <path d="M 240 190 L 320 190" class="ill-accent"/>
+      <rect x="320" y="165" width="160" height="50" class="ill-soft"/>
+      <text x="400" y="195" class="ill-text-soft" text-anchor="middle">顧客対応へ</text>
+
+      <path d="M 200 210 L 200 250" class="ill-accent ill-dash"/>
+      <path d="M 200 250 L 320 250" class="ill-accent ill-dash"/>
+      <rect x="320" y="230" width="160" height="40" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="400" y="255" class="ill-text-soft" text-anchor="middle">ELSE / 未分類</text>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -213,6 +245,58 @@
         <li>ルールが数千個になると保守不能</li>
         <li>「この写真は猫か犬か」のような問題に手も足も出ない</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">条件分岐 <span class="en">If-Then-Else</span></div>
+      <p class="jargon-plain">「もしAなら〇〇、そうでなければ△△」と進路が分かれる判断のかたち。<span class="like">フローチャートのひし形。Excelの IF 関数と同じ発想。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">アルゴリズム <span class="en">Algorithm</span></div>
+      <p class="jargon-plain">目的を達成するための「手順書」のこと。料理のレシピと同じで、順番が決まっている。<span class="like">味噌汁を作る手順を箇条書きにしたもの、と思えばよい。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">説明可能性 <span class="en">Explainability</span></div>
+      <p class="jargon-plain">「なぜそう判断したか」を人間が後から追えること。<span class="like">"件名に請求書があったから経理フォルダへ" と理由を1行で言える。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">例外処理 <span class="en">Edge Case</span></div>
+      <p class="jargon-plain">ルールから外れる、想定外のパターンへの対応。ルールベースが最も苦手とする領域。<span class="like">"紙幣が斜めに入った自動販売機" のような、決められた手順から外れる状況。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">ルールベース</h3>
+      <p class="analogy-body">人間が書いた条件分岐に忠実に従って判定する仕組み。早く正確だが、想定外の状況には対応できない。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">料理レシピをそのまま実行する</h3>
+      <p class="analogy-body">手順書の通りに進めれば、誰がやっても同じ味になる。<br>でも「冷蔵庫の余り物で何か作って」と言われた途端、手が止まる。</p>
     </div>
   </div>
 </section>

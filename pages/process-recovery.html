@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>失敗時のリカバリー設計 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .fail-modes {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--hair); border: 1px solid var(--hair);
+  }
+  .fm {
+    background: var(--paper); padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .fm-tag {
+    font-family: var(--mono); font-size: 15pt;
+    color: oklch(0.55 0.14 30);
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .fm h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.4;
+  }
+  .fm p {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  }
+  .fm-signal {
+    margin-top: 8px; padding: 12px 14px;
+    background: var(--bg-alt);
+    border-left: 2px solid var(--accent);
+    font-family: var(--mono); font-size: 15pt; color: var(--ink);
+  }
+
+  .recovery-flow {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    display: grid; gap: 14px;
+  }
+  .rf-row {
+    display: grid; grid-template-columns: 100px 1fr;
+    gap: 24px; align-items: center;
+  }
+  .rf-n {
+    background: var(--accent); color: var(--paper);
+    padding: 10px 14px;
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .rf-n.danger { background: oklch(0.55 0.14 30); }
+  .rf-n.human { background: var(--ink); }
+  .rf-body {
+    padding: 12px 16px;
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    font-size: 15pt; line-height: 1.8;
+  }
+  .rf-body strong { color: var(--ink); }
+
+  .strategies {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--hair); border: 1px solid var(--hair);
+  }
+  .strat {
+    background: var(--paper); padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .strat-tag {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .strat h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 20px; line-height: 1.4;
+  }
+  .strat p {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-9">第9回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">失敗時のリカバリー設計</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Pipeline 04 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 09 ／ 業務委譲</div>
+    <h1>失敗時のリカバリー設計<br><em>"AIが詰まった時" の作法。</em></h1>
+  </div>
+  <p class="hero-lede">
+    パイプラインは必ず詰まる。エージェントの誤判定・API障害・想定外の入力 — それらを検知して "安全に止める" "人間に渡す" 仕組みを、設計時から組み込む。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIに <em>"非常停止ボタン"</em> を与える。<br>困った時、勝手に判断させずに止まる勇気を組み込む。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>失敗パターンの 4 類型</h2>
+      <p class="sub">エージェントは "何故か動かない" だけではなく、いろいろな壊れ方をする。それぞれに対応設計が要る。</p>
+    </div>
+  </div>
+
+  <div class="fail-modes">
+    <div class="fm">
+      <div class="fm-tag">Failure 01</div>
+      <h3>ハルシネーション</h3>
+      <p>AIが "もっともらしいウソ" を出力する。一見正しく見えるので、最も検知が難しい。</p>
+      <div class="fm-signal">兆候: 出典が確認できない／数字が不自然／前段の入力に無い情報を勝手に追加</div>
+    </div>
+    <div class="fm">
+      <div class="fm-tag">Failure 02</div>
+      <h3>API／ツールの障害</h3>
+      <p>外部API・社内DB・RAGの検索系がエラーを返す、または応答しない。</p>
+      <div class="fm-signal">兆候: HTTPエラー・タイムアウト・空の応答が返る</div>
+    </div>
+    <div class="fm">
+      <div class="fm-tag">Failure 03</div>
+      <h3>想定外の入力</h3>
+      <p>"こういう仕様書は見たことない" "言語が違う" "添付がない"。AIが受け止めきれない入力。</p>
+      <div class="fm-signal">兆候: 出力スキーマに合わない／必須フィールドが空／確信度が極端に低い</div>
+    </div>
+    <div class="fm">
+      <div class="fm-tag">Failure 04</div>
+      <h3>暴走 ／ ループ</h3>
+      <p>批評ループが終わらない、エージェント同士が無限に応酬する。コストが青天井になる。</p>
+      <div class="fm-signal">兆候: 反復回数が上限到達／同じやり取りの繰り返し／実行時間が想定の N 倍</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>標準リカバリーフロー</h2>
+      <p class="sub">失敗を検知したら、いきなり止めずに段階的に対処する。最後は必ず "人間に渡す" 経路を用意。</p>
+    </div>
+  </div>
+
+  <div class="recovery-flow">
+    <div class="rf-row">
+      <div class="rf-n">Step 01</div>
+      <div class="rf-body"><strong>検知</strong> ／ 失敗の兆候（エラー・低確信・スキーマ違反）を、各エージェントが自己申告する仕組み。</div>
+    </div>
+    <div class="rf-row">
+      <div class="rf-n">Step 02</div>
+      <div class="rf-body"><strong>リトライ</strong> ／ 一時的な障害（API timeout 等）は、回数上限付きで自動再実行。指数バックオフで間隔を空ける。</div>
+    </div>
+    <div class="rf-row">
+      <div class="rf-n">Step 03</div>
+      <div class="rf-body"><strong>フォールバック</strong> ／ "代替の動作" に切り替える。例: 高機能AIがダメな時は簡易AIへ／RAGが落ちた時は固定回答へ。</div>
+    </div>
+    <div class="rf-row">
+      <div class="rf-n danger">Step 04</div>
+      <div class="rf-body"><strong>緊急停止</strong> ／ それでも復旧しなければ、パイプラインを止める。残作業はキューに溜める（消失させない）。</div>
+    </div>
+    <div class="rf-row">
+      <div class="rf-n human">Step 05</div>
+      <div class="rf-body"><strong>人間へ渡す</strong> ／ 担当者に Slack / メールで通知。"何が、なぜ、どこで詰まったか" のレポート付き。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Strategies</div>
+    <div>
+      <h2>3 つの基本戦略 — リトライ / フォールバック / 隔離</h2>
+      <p class="sub">どの失敗にどの対処を割り当てるか。組み合わせて使う。</p>
+    </div>
+  </div>
+
+  <div class="strategies">
+    <div class="strat">
+      <div class="strat-tag">Strategy 01</div>
+      <h3>リトライ ／ Retry</h3>
+      <p>"一時的に詰まっただけ" の可能性が高い時に使う。最大3回までなど、上限を必ず設定する。間隔は指数的に伸ばす（1秒→2秒→4秒）。</p>
+    </div>
+    <div class="strat">
+      <div class="strat-tag">Strategy 02</div>
+      <h3>フォールバック ／ Fallback</h3>
+      <p>"より単純な動作" に切り替える。例: 高精度AI → 簡易AI、AI判定 → ルールベース、自動応答 → 定型文。質は落ちても "止まらない" を優先。</p>
+    </div>
+    <div class="strat">
+      <div class="strat-tag">Strategy 03</div>
+      <h3>隔離 ／ Quarantine</h3>
+      <p>"原因不明だが何かおかしい" 案件を、別のキューに退避させる。残りの処理は止めない。問題案件だけ後で人間がレビュー。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Anti-pattern</div>
+    <div>
+      <h2>やってはいけない "黙って失敗" パターン</h2>
+      <p class="sub">設計上、最悪なのは "エラーがログにすら残らず、知らないうちに業務が止まっていた" こと。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">Anti-pattern</div>
+      <div class="compare-title">サイレントエラー</div>
+      <ul class="compare-points">
+        <li>失敗を無視して次に進む</li>
+        <li>ログを残さない／通知しない</li>
+        <li>"何もしない" を成功扱いする</li>
+        <li>後から "あれ、3週間動いてなかった?" となる</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">Good design</div>
+      <div class="compare-title">"うるさい失敗" を設計する</div>
+      <ul class="compare-points">
+        <li>失敗時は派手に通知</li>
+        <li>すべての段階でログを残す</li>
+        <li>"処理しなかった件数" を可視化</li>
+        <li>"うまく動いている" 自体を毎日 KPI で確認</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AI業務は <em>"動く時"</em> ではなく <em>"止まる時"</em> の設計で品質が決まる。<br>
+  止まり方が綺麗な仕組みは、結果として動き続ける。
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">リトライ <span class="en">Retry</span></div>
+      <p class="jargon-plain">失敗した処理を、自動で何度かやり直すこと。<span class="like">Wi-Fi 接続が切れた時に、自動で何度か再接続を試みる仕組み。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">フォールバック <span class="en">Fallback</span></div>
+      <p class="jargon-plain">本命の処理がダメな時の "代替プラン"。質は落ちても止まらない事を優先。<span class="like">電子決済が使えない店で、現金払いに切り替える。"完璧" より "止まらないこと" を取る発想。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">指数バックオフ <span class="en">Exponential Backoff</span></div>
+      <p class="jargon-plain">リトライ間隔を 1秒、2秒、4秒、8秒…と徐々に長くする方式。<span class="like">「3秒後にお試しください」→「1分後に試してください」と、徐々に間を空ける配慮。サーバを過負荷にしない作法。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">サイレントエラー <span class="en">Silent Failure</span></div>
+      <p class="jargon-plain">失敗が起きてもログにも通知にも残らず、誰にも気付かれない事故。<span class="like">"郵便が届いてなかったが、誰も気付かなかった" 状態。最も発見が遅れる、最悪のパターン。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">サーキットブレーカー <span class="en">Circuit Breaker</span></div>
+      <p class="jargon-plain">"何度も失敗してる" と判定したら、自動でその処理を停止して人間に渡す仕組み。<span class="like">家のブレーカーと同じ。一定以上の異常を検知したら、強制的に電気を落として安全側に倒す。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">キュー <span class="en">Queue</span></div>
+      <p class="jargon-plain">未処理の作業を貯めておく "待機列"。AI失敗時も作業を消失させずに保管する。<span class="like">レジの行列。混雑時は並んで待つだけで、注文自体は忘れられない仕組み。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">"うまく動いている時" より "止まる時" の設計が、システムの信頼性を決める。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">リカバリー設計</h3>
+      <p class="analogy-body">パイプラインの失敗を検知・処理・通知する仕組み。リトライ、フォールバック、隔離、エスカレーションを組み合わせる。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"飛行機の非常時マニュアル"</h3>
+      <p class="analogy-body">墜落させないために、徹底的に練られた対処手順。<br>① 異常検知 → ② 自動修正試行 → ③ 代替経路 → ④ 緊急着陸 → ⑤ 機長判断。<br>AIシステムも、同じ思想で "止まり方の設計" をする。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="approval-gates.html">
+      <span class="dir">← Prev ／ Pipeline 03</span>
+      <span class="nxt">承認ポイントの配置</span>
+    </a>
+    <a href="../index.html#session-10" class="right">
+      <span class="dir">Next ／ Session 10 →</span>
+      <span class="nxt">ガバナンスとAIディレクター</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第9回 ／ 失敗時のリカバリー設計</footer>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>エージェントの役割設計 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .roles-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--hair); border: 1px solid var(--hair);
+  }
+  .role-card {
+    background: var(--paper); padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .role-card.orch { background: var(--accent-soft); border-left: 3px solid var(--accent); }
+  .role-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .role-name {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.35; color: var(--ink);
+  }
+  .role-desc { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .role-skills {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 8px;
+  }
+  .role-skills span {
+    font-family: var(--mono); font-size: 15pt;
+    padding: 4px 10px;
+    background: var(--bg-alt); border: 1px solid var(--hair-strong);
+    color: var(--ink);
+  }
+
+  .topology {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 48px;
+    display: grid; gap: 20px;
+  }
+  .top-row {
+    display: flex; justify-content: center; gap: 16px;
+  }
+  .top-node {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 16px 22px;
+    font-family: var(--serif); font-size: 15pt;
+    color: var(--ink);
+    min-width: 160px; text-align: center;
+  }
+  .top-node.orch {
+    background: var(--accent); color: var(--paper);
+    border-color: var(--accent);
+    font-family: var(--mono); letter-spacing: 0.1em;
+    font-size: 15pt; text-transform: uppercase;
+  }
+  .top-edge {
+    height: 24px; width: 1px;
+    background: var(--accent);
+    margin: 0 auto;
+  }
+
+  .bad-good {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .bad-good-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 28px;
+  }
+  .bg-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em;
+    color: var(--muted); text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .bad-good-card.bad { border-top: 3px solid oklch(0.6 0.14 30); }
+  .bad-good-card.good { border-top: 3px solid var(--accent); background: var(--accent-soft); }
+  .bad-good-card.bad .bg-tag { color: oklch(0.55 0.14 30); }
+  .bad-good-card.good .bg-tag { color: var(--accent); }
+  .bg-h {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 18px; margin-bottom: 12px;
+  }
+  .bg-body { font-size: 15pt; line-height: 1.8; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-8">第8回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">エージェントの役割設計</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Team 02 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 08 ／ エージェントチーム</div>
+    <h1>エージェントの役割設計<br><em>誰に、何を、どう任せるか。</em></h1>
+  </div>
+  <p class="hero-lede">
+    マルチエージェントは「賢いAIを並べる」だけでは機能しない。プロジェクトチームと同じく、指揮役・専門家・批評家・実行係 — 役割と責任の分担設計が成果を決める。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIに <em>"組織図"</em> を渡す。<br>誰が決め、誰が動き、誰が突っ込む役か。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>主要な4つの役割</h2>
+      <p class="sub">役割を分けると、それぞれが自分の責務に集中できる。1つのAIに全部詰め込むと、結局どれも中途半端になる。</p>
+    </div>
+  </div>
+
+  <div class="roles-grid">
+    <div class="role-card orch">
+      <div class="role-tag">Role 01</div>
+      <div class="role-name">オーケストレーター ／ 指揮役</div>
+      <p class="role-desc">タスクを受け取り、必要な専門家エージェントに分割・分配する。最終的に成果物を取りまとめる "PM" 的存在。チームに必ず1人いる。</p>
+      <div class="role-skills">
+        <span>タスク分解</span><span>進行管理</span><span>取りまとめ</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-tag">Role 02</div>
+      <div class="role-name">専門家 ／ Specialist</div>
+      <p class="role-desc">特定の領域（法務／財務／設計／顧客対応 など）に特化したエージェント。RAGや専用ツールを与え、深い知識で回答させる。</p>
+      <div class="role-skills">
+        <span>RAG接続</span><span>専門用語</span><span>1領域に集中</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-tag">Role 03</div>
+      <div class="role-name">批評家 ／ Critic</div>
+      <p class="role-desc">他のエージェントの出力に「異論」「反例」「リスク」を提示する役割。あえて懐疑的・批判的に振る舞わせる。盲点の早期発見に効く。</p>
+      <div class="role-skills">
+        <span>逆張り</span><span>リスク提示</span><span>検証</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <div class="role-tag">Role 04</div>
+      <div class="role-name">実行係 ／ Executor</div>
+      <p class="role-desc">決まった手順を、ツール（API・DB・メーラー等）を使って実行するエージェント。考えるより手を動かす役割。</p>
+      <div class="role-skills">
+        <span>Tool Use</span><span>API実行</span><span>定型処理</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>階層型トポロジー — 指揮役を頂点に置く</h2>
+      <p class="sub">複数の専門家を横並びに置き、上位のオーケストレーターが分配・統合する設計。組織図と同じ発想。</p>
+    </div>
+  </div>
+
+  <div class="topology">
+    <div class="top-row">
+      <div class="top-node orch">Orchestrator</div>
+    </div>
+    <div class="top-edge"></div>
+    <div class="top-row">
+      <div class="top-node">法務</div>
+      <div class="top-node">財務</div>
+      <div class="top-node">設計</div>
+      <div class="top-node">顧客対応</div>
+    </div>
+    <div class="top-edge"></div>
+    <div class="top-row">
+      <div class="top-node" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.1em;">Critic ／ 批評役（横断レビュー）</div>
+    </div>
+    <p style="margin-top: 16px; font-size: 15pt; color: var(--ink-soft); text-align: center;">
+      指揮役が依頼を分解 → 専門家が並列処理 → 批評役が横串で品質チェック → 統合して人間に返す。
+    </p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Pattern</div>
+    <div>
+      <h2>設計のアンチパターン／グッドパターン</h2>
+      <p class="sub">役割設計の失敗例は、人間のチームでも見覚えがある。逆もまた然り。</p>
+    </div>
+  </div>
+
+  <div class="bad-good">
+    <div class="bad-good-card bad">
+      <div class="bg-tag">Anti-pattern</div>
+      <div class="bg-h">"全能の天才"を1人作る</div>
+      <p class="bg-body">"営業も法務も技術も全部わかる"プロンプトに詰め込む。結果、どの専門性も中途半端で、ハルシネーションが増える。プロンプトが2000文字を超え始めたら危険信号。</p>
+    </div>
+    <div class="bad-good-card good">
+      <div class="bg-tag">Good design</div>
+      <div class="bg-h">3〜5体に分割、責務を1つに絞る</div>
+      <p class="bg-body">「あなたは法務担当です」「あなたは数字だけ見てください」と役割を狭く・深く切る。複雑な業務ほど、AIチームの構成員数も増える。</p>
+    </div>
+    <div class="bad-good-card bad">
+      <div class="bg-tag">Anti-pattern</div>
+      <div class="bg-h">指揮役なしのフラット構造</div>
+      <p class="bg-body">専門家3体が "それぞれ" 出力して終わり。誰も統合せず、3つのバラバラな答えが人間の机に届く。結局、人間が "PM 作業" をやることになる。</p>
+    </div>
+    <div class="bad-good-card good">
+      <div class="bg-tag">Good design</div>
+      <div class="bg-h">必ずオーケストレーターを置く</div>
+      <p class="bg-body">分配・統合・要約までを1体に任せる。人間が受け取るのは「1つの答え＋判断材料」だけ。判断と承認に集中できる。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">オーケストレーター <span class="en">Orchestrator</span></div>
+      <p class="jargon-plain">マルチエージェントの "指揮役"。タスクを切り分け、誰に振るか決め、最後にまとめる役。<span class="like">プロジェクトマネージャー（PM）。自分は手を動かさないが、進行と品質を担保する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">スペシャリスト <span class="en">Specialist Agent</span></div>
+      <p class="jargon-plain">特定領域（法務・財務・技術など）に特化したエージェント。<span class="like">"うちの顧問弁護士"。何でも屋に法律相談するより、専門家1人に聞いた方が早い。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">批評家 <span class="en">Critic Agent</span></div>
+      <p class="jargon-plain">あえて批判・反論する役を担うエージェント。盲点を炙り出す。<span class="like">プレゼン後の "ちょっといいですか" タイプの上司を、意図的に席に置く。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">実行係 <span class="en">Executor</span></div>
+      <p class="jargon-plain">考えるより手を動かすエージェント。決まった手順をツールで実行する。<span class="like">"作業オペレーター"。考案より実装に専念する役割。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">役割定義（システムプロンプト）<span class="en">System Prompt</span></div>
+      <p class="jargon-plain">各エージェントに最初に渡す "あなたは〇〇です" の指示文。AIの人格と振る舞いを決める。<span class="like">新入社員に渡す配属辞令＋業務マニュアル。これで振る舞いの基調が決まる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">階層型／フラット型トポロジー <span class="en">Hierarchical / Flat Topology</span></div>
+      <p class="jargon-plain">エージェント同士の繋がり方の "組織構造"。階層型は指揮系統あり、フラット型は対等。<span class="like">ピラミッド型の会社 ⇔ ホラクラシー（自律分散）型の会社、と同じ違い。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">役割分担の発想は、人間の組織で何百年もかけて磨かれてきた知恵。AIチームでも同じ。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">エージェントの役割設計</h3>
+      <p class="analogy-body">複数のAIに、それぞれ専門・責務・出力フォーマットを定義し、組み合わせる設計作業。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"プロジェクトの座組を考える" 作業</h3>
+      <p class="analogy-body">PM・営業・エンジニア・デザイナー — 誰を呼ぶか、誰がリードするか、誰が突っ込む役か。<br>これをAIチームに対しても、人間が "監督" として行う。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="multi-agent.html">
+      <span class="dir">← Prev ／ Team 01</span>
+      <span class="nxt">マルチエージェントシステムとは</span>
+    </a>
+    <a href="ai-board.html" class="right">
+      <span class="dir">Next ／ Team 03 →</span>
+      <span class="nxt">AIの壁打ち・ボードメンバー化</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第8回 ／ エージェントの役割設計</footer>
+</body>
+</html>

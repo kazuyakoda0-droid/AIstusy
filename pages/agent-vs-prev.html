@@ -93,6 +93,47 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Chatbot side: receptionist -->
+      <g transform="translate(40 50)">
+        <text x="160" y="0" class="ill-text" text-anchor="middle">RECEPTIONIST / 受付係</text>
+        <rect width="320" height="200" class="ill-soft"/>
+        <!-- Speech bubble Q -->
+        <rect x="20" y="30" width="160" height="40" class="ill-warm"/>
+        <text x="100" y="55" text-anchor="middle" font-family="var(--serif)" font-size="12" fill="var(--ink)">「営業時間は？」</text>
+        <!-- Reply -->
+        <rect x="140" y="90" width="160" height="40" fill="var(--ink)"/>
+        <text x="220" y="115" text-anchor="middle" font-family="var(--serif)" font-size="12" fill="var(--paper)">「9時〜17時です」</text>
+        <text x="160" y="170" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--muted)">一問一答 / 反応のみ</text>
+      </g>
+
+      <!-- Vs arrow -->
+      <g transform="translate(390 145)">
+        <path d="M 0 0 L 20 0" class="ill-accent"/>
+        <polygon points="20,-5 30,0 20,5" class="ill-dot"/>
+        <text x="15" y="-20" class="ill-text-accent" text-anchor="middle">EVOLVE</text>
+      </g>
+
+      <!-- Agent side: autonomous assistant -->
+      <g transform="translate(430 50)">
+        <text x="160" y="0" class="ill-text-accent" text-anchor="middle">ASSISTANT / 段取り役</text>
+        <rect width="320" height="200" class="ill-warm"/>
+        <text x="20" y="35" class="ill-text-accent">GOAL:</text>
+        <text x="65" y="35" font-family="var(--serif)" font-size="13" fill="var(--ink)" font-weight="700">「打ち合わせ調整しといて」</text>
+        <g transform="translate(20 60)" font-family="var(--serif)" font-size="12" fill="var(--ink)">
+          <text x="0" y="14">1. 空き枠を全員カレンダーで確認</text>
+          <text x="0" y="38">2. 相手にメール送信</text>
+          <text x="0" y="62">3. 返答に応じて時間調整</text>
+          <text x="0" y="86">4. 確定したら全員のカレンダーに登録</text>
+          <text x="0" y="110" fill="var(--accent)" font-weight="700">5. 完了報告 →</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -213,6 +254,58 @@
         <h3>"中間の確認" を組み込む</h3>
         <p>全部任せて最後に開けたら全然違う、を防ぐ。「計画ができたら見せて」「途中経過を報告して」など、要所で人間が介入する設計を。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">チャットボット <span class="en">Chatbot</span></div>
+      <p class="jargon-plain">1回の質問に1回答える、一問一答の対話型AI。<span class="like">案内デスクの受付係。聞かれたことに答えるのが仕事。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">エージェント <span class="en">Agent</span></div>
+      <p class="jargon-plain">目標を渡せば、自分で手順を組み立てて動くAI。<span class="like">"営業活動お願い" でリスト作成→アポ取り→報告まで自走する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">スコープ <span class="en">Scope</span></div>
+      <p class="jargon-plain">"どこからどこまでAIに任せるか" の範囲。<span class="like">"資料の下書き" だけか、"資料公開まで" か。任せ方の幅。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ステートフル <span class="en">Stateful</span></div>
+      <p class="jargon-plain">前のやり取りや状況を覚えていること。<span class="like">"先週話した件、進めといて" が通じる相手かどうか。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">チャットAI → エージェントAI</h3>
+      <p class="analogy-body">"質問に答える存在" から、"仕事を任せる存在" への進化。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">受付係 → アシスタント</h3>
+      <p class="analogy-body">受付係は質問に答えるだけ。<br>アシスタントは "出張の手配" を、空き枠調べる→チケット予約→経費申請まで、勝手にやる。</p>
     </div>
   </div>
 </section>

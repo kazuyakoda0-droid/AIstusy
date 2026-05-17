@@ -80,6 +80,43 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Central idea node + branches -->
+      <circle cx="400" cy="140" r="40" class="ill-warm"/>
+      <text x="400" y="145" class="ill-text-accent" text-anchor="middle">CORE IDEA</text>
+
+      <g stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 3" fill="none">
+        <line x1="380" y1="115" x2="240" y2="60"/>
+        <line x1="370" y1="130" x2="180" y2="120"/>
+        <line x1="380" y1="160" x2="220" y2="220"/>
+        <line x1="420" y1="115" x2="580" y2="50"/>
+        <line x1="430" y1="135" x2="620" y2="120"/>
+        <line x1="420" y1="160" x2="580" y2="220"/>
+      </g>
+
+      <g font-family="var(--serif)" font-size="13" fill="var(--ink)" text-anchor="middle">
+        <rect x="160" y="40" width="160" height="40" class="ill-soft"/>
+        <text x="240" y="65">ターゲットを絞る？</text>
+        <rect x="100" y="100" width="160" height="40" class="ill-soft"/>
+        <text x="180" y="125">価格の前提を変える</text>
+        <rect x="140" y="200" width="160" height="40" class="ill-soft"/>
+        <text x="220" y="225">既存資産を再利用</text>
+
+        <rect x="500" y="30" width="160" height="40" class="ill-warm"/>
+        <text x="580" y="55" style="fill: var(--accent); font-weight: 700;">サブスク化</text>
+        <rect x="540" y="100" width="160" height="40" class="ill-soft"/>
+        <text x="620" y="125">パートナー巻き込む</text>
+        <rect x="500" y="200" width="160" height="40" class="ill-soft"/>
+        <text x="580" y="225">逆引きで設計</text>
+      </g>
+
+      <text x="400" y="270" class="ill-text" text-anchor="middle">AI壁打ち → 発散 → 収束</text>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -200,6 +237,58 @@
         <h3>質問でファシリテートさせる</h3>
         <p>「私に5つ質問してください。一つずつ答えるので、最後にまとめてください。テーマは○○です。」<br>→ AIが取材者・ファシリテーターとして、思考を整理してくれる。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">壁打ち <span class="en">Sparring / Bouncing Ideas</span></div>
+      <p class="jargon-plain">相手に話しながら、自分の考えを整理していくこと。<span class="like">ホワイトボードの前で同僚に話しながら考えがまとまる、あの感覚。AIが相手になる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">発散と収束 <span class="en">Divergence / Convergence</span></div>
+      <p class="jargon-plain">アイデア出しの2段階。たくさん出す→絞り込む、を繰り返す。<span class="like">"とにかく100個出す" → "上位3つを深掘り" のリズム。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">認知バイアス <span class="en">Cognitive Bias</span></div>
+      <p class="jargon-plain">人間が無意識に陥る思考の偏り。AIに代わりに指摘させると気付ける。<span class="like">"前例があるからこれでいい" "上司が好きそうな案" など、無自覚な思い込み。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">逆引きプロンプト <span class="en">Reverse Prompting</span></div>
+      <p class="jargon-plain">"あなたから私に質問して" とAIに会話を主導させる手法。<span class="like">考えがぼんやりしているとき、AIに質問させて自分の頭の中を整理する。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AI壁打ち／ブレスト</h3>
+      <p class="analogy-body">対話を通じて自分の思考の解像度を上げる作業のAI化。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">気軽に話せる、博識な同僚</h3>
+      <p class="analogy-body">時間も気にせず、何度脱線してもOK。<br>"ちょっと相談いいですか" の心理的ハードルがゼロの相手。</p>
     </div>
   </div>
 </section>

@@ -139,6 +139,49 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Past: chat -->
+      <text x="140" y="30" class="ill-text" text-anchor="middle">CHATBOT ／ これまで</text>
+      <g transform="translate(40 50)">
+        <rect width="200" height="40" class="ill-soft"/>
+        <text x="100" y="25" class="ill-text-soft" text-anchor="middle">「○○って何？」</text>
+      </g>
+      <g transform="translate(40 100)">
+        <rect width="200" height="40" class="ill-warm"/>
+        <text x="100" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--accent);">「○○とは…です」</text>
+      </g>
+      <text x="140" y="180" class="ill-text-soft" text-anchor="middle" style="font-size: 11px; fill: var(--muted);">→ 一問一答</text>
+
+      <!-- Arrow forward -->
+      <g transform="translate(300 130)">
+        <path d="M 0 10 L 80 10" class="ill-accent-fat"/>
+        <polygon points="80,5 90,10 80,15" class="ill-dot"/>
+      </g>
+
+      <!-- Future: agent with autonomy -->
+      <text x="600" y="30" class="ill-text-accent" text-anchor="middle">AGENT ／ これから</text>
+      <rect x="450" y="50" width="300" height="200" class="ill-warm"/>
+      <text x="465" y="75" class="ill-text-accent">GOAL: 出張準備</text>
+      <g transform="translate(465 90)" font-family="var(--serif)" font-size="12" fill="var(--ink)">
+        <circle cx="6" cy="20" r="3" class="ill-dot"/>
+        <text x="20" y="24">空き枠を確認</text>
+        <circle cx="6" cy="45" r="3" class="ill-dot"/>
+        <text x="20" y="49">航空券を予約</text>
+        <circle cx="6" cy="70" r="3" class="ill-dot"/>
+        <text x="20" y="74">ホテルを取る</text>
+        <circle cx="6" cy="95" r="3" class="ill-dot"/>
+        <text x="20" y="99">経費を申請</text>
+        <circle cx="6" cy="120" r="3" class="ill-dot"/>
+        <text x="20" y="124">スケジュール登録</text>
+        <circle cx="6" cy="145" r="3" class="ill-dim"/>
+        <text x="20" y="149" style="fill: var(--muted);">完了報告 →</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -291,6 +334,58 @@
         <li>重要な判断と承認に集中する</li>
         <li>結果に対して責任を持つ</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">AIエージェント <span class="en">AI Agent</span></div>
+      <p class="jargon-plain">人の細かい指示を待たず、目標を与えれば自分で計画して動くAI。<span class="like">"出張の手配やっといて" で完結する自律型アシスタント。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">自律性 <span class="en">Autonomy</span></div>
+      <p class="jargon-plain">次に何をすべきかをAI自身が決められる度合い。<span class="like">"言われたことだけやる派遣"  ⇔  "目的を聞いて段取りまで考える正社員" のグラデーション。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ツール利用 <span class="en">Tool Use</span></div>
+      <p class="jargon-plain">AIが必要に応じて、Web検索・計算機・社内DBなどを自分で呼び出す機能。<span class="like">困ったら自分でググったり、Excel開いたりする、行動できる新人。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">オーケストレーション <span class="en">Orchestration</span></div>
+      <p class="jargon-plain">複数のAI／ツールを順序立てて動かす指揮の仕組み。<span class="like">プロジェクトマネージャー。誰が何をするか、いつ何が出来上がるかを管理する役割。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">チャットボットからエージェントへ</h3>
+      <p class="analogy-body">一問一答の "相談相手" から、業務を任せる "部下" への進化。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">受付係 → アシスタント</h3>
+      <p class="analogy-body">受付係は質問に答えるだけ。<br>アシスタントは「打ち合わせ調整しといて」で、空き枠を見て、相手にメールし、カレンダーに登録するところまでやる。</p>
     </div>
   </div>
 </section>

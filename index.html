@@ -42,13 +42,20 @@
 
   /* ============== TOP NAV ============== */
   .topnav {
-    position: sticky; top: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: color-mix(in oklch, var(--bg) 92%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--hair);
+    opacity: 0; pointer-events: none;
+    transform: translateY(-100%);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .topnav.show {
+    opacity: 1; pointer-events: auto;
+    transform: translateY(0);
   }
   .topnav-inner {
-    max-width: 1280px; margin: 0 auto;
+    max-width: min(1680px, 92vw); margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 32px;
   }
@@ -77,7 +84,7 @@
 
   /* ============== HERO ============== */
   .hero {
-    max-width: 1280px; margin: 0 auto;
+    max-width: min(1680px, 92vw); margin: 0 auto;
     padding: 96px 32px 64px;
     display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
     align-items: end;
@@ -142,7 +149,7 @@
     padding: 96px 0;
   }
   .bigidea-inner {
-    max-width: 1280px; margin: 0 auto; padding: 0 32px;
+    max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
   }
   .bigidea-label {
     font-family: var(--mono); font-size: 15pt; letter-spacing: 0.18em;
@@ -175,7 +182,7 @@
 
   /* ============== ROADMAP ============== */
   .roadmap {
-    max-width: 1280px; margin: 0 auto;
+    max-width: min(1680px, 92vw); margin: 0 auto;
     padding: 120px 32px 80px;
   }
   .section-head {
@@ -247,7 +254,7 @@
   }
   .chapter:nth-of-type(even) { background: var(--bg-alt); }
   .chapter-inner {
-    max-width: 1280px; margin: 0 auto; padding: 0 32px;
+    max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
   }
   .ch-banner {
     display: grid; grid-template-columns: 200px 1fr;
@@ -503,7 +510,7 @@
     padding: 120px 0;
   }
   .closing-inner {
-    max-width: 1280px; margin: 0 auto; padding: 0 32px;
+    max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
     display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
   }
   .closing-eyebrow {
@@ -554,6 +561,778 @@
     border-top: 1px solid var(--hair);
   }
 
+  /* ============== CINEMATIC INTRO ============== */
+  .cinema { position: relative; }
+  .scene-wrap { position: relative; }
+  .scene-wrap.tall-2 { height: 200vh; }
+  .scene-wrap.tall-3 { height: 300vh; }
+  .scene-wrap.tall-4 { height: 400vh; }
+  .scene {
+    position: sticky; top: 0;
+    height: 100vh; width: 100%;
+    display: grid; place-items: center;
+    overflow: hidden;
+  }
+
+  /* progress indicator */
+  .scroll-prog {
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 0%;
+    background: var(--accent);
+    z-index: 200; transition: width 0.05s linear;
+  }
+  .scene-counter {
+    position: fixed; top: 50%; right: 32px;
+    transform: translateY(-50%);
+    z-index: 150;
+    display: flex; flex-direction: column; gap: 14px;
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .scene-counter.show { opacity: 1; }
+  .scene-counter .dot {
+    width: 8px; height: 8px;
+    background: var(--hair-strong);
+    border-radius: 50%;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .scene-counter .dot.on {
+    background: var(--accent);
+    transform: scale(1.6);
+  }
+
+  /* ===== Scene 1: Cold Open / Title ===== */
+  .scene-hero {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .scene-hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(1200px 600px at 80% 20%, oklch(0.28 0.08 35 / 0.5), transparent 60%),
+      radial-gradient(900px 700px at 20% 80%, oklch(0.27 0.06 60 / 0.4), transparent 60%);
+    opacity: calc(0.5 + var(--p, 0) * 0.5);
+    transition: opacity 0.3s;
+  }
+  .scene-hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(oklch(0.99 0.005 85 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.99 0.005 85 / 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    transform: translateY(calc(var(--p, 0) * -40px));
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .scene-hero .inner {
+    position: relative; z-index: 2;
+    max-width: 1280px; padding: 0 48px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    /* parallax / exit motion driven by scroll */
+    opacity: calc(max(0, 1 - max(0, var(--p, 0) - 0.5) * 2.2));
+    transform: translateY(calc(var(--p, 0) * -80px));
+  }
+  .scene-hero .eyebrow {
+    font-family: var(--mono); font-size: 14px;
+    letter-spacing: 0.24em; color: oklch(0.78 0.10 35);
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .scene-hero .eyebrow::before {
+    content: ""; width: 40px; height: 1px;
+    background: oklch(0.78 0.10 35);
+  }
+  .scene-hero h1 {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(48px, 7.5vw, 120px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .scene-hero h1 .word {
+    display: inline-block;
+  }
+  .scene-hero h1 .accent { color: oklch(0.78 0.10 35); }
+  .scene-hero .sub {
+    font-family: var(--serif); font-size: 18px;
+    line-height: 1.85; max-width: 640px;
+    color: oklch(0.85 0.008 70);
+  }
+  .scene-hero .scroll-cue {
+    position: absolute; bottom: 48px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.24em; color: oklch(0.78 0.10 35);
+    text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    opacity: calc(max(0, 1 - var(--p, 0) * 3));
+  }
+  .scene-hero .scroll-cue .line {
+    width: 1px; height: 40px;
+    background: linear-gradient(180deg, transparent, oklch(0.78 0.10 35));
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(1); opacity: 0.4; }
+    50% { transform: scaleY(0.6); opacity: 1; }
+  }
+
+  /* ===== Scene 2: Big Shift (Tool → Team Member) ===== */
+  .scene-shift {
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .scene-shift::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(800px 600px at 30% 50%,
+        oklch(0.94 0.03 240 / calc(0.7 - var(--p, 0) * 0.7)),
+        transparent 70%),
+      radial-gradient(800px 600px at 70% 50%,
+        oklch(0.94 0.035 35 / calc(var(--p, 0) * 0.9)),
+        transparent 70%);
+  }
+  .scene-shift .inner {
+    position: relative; z-index: 2;
+    max-width: 1200px; padding: 0 48px;
+    width: 100%; text-align: center;
+  }
+  .scene-shift .label {
+    font-family: var(--mono); font-size: 14px;
+    letter-spacing: 0.24em; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 48px;
+  }
+  .shift-stage {
+    position: relative;
+    font-family: var(--serif); font-weight: 800;
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1.25; letter-spacing: -0.01em;
+  }
+  .shift-line {
+    display: block;
+  }
+  .shift-line + .shift-line { margin-top: 18px; }
+  .shift-word {
+    position: relative; display: inline-block;
+    padding: 0 6px;
+  }
+  .shift-word.target { color: var(--ink); }
+  /* "ツール" word: visible early, fades and gets strikethrough */
+  .shift-word.tool {
+    color: oklch(0.45 0.04 240);
+    opacity: calc(max(0, 1 - max(0, var(--p, 0) - 0.25) * 4));
+  }
+  .shift-word.tool::after {
+    content: ""; position: absolute;
+    left: 0; right: 0; top: 55%;
+    height: 4px; background: oklch(0.55 0.18 30);
+    transform: scaleX(calc(min(1, max(0, var(--p, 0) - 0.2) * 5)));
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  /* "チームメンバー" word: appears later, in accent */
+  .shift-word.team {
+    color: var(--accent);
+    opacity: calc(min(1, max(0, var(--p, 0) - 0.35) * 3));
+    transform: translateY(calc(max(0, 1 - max(0, var(--p, 0) - 0.35) * 3) * 30px));
+    display: inline-block;
+  }
+  .shift-arrow-big {
+    display: block;
+    font-family: var(--serif); font-weight: 100;
+    font-size: 60px;
+    color: var(--accent);
+    margin: 28px 0 18px;
+    transform: translateY(calc((0.6 - min(0.6, var(--p, 0))) * -100px));
+    opacity: calc(min(1, max(0, var(--p, 0) - 0.15) * 3));
+  }
+  .shift-badges {
+    margin-top: 56px;
+    display: flex; justify-content: center; gap: 80px;
+    font-family: var(--mono); font-size: 13px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .shift-badge {
+    display: flex; flex-direction: column; gap: 6px;
+    align-items: center;
+  }
+  .shift-badge .k { color: var(--muted); }
+  .shift-badge .v {
+    font-family: var(--serif); font-size: 16px;
+    color: var(--ink); letter-spacing: 0;
+    text-transform: none; font-weight: 700;
+  }
+  .shift-badge.to .v { color: var(--accent); }
+  .shift-badge.to {
+    opacity: calc(min(1, max(0, var(--p, 0) - 0.5) * 3));
+  }
+
+  /* ===== Scene 3: Roadmap reveal ===== */
+  .scene-map {
+    background: var(--paper);
+    color: var(--ink);
+    align-items: flex-start;
+  }
+  .scene-map .inner {
+    position: relative; z-index: 2;
+    max-width: min(1680px, 92vw); padding: 80px 48px 0;
+    width: 100%;
+    display: flex; flex-direction: column; gap: 48px;
+  }
+  .scene-map .head {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: end;
+  }
+  .scene-map .eyebrow {
+    font-family: var(--mono); font-size: 14px;
+    letter-spacing: 0.24em; color: var(--accent);
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .scene-map .eyebrow::before {
+    content: ""; width: 40px; height: 1px;
+    background: var(--accent);
+  }
+  .scene-map h2 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: clamp(36px, 4.5vw, 68px);
+    line-height: 1.15; letter-spacing: -0.01em;
+  }
+  .scene-map .lede {
+    font-size: 15.5pt; line-height: 1.85;
+    color: var(--ink-soft);
+    max-width: 520px;
+  }
+  .scene-map .stats {
+    display: flex; gap: 64px;
+    padding: 24px 0;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+  }
+  .scene-map .stat .num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 44px; line-height: 1;
+    color: var(--ink);
+  }
+  .scene-map .stat .num em {
+    color: var(--accent); font-style: normal;
+  }
+  .scene-map .stat .lbl {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.18em; color: var(--muted);
+    margin-top: 8px; text-transform: uppercase;
+  }
+  .map-cards {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--hair);
+    border: 1px solid var(--hair);
+    perspective: 1200px;
+  }
+  .map-card {
+    background: var(--paper);
+    padding: 28px 24px 32px;
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 280px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(60px) rotateX(-8deg);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .map-card.in {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+  .map-card .n {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--accent); letter-spacing: 0.16em;
+  }
+  .map-card .t {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 18px; line-height: 1.4;
+    color: var(--ink);
+  }
+  .map-card .bar {
+    height: 2px; width: 100%; background: var(--hair);
+    position: relative;
+    margin-top: auto;
+  }
+  .map-card .bar::after {
+    content: ""; position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--accent);
+    width: 0%;
+    transition: width 1.2s ease-out 0.4s;
+  }
+  .map-card.in .bar::after { width: 100%; }
+  .map-card .sessions {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--muted); letter-spacing: 0.08em;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+
+  @media (max-width: 980px) {
+    .scene-hero .inner { padding: 0 24px; }
+    .scene-shift .shift-badges { gap: 32px; }
+    .scene-map .head { grid-template-columns: 1fr; gap: 24px; }
+    .scene-map .stats { gap: 32px; flex-wrap: wrap; }
+    .map-cards { grid-template-columns: 1fr 1fr; }
+    .scene-counter { display: none; }
+  }
+
+  /* ============== AI / FUTURISTIC GRAPHICS ============== */
+  /* Neural network canvas in scene-hero */
+  .neural-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.85;
+  }
+  /* Vignette overlay */
+  .scene-hero .vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 30%,
+      oklch(0.15 0.012 60 / 0.4) 80%,
+      oklch(0.10 0.012 60 / 0.7) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* HUD-style corner brackets */
+  .hud-corners {
+    position: absolute; inset: 24px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .hud-corners::before,
+  .hud-corners::after,
+  .hud-corners > span:nth-child(1),
+  .hud-corners > span:nth-child(2) {
+    content: ""; position: absolute;
+    width: 24px; height: 24px;
+    border: 1px solid oklch(0.78 0.10 35 / 0.5);
+  }
+  .hud-corners::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .hud-corners::after { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .hud-corners > span:nth-child(1) { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .hud-corners > span:nth-child(2) { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  /* HUD readouts */
+  .hud-readout {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: oklch(0.78 0.10 35 / 0.7);
+    text-transform: uppercase;
+    z-index: 3;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hud-readout .pulse {
+    width: 6px; height: 6px;
+    background: oklch(0.78 0.10 35);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 oklch(0.78 0.10 35 / 0.5);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 oklch(0.78 0.10 35 / 0.6); }
+    70% { box-shadow: 0 0 0 12px oklch(0.78 0.10 35 / 0); }
+    100% { box-shadow: 0 0 0 0 oklch(0.78 0.10 35 / 0); }
+  }
+  .hud-tl { top: 32px; left: 48px; }
+  .hud-tr { top: 32px; right: 48px; }
+  .hud-bl { bottom: 32px; left: 48px; }
+  .hud-br { bottom: 32px; right: 48px; }
+
+  /* Holographic glow on title accent word */
+  .scene-hero h1 .accent {
+    color: oklch(0.85 0.13 35);
+    text-shadow:
+      0 0 30px oklch(0.78 0.18 35 / 0.6),
+      0 0 60px oklch(0.78 0.18 35 / 0.3),
+      0 0 90px oklch(0.78 0.18 35 / 0.2);
+    position: relative;
+  }
+
+  /* Scene 2: SVG circuit traces */
+  .circuit-bg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .circuit-bg svg { width: 100%; height: 100%; }
+  .circuit-trace {
+    fill: none;
+    stroke: oklch(0.55 0.16 35 / 0.35);
+    stroke-width: 1;
+    stroke-dasharray: 6 4;
+    animation: dashMove 8s linear infinite;
+  }
+  @keyframes dashMove {
+    to { stroke-dashoffset: -200; }
+  }
+  .circuit-node {
+    fill: oklch(0.55 0.16 35);
+    animation: nodePulse 3s ease-in-out infinite;
+  }
+  @keyframes nodePulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); transform-origin: center; }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+  .scan-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      oklch(0.55 0.16 35 / 0.04) 50%,
+      transparent 100%
+    );
+    top: calc((var(--p, 0) * 100%) - 100px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Scene 3: card glyphs */
+  .card-glyph {
+    width: 56px; height: 56px;
+    margin-bottom: 4px;
+  }
+  .card-glyph svg { width: 100%; height: 100%; overflow: visible; }
+  .glyph-line {
+    fill: none; stroke: var(--accent);
+    stroke-width: 1.5; stroke-linecap: round;
+  }
+  .glyph-dot { fill: var(--accent); }
+  .glyph-dim { stroke: var(--hair-strong); opacity: 0.6; }
+  .map-card.in .glyph-anim { animation: glyphIn 1.4s ease-out 0.2s both; }
+  @keyframes glyphIn {
+    from { stroke-dashoffset: 200; opacity: 0; }
+    to { stroke-dashoffset: 0; opacity: 1; }
+  }
+
+  /* Live "AI signals" ticker (fixed corner widget) */
+  .ai-signals {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    z-index: 90;
+    background: oklch(0.20 0.012 60 / 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(0.78 0.10 35 / 0.3);
+    padding: 10px 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: oklch(0.85 0.10 35);
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+    opacity: 0; transition: opacity 0.5s;
+    pointer-events: none;
+  }
+  .ai-signals.show { opacity: 1; }
+  .ai-signals .dot {
+    width: 6px; height: 6px;
+    background: oklch(0.65 0.18 145);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  .ai-signals .signal-text {
+    min-width: 180px;
+  }
+  .ai-signals .signal-text strong {
+    color: oklch(0.95 0.05 70); font-weight: 400;
+  }
+
+  /* "Synapse" pulse line on scene 2 between arrow */
+  .synapse-line {
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    width: 1px; background: linear-gradient(
+      180deg,
+      transparent,
+      oklch(0.55 0.16 35 / 0.6),
+      transparent
+    );
+  }
+
+  @media (max-width: 980px) {
+    .hud-readout { font-size: 9px; }
+    .hud-tl, .hud-bl { left: 24px; }
+    .hud-tr, .hud-br { right: 24px; }
+    .ai-signals { display: none; }
+  }
+
+  /* ============== POST-CINEMA GRAPHICS ============== */
+
+  /* Reveal: JS-driven scroll progress via --p (0→1) */
+  .reveal { opacity: 1; }
+  .reveal-stagger > * { opacity: 1; }
+  body.is-animated .reveal {
+    opacity: var(--p, 0);
+    transform: translateY(calc((1 - var(--p, 0)) * 40px));
+  }
+  body.is-animated .reveal-stagger > * {
+    opacity: var(--p, 0);
+    transform: translateY(calc((1 - var(--p, 0)) * 30px));
+  }
+  @keyframes revealIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Session timeline graphic (between roadmap header and grid) */
+  .session-timeline {
+    position: relative;
+    margin: 24px 0 48px;
+    padding: 20px 0;
+    border-top: 1px dashed var(--hair-strong);
+    border-bottom: 1px dashed var(--hair-strong);
+  }
+  .session-timeline-inner {
+    position: relative;
+    height: 80px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    align-items: center;
+  }
+  .session-timeline-inner::before {
+    content: ""; position: absolute;
+    left: 4%; right: 4%; top: 50%;
+    height: 1px; background: var(--hair-strong);
+    z-index: 0;
+  }
+  .session-timeline-inner::after {
+    content: ""; position: absolute;
+    left: 4%; top: 50%;
+    height: 1px; background: var(--accent);
+    width: 92%;
+    z-index: 1;
+  }
+  body.is-animated .session-timeline-inner::after {
+    width: calc(var(--p, 0) * 92%);
+  }
+  .st-node {
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  .st-node-num {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+  .st-node-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 1.5px solid var(--accent);
+    box-shadow: 0 0 0 4px var(--bg), 0 0 12px oklch(0.55 0.15 35 / 0.5);
+    transition: all 0.4s;
+  }
+  .st-node-label {
+    margin-top: 10px;
+    font-family: var(--serif); font-size: 11px;
+    color: var(--ink);
+    line-height: 1.3; text-align: center;
+    max-width: 90px;
+  }
+
+  /* Chapter ambient backgrounds */
+  .chapter { position: relative; overflow: hidden; }
+  .chapter-inner { position: relative; z-index: 2; }
+  .ch-ambient {
+    position: absolute;
+    top: 0; right: -10%; bottom: 0;
+    width: 60%;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  body.is-animated .ch-ambient {
+    opacity: calc(var(--p, 0) * 0.55);
+  }
+  .ch-ambient svg {
+    width: 100%; height: 100%;
+    overflow: visible;
+  }
+  .ch-amb-line {
+    fill: none; stroke: var(--accent);
+    stroke-width: 1; opacity: 0.3;
+  }
+  .ch-amb-dot { fill: var(--accent); opacity: 0.4; }
+  .ch-amb-faint { stroke: var(--hair-strong); opacity: 0.5; }
+
+  /* Floating chapter number (parallax effect) */
+  .ch-banner-num {
+    will-change: transform;
+    position: relative;
+  }
+  .ch-banner-num::before {
+    content: ""; position: absolute;
+    left: -20px; top: 20px;
+    width: 14px; height: 14px;
+    background: var(--accent);
+    box-shadow: 0 0 24px oklch(0.55 0.15 35 / 0.4);
+  }
+  .ch-banner-num::after {
+    content: "";
+    position: absolute;
+    left: -8px; top: -8px;
+    width: calc(100% + 40px); height: 4px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0.6;
+  }
+
+  /* Session number badge with glow */
+  .session-num {
+    position: relative;
+    display: inline-block;
+  }
+  .session-num::before {
+    content: ""; position: absolute;
+    left: -6px; top: 50%; transform: translateY(-50%);
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px oklch(0.55 0.15 35 / 0.6);
+  }
+
+  /* "Data stream" decoration between sessions */
+  .session::before {
+    content: "";
+    position: absolute;
+    left: 220px;
+    top: 0; height: 56px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+    opacity: 0.35;
+  }
+  .session:first-of-type::before { display: none; }
+  .session { position: relative; }
+
+  /* Closing section: dramatic ambient */
+  .closing { position: relative; overflow: hidden; }
+  .closing-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0; opacity: 0.5;
+    pointer-events: none;
+  }
+  .closing-inner { position: relative; z-index: 2; }
+  .closing-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(oklch(0.99 0.005 85 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.99 0.005 85 / 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .closing .hud-readout { z-index: 3; }
+
+  /* Section transition divider (between major sections) */
+  .section-divider {
+    position: relative;
+    height: 1px;
+    max-width: min(1680px, 92vw);
+    margin: 0 auto;
+    background: var(--hair);
+  }
+  .section-divider::before {
+    content: ""; position: absolute;
+    left: 50%; top: -3px;
+    width: 8px; height: 8px;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  /* Bigidea section ambient (kept for compat but no longer rendered) */
+  /* Roadmap grid card hover with subtle scan effect */
+  .rm-chapter { position: relative; overflow: hidden; }
+  .rm-chapter::after {
+    content: ""; position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    transition: left 0.8s ease-out;
+  }
+  .rm-chapter:hover::after { left: 100%; }
+
+  @media (max-width: 980px) {
+    .session-timeline-inner { grid-template-columns: repeat(5, 1fr); height: auto; gap: 24px 0; padding: 12px 0; }
+    .st-node-label { display: none; }
+    .ch-ambient { display: none; }
+  }
+
+  /* ============== SCROLL-DRIVEN ANIMATIONS WITHIN CHAPTERS/SESSIONS ============== */
+  /* JS sets --p (0 → 1) on each element based on its viewport progress.
+     Default state (without is-animated): no animation, content visible. */
+
+  body.is-animated [data-anim] { will-change: transform, opacity, filter; }
+
+  body.is-animated [data-anim="fade"] {
+    opacity: var(--p, 0);
+    transform: translateY(calc((1 - var(--p, 0)) * 30px));
+  }
+  body.is-animated [data-anim="slide-right"] {
+    opacity: var(--p, 0);
+    transform: translateX(calc((1 - var(--p, 0)) * -50px));
+  }
+  body.is-animated [data-anim="slide-left"] {
+    opacity: var(--p, 0);
+    transform: translateX(calc((1 - var(--p, 0)) * 50px));
+  }
+  body.is-animated [data-anim="scale"] {
+    opacity: var(--p, 0);
+    transform: scale(calc(0.7 + var(--p, 0) * 0.3))
+               translateY(calc((1 - var(--p, 0)) * 40px));
+  }
+  body.is-animated [data-anim="blur-up"] {
+    opacity: calc(0.15 + var(--p, 0) * 0.85);
+    transform: translateY(calc((1 - var(--p, 0)) * 24px));
+    filter: blur(calc((1 - var(--p, 0)) * 8px));
+  }
+  body.is-animated [data-anim="lift"] {
+    opacity: var(--p, 0);
+    transform: translateY(calc((1 - var(--p, 0)) * 50px));
+  }
+  body.is-animated [data-anim="glow-in"] {
+    opacity: var(--p, 0);
+    transform: translateX(calc((1 - var(--p, 0)) * -12px));
+  }
+
+  /* Chapter number gets a scale+rise effect */
+  body.is-animated .ch-banner-num {
+    opacity: var(--p, 0);
+    transform: translateY(calc((1 - var(--p, 0)) * 60px))
+               scale(calc(0.7 + var(--p, 0) * 0.3));
+  }
+  /* Underline bar grows with progress */
+  body.is-animated .ch-banner-num::after {
+    width: calc(var(--p, 0) * (100% + 40px));
+    opacity: calc(var(--p, 0) * 0.6);
+  }
+
+  /* Closing title special: letter-spacing tightens */
+  body.is-animated .closing h2 {
+    opacity: var(--p, 0);
+    transform: translateY(calc((1 - var(--p, 0)) * 40px));
+    letter-spacing: calc(-0.005em + (1 - var(--p, 0)) * 0.055em);
+  }
+
   /* responsive */
   @media (max-width: 980px) {
     .hero, .section-head, .ch-banner, .session, .closing-inner, .bigidea-shift {
@@ -592,62 +1371,237 @@
   </div>
 </nav>
 
-<!-- ================= HERO ================= -->
-<header class="hero">
-  <div>
-    <div class="hero-eyebrow" style="font-size: 15px">Internal Training Program 2026</div>
-    <h1 class="hero-title" style="font-size: 45px">AIエージェントチームで実現する <em>組織のAI化</em></h1>
-    <p class="hero-sub">
-      AIを「便利なツール」として使う段階から、自律して動く「チームメンバー」として迎え入れる段階へ。<br>
-      基礎から実践まで、全10回で組織変革のロードマップを共有します。
-    </p>
-  </div>
-  <aside class="hero-side">
-    <h3 style="font-size: 15px">本研修の到達点</h3>
-    <p style="font-size: 15px">
-      AIを「ただの作業者」ではなく「自律して動くチームメンバー」として扱うマインドセットへの転換を、現場の業務シーンに即して学びます。
-    </p>
-    <p style="font-size: 15px">
-      最終回では、各自が自分の業務フローを分解し、どこをAIチームに任せられるかを設計できる「AIディレクター」としての視点を獲得することを目指します。
-    </p>
-    <div class="hero-stats">
-      <div>
-        <div class="hero-stat-num">04</div>
-        <div class="hero-stat-lbl">Chapters</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">10</div>
-        <div class="hero-stat-lbl">Sessions</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">∞</div>
-        <div class="hero-stat-lbl">Use Cases</div>
-      </div>
-    </div>
-  </aside>
-</header>
+<!-- ================= CINEMATIC INTRO ================= -->
+<div class="scroll-prog" id="scrollProg"></div>
+<div class="ai-signals" id="aiSignals">
+  <span class="dot"></span>
+  <span class="signal-text" id="signalText"><strong>NEURAL.MESH</strong> &nbsp;|&nbsp; agents standing by</span>
+</div>
+<div class="scene-counter" id="sceneCounter">
+  <div class="dot" data-scene="0"></div>
+  <div class="dot" data-scene="1"></div>
+  <div class="dot" data-scene="2"></div>
+</div>
 
-<!-- ================= BIG IDEA ================= -->
-<section class="bigidea">
-  <div class="bigidea-inner">
-    <div class="bigidea-label">研修を貫くひとつの軸</div>
-    <div class="bigidea-shift">
-      <div class="shift-side left">
-        <div class="from">From ／ これまで</div>
-        <h2>便利なツール、<br>あるいは作業者として<br>AIを使う。</h2>
+<div class="cinema">
+
+  <!-- Scene 1: Cold open -->
+  <div class="scene-wrap tall-2" data-scene-idx="0">
+    <section class="scene scene-hero">
+      <canvas class="neural-canvas" id="neuralCanvas"></canvas>
+      <div class="vignette"></div>
+      <div class="hud-corners"><span></span><span></span></div>
+      <div class="hud-readout hud-tl">
+        <span class="pulse"></span>
+        <span>SYS::INIT &nbsp;|&nbsp; KANHOKYO.AI / v2026.1</span>
       </div>
-      <div class="shift-arrow">→</div>
-      <div class="shift-side">
-        <div class="from">To ／ これから</div>
-        <h2>自律して動くチームメンバーとして、<br>AIに仕事を委ねる。</h2>
+      <div class="hud-readout hud-tr">
+        <span id="hudClock">--:--:--</span>
       </div>
-    </div>
+      <div class="hud-readout hud-bl">
+        <span>NEURAL.MESH &nbsp;|&nbsp; <span id="hudNodes">--</span> nodes online</span>
+      </div>
+      <div class="hud-readout hud-br">
+        <span>SCROLL TO BEGIN &nbsp;→</span>
+      </div>
+      <div class="inner">
+        <div class="eyebrow">KANHOKYO ／ Internal Training Program 2026</div>
+        <h1 style="font-size: 80px">
+          <span class="word" data-w="0">AIエージェントチームで</span>
+          <span class="word" data-w="1">実現する</span><br>
+          <span class="word accent" data-w="2" style="font-size: 100px">組織のAI化</span>
+        </h1>
+        <p class="sub" style="width: 10000px; margin: 1px 0px 0px; padding: 0px 1px 0px 0px">
+          AIを「便利なツール」として使う段階から、自律して動く「チームメンバー」として迎え入れる段階へ。<br>
+          基礎から実践まで、全10回で組織変革のロードマップを共有します。
+        </p>
+      </div>
+      <div class="scroll-cue">
+        <span>Scroll</span>
+        <span class="line"></span>
+      </div>
+    </section>
   </div>
-</section>
+
+  <!-- Scene 2: The Big Shift -->
+  <div class="scene-wrap tall-3" data-scene-idx="1">
+    <section class="scene scene-shift">
+      <div class="circuit-bg" aria-hidden="true">
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+          <!-- Left side circuit (cool blue side - "tool") -->
+          <g>
+            <path class="circuit-trace" d="M 0 200 L 200 200 L 240 240 L 400 240 L 440 280 L 600 280" style="stroke: oklch(0.55 0.10 240 / 0.35);"/>
+            <path class="circuit-trace" d="M 0 400 L 160 400 L 200 360 L 360 360" style="stroke: oklch(0.55 0.10 240 / 0.3);"/>
+            <path class="circuit-trace" d="M 0 600 L 220 600 L 260 560 L 500 560 L 540 600 L 700 600" style="stroke: oklch(0.55 0.10 240 / 0.35);"/>
+            <path class="circuit-trace" d="M 0 750 L 300 750 L 340 710 L 480 710" style="stroke: oklch(0.55 0.10 240 / 0.25);"/>
+            <circle cx="240" cy="240" r="4" class="circuit-node" style="fill: oklch(0.55 0.12 240);"/>
+            <circle cx="440" cy="280" r="4" class="circuit-node" style="fill: oklch(0.55 0.12 240); animation-delay: 0.5s;"/>
+            <circle cx="200" cy="360" r="3" class="circuit-node" style="fill: oklch(0.55 0.12 240); animation-delay: 1s;"/>
+            <circle cx="260" cy="560" r="4" class="circuit-node" style="fill: oklch(0.55 0.12 240); animation-delay: 1.5s;"/>
+            <circle cx="540" cy="600" r="3" class="circuit-node" style="fill: oklch(0.55 0.12 240); animation-delay: 0.7s;"/>
+          </g>
+          <!-- Right side circuit (warm accent side - "team member") -->
+          <g>
+            <path class="circuit-trace" d="M 1600 200 L 1400 200 L 1360 240 L 1200 240 L 1160 280 L 1000 280"/>
+            <path class="circuit-trace" d="M 1600 400 L 1440 400 L 1400 360 L 1240 360" style="animation-delay: -2s;"/>
+            <path class="circuit-trace" d="M 1600 600 L 1380 600 L 1340 560 L 1100 560 L 1060 600 L 900 600" style="animation-delay: -1s;"/>
+            <path class="circuit-trace" d="M 1600 750 L 1300 750 L 1260 710 L 1120 710" style="animation-delay: -3s;"/>
+            <circle cx="1360" cy="240" r="4" class="circuit-node"/>
+            <circle cx="1160" cy="280" r="4" class="circuit-node" style="animation-delay: 0.4s;"/>
+            <circle cx="1400" cy="360" r="3" class="circuit-node" style="animation-delay: 0.9s;"/>
+            <circle cx="1340" cy="560" r="4" class="circuit-node" style="animation-delay: 1.3s;"/>
+            <circle cx="1060" cy="600" r="3" class="circuit-node" style="animation-delay: 0.6s;"/>
+            <circle cx="1260" cy="710" r="3" class="circuit-node" style="animation-delay: 1.8s;"/>
+          </g>
+          <!-- Center connecting bridge that fades in with progress -->
+          <g style="opacity: var(--p, 0); transition: opacity 0.3s;">
+            <path class="circuit-trace" d="M 600 450 Q 800 350 1000 450" style="stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 4;"/>
+            <path class="circuit-trace" d="M 600 480 Q 800 580 1000 480" style="stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 4; animation-delay: -1s;"/>
+          </g>
+        </svg>
+      </div>
+      <div class="scan-line"></div>
+      <div class="inner">
+        <div class="label">研修を貫くひとつの軸</div>
+        <div class="shift-stage">
+          <span class="shift-line">
+            AIは<span class="shift-word tool">便利なツール</span>
+          </span>
+          <span class="shift-arrow-big">↓</span>
+          <span class="shift-line">
+            自律する<span class="shift-word team">チームメンバー</span>へ
+          </span>
+        </div>
+        <div class="shift-badges">
+          <div class="shift-badge">
+            <span class="k">From ／ これまで</span>
+            <span class="v">作業者として使う</span>
+          </div>
+          <div class="shift-badge to">
+            <span class="k">To ／ これから</span>
+            <span class="v">仕事を委ねる</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Scene 3: Roadmap reveal -->
+  <div class="scene-wrap tall-3" data-scene-idx="2">
+    <section class="scene scene-map">
+      <div class="inner">
+        <div class="head">
+          <div>
+            <div class="eyebrow">Roadmap</div>
+            <h2>4章 × 10回の<br>研修ロードマップ。</h2>
+          </div>
+          <p class="lede">
+            個人のAI活用から、社内データ連携、自律型エージェント、そしてエージェントチームによる組織変革まで。段階的にスコープを広げていきます。
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="num"><em>04</em></div><div class="lbl">Chapters</div></div>
+          <div class="stat"><div class="num"><em>10</em></div><div class="lbl">Sessions</div></div>
+          <div class="stat"><div class="num"><em>30+</em></div><div class="lbl">Topics</div></div>
+          <div class="stat"><div class="num"><em>∞</em></div><div class="lbl">Use Cases</div></div>
+        </div>
+        <div class="map-cards" id="mapCards">
+          <div class="map-card" data-mc="0">
+            <div class="card-glyph">
+              <!-- Chapter 1: Foundation / nodes -->
+              <svg viewBox="0 0 56 56">
+                <circle cx="14" cy="14" r="3" class="glyph-dot"/>
+                <circle cx="42" cy="14" r="3" class="glyph-dot"/>
+                <circle cx="28" cy="28" r="4" class="glyph-dot"/>
+                <circle cx="14" cy="42" r="3" class="glyph-dot"/>
+                <circle cx="42" cy="42" r="3" class="glyph-dot"/>
+                <line x1="14" y1="14" x2="28" y2="28" class="glyph-line glyph-anim"/>
+                <line x1="42" y1="14" x2="28" y2="28" class="glyph-line glyph-anim"/>
+                <line x1="14" y1="42" x2="28" y2="28" class="glyph-line glyph-anim"/>
+                <line x1="42" y1="42" x2="28" y2="28" class="glyph-line glyph-anim"/>
+              </svg>
+            </div>
+            <div class="n">Chapter 01</div>
+            <div class="t">AI活用の基礎と<br>個人の業務効率化</div>
+            <div class="sessions">
+              <span>01 — AIの進化と最終ゴール</span>
+              <span>02 — LLMの仕組みとプロンプト</span>
+              <span>03 — 個人業務のAIハック</span>
+            </div>
+            <div class="bar"></div>
+          </div>
+          <div class="map-card" data-mc="1">
+            <div class="card-glyph">
+              <!-- Chapter 2: Integration / overlapping rings -->
+              <svg viewBox="0 0 56 56">
+                <circle cx="20" cy="28" r="12" class="glyph-line glyph-anim" fill="none"/>
+                <circle cx="36" cy="28" r="12" class="glyph-line glyph-anim" fill="none"/>
+                <circle cx="28" cy="28" r="3" class="glyph-dot"/>
+                <line x1="6" y1="28" x2="2" y2="28" class="glyph-line glyph-dim"/>
+                <line x1="54" y1="28" x2="50" y2="28" class="glyph-line glyph-dim"/>
+              </svg>
+            </div>
+            <div class="n">Chapter 02</div>
+            <div class="t">自社データ・<br>社内システムとの連携</div>
+            <div class="sessions">
+              <span>04 — 社内知識とRAGの基礎</span>
+              <span>05 — 業務ワークフローの自動化</span>
+            </div>
+            <div class="bar"></div>
+          </div>
+          <div class="map-card" data-mc="2">
+            <div class="card-glyph">
+              <!-- Chapter 3: Autonomy / arrow loop -->
+              <svg viewBox="0 0 56 56">
+                <path d="M 12 18 Q 28 4 44 18 Q 50 28 44 38 Q 28 52 12 38 Q 6 28 12 18 Z"
+                  class="glyph-line glyph-anim" stroke-dasharray="4 3"/>
+                <circle cx="28" cy="28" r="4" class="glyph-dot"/>
+                <polygon points="44,16 50,18 46,22" class="glyph-dot"/>
+              </svg>
+            </div>
+            <div class="n">Chapter 03</div>
+            <div class="t">自律型AIと<br>開発の民主化</div>
+            <div class="sessions">
+              <span>06 — AIエージェントの仕組み</span>
+              <span>07 — コーディングエージェント</span>
+            </div>
+            <div class="bar"></div>
+          </div>
+          <div class="map-card" data-mc="3">
+            <div class="card-glyph">
+              <!-- Chapter 4: Team / multi-agent constellation -->
+              <svg viewBox="0 0 56 56">
+                <circle cx="28" cy="10" r="3" class="glyph-dot"/>
+                <circle cx="10" cy="36" r="3" class="glyph-dot"/>
+                <circle cx="46" cy="36" r="3" class="glyph-dot"/>
+                <circle cx="28" cy="46" r="3" class="glyph-dot"/>
+                <circle cx="28" cy="28" r="5" class="glyph-line glyph-anim" fill="none"/>
+                <line x1="28" y1="10" x2="28" y2="23" class="glyph-line glyph-anim"/>
+                <line x1="10" y1="36" x2="23" y2="30" class="glyph-line glyph-anim"/>
+                <line x1="46" y1="36" x2="33" y2="30" class="glyph-line glyph-anim"/>
+                <line x1="28" y1="46" x2="28" y2="33" class="glyph-line glyph-anim"/>
+              </svg>
+            </div>
+            <div class="n">Chapter 04</div>
+            <div class="t">エージェントチームによる<br>組織変革と未来</div>
+            <div class="sessions">
+              <span>08 — エージェントチームの構築</span>
+              <span>09 — 業務プロセスの委譲</span>
+              <span>10 — ガバナンスとAIディレクター</span>
+            </div>
+            <div class="bar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
+<!-- ================= /CINEMATIC INTRO ================= -->
 
 <!-- ================= ROADMAP ================= -->
 <section class="roadmap" id="roadmap">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div>
       <div class="section-eyebrow">Roadmap</div>
       <h2 class="section-title">4章 × 10回の<br>全体ロードマップ</h2>
@@ -657,7 +1611,23 @@
     </p>
   </div>
 
-  <div class="roadmap-grid">
+  <!-- Session Timeline -->
+  <div class="session-timeline reveal" data-st-anim>
+    <div class="session-timeline-inner">
+      <div class="st-node lit"><div class="st-node-num">01</div><div class="st-node-dot"></div><div class="st-node-label">進化と<br>最終ゴール</div></div>
+      <div class="st-node lit"><div class="st-node-num">02</div><div class="st-node-dot"></div><div class="st-node-label">LLMと<br>プロンプト</div></div>
+      <div class="st-node lit"><div class="st-node-num">03</div><div class="st-node-dot"></div><div class="st-node-label">個人業務<br>ハック</div></div>
+      <div class="st-node lit"><div class="st-node-num">04</div><div class="st-node-dot"></div><div class="st-node-label">RAGの<br>基礎</div></div>
+      <div class="st-node lit"><div class="st-node-num">05</div><div class="st-node-dot"></div><div class="st-node-label">業務<br>自動化</div></div>
+      <div class="st-node lit"><div class="st-node-num">06</div><div class="st-node-dot"></div><div class="st-node-label">エージェント<br>の仕組み</div></div>
+      <div class="st-node lit"><div class="st-node-num">07</div><div class="st-node-dot"></div><div class="st-node-label">コーディング<br>エージェント</div></div>
+      <div class="st-node lit"><div class="st-node-num">08</div><div class="st-node-dot"></div><div class="st-node-label">チーム<br>構築</div></div>
+      <div class="st-node lit"><div class="st-node-num">09</div><div class="st-node-dot"></div><div class="st-node-label">業務プロセス<br>委譲</div></div>
+      <div class="st-node lit"><div class="st-node-num">10</div><div class="st-node-dot"></div><div class="st-node-label">ガバナンスと<br>AIディレクター</div></div>
+    </div>
+  </div>
+
+  <div class="roadmap-grid reveal-stagger">
     <div class="rm-chapter">
       <div class="rm-num">Chapter 01</div>
       <div class="rm-title">AI活用の基礎と<br>個人の業務効率化</div>
@@ -697,6 +1667,42 @@
 
 <!-- ================= CHAPTER 1 ================= -->
 <section class="chapter" id="chapter-1" data-screen-label="Chapter 1">
+  <div class="ch-ambient" aria-hidden="true">
+    <svg viewBox="0 0 600 600" preserveAspectRatio="xMaxYMid meet">
+      <!-- Foundation: regular grid of nodes -->
+      <g>
+        <circle cx="100" cy="100" r="3" class="ch-amb-dot"/>
+        <circle cx="200" cy="100" r="3" class="ch-amb-dot"/>
+        <circle cx="300" cy="100" r="3" class="ch-amb-dot"/>
+        <circle cx="400" cy="100" r="3" class="ch-amb-dot"/>
+        <circle cx="500" cy="100" r="3" class="ch-amb-dot"/>
+        <circle cx="100" cy="200" r="3" class="ch-amb-dot"/>
+        <circle cx="200" cy="200" r="3" class="ch-amb-dot"/>
+        <circle cx="300" cy="200" r="3" class="ch-amb-dot"/>
+        <circle cx="400" cy="200" r="3" class="ch-amb-dot"/>
+        <circle cx="500" cy="200" r="3" class="ch-amb-dot"/>
+        <circle cx="100" cy="300" r="3" class="ch-amb-dot"/>
+        <circle cx="200" cy="300" r="3" class="ch-amb-dot"/>
+        <circle cx="300" cy="300" r="3" class="ch-amb-dot"/>
+        <circle cx="400" cy="300" r="3" class="ch-amb-dot"/>
+        <circle cx="500" cy="300" r="3" class="ch-amb-dot"/>
+        <circle cx="100" cy="400" r="3" class="ch-amb-dot"/>
+        <circle cx="200" cy="400" r="3" class="ch-amb-dot"/>
+        <circle cx="300" cy="400" r="3" class="ch-amb-dot"/>
+        <circle cx="400" cy="400" r="3" class="ch-amb-dot"/>
+        <circle cx="500" cy="400" r="3" class="ch-amb-dot"/>
+        <circle cx="100" cy="500" r="3" class="ch-amb-dot"/>
+        <circle cx="200" cy="500" r="3" class="ch-amb-dot"/>
+        <circle cx="300" cy="500" r="3" class="ch-amb-dot"/>
+        <circle cx="400" cy="500" r="3" class="ch-amb-dot"/>
+        <circle cx="500" cy="500" r="3" class="ch-amb-dot"/>
+        <!-- Highlight active grid lines -->
+        <line x1="100" y1="200" x2="500" y2="200" class="ch-amb-line"/>
+        <line x1="200" y1="100" x2="200" y2="500" class="ch-amb-line"/>
+        <line x1="200" y1="200" x2="400" y2="400" class="ch-amb-line"/>
+      </g>
+    </svg>
+  </div>
   <div class="chapter-inner">
     <div class="ch-banner">
       <div>
@@ -932,6 +1938,34 @@
 
 <!-- ================= CHAPTER 2 ================= -->
 <section class="chapter" id="chapter-2" data-screen-label="Chapter 2">
+  <div class="ch-ambient" aria-hidden="true">
+    <svg viewBox="0 0 600 600" preserveAspectRatio="xMaxYMid meet">
+      <!-- Integration: connected nodes / data flow -->
+      <g>
+        <!-- Source nodes -->
+        <circle cx="80" cy="150" r="6" class="ch-amb-dot"/>
+        <circle cx="80" cy="280" r="6" class="ch-amb-dot"/>
+        <circle cx="80" cy="410" r="6" class="ch-amb-dot"/>
+        <circle cx="80" cy="540" r="6" class="ch-amb-dot"/>
+        <!-- Hub -->
+        <circle cx="300" cy="300" r="14" class="ch-amb-dot" style="opacity: 0.7;"/>
+        <circle cx="300" cy="300" r="30" class="ch-amb-line" fill="none"/>
+        <circle cx="300" cy="300" r="50" class="ch-amb-faint" fill="none" stroke-dasharray="3 4"/>
+        <!-- Destination nodes -->
+        <circle cx="520" cy="200" r="5" class="ch-amb-dot"/>
+        <circle cx="520" cy="350" r="5" class="ch-amb-dot"/>
+        <circle cx="520" cy="500" r="5" class="ch-amb-dot"/>
+        <!-- Connecting curves -->
+        <path d="M 80 150 Q 200 220 300 300" class="ch-amb-line"/>
+        <path d="M 80 280 Q 200 290 300 300" class="ch-amb-line"/>
+        <path d="M 80 410 Q 200 360 300 300" class="ch-amb-line"/>
+        <path d="M 80 540 Q 200 420 300 300" class="ch-amb-line"/>
+        <path d="M 300 300 Q 400 240 520 200" class="ch-amb-line"/>
+        <path d="M 300 300 Q 400 330 520 350" class="ch-amb-line"/>
+        <path d="M 300 300 Q 400 420 520 500" class="ch-amb-line"/>
+      </g>
+    </svg>
+  </div>
   <div class="chapter-inner">
     <div class="ch-banner">
       <div>
@@ -1086,6 +2120,38 @@
 
 <!-- ================= CHAPTER 3 ================= -->
 <section class="chapter" id="chapter-3" data-screen-label="Chapter 3">
+  <div class="ch-ambient" aria-hidden="true">
+    <svg viewBox="0 0 600 600" preserveAspectRatio="xMaxYMid meet">
+      <!-- Autonomy: ReAct loop (Thought → Action → Observation) -->
+      <g transform="translate(300 300)">
+        <!-- Big rotating ring -->
+        <circle r="200" fill="none" class="ch-amb-line" stroke-dasharray="8 6"/>
+        <circle r="160" fill="none" class="ch-amb-faint" stroke-dasharray="2 6"/>
+        <!-- Three labeled nodes around the ring -->
+        <g>
+          <circle cx="0" cy="-200" r="10" class="ch-amb-dot"/>
+          <text x="0" y="-220" text-anchor="middle"
+            style="fill: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; opacity: 0.7;">THOUGHT</text>
+        </g>
+        <g>
+          <circle cx="173" cy="100" r="10" class="ch-amb-dot"/>
+          <text x="200" y="115" text-anchor="start"
+            style="fill: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; opacity: 0.7;">ACTION</text>
+        </g>
+        <g>
+          <circle cx="-173" cy="100" r="10" class="ch-amb-dot"/>
+          <text x="-200" y="115" text-anchor="end"
+            style="fill: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; opacity: 0.7;">OBSERVE</text>
+        </g>
+        <!-- Arrows around -->
+        <path d="M 60 -180 A 200 200 0 0 1 180 60" fill="none" class="ch-amb-line"/>
+        <path d="M -140 130 A 200 200 0 0 1 130 130" fill="none" class="ch-amb-line"/>
+        <path d="M -180 60 A 200 200 0 0 1 -60 -180" fill="none" class="ch-amb-line"/>
+        <!-- Center -->
+        <circle r="6" class="ch-amb-dot" style="opacity: 0.8;"/>
+      </g>
+    </svg>
+  </div>
   <div class="chapter-inner">
     <div class="ch-banner">
       <div>
@@ -1250,6 +2316,52 @@
 
 <!-- ================= CHAPTER 4 ================= -->
 <section class="chapter" id="chapter-4" data-screen-label="Chapter 4">
+  <div class="ch-ambient" aria-hidden="true">
+    <svg viewBox="0 0 600 600" preserveAspectRatio="xMaxYMid meet">
+      <!-- Team: multi-agent constellation -->
+      <g>
+        <!-- Agents (multiple personalities) -->
+        <circle cx="150" cy="120" r="14" class="ch-amb-dot"/>
+        <circle cx="150" cy="120" r="28" fill="none" class="ch-amb-line"/>
+        <text x="150" y="170" text-anchor="middle"
+          style="fill: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; opacity: 0.7;">AGENT A</text>
+
+        <circle cx="450" cy="120" r="14" class="ch-amb-dot"/>
+        <circle cx="450" cy="120" r="28" fill="none" class="ch-amb-line"/>
+        <text x="450" y="170" text-anchor="middle"
+          style="fill: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; opacity: 0.7;">AGENT B</text>
+
+        <circle cx="120" cy="380" r="14" class="ch-amb-dot"/>
+        <circle cx="120" cy="380" r="28" fill="none" class="ch-amb-line"/>
+        <text x="120" y="430" text-anchor="middle"
+          style="fill: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; opacity: 0.7;">AGENT C</text>
+
+        <circle cx="480" cy="380" r="14" class="ch-amb-dot"/>
+        <circle cx="480" cy="380" r="28" fill="none" class="ch-amb-line"/>
+        <text x="480" y="430" text-anchor="middle"
+          style="fill: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; opacity: 0.7;">AGENT D</text>
+
+        <!-- Orchestrator center -->
+        <circle cx="300" cy="250" r="20" class="ch-amb-dot" style="opacity: 0.8;"/>
+        <circle cx="300" cy="250" r="40" fill="none" class="ch-amb-line"/>
+        <circle cx="300" cy="250" r="80" fill="none" class="ch-amb-faint" stroke-dasharray="4 6"/>
+        <text x="300" y="225" text-anchor="middle"
+          style="fill: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; opacity: 0.8;">ORCHESTRATOR</text>
+
+        <!-- Connection lines from each agent to orchestrator -->
+        <line x1="150" y1="120" x2="300" y2="250" class="ch-amb-line"/>
+        <line x1="450" y1="120" x2="300" y2="250" class="ch-amb-line"/>
+        <line x1="120" y1="380" x2="300" y2="250" class="ch-amb-line"/>
+        <line x1="480" y1="380" x2="300" y2="250" class="ch-amb-line"/>
+
+        <!-- Cross-agent dotted connections (collaboration) -->
+        <line x1="150" y1="120" x2="450" y2="120" class="ch-amb-faint" stroke-dasharray="2 5"/>
+        <line x1="120" y1="380" x2="480" y2="380" class="ch-amb-faint" stroke-dasharray="2 5"/>
+        <line x1="150" y1="120" x2="120" y2="380" class="ch-amb-faint" stroke-dasharray="2 5"/>
+        <line x1="450" y1="120" x2="480" y2="380" class="ch-amb-faint" stroke-dasharray="2 5"/>
+      </g>
+    </svg>
+  </div>
   <div class="chapter-inner">
     <div class="ch-banner">
       <div>
@@ -1286,9 +2398,17 @@
               <div class="struct-head">マルチエージェントシステムとは</div>
               <div class="struct-body">万能な1つのAIより、専門特化した（役割を与えられた）複数のAIのチームのほうが、ハルシネーションが減り、強固な成果を出せる理由。</div>
             </a>
+            <a class="struct-item struct-link" href="pages/agent-roles.html">
+              <div class="struct-head">エージェントの役割設計</div>
+              <div class="struct-body">オーケストレーター（指揮）・専門家・批評家・実行係。誰に何を担わせるか、人間のチーム編成と同じ発想で設計する。</div>
+            </a>
             <a class="struct-item struct-link" href="pages/ai-board.html">
               <div class="struct-head">AIの壁打ち・ボードメンバー化</div>
               <div class="struct-body">経営会議や企画会議に「批判的思考を持つAI」や「顧客視点を持つAI」を同席させ、人間の盲点を補う使い方。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/agent-discussion.html">
+              <div class="struct-head">エージェント同士の議論プロトコル</div>
+              <div class="struct-body">複数のAIに「合議」させるための仕組み。意見表明→批判→修正→合意のサイクルを設計する。</div>
             </a>
           </div>
         </div>
@@ -1348,6 +2468,28 @@
           <p class="sb-purpose" style="font-size: 15pt;">
             複雑な業務を「単一のタスク」に分解し、それぞれに特化エージェントを配置する。人間は「承認」ボタンを押すだけ。数日かかっていた各部署間の確認作業が、AIのパイプライン化により数分で完了する。
           </p>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-label">構成案</div>
+          <div class="sb-structure">
+            <a class="struct-item struct-link" href="pages/task-decomposition.html">
+              <div class="struct-head">業務プロセスの分解設計</div>
+              <div class="struct-body">「数日かかる複雑な業務」を、AIに任せられる単一タスクの粒度に切り分ける作業。"何を残し、何を切るか" の見極めが鍵。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/agent-pipeline.html">
+              <div class="struct-head">エージェント・パイプライン設計</div>
+              <div class="struct-body">分解したタスクを、特化エージェントの「バケツリレー」で繋ぐアーキテクチャ。各バケツの入力・出力スキーマを決めるのが要。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/approval-gates.html">
+              <div class="struct-head">承認ポイントの配置</div>
+              <div class="struct-body">パイプラインのどこに人間の "判断ハンコ" を置くか。リスクの高い箇所だけに絞り、それ以外はAIに任せる設計。</div>
+            </a>
+            <a class="struct-item struct-link" href="pages/process-recovery.html">
+              <div class="struct-head">失敗時のリカバリー設計</div>
+              <div class="struct-body">エージェントが詰まった／間違った時、どう検知し、どう人間に渡すか。"自動で止まる" 機構と、エスカレーションの線引き。</div>
+            </a>
+          </div>
         </div>
 
         <div class="sb-block">
@@ -1454,6 +2596,15 @@
 
 <!-- ================= CLOSING ================= -->
 <section class="closing" id="closing" data-screen-label="Closing">
+  <canvas class="closing-canvas" id="closingCanvas"></canvas>
+  <div class="closing-grid"></div>
+  <div class="hud-readout hud-tl">
+    <span class="pulse"></span>
+    <span>DEPLOY.READY &nbsp;|&nbsp; AI-DIRECTOR MODE</span>
+  </div>
+  <div class="hud-readout hud-tr">
+    <span>SESSIONS COMPLETE &nbsp;|&nbsp; 10 / 10</span>
+  </div>
   <div class="closing-inner">
     <div>
       <div class="closing-eyebrow">Action Plan</div>
@@ -1481,10 +2632,381 @@
 </footer>
 
 <script>
-  // active section in topnav
+  // ====== Scroll progress bar ======
+  const prog = document.getElementById('scrollProg');
+  function updateProg() {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const p = Math.max(0, Math.min(1, window.scrollY / h));
+    prog.style.width = (p * 100) + '%';
+  }
+  window.addEventListener('scroll', updateProg, { passive: true });
+  window.addEventListener('resize', updateProg);
+  updateProg();
+
+  // ====== Per-scene progress (sets --p on each scene-wrap) ======
+  const sceneWraps = document.querySelectorAll('.scene-wrap');
+  function updateScenes() {
+    sceneWraps.forEach(wrap => {
+      const r = wrap.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = r.height - vh;
+      const passed = Math.max(0, Math.min(total, -r.top));
+      const pp = total > 0 ? passed / total : 0;
+      wrap.style.setProperty('--p', pp.toFixed(4));
+    });
+    updateHeroWords();
+    updateMapCards();
+  }
+  window.addEventListener('scroll', updateScenes, { passive: true });
+  window.addEventListener('resize', updateScenes);
+
+  // ====== Hero word-by-word reveal ======
+  const heroWords = document.querySelectorAll('.scene-hero h1 .word');
+  const heroWrap = document.querySelector('[data-scene-idx="0"]');
+  function updateHeroWords() {
+    if (!heroWrap) return;
+    const p = parseFloat(heroWrap.style.getPropertyValue('--p')) || 0;
+    heroWords.forEach((w, i) => {
+      const threshold = 0.05 + i * 0.12;
+      w.classList.toggle('in', p > threshold);
+    });
+  }
+
+  // ====== Map cards stagger reveal ======
+  const mapCards = document.querySelectorAll('.map-card');
+  const mapWrap = document.querySelector('[data-scene-idx="2"]');
+  function updateMapCards() {
+    if (!mapWrap) return;
+    const p = parseFloat(mapWrap.style.getPropertyValue('--p')) || 0;
+    mapCards.forEach((c, i) => {
+      const threshold = 0.18 + i * 0.10;
+      c.classList.toggle('in', p > threshold);
+    });
+  }
+
+  updateScenes();
+
+  // ====== Scene counter dots ======
+  const counter = document.getElementById('sceneCounter');
+  const dots = counter.querySelectorAll('.dot');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const idx = parseInt(e.target.dataset.sceneIdx, 10);
+      if (e.isIntersecting) {
+        dots.forEach(d => {
+          d.classList.toggle('on', parseInt(d.dataset.scene, 10) === idx);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sceneWraps.forEach(w => counterIO.observe(w));
+
+  const cinemaEl = document.querySelector('.cinema');
+  const cinemaIO = new IntersectionObserver(([e]) => {
+    counter.classList.toggle('show', e.isIntersecting);
+  }, { threshold: 0 });
+  cinemaIO.observe(cinemaEl);
+
+  // ====== Topnav show/hide based on scroll past cinema ======
+  const topnav = document.querySelector('.topnav');
+  function updateTopnav() {
+    const showAt = window.innerHeight * 1.4;
+    topnav.classList.toggle('show', window.scrollY > showAt);
+  }
+  window.addEventListener('scroll', updateTopnav, { passive: true });
+  updateTopnav();
+
+  // ====== Neural Network Canvas ======
+  (function() {
+    const canvas = document.getElementById('neuralCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let particles = [];
+    const PARTICLE_COUNT = 75;
+    const MAX_DIST = 160;
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      w = rect.width; h = rect.height;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.scale(dpr, dpr);
+    }
+    resize();
+    window.addEventListener('resize', () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      ctx.setTransform(1,0,0,1,0,0);
+      resize();
+      initParticles();
+    });
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 1.4 + 0.6,
+          pulse: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+    initParticles();
+    const nodesEl = document.getElementById('hudNodes');
+    if (nodesEl) nodesEl.textContent = PARTICLE_COUNT.toString().padStart(3, '0');
+
+    function frame(t) {
+      ctx.clearRect(0, 0, w, h);
+      // update positions
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.pulse += 0.02;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+      }
+      // draw connections
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < MAX_DIST) {
+            const alpha = (1 - d / MAX_DIST) * 0.4;
+            ctx.strokeStyle = `oklch(0.78 0.10 35 / ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      // draw particles
+      for (const p of particles) {
+        const glow = (Math.sin(p.pulse) + 1) * 0.5;
+        const radius = p.r + glow * 0.8;
+        ctx.fillStyle = `oklch(0.85 0.15 35 / ${0.55 + glow * 0.45})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+        // outer glow
+        ctx.fillStyle = `oklch(0.78 0.18 35 / ${0.10 + glow * 0.10})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius * 3.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // ====== HUD clock ======
+  (function(){
+    const el = document.getElementById('hudClock');
+    if (!el) return;
+    function tick() {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2,'0');
+      const mm = String(d.getMinutes()).padStart(2,'0');
+      const ss = String(d.getSeconds()).padStart(2,'0');
+      el.textContent = `${hh}:${mm}:${ss} JST`;
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // ====== AI signals ticker ======
+  (function(){
+    const sigBox = document.getElementById('aiSignals');
+    const sigText = document.getElementById('signalText');
+    if (!sigBox || !sigText) return;
+    const signals = [
+      '<strong>NEURAL.MESH</strong> &nbsp;|&nbsp; agents standing by',
+      '<strong>RAG.INDEX</strong> &nbsp;|&nbsp; 0.4M docs ready',
+      '<strong>TOOL.USE</strong> &nbsp;|&nbsp; 12 connectors live',
+      '<strong>ORCHESTRATOR</strong> &nbsp;|&nbsp; multi-agent loop ok',
+      '<strong>HUMAN-IN-LOOP</strong> &nbsp;|&nbsp; approvals queued',
+      '<strong>GOVERNANCE</strong> &nbsp;|&nbsp; guardrails active',
+    ];
+    let idx = 0;
+    function rotate() {
+      sigText.style.opacity = 0;
+      setTimeout(() => {
+        idx = (idx + 1) % signals.length;
+        sigText.innerHTML = signals[idx];
+        sigText.style.opacity = 1;
+      }, 250);
+    }
+    sigText.style.transition = 'opacity 0.3s';
+    setInterval(rotate, 3000);
+
+    // show only while in cinema scenes 2/3 (hide during scene 1 where HUDs are)
+    function updateSignals() {
+      const inCinema = window.scrollY < document.querySelector('.cinema').getBoundingClientRect().bottom + window.scrollY;
+      const pastScene1 = window.scrollY > window.innerHeight * 0.8;
+      const inCinemaArea = document.querySelector('.cinema').getBoundingClientRect().bottom > 0;
+      sigBox.classList.toggle('show', pastScene1 && inCinemaArea);
+    }
+    window.addEventListener('scroll', updateSignals, { passive: true });
+    updateSignals();
+  })();
+
+  // ====== Scroll-driven animation system (works in all browsers) ======
+  (function() {
+    // Auto-tag elements with data-anim attribute based on selectors
+    const animMap = [
+      ['.reveal', 'fade'],
+      ['.ch-banner', 'fade'],
+      ['.session', 'fade'],
+      ['.bigidea-inner', 'fade'],
+      ['.closing-inner', 'fade'],
+      ['.ch-banner-title', 'slide-right'],
+      ['.ch-banner-lede', 'slide-right'],
+      ['.session-meta', 'slide-right'],
+      ['.session-body', 'fade'],
+      ['.sb-block', 'fade'],
+      ['.struct-item', 'slide-right'],
+      ['.flow-row', 'slide-right'],
+      ['.de-step', 'fade'],
+      ['.sb-keywords .kw', 'scale'],
+      ['.sb-example', 'blur-up'],
+      ['.rm-chapter', 'lift'],
+      ['.session-num', 'glow-in'],
+      ['.session-timeline', 'fade'],
+      ['.closing-actions a', 'slide-right'],
+    ];
+    animMap.forEach(([sel, type]) => {
+      document.querySelectorAll(sel).forEach(el => {
+        if (!el.dataset.anim) el.dataset.anim = type;
+      });
+    });
+
+    // Collect all animated elements (data-anim, .reveal, .reveal-stagger > *, .ch-banner-num,
+    // .ch-ambient, .session-timeline-inner, .closing h2)
+    const all = new Set();
+    document.querySelectorAll('[data-anim]').forEach(el => all.add(el));
+    document.querySelectorAll('.reveal, .reveal-stagger > *, .ch-banner-num, .ch-ambient, .session-timeline-inner, .closing h2').forEach(el => all.add(el));
+
+    const elements = [...all];
+
+    // Optional stagger via CSS-set data attribute (children of same parent get offset)
+    // assign stagger index within parent for elements that should stagger
+    const staggerSelectors = ['.struct-item', '.flow-row', '.de-step', '.sb-keywords .kw', '.rm-chapter', '.closing-actions a'];
+    staggerSelectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        const siblings = [...el.parentElement.children].filter(c => c.matches(sel));
+        el.dataset.staggerIndex = siblings.indexOf(el);
+      });
+    });
+
+    document.body.classList.add('is-animated');
+
+    let raf = 0;
+    function update() {
+      const vh = window.innerHeight;
+      for (const el of elements) {
+        const r = el.getBoundingClientRect();
+        // Animation range: starts when element top reaches 90% of viewport,
+        // completes when element top reaches 40% of viewport
+        const start = vh * 0.90;
+        const end = vh * 0.40;
+        let t = (start - r.top) / (start - end);
+        // apply stagger offset
+        const stagger = parseInt(el.dataset.staggerIndex, 10);
+        if (!isNaN(stagger) && stagger > 0) {
+          t -= stagger * 0.12;
+        }
+        const p = Math.max(0, Math.min(1, t));
+        el.style.setProperty('--p', p.toFixed(3));
+      }
+      raf = 0;
+    }
+    function schedule() {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    // initial
+    update();
+  })();
+
+  // ====== Closing section neural canvas (sparser, dimmer) ======
+  (function(){
+    const canvas = document.getElementById('closingCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let particles = [];
+    const COUNT = 50, MAX_D = 200;
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      w = rect.width; h = rect.height;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.scale(dpr, dpr);
+    }
+    function init() {
+      particles = [];
+      for (let i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random()*w, y: Math.random()*h,
+          vx: (Math.random()-0.5)*0.18,
+          vy: (Math.random()-0.5)*0.18,
+          r: Math.random()*1.2 + 0.4,
+          pulse: Math.random()*Math.PI*2,
+        });
+      }
+    }
+    resize(); init();
+    window.addEventListener('resize', () => { resize(); init(); });
+
+    let visible = false;
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, {threshold: 0}).observe(canvas);
+
+    function frame() {
+      requestAnimationFrame(frame);
+      if (!visible) return;
+      ctx.clearRect(0, 0, w, h);
+      for (const p of particles) {
+        p.x += p.vx; p.y += p.vy; p.pulse += 0.015;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+      }
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i+1; j < particles.length; j++) {
+          const a = particles[i], b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < MAX_D) {
+            const alpha = (1 - d / MAX_D) * 0.18;
+            ctx.strokeStyle = `oklch(0.78 0.10 35 / ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for (const p of particles) {
+        const glow = (Math.sin(p.pulse) + 1) * 0.5;
+        ctx.fillStyle = `oklch(0.85 0.15 35 / ${0.4 + glow * 0.4})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r + glow * 0.4, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // ====== active section in topnav ======
   const navLinks = document.querySelectorAll('.topnav-links a');
   const targets = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1499,7 +3021,6 @@
       }
     });
   }, { rootMargin: '-40% 0px -50% 0px' });
-
   targets.forEach(t => io.observe(t));
 </script>
 

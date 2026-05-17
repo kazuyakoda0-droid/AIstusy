@@ -81,6 +81,45 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Road with guardrails -->
+      <rect x="40" y="100" width="720" height="80" fill="var(--bg-alt)"/>
+      <line x1="40" y1="140" x2="760" y2="140" class="ill-accent ill-dash"/>
+
+      <!-- Top guardrail -->
+      <g stroke="var(--accent)" stroke-width="2" fill="none">
+        <line x1="40" y1="95" x2="760" y2="95"/>
+        <line x1="50" y1="95" x2="50" y2="85"/><line x1="95" y1="95" x2="95" y2="85"/><line x1="140" y1="95" x2="140" y2="85"/><line x1="185" y1="95" x2="185" y2="85"/><line x1="230" y1="95" x2="230" y2="85"/><line x1="275" y1="95" x2="275" y2="85"/><line x1="320" y1="95" x2="320" y2="85"/><line x1="365" y1="95" x2="365" y2="85"/><line x1="410" y1="95" x2="410" y2="85"/><line x1="455" y1="95" x2="455" y2="85"/><line x1="500" y1="95" x2="500" y2="85"/><line x1="545" y1="95" x2="545" y2="85"/><line x1="590" y1="95" x2="590" y2="85"/><line x1="635" y1="95" x2="635" y2="85"/><line x1="680" y1="95" x2="680" y2="85"/><line x1="725" y1="95" x2="725" y2="85"/>
+      </g>
+      <text x="400" y="75" class="ill-text-accent" text-anchor="middle">GUARDRAIL ／ ガードレール</text>
+
+      <!-- Bottom guardrail -->
+      <g stroke="var(--accent)" stroke-width="2" fill="none">
+        <line x1="40" y1="185" x2="760" y2="185"/>
+        <line x1="50" y1="185" x2="50" y2="195"/><line x1="95" y1="185" x2="95" y2="195"/><line x1="140" y1="185" x2="140" y2="195"/><line x1="185" y1="185" x2="185" y2="195"/><line x1="230" y1="185" x2="230" y2="195"/><line x1="275" y1="185" x2="275" y2="195"/><line x1="320" y1="185" x2="320" y2="195"/><line x1="365" y1="185" x2="365" y2="195"/><line x1="410" y1="185" x2="410" y2="195"/><line x1="455" y1="185" x2="455" y2="195"/><line x1="500" y1="185" x2="500" y2="195"/><line x1="545" y1="185" x2="545" y2="195"/><line x1="590" y1="185" x2="590" y2="195"/><line x1="635" y1="185" x2="635" y2="195"/><line x1="680" y1="185" x2="680" y2="195"/><line x1="725" y1="185" x2="725" y2="195"/>
+      </g>
+      <text x="400" y="225" class="ill-text-accent" text-anchor="middle">POLICIES ／ ポリシー</text>
+
+      <!-- AI car driving safely -->
+      <g transform="translate(380 115)">
+        <rect width="80" height="50" fill="var(--ink)"/>
+        <rect x="10" y="10" width="60" height="20" fill="oklch(0.78 0.10 35)"/>
+        <text x="40" y="25" class="ill-text-accent" text-anchor="middle" style="font-size: 10px;">AI</text>
+        <circle cx="20" cy="50" r="6" fill="var(--ink)" stroke="var(--accent)" stroke-width="1.5"/>
+        <circle cx="60" cy="50" r="6" fill="var(--ink)" stroke="var(--accent)" stroke-width="1.5"/>
+      </g>
+
+      <!-- Forbidden zones outside -->
+      <text x="100" y="50" class="ill-text" text-anchor="middle" style="fill: oklch(0.55 0.14 30);">⚠ 機密漏えい</text>
+      <text x="700" y="50" class="ill-text" text-anchor="middle" style="fill: oklch(0.55 0.14 30);">⚠ ハルシネーション</text>
+      <text x="100" y="265" class="ill-text" text-anchor="middle" style="fill: oklch(0.55 0.14 30);">⚠ シャドーAI</text>
+      <text x="700" y="265" class="ill-text" text-anchor="middle" style="fill: oklch(0.55 0.14 30);">⚠ 著作権侵害</text>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -200,6 +239,62 @@
         <h3>Human in the Loop の義務化</h3>
         <p>「重要な判断にはAIだけで決めさせない」を組織のルールとして明文化。次のページで詳述。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">ガバナンス <span class="en">Governance</span></div>
+      <p class="jargon-plain">"AIを安全に使うための社内ルール" の整備。<span class="like">車に例えれば "車検制度" や "免許制度" のような枠組み。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ガードレール <span class="en">Guardrail</span></div>
+      <p class="jargon-plain">AIが踏み外してはいけない範囲を、技術的・運用的に縛る仕組み。<span class="like">"対外発信NG" "個人情報処理NG" など、暴走を防ぐ柵。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">リスクマトリクス <span class="en">Risk Matrix</span></div>
+      <p class="jargon-plain">"頻度 × 影響度" で、どのリスクを優先するかを整理する表。<span class="like">"よく起きるが影響小" と "ほぼ起きないが致命的" の分け方。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">監査 <span class="en">Audit</span></div>
+      <p class="jargon-plain">ルールが守られているかの定期チェック。<span class="like">会計監査と同じく、AI利用も "覗き込まれる" 設計にしておく。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">説明責任 <span class="en">Accountability</span></div>
+      <p class="jargon-plain">"なぜそうした" を、後から第三者にも説明できる状態にしておくこと。<span class="like">"AIがそう言いました" は通用しない。判断責任は人間が持つ。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AIガバナンス</h3>
+      <p class="analogy-body">AI活用に伴うリスクを、組織として管理する仕組み・ルール体系。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"道路交通法 ＋ 教習所" を整備する</h3>
+      <p class="analogy-body">車があっても、ルールなしに走らせれば事故が起きる。<br>AI活用も同じ。"走らせる前" にルールと教育を整えておく。</p>
     </div>
   </div>
 </section>

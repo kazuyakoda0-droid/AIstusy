@@ -89,6 +89,59 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Three boxes: public AI, secure cloud, on-premise -->
+      <g transform="translate(40 30)">
+        <rect width="220" height="220" class="ill-soft"/>
+        <text x="110" y="30" class="ill-text" text-anchor="middle">PUBLIC AI</text>
+        <text x="110" y="60" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); font-size: 14px;">一般チャットAI</text>
+        <!-- open lock -->
+        <g transform="translate(85 80)" fill="none" stroke="var(--ink-soft)" stroke-width="2">
+          <rect x="0" y="20" width="50" height="40"/>
+          <path d="M 8 20 L 8 5 Q 8 -5 25 -5 Q 42 -5 50 5"/>
+          <circle cx="25" cy="40" r="3" fill="var(--ink-soft)"/>
+        </g>
+        <text x="110" y="180" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: var(--muted);">入力 → 学習に使用される</text>
+        <text x="110" y="200" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: oklch(0.55 0.14 30);">機密データ NG</text>
+      </g>
+
+      <g transform="translate(290 30)">
+        <rect width="220" height="220" class="ill-warm"/>
+        <text x="110" y="30" class="ill-text-accent" text-anchor="middle">SECURE CLOUD</text>
+        <text x="110" y="60" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); font-size: 14px;">業務契約付きクラウド</text>
+        <!-- closed lock -->
+        <g transform="translate(85 80)" fill="none" stroke="var(--accent)" stroke-width="2">
+          <rect x="0" y="20" width="50" height="40" fill="var(--accent-soft)"/>
+          <path d="M 8 20 L 8 5 Q 8 -10 25 -10 Q 42 -10 42 5 L 42 20"/>
+          <circle cx="25" cy="40" r="3" fill="var(--accent)"/>
+        </g>
+        <text x="110" y="180" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: var(--muted);">オプトアウト ／ 暗号化</text>
+        <text x="110" y="200" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: var(--accent);">業務利用OK</text>
+      </g>
+
+      <g transform="translate(540 30)">
+        <rect width="220" height="220" fill="var(--ink)"/>
+        <text x="110" y="30" class="ill-text-accent" text-anchor="middle" style="fill: oklch(0.78 0.10 35);">ON-PREMISE</text>
+        <text x="110" y="60" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); font-size: 14px; fill: var(--paper);">自社内で動かす</text>
+        <!-- vault -->
+        <g transform="translate(75 80)" fill="none" stroke="oklch(0.78 0.10 35)" stroke-width="2">
+          <rect x="0" y="0" width="70" height="60" fill="oklch(0.30 0.012 60)"/>
+          <circle cx="35" cy="30" r="20"/>
+          <circle cx="35" cy="30" r="8" fill="oklch(0.78 0.10 35)"/>
+          <line x1="35" y1="10" x2="35" y2="20"/>
+          <line x1="35" y1="40" x2="35" y2="50"/>
+          <line x1="15" y1="30" x2="25" y2="30"/>
+          <line x1="45" y1="30" x2="55" y2="30"/>
+        </g>
+        <text x="110" y="180" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: oklch(0.7 0.015 70);">外部に出ない</text>
+        <text x="110" y="200" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: oklch(0.78 0.10 35);">機密 OK</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -202,6 +255,62 @@
         <h3>ログと監査</h3>
         <p>誰が・いつ・何を入力したかをログとして残せる仕組み。トラブル発生時の追跡と、利用実態の把握に必須。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">オプトアウト <span class="en">Opt-out</span></div>
+      <p class="jargon-plain">"自分のデータをAIの学習に使わないで" と設定すること。<span class="like">会員アンケートで「DMは送らないで」にチェックを入れるのと同じ意味合い。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">オンプレミス <span class="en">On-Premise</span></div>
+      <p class="jargon-plain">自社の管理する建物・サーバーの中で、ソフトを動かす方式。<span class="like">"自社内に置く金庫"。鍵を外に渡さない安心感。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">セキュアクラウド <span class="en">Secure Cloud</span></div>
+      <p class="jargon-plain">通信や保管が暗号化されるなど、業務利用向けに安全策が施されたクラウドサービス。<span class="like">"鍵付きの貸金庫"。専門業者の管理だが、自分しか開けられない。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">シャドーIT <span class="en">Shadow IT</span></div>
+      <p class="jargon-plain">会社が把握していないツールを、社員が勝手に業務利用すること。<span class="like">無料の個人AIに会議メモを貼り付ける → 機密が外に出ているかも、というリスク。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ゼロトラスト <span class="en">Zero Trust</span></div>
+      <p class="jargon-plain">"社内ネットワークだから安全" を疑い、毎回チェックする考え方。<span class="like">社員証だけで部屋に入れない。毎回顔認証もする、ような運用思想。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">セキュア環境でのAI運用</h3>
+      <p class="analogy-body">機密データを扱う際に、漏洩・流出・学習利用を防ぐ仕組み。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">銀行の "貸金庫" 運用</h3>
+      <p class="analogy-body">"無料の駅前ロッカー" に大事な書類は預けない。<br>セキュリティの担保された場所で、ルールに沿って扱う。</p>
     </div>
   </div>
 </section>

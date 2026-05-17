@@ -101,6 +101,62 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Left: chat interface (manual copy/paste) -->
+      <g transform="translate(40 30)">
+        <text x="120" y="0" class="ill-text" text-anchor="middle">CONVERSATIONAL AI</text>
+        <rect width="240" height="220" class="ill-soft"/>
+        <rect x="20" y="20" width="160" height="30" class="ill-warm"/>
+        <text x="100" y="40" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink);">User input</text>
+        <rect x="60" y="60" width="160" height="30" fill="var(--ink)"/>
+        <text x="140" y="80" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--paper);">AI reply</text>
+        <rect x="20" y="100" width="160" height="30" class="ill-warm"/>
+        <rect x="60" y="140" width="160" height="30" fill="var(--ink)"/>
+        <text x="120" y="200" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">人間が毎回コピペ</text>
+      </g>
+
+      <!-- Arrow -->
+      <g transform="translate(310 130)">
+        <path d="M 0 10 L 80 10" class="ill-accent-fat"/>
+        <polygon points="80,5 90,10 80,15" class="ill-dot"/>
+        <text x="40" y="-5" class="ill-text-accent" text-anchor="middle">EMBED</text>
+      </g>
+
+      <!-- Right: embedded AI inside business system -->
+      <g transform="translate(420 30)">
+        <text x="170" y="0" class="ill-text-accent" text-anchor="middle">EMBEDDED AI</text>
+        <rect width="340" height="220" class="ill-warm"/>
+        <text x="170" y="30" class="ill-text" text-anchor="middle" style="fill: var(--ink); font-family: var(--serif); font-size: 14px; font-weight: 700;">業務システム</text>
+        <!-- workflow blocks with AI in middle -->
+        <g transform="translate(20 50)">
+          <rect width="60" height="40" class="ill-soft"/>
+          <text x="30" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--ink);">受信</text>
+        </g>
+        <text x="90" y="73" class="ill-text-accent">→</text>
+        <g transform="translate(105 50)">
+          <rect width="60" height="40" fill="var(--accent)"/>
+          <text x="30" y="25" text-anchor="middle" fill="var(--paper)" font-family="var(--mono)" font-size="11">AI</text>
+        </g>
+        <text x="175" y="73" class="ill-text-accent">→</text>
+        <g transform="translate(190 50)">
+          <rect width="60" height="40" class="ill-soft"/>
+          <text x="30" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--ink);">判定</text>
+        </g>
+        <text x="260" y="73" class="ill-text-accent">→</text>
+        <g transform="translate(275 50)">
+          <rect width="50" height="40" class="ill-soft"/>
+          <text x="25" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--ink);">登録</text>
+        </g>
+        <text x="170" y="130" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink); font-size: 13px;">AI が裏側で動き、</text>
+        <text x="170" y="150" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink); font-size: 13px;">人間は判断・承認に集中</text>
+        <text x="170" y="190" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: var(--accent);">コピペ不要</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -245,6 +301,62 @@
         <h3>顧客問合せ → 一次対応ドラフト</h3>
         <p>サポートシステムに問合せが入ると、AIが過去事例（RAG）から返信ドラフトを生成。オペレーターは内容確認＋送信のみで対応時間が大幅短縮。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">API <span class="en">API</span></div>
+      <p class="jargon-plain">プログラム同士が話すための共通の窓口。<span class="like">駅の券売機にあいてる "改札のスリット"。決まった形でカードを入れると、決まった応答が返る。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Webhook <span class="en">Webhook</span></div>
+      <p class="jargon-plain">"何かが起きたら自動で通知する" 仕組み。<span class="like">"新着メールが届いたら教えて" の機械版。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">対話型AI <span class="en">Conversational AI</span></div>
+      <p class="jargon-plain">人がチャット欄に入力する形のAI。ChatGPTのような画面。<span class="like">"AIに窓口に来てもらう" 形。毎回コピペが発生。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">組み込み型AI <span class="en">Embedded AI</span></div>
+      <p class="jargon-plain">既存業務システムの裏側でAIが自動で動く形。人間からは見えない。<span class="like">"AIに席を用意して、ふだんから業務に同席させる" 形。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ノーコード連携 <span class="en">Zapier / Make</span></div>
+      <p class="jargon-plain">"AならBする" をマウス操作だけで作れるツール群。<span class="like">Excelの IF 関数の "業務システム間バージョン"。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">対話型 → 組み込み型</h3>
+      <p class="analogy-body">AIをチャット画面から解放し、業務システムの裏側で常時稼働させる方式。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"受付の人" → "席を持つメンバー"</h3>
+      <p class="analogy-body">対話型は、用があるたび受付に行って依頼する形。<br>組み込み型は、AIが机を持ってチームに居て、業務が発生した瞬間に動く。</p>
     </div>
   </div>
 </section>

@@ -94,6 +94,43 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <text x="400" y="30" class="ill-text" text-anchor="middle">DIVISION OF LABOR / 分業</text>
+
+      <!-- AI side -->
+      <g transform="translate(40 60)">
+        <rect width="340" height="180" class="ill-warm"/>
+        <text x="170" y="30" class="ill-text-accent" text-anchor="middle">AI が担う</text>
+        <g font-family="var(--serif)" font-size="13" fill="var(--ink)">
+          <circle cx="20" cy="60" r="3" class="ill-dot"/><text x="32" y="64">大量データの仕分け</text>
+          <circle cx="20" cy="85" r="3" class="ill-dot"/><text x="32" y="89">下調べ・調査</text>
+          <circle cx="20" cy="110" r="3" class="ill-dot"/><text x="32" y="114">ドラフト作成</text>
+          <circle cx="20" cy="135" r="3" class="ill-dot"/><text x="32" y="139">候補案の列挙</text>
+          <circle cx="20" cy="160" r="3" class="ill-dot"/><text x="32" y="164">繰り返し作業</text>
+        </g>
+      </g>
+
+      <!-- Divider -->
+      <line x1="395" y1="50" x2="395" y2="250" class="ill-line ill-dash"/>
+
+      <!-- Human side -->
+      <g transform="translate(420 60)">
+        <rect width="340" height="180" fill="var(--ink)"/>
+        <text x="170" y="30" class="ill-text-accent" text-anchor="middle" style="fill: oklch(0.78 0.10 35);">人間が担う</text>
+        <g font-family="var(--serif)" font-size="13" fill="var(--paper)">
+          <circle cx="20" cy="60" r="3" fill="oklch(0.78 0.10 35)"/><text x="32" y="64">最終判断</text>
+          <circle cx="20" cy="85" r="3" fill="oklch(0.78 0.10 35)"/><text x="32" y="89">承認 (ハンコ)</text>
+          <circle cx="20" cy="110" r="3" fill="oklch(0.78 0.10 35)"/><text x="32" y="114">責任を負う</text>
+          <circle cx="20" cy="135" r="3" fill="oklch(0.78 0.10 35)"/><text x="32" y="139">例外処理・突発対応</text>
+          <circle cx="20" cy="160" r="3" fill="oklch(0.78 0.10 35)"/><text x="32" y="164">関係者との交渉</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -232,6 +269,58 @@
         <h3>"例外" の処理ルートを必ず用意する</h3>
         <p>AIが自信を持って判定できないケース、ルールに収まらないケースは、人間にエスカレーションする道を必ず設計する。AIに無理に決めさせない。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">Human-in-the-Loop <span class="en">HITL</span></div>
+      <p class="jargon-plain">"最終判断は必ず人間" にする運用設計。<span class="like">車の自動運転でも、緊急停止ボタンはハンドル横にある、あの考え方。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">承認フロー <span class="en">Approval Workflow</span></div>
+      <p class="jargon-plain">誰がどの順番で確認・承認するかの取り決め。<span class="like">稟議書のハンコリレー。AIは下準備、人間は判断と署名。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">例外処理 <span class="en">Exception Handling</span></div>
+      <p class="jargon-plain">"普段のルールから外れる" 状況の取扱い。<span class="like">"金額の桁が違う" "顧客名が似てるけど別会社" などをエスカレーション。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">エスカレーション <span class="en">Escalation</span></div>
+      <p class="jargon-plain">"自分の権限では決められない" を、しかるべき人に上げること。<span class="like">コールセンターで "では上の者に代わります" の、あれ。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">人間とAIの分業</h3>
+      <p class="analogy-body">AIに下準備と仕分けを任せ、人間は判断と責任に集中する設計。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"優秀な秘書 ＋ 上司" のチーム</h3>
+      <p class="analogy-body">秘書が書類を仕分け、要点をまとめて持ってくる。<br>上司は中身に目を通し、ハンコを押すかどうかを決める。</p>
     </div>
   </div>
 </section>

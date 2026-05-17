@@ -135,6 +135,50 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Left: classification (multiple choice) -->
+      <text x="160" y="40" class="ill-text" text-anchor="middle">CLASSIFY / 選ぶ</text>
+      <g transform="translate(40 60)">
+        <rect width="240" height="30" class="ill-soft"/>
+        <text x="120" y="20" class="ill-text-soft" text-anchor="middle">○ スパム</text>
+      </g>
+      <g transform="translate(40 100)">
+        <rect width="240" height="30" class="ill-warm"/>
+        <text x="120" y="20" class="ill-text-soft" text-anchor="middle" style="fill: var(--accent); font-weight: 700;">● 通常メール</text>
+      </g>
+      <g transform="translate(40 140)">
+        <rect width="240" height="30" class="ill-soft"/>
+        <text x="120" y="20" class="ill-text-soft" text-anchor="middle">○ 重要</text>
+      </g>
+      <g transform="translate(40 180)">
+        <rect width="240" height="30" class="ill-soft"/>
+        <text x="120" y="20" class="ill-text-soft" text-anchor="middle">○ プロモーション</text>
+      </g>
+
+      <!-- Arrow -->
+      <g transform="translate(340 130)">
+        <path d="M 0 10 L 60 10" class="ill-accent-fat"/>
+        <polygon points="60,5 70,10 60,15" class="ill-dot"/>
+        <text x="35" y="-5" class="ill-text-accent" text-anchor="middle">EVOLVES</text>
+      </g>
+
+      <!-- Right: generation (blank → text) -->
+      <text x="580" y="40" class="ill-text" text-anchor="middle">GENERATE / 書く</text>
+      <rect x="440" y="60" width="280" height="180" class="ill-warm"/>
+      <text x="450" y="80" class="ill-text-accent">DRAFT:</text>
+      <line x1="455" y1="100" x2="700" y2="100" class="ill-accent"/>
+      <line x1="455" y1="120" x2="710" y2="120" class="ill-accent"/>
+      <line x1="455" y1="140" x2="680" y2="140" class="ill-accent"/>
+      <line x1="455" y1="160" x2="700" y2="160" class="ill-accent"/>
+      <line x1="455" y1="180" x2="690" y2="180" class="ill-accent"/>
+      <line x1="455" y1="200" x2="710" y2="200" class="ill-accent"/>
+      <line x1="455" y1="220" x2="650" y2="220" class="ill-accent"/>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -264,6 +308,58 @@
         <h3>「考える壁打ち相手」が常時いる</h3>
         <p>従来AIは答えしか返さなかった。生成AIは「質問してくれ」と頼めば質問してくれる。ファシリテーター・編集者・批評家として、思考のパートナーになる。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">識別AI／予測AI <span class="en">Discriminative AI</span></div>
+      <p class="jargon-plain">与えられたものを「分類する／当てる」AI。スパムか／そうでないか、を判定する系。<span class="like">健康診断の結果を見て「異常あり／なし」を仕分けする医師。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">生成AI <span class="en">Generative AI</span></div>
+      <p class="jargon-plain">ゼロから新しいものを「書き出す／描き出す」AI。<span class="like">健康診断の結果を見て、説明文書や生活改善プランを作文してくれる医師。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">分類問題 <span class="en">Classification</span></div>
+      <p class="jargon-plain">入力をいくつかのカテゴリーに振り分ける問題。<span class="like">受信メールを「経理」「営業」「迷惑メール」のどれかに振り分ける作業。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">回帰問題 <span class="en">Regression</span></div>
+      <p class="jargon-plain">数値を予測する問題。<span class="like">来月の売上を「だいたい〇〇万円」と当てに行く作業。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">予測・分類から生成へ</h3>
+      <p class="analogy-body">"選ぶ"AIから "作る"AI へのパラダイムシフト。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">○×テスト → 小論文</h3>
+      <p class="analogy-body">これまでのAIは選択肢の中から正解を選ぶ "○×テスト" が中心。<br>生成AIは、白紙の答案用紙に文章を書き起こせるようになった。</p>
     </div>
   </div>
 </section>

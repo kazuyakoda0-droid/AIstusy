@@ -91,6 +91,65 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Veteran head with knowledge inside, transferring to DB -->
+      <g transform="translate(50 50)">
+        <text x="80" y="0" class="ill-text" text-anchor="middle">VETERAN / ベテラン</text>
+        <!-- head silhouette -->
+        <ellipse cx="80" cy="80" rx="50" ry="60" fill="var(--bg-alt)" stroke="var(--hair-strong)" stroke-width="1.5"/>
+        <!-- knowledge dots inside -->
+        <circle cx="60" cy="60" r="3" class="ill-dot"/>
+        <circle cx="90" cy="55" r="3" class="ill-dot"/>
+        <circle cx="75" cy="80" r="3" class="ill-dot"/>
+        <circle cx="100" cy="85" r="3" class="ill-dot"/>
+        <circle cx="55" cy="95" r="3" class="ill-dot"/>
+        <circle cx="85" cy="105" r="3" class="ill-dot"/>
+        <circle cx="70" cy="120" r="3" class="ill-dot"/>
+        <text x="80" y="170" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">暗黙知 / 属人化</text>
+      </g>
+
+      <!-- Arrow with extraction -->
+      <g transform="translate(220 110)">
+        <path d="M 0 30 L 160 30" class="ill-accent-fat ill-dash"/>
+        <polygon points="160,25 170,30 160,35" class="ill-dot"/>
+        <text x="85" y="15" class="ill-text-accent" text-anchor="middle">AI構造化</text>
+        <text x="85" y="55" class="ill-text" text-anchor="middle">EXTRACT / 形式知化</text>
+      </g>
+
+      <!-- Database / shared knowledge -->
+      <g transform="translate(440 50)">
+        <text x="160" y="0" class="ill-text-accent" text-anchor="middle">COMPANY KNOWLEDGE</text>
+        <!-- Database shape -->
+        <g fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5">
+          <ellipse cx="160" cy="35" rx="80" ry="14"/>
+          <path d="M 80 35 L 80 130 Q 80 144 160 144 Q 240 144 240 130 L 240 35"/>
+          <ellipse cx="160" cy="35" rx="80" ry="14" fill="var(--accent)"/>
+          <line x1="80" y1="65" x2="240" y2="65"/>
+          <line x1="80" y1="95" x2="240" y2="95"/>
+          <ellipse cx="160" cy="65" rx="80" ry="14" fill="none"/>
+          <ellipse cx="160" cy="95" rx="80" ry="14" fill="none"/>
+        </g>
+        <text x="160" y="170" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">全社員がアクセス可</text>
+        <!-- arrows to many people -->
+        <g stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 3" fill="none">
+          <line x1="100" y1="160" x2="60" y2="200"/>
+          <line x1="140" y1="160" x2="130" y2="200"/>
+          <line x1="180" y1="160" x2="190" y2="200"/>
+          <line x1="220" y1="160" x2="260" y2="200"/>
+        </g>
+        <g transform="translate(40 200)">
+          <circle cx="20" cy="10" r="6" class="ill-dot"/>
+          <circle cx="90" cy="10" r="6" class="ill-dot"/>
+          <circle cx="150" cy="10" r="6" class="ill-dot"/>
+          <circle cx="220" cy="10" r="6" class="ill-dot"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -221,6 +280,58 @@
         <li>「AIに任せたから安心」→ ベテランが文書化を怠る</li>
         <li>ガバナンス不在で、機密情報まで混入</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">属人化 <span class="en">Tribal Knowledge</span></div>
+      <p class="jargon-plain">"あの人に聞かないと分からない" 状態。退職で消える。<span class="like">40年のベテランの頭の中にしかない、製造ノウハウ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ナレッジマネジメント <span class="en">Knowledge Management</span></div>
+      <p class="jargon-plain">社内の知識を共有資産にしておく取り組み。<span class="like">個人のWordファイルやメモ → 全社で検索できる仕組みへ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">形式知／暗黙知 <span class="en">Explicit / Tacit Knowledge</span></div>
+      <p class="jargon-plain">マニュアル化されているか／頭の中にしかないかの違い。AIは "暗黙知" の言語化を助ける。<span class="like">ベテランへのインタビューをAIが構造化し、マニュアル化する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">セマンティック検索 <span class="en">Semantic Search</span></div>
+      <p class="jargon-plain">意味で探せる検索。"出張のお金" → "旅費規程" のように、言い回しが違っても見つかる。<span class="like">ベテランに "あれってどうやるんでしたっけ" と聞くのに近い感覚。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">社内ナレッジのAI化</h3>
+      <p class="analogy-body">個人の頭の中の知識を、組織の検索可能な資産に変えること。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"24時間営業の、社内案内係"</h3>
+      <p class="analogy-body">ベテランの代わりに、社内文書を読み込んだAIが、誰の質問にもいつでも答える。<br>聞きにくかった "今さら聞けない質問" のハードルも下がる。</p>
     </div>
   </div>
 </section>

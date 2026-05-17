@@ -90,6 +90,46 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Messy notes -->
+      <text x="100" y="30" class="ill-text" text-anchor="middle">MEMO / 雑な箇条書き</text>
+      <g transform="translate(40 50)">
+        <rect width="200" height="180" class="ill-soft"/>
+        <text x="20" y="30" class="ill-text-soft">・予算オーバー懸念</text>
+        <text x="20" y="55" class="ill-text-soft">・10/末まで</text>
+        <text x="20" y="80" class="ill-text-soft">・先方は山田氏</text>
+        <text x="20" y="105" class="ill-text-soft">・追加機能の話</text>
+        <text x="20" y="130" class="ill-text-soft">・次回 11/5(月)</text>
+        <text x="20" y="155" class="ill-text-soft" style="font-family: var(--mono); fill: var(--muted);">(走り書き)</text>
+      </g>
+
+      <!-- Arrow with AI label -->
+      <g transform="translate(280 130)">
+        <path d="M 0 10 L 80 10" class="ill-accent-fat"/>
+        <polygon points="80,5 90,10 80,15" class="ill-dot"/>
+        <text x="40" y="-5" class="ill-text-accent" text-anchor="middle">AI DRAFT</text>
+      </g>
+
+      <!-- Clean doc -->
+      <text x="600" y="30" class="ill-text-accent" text-anchor="middle">DRAFT EMAIL / 整文済み</text>
+      <g transform="translate(440 50)">
+        <rect width="320" height="200" class="ill-warm"/>
+        <text x="20" y="30" class="ill-text-accent">山田 様</text>
+        <line x1="20" y1="50" x2="300" y2="50" class="ill-accent"/>
+        <line x1="20" y1="70" x2="300" y2="70" class="ill-accent"/>
+        <line x1="20" y1="90" x2="280" y2="90" class="ill-accent"/>
+        <text x="20" y="125" class="ill-text-soft" style="fill: var(--ink); font-weight: 700;">▼ 主要論点</text>
+        <line x1="20" y1="145" x2="300" y2="145" class="ill-accent"/>
+        <line x1="20" y1="165" x2="300" y2="165" class="ill-accent"/>
+        <text x="20" y="195" class="ill-text-soft" style="fill: var(--ink); font-weight: 700;">▼ 次回</text>
+        <line x1="20" y1="210" x2="240" y2="210" class="ill-accent"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -215,6 +255,58 @@
         <h3>出力後、必ず読んで「自分の言葉」に直す</h3>
         <p>AIの文章はどこか定型的。固有名詞、自社の文化に合う言い回し、ニュアンスは人間が最終調整する。「下書きはAI、署名は人間」が原則。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">ドラフト <span class="en">Draft</span></div>
+      <p class="jargon-plain">完成形ではない "下書き"。AIは下書きを瞬時に作るのが得意。<span class="like">人間が "白紙から書き始める" 苦しさをスキップして、添削から始められる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">テンプレート <span class="en">Template</span></div>
+      <p class="jargon-plain">繰り返し使える型・ひな形。AIに「この型に沿って書いて」と指示できる。<span class="like">社内の議事録フォーマット、定型メールの型紙、など。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ペルソナ <span class="en">Persona</span></div>
+      <p class="jargon-plain">想定する読み手・受け手の人物像。<span class="like">同じ説明でも「役員向け」と「現場担当者向け」では用語・粒度を変える。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">トーン＆マナー <span class="en">Tone of Voice</span></div>
+      <p class="jargon-plain">文章の硬さ・温度感などの "雰囲気"。<span class="like">同僚へのSlack文体 ⇔ 顧客への正式文書、その間の距離感。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AIによる文書ドラフト生成</h3>
+      <p class="analogy-body">雑なメモから、目的別に整った文章のたたき台を生成する作業。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"優秀な秘書に下書きを任せる"</h3>
+      <p class="analogy-body">0→1で書き始める苦痛がなくなる。<br>人間は "1→100" に集中できる（事実確認・微調整・最終署名）。</p>
     </div>
   </div>
 </section>

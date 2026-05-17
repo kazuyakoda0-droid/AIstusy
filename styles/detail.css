@@ -36,7 +36,7 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--hair);
 }
 .topnav-inner {
-  max-width: 1280px; margin: 0 auto;
+  max-width: min(1680px, 92vw); margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 32px;
 }
@@ -58,7 +58,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== hero ===== */
 .hero-detail {
-  max-width: 1280px; margin: 0 auto;
+  max-width: min(1680px, 92vw); margin: 0 auto;
   padding: 96px 32px 64px;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 80px; align-items: end;
@@ -94,7 +94,7 @@ a { color: inherit; text-decoration: none; }
   padding: 80px 0;
 }
 .metaphor-inner {
-  max-width: 1280px; margin: 0 auto; padding: 0 32px;
+  max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
   display: grid; grid-template-columns: 200px 1fr; gap: 80px;
   align-items: center;
 }
@@ -113,7 +113,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== section base ===== */
 .section {
-  max-width: 1280px; margin: 0 auto;
+  max-width: min(1680px, 92vw); margin: 0 auto;
   padding: 96px 32px;
 }
 .section-head {
@@ -340,7 +340,7 @@ a { color: inherit; text-decoration: none; }
   padding: 64px 0;
 }
 .pagenav-inner {
-  max-width: 1280px; margin: 0 auto; padding: 0 32px;
+  max-width: min(1680px, 92vw); margin: 0 auto; padding: 0 32px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
 }
 .pagenav a {
@@ -456,9 +456,243 @@ footer.foot {
   text-transform: uppercase;
 }
 
+/* ===== jargon-buster: term cards in plain language ===== */
+.jargon-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+}
+.jargon-card {
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-left: 3px solid var(--accent);
+  padding: 22px 26px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.jargon-term {
+  display: flex; align-items: baseline; gap: 12px;
+  font-family: var(--serif); font-weight: 700;
+  font-size: 19px; line-height: 1.3; color: var(--ink);
+  flex-wrap: wrap;
+}
+.jargon-term .en {
+  font-family: var(--mono); font-size: 11pt;
+  letter-spacing: 0.05em; color: var(--muted);
+  font-weight: 400;
+}
+.jargon-plain {
+  font-size: 14pt; line-height: 1.75; color: var(--ink-soft);
+}
+.jargon-plain .like {
+  display: block; margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--bg-alt);
+  font-family: var(--serif);
+  color: var(--ink); border-left: 2px solid var(--accent);
+  font-size: 13.5pt;
+}
+.jargon-plain .like::before {
+  content: "つまり ／ ";
+  font-family: var(--mono); font-size: 10.5pt;
+  letter-spacing: 0.12em; color: var(--accent);
+  text-transform: uppercase;
+}
+
+/* ===== analogy box: "tech ≒ everyday thing" ===== */
+.analogy {
+  display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0;
+  align-items: stretch;
+  border: 1px solid var(--hair);
+  background: var(--paper);
+}
+.analogy-side {
+  padding: 32px 36px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.analogy-tech { background: var(--bg-alt); }
+.analogy-real { background: var(--accent-soft); }
+.analogy-tag {
+  font-family: var(--mono); font-size: 11pt; letter-spacing: 0.16em;
+  color: var(--muted); text-transform: uppercase;
+}
+.analogy-real .analogy-tag { color: var(--accent); }
+.analogy-h {
+  font-family: var(--serif); font-weight: 700; font-size: 22px;
+  line-height: 1.4; color: var(--ink);
+}
+.analogy-body {
+  font-size: 14pt; line-height: 1.85; color: var(--ink-soft);
+}
+.analogy-eq {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 36px; color: var(--accent);
+  font-weight: 100;
+  background: var(--paper);
+  border-left: 1px solid var(--hair);
+  border-right: 1px solid var(--hair);
+}
+
+/* ===== concept diagram: abstract idea visualizer ===== */
+.concept {
+  background: var(--paper); border: 1px solid var(--hair);
+  padding: 40px 48px;
+  display: grid; gap: 28px;
+}
+.concept-row {
+  display: grid; grid-template-columns: 180px 1fr; gap: 36px;
+  align-items: center;
+}
+.concept-row .who {
+  font-family: var(--mono); font-size: 12pt; letter-spacing: 0.14em;
+  color: var(--muted); text-transform: uppercase;
+}
+.concept-row .vis {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.concept-row .vis .chip {
+  background: var(--bg-alt); border: 1px solid var(--hair);
+  padding: 10px 16px; font-family: var(--serif); font-size: 14pt;
+}
+.concept-row .vis .chip.on { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.concept-row .vis .chip.warn { background: oklch(0.92 0.05 60); border-color: oklch(0.75 0.08 60); }
+.concept-row .vis .arrow { color: var(--accent); font-size: 22px; font-weight: 100; }
+
+/* ===== "what / why / how" simple 3-up ===== */
+.www-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--hair); border: 1px solid var(--hair);
+}
+.www-cell {
+  background: var(--paper); padding: 28px 28px 32px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.www-cell .tag {
+  font-family: var(--mono); font-size: 11pt;
+  letter-spacing: 0.16em; color: var(--accent);
+  text-transform: uppercase;
+}
+.www-cell h3 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: 20px; line-height: 1.4; color: var(--ink);
+}
+.www-cell p {
+  font-size: 13.5pt; line-height: 1.8; color: var(--ink-soft);
+}
+
+/* ===== visual SVG concept blocks ===== */
+.svg-concept {
+  background: var(--paper); border: 1px solid var(--hair);
+  padding: 36px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+  align-items: center;
+}
+.svg-concept svg { width: 100%; height: auto; max-height: 320px; }
+.svg-concept .caption h3 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: 22px; line-height: 1.4; color: var(--ink);
+  margin-bottom: 14px;
+}
+.svg-concept .caption p {
+  font-size: 14pt; line-height: 1.85; color: var(--ink-soft);
+}
+
+/* ===== "everyday version" intro block (mini-metaphor at section top) ===== */
+.everyday {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  display: grid; grid-template-columns: 140px 1fr; gap: 28px;
+  align-items: start;
+}
+.everyday .tag {
+  font-family: var(--mono); font-size: 11pt;
+  letter-spacing: 0.16em; color: var(--accent);
+  text-transform: uppercase;
+  padding-top: 4px;
+}
+.everyday p {
+  font-family: var(--serif); font-size: 16pt; line-height: 1.7;
+  color: var(--ink);
+}
+.everyday p strong {
+  background: linear-gradient(transparent 60%, oklch(0.92 0.08 80) 60%);
+  font-weight: 700;
+}
+
 @media (max-width: 980px) {
-  .hero-detail, .metaphor-inner, .section-head, .compare,
-  .diagram-flow, .example-card, .pagenav-inner {
+  .jargon-grid, .analogy, .www-grid, .svg-concept, .everyday {
+    grid-template-columns: 1fr !important;
+  }
+  .analogy-eq { transform: rotate(90deg); }
+  .concept-row { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ===== Hero illustration block (after .hero-detail, before .metaphor) ===== */
+.hero-illust {
+  max-width: min(1680px, 92vw);
+  margin: 0 auto;
+  padding: 0 32px 32px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.hero-illust .label {
+  font-family: var(--mono); font-size: 15pt;
+  letter-spacing: 0.16em; color: var(--muted);
+  text-transform: uppercase;
+  padding-top: 12px;
+}
+.hero-illust .frame {
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  padding: 36px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-illust .frame::before,
+.hero-illust .frame::after {
+  content: ""; position: absolute;
+  width: 12px; height: 12px;
+  border-color: var(--accent);
+  border-style: solid;
+  border-width: 0;
+}
+.hero-illust .frame::before { top: 8px; left: 8px; border-top-width: 1px; border-left-width: 1px; }
+.hero-illust .frame::after { bottom: 8px; right: 8px; border-bottom-width: 1px; border-right-width: 1px; }
+.hero-illust svg {
+  width: 100%; height: auto; max-height: 320px;
+  display: block;
+}
+.hero-illust .ill-line { fill: none; stroke: var(--ink-soft); stroke-width: 1.2; }
+.hero-illust .ill-accent { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.hero-illust .ill-accent-fat { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
+.hero-illust .ill-dot { fill: var(--accent); }
+.hero-illust .ill-dim { fill: var(--hair-strong); }
+.hero-illust .ill-ink { fill: var(--ink); }
+.hero-illust .ill-soft { fill: var(--bg-alt); stroke: var(--hair); stroke-width: 1; }
+.hero-illust .ill-warm { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1; }
+.hero-illust .ill-text {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.14em; fill: var(--muted);
+  text-transform: uppercase;
+}
+.hero-illust .ill-text-soft {
+  font-family: var(--serif); font-size: 13px;
+  fill: var(--ink-soft);
+}
+.hero-illust .ill-text-accent {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.14em; fill: var(--accent);
+  text-transform: uppercase;
+}
+.hero-illust .ill-dash { stroke-dasharray: 3 4; }
+.hero-illust .ill-glow { filter: drop-shadow(0 0 6px oklch(0.55 0.15 35 / 0.4)); }
+
+@media (max-width: 980px) {
+  .hero-illust { grid-template-columns: 1fr; gap: 16px; }
+  .hero-illust .frame { padding: 24px; }
+}
+
     grid-template-columns: 1fr; gap: 32px;
   }
   .hero-detail h1 { font-size: 40px; }

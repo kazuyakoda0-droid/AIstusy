@@ -102,6 +102,43 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- 2x2 quadrants -->
+      <g transform="translate(40 30)">
+        <rect width="340" height="100" class="ill-warm"/>
+        <text x="20" y="25" class="ill-text-accent">ROLE / 役割</text>
+        <text x="20" y="55" class="ill-text-soft">あなたはベテランの</text>
+        <text x="20" y="75" class="ill-text-soft">コピーライターです</text>
+      </g>
+      <g transform="translate(420 30)">
+        <rect width="340" height="100" class="ill-warm"/>
+        <text x="20" y="25" class="ill-text-accent">CONTEXT / 文脈</text>
+        <text x="20" y="55" class="ill-text-soft">20代女性向けの</text>
+        <text x="20" y="75" class="ill-text-soft">時短スキンケアコスメを発売</text>
+      </g>
+      <g transform="translate(40 150)">
+        <rect width="340" height="100" class="ill-warm"/>
+        <text x="20" y="25" class="ill-text-accent">TASK / タスク</text>
+        <text x="20" y="55" class="ill-text-soft">魅力を伝える</text>
+        <text x="20" y="75" class="ill-text-soft">キャッチコピーを提案</text>
+      </g>
+      <g transform="translate(420 150)">
+        <rect width="340" height="100" class="ill-warm"/>
+        <text x="20" y="25" class="ill-text-accent">FORMAT / 出力形式</text>
+        <text x="20" y="55" class="ill-text-soft">箇条書きで5つ、</text>
+        <text x="20" y="75" class="ill-text-soft">それぞれ解説付きで</text>
+      </g>
+      <!-- Center diamond -->
+      <g transform="translate(400 140)">
+        <rect x="-30" y="-15" width="60" height="30" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="0" y="5" class="ill-text-accent" text-anchor="middle">+</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -250,6 +287,66 @@
         <strong>タスク：</strong>ターゲット設定の弱点を指摘し、絞り込むための質問を3つして。<br>
         <strong>形式：</strong>指摘 → 質問 → 私の回答欄、を3セット。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">プロンプト <span class="en">Prompt</span></div>
+      <p class="jargon-plain">AIへの指示文・お願いごとのこと。<span class="like">新人にメモで仕事を渡すときの、そのメモの中身。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">プロンプトエンジニアリング <span class="en">Prompt Engineering</span></div>
+      <p class="jargon-plain">指示の書き方を工夫して、AIの出力品質を上げる技術。<span class="like">部下への指示の出し方の上手・下手と同じこと。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ゼロショット <span class="en">Zero-shot</span></div>
+      <p class="jargon-plain">例を見せずに、いきなりタスクをお願いするやり方。<span class="like">お手本なしで「キャッチコピー10個ください」と頼む。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">フューショット <span class="en">Few-shot</span></div>
+      <p class="jargon-plain">「こういう感じで」と1〜数個の例を見せてからお願いするやり方。<span class="like">"先輩の過去資料3つ見せて、同じトーンで作って" と頼む方が精度が上がる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Chain of Thought <span class="en">CoT</span></div>
+      <p class="jargon-plain">「順番に考えて」と一言加えるだけで、AIの推論力が上がる現象を使ったテクニック。<span class="like">計算問題で「途中式を書いて」と言う、あの感覚。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ロール／役割 <span class="en">Role</span></div>
+      <p class="jargon-plain">「あなたはベテランの〇〇です」と立場を与える指示。トーンや視点が一気に変わる。<span class="like">同じ質問でも、相手を弁護士に頼むか、デザイナーに頼むかで答えが変わるのと同じ。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">プロンプトエンジニアリング</h3>
+      <p class="analogy-body">構造化された指示で、AIの出力精度を引き上げる作業。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">新人に仕事を振る上司の "依頼メモ"</h3>
+      <p class="analogy-body">"これやっといて" だけだと外れた成果が返ってくる。<br>"誰向けに／何のために／どんな形で" まで書けば、的を射た成果物になる。</p>
     </div>
   </div>
 </section>

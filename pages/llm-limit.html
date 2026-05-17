@@ -96,6 +96,37 @@
   </p>
 </header>
 
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- World knowledge bubble -->
+      <circle cx="280" cy="140" r="110" class="ill-warm"/>
+      <text x="280" y="100" class="ill-text-accent" text-anchor="middle">WORLD KNOWLEDGE</text>
+      <text x="280" y="145" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); font-size: 14px;">一般常識 / 公開情報</text>
+      <text x="280" y="175" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: var(--muted);">学習時点まで</text>
+
+      <!-- Gap -->
+      <text x="450" y="80" class="ill-text" text-anchor="middle">GAP</text>
+      <g stroke="oklch(0.6 0.14 30)" stroke-width="1.5" fill="none">
+        <line x1="430" y1="100" x2="500" y2="180"/>
+        <line x1="500" y1="100" x2="430" y2="180"/>
+      </g>
+
+      <!-- Company-specific knowledge -->
+      <rect x="540" y="40" width="220" height="200" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <text x="650" y="35" class="ill-text" text-anchor="middle">YOUR COMPANY</text>
+      <g font-family="var(--serif)" font-size="13" fill="var(--ink)">
+        <circle cx="560" cy="80" r="3" class="ill-dot"/><text x="572" y="84">出張規程</text>
+        <circle cx="560" cy="110" r="3" class="ill-dot"/><text x="572" y="114">顧客リスト</text>
+        <circle cx="560" cy="140" r="3" class="ill-dot"/><text x="572" y="144">製品仕様書</text>
+        <circle cx="560" cy="170" r="3" class="ill-dot"/><text x="572" y="174">社内マニュアル</text>
+        <circle cx="560" cy="200" r="3" class="ill-dot"/><text x="572" y="204">過去の案件履歴</text>
+        <circle cx="560" cy="230" r="3" class="ill-dot"/><text x="572" y="234">機密情報</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
 <section class="metaphor">
   <div class="metaphor-inner">
     <div class="metaphor-label">In one sentence</div>
@@ -204,6 +235,58 @@
         <h3>計算・データ参照には、専用ツール</h3>
         <p>計算機、社内データベース、CRMなどを「道具」としてAIに使わせる（Tool Use）。これが第6回で扱うAIエージェントの基礎になる。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">知識カットオフ <span class="en">Knowledge Cutoff</span></div>
+      <p class="jargon-plain">AIの学習が止まった時点。それ以降の情報は素のままでは知らない。<span class="like">"先月までの新聞を全部読んで止まった人"。今週の出来事は答えられない。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ドメイン知識 <span class="en">Domain Knowledge</span></div>
+      <p class="jargon-plain">ある業界・会社特有の専門知識のこと。<span class="like">うちの会社の出張規程・JIS規格・社内用語など、外に出ていない情報。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">一般化された知識 <span class="en">Generic Knowledge</span></div>
+      <p class="jargon-plain">誰でも知っていそうな、世間一般の情報。<span class="like">"小麦粉の薄力粉と強力粉の違い" は知っていても、"うちの調達ルート" は知らない。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ハルシネーション <span class="en">Hallucination</span></div>
+      <p class="jargon-plain">AIがもっともらしい嘘をつくこと。社内固有のことを聞くと特に起きやすい。<span class="like">"たしかそんな規定があったような…" と新人がうろ覚えで答える、あの状態。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">汎用LLMの限界</h3>
+      <p class="analogy-body">一般情報には強いが、特定の組織・業界の事情には全くアクセスできない。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"博識だが入社1日目" の新人</h3>
+      <p class="analogy-body">世界中のことを知っているのに、御社のことは何ひとつ知らない。<br>"うちの規程ではどう？" と聞いても、勘で答えてしまう。</p>
     </div>
   </div>
 </section>
