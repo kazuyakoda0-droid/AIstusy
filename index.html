@@ -282,7 +282,7 @@
 
   /* ============== SESSION CARD ============== */
   .session {
-    display: grid; grid-template-columns: 220px 1fr;
+    display: grid; grid-template-columns: 260px 1fr;
     gap: 48px;
     padding: 56px 0;
     border-top: 1px solid var(--hair);
@@ -291,6 +291,7 @@
   .session-meta {
     position: sticky; top: 100px;
     align-self: start;
+    min-width: 0;
   }
   .session-num {
     font-family: var(--mono); font-size: 15pt;
@@ -308,8 +309,23 @@
   }
   .session-title {
     font-family: var(--serif); font-weight: 700;
-    font-size: 24px; line-height: 1.35;
+    font-size: 21px; line-height: 1.5;
     color: var(--ink);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    line-break: strict;
+  }
+  .map-card .t,
+  .map-card .sessions span,
+  .struct-head,
+  .struct-body,
+  .sb-purpose,
+  .ch-banner .ch-banner-title,
+  .session-num,
+  .session-tag {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    line-break: strict;
   }
   .session-body { display: flex; flex-direction: column; gap: 36px; }
 
