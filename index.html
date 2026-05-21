@@ -729,7 +729,7 @@
   .shift-word.tool::after {
     content: ""; position: absolute;
     left: 0; right: 0; top: 55%;
-    height: 4px; background: oklch(0.55 0.18 30);
+    height: 2px; background: oklch(0.62 0.012 70 / 0.55);
     transform: scaleX(calc(min(1, max(0, var(--p, 0) - 0.2) * 5)));
     transform-origin: left;
     transition: transform 0.3s;
@@ -743,9 +743,9 @@
   }
   .shift-arrow-big {
     display: block;
-    font-family: var(--serif); font-weight: 100;
-    font-size: 60px;
-    color: var(--accent);
+    font-family: var(--sans); font-weight: 900;
+    font-size: 56px;
+    color: oklch(0.55 0.015 70);
     margin: 28px 0 18px;
     transform: translateY(calc((0.6 - min(0.6, var(--p, 0))) * -100px));
     opacity: calc(min(1, max(0, var(--p, 0) - 0.15) * 3));
@@ -892,6 +892,89 @@
     pointer-events: none;
     z-index: 1;
     opacity: 0.85;
+  }
+
+  /* Mouse-following spotlight overlay */
+  .scene-hero .mouse-spot {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background:
+      radial-gradient(
+        500px circle at var(--mx, 50%) var(--my, 50%),
+        oklch(0.78 0.18 35 / 0.22) 0%,
+        oklch(0.78 0.18 35 / 0.08) 22%,
+        transparent 55%
+      );
+    mix-blend-mode: screen;
+  }
+  .scene-hero .mouse-spot::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(
+      160px circle at var(--mx, 50%) var(--my, 50%),
+      oklch(0.95 0.16 35 / 0.22) 0%,
+      transparent 60%
+    );
+    mix-blend-mode: screen;
+  }
+  .scene-hero.has-mouse .mouse-spot { opacity: 1; }
+
+  /* Orbital ring system (rotating concentric arcs) */
+  .orbital-rings {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.45;
+  }
+  .orbital-rings svg {
+    position: absolute;
+    width: min(95vmin, 1100px);
+    height: min(95vmin, 1100px);
+    overflow: visible;
+  }
+  .orbital-rings .ring-a { animation: orbitCW 90s linear infinite; }
+  .orbital-rings .ring-b { animation: orbitCCW 55s linear infinite; }
+  .orbital-rings .ring-c { animation: orbitCW 140s linear infinite; }
+  .orbital-rings .ring-d {
+    animation: ringPulse 6s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes orbitCW { to { transform: rotate(360deg); } }
+  @keyframes orbitCCW { to { transform: rotate(-360deg); } }
+  @keyframes ringPulse {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.04); }
+  }
+
+  /* Data stream lines (subtle vertical scroll) */
+  .data-streams {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    opacity: 0.5;
+  }
+  .data-streams .stream {
+    position: absolute;
+    top: -20%;
+    width: 1px; height: 30%;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      oklch(0.85 0.15 35 / 0.5) 40%,
+      oklch(0.95 0.18 35 / 0.8) 50%,
+      oklch(0.85 0.15 35 / 0.5) 60%,
+      transparent 100%
+    );
+    animation: streamFall linear infinite;
+  }
+  @keyframes streamFall {
+    from { transform: translateY(0); }
+    to { transform: translateY(180vh); }
   }
   /* Vignette overlay */
   .scene-hero .vignette {
@@ -1348,6 +1431,331 @@
     .diagram-evolve { grid-template-columns: 1fr; }
     .de-step { border-right: none; border-bottom: 1px solid var(--hair); }
   }
+
+  /* ============== MOBILE STATIC HERO ============== */
+  /* Shown ONLY on mobile, replacing the cinematic intro */
+  .mobile-hero { display: none; }
+  .nav-toggle { display: none; }
+
+  /* ============== MOBILE LAYOUT (≤ 768px) ============== */
+  @media (max-width: 768px) {
+    body { font-size: 14px; line-height: 1.7; }
+
+    /* ---- Top nav: always visible, compact ---- */
+    .topnav {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+      background: color-mix(in oklch, var(--bg) 96%, transparent);
+    }
+    .topnav-inner {
+      padding: 12px 16px;
+      max-width: 100%;
+    }
+    .brand { font-size: 12px; gap: 10px; min-width: 0; }
+    .brand-mark { width: 26px; height: 26px; font-size: 11px; flex-shrink: 0; }
+    .brand > span {
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-size: 12px; max-width: 60vw;
+    }
+    .topnav-meta { display: none; }
+    .nav-toggle {
+      display: flex;
+      background: none; border: none;
+      width: 36px; height: 36px;
+      flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; padding: 0;
+      flex-shrink: 0;
+    }
+    .nav-toggle span {
+      display: block; height: 1.5px;
+      background: var(--ink);
+      width: 20px; margin: 0 auto;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .topnav-links {
+      position: fixed;
+      top: 52px; left: 0; right: 0;
+      background: var(--ink);
+      flex-direction: column;
+      gap: 0; padding: 4px 0;
+      transform: translateY(-120%);
+      transition: transform 0.3s ease;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      max-height: calc(100vh - 52px);
+      overflow-y: auto;
+    }
+    .topnav-links.open { transform: translateY(0); }
+    .topnav-links a {
+      color: oklch(0.85 0.008 70) !important;
+      padding: 16px 20px;
+      border-bottom: 1px solid oklch(0.3 0.012 60);
+      font-size: 15px;
+      display: block;
+    }
+    .topnav-links a:last-child { border-bottom: none; }
+
+    /* ---- Hide cinema + decorations entirely ---- */
+    .cinema, .scroll-prog, .ai-signals, .scene-counter { display: none !important; }
+
+    /* ---- Show static mobile hero ---- */
+    .mobile-hero {
+      display: block;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 88px 20px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mobile-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(500px 400px at 85% 15%, oklch(0.30 0.10 35 / 0.55), transparent 60%),
+        radial-gradient(400px 400px at 10% 85%, oklch(0.27 0.06 60 / 0.4), transparent 60%);
+    }
+    .mobile-hero::after {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(oklch(0.99 0.005 85 / 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(0.99 0.005 85 / 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .mh-inner { position: relative; z-index: 2; }
+    .mh-eyebrow {
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: oklch(0.82 0.12 35);
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+    .mh-eyebrow::before {
+      content: ""; width: 22px; height: 1px;
+      background: oklch(0.82 0.12 35);
+    }
+    .mh-title {
+      font-family: var(--serif); font-weight: 900;
+      font-size: 32px; line-height: 1.22;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      text-wrap: pretty;
+    }
+    .mh-accent {
+      color: oklch(0.85 0.13 35);
+      text-shadow:
+        0 0 18px oklch(0.78 0.18 35 / 0.5),
+        0 0 36px oklch(0.78 0.18 35 / 0.25);
+    }
+    .mh-sub {
+      font-family: var(--serif); font-size: 14px;
+      line-height: 1.9;
+      color: oklch(0.86 0.008 70);
+      margin-bottom: 32px;
+      text-wrap: pretty;
+    }
+    .mh-meta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.14em;
+      color: oklch(0.78 0.10 35);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid oklch(0.3 0.012 60);
+    }
+    .mh-meta span { display: flex; align-items: center; gap: 8px; }
+    .mh-meta span::before {
+      content: ""; width: 4px; height: 4px;
+      background: oklch(0.78 0.10 35);
+    }
+    .mh-shift {
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: oklch(0.65 0.012 70);
+      margin-bottom: 14px;
+    }
+    .mh-shift-line {
+      font-family: var(--serif); font-size: 17px;
+      line-height: 1.6;
+      color: oklch(0.92 0.008 70);
+      margin-bottom: 28px;
+    }
+    .mh-shift-line .from {
+      color: oklch(0.62 0.012 70);
+      text-decoration: line-through;
+      text-decoration-color: oklch(0.62 0.012 70 / 0.6);
+      text-decoration-thickness: 1.5px;
+    }
+    .mh-shift-line .to { color: oklch(0.85 0.13 35); font-weight: 700; }
+    .mh-shift-line .arrow {
+      display: inline-block; margin: 0 10px;
+      color: oklch(0.72 0.015 70);
+      font-family: var(--sans);
+      font-weight: 900;
+      font-size: 19px;
+    }
+    .mh-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--serif); font-weight: 700;
+      font-size: 15px;
+      color: var(--paper);
+      text-decoration: none;
+      padding: 14px 22px;
+      border: 1px solid oklch(0.78 0.10 35 / 0.6);
+      background: oklch(0.78 0.10 35 / 0.12);
+    }
+    .mh-cta:active { background: oklch(0.78 0.10 35 / 0.28); }
+
+    /* ---- Roadmap section ---- */
+    .roadmap { padding: 48px 16px 24px; }
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 14px; margin-bottom: 28px;
+      align-items: start;
+    }
+    .section-title { font-size: 26px !important; line-height: 1.25; }
+    .section-lede { font-size: 14px; max-width: 100%; }
+    .section-eyebrow { font-size: 10px; margin-bottom: 12px; letter-spacing: 0.16em; }
+    .section-eyebrow::before { width: 18px; }
+    .session-timeline { display: none; }
+
+    .roadmap-grid { grid-template-columns: 1fr; }
+    .rm-chapter { padding: 20px 18px 22px; gap: 14px; }
+    .rm-num { font-size: 11px; }
+    .rm-title {
+      font-family: var(--serif); font-weight: 700;
+      font-size: 17px; line-height: 1.4;
+      min-height: 0;
+    }
+    .rm-title br { display: none; }
+    .rm-sessions { padding-top: 14px; gap: 10px; }
+    .rm-session { font-size: 13px; }
+    .rm-session-n { font-size: 11px; min-width: 22px; }
+
+    /* ---- Chapter ---- */
+    .chapter { padding: 56px 0; }
+    .chapter-inner { padding: 0 16px; }
+    .ch-banner {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .ch-banner-num {
+      font-size: 64px !important;
+      line-height: 0.9;
+    }
+    .ch-banner-num::before { left: -10px; top: 12px; width: 10px; height: 10px; }
+    .ch-banner-num::after { left: -4px; top: -4px; height: 3px; }
+    .ch-banner-num-sub { font-size: 10px; margin-top: 6px; }
+    .ch-banner-title { font-size: 23px !important; line-height: 1.3; }
+    .ch-banner-lede { font-size: 14px; line-height: 1.85; max-width: 100%; }
+    .ch-ambient { display: none; }
+
+    /* ---- Session ---- */
+    .session {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 32px 0;
+    }
+    .session-meta { position: static; }
+    .session::before { display: none; }
+    .session-num { font-size: 11px; margin-bottom: 10px; }
+    .session-tag { font-size: 10px; padding: 3px 8px; margin-bottom: 12px; }
+    .session-title {
+      font-size: 18px !important;
+      line-height: 1.4;
+    }
+    .session-title br { display: none; }
+    .session-body { gap: 24px; }
+
+    /* SB blocks */
+    .sb-block {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .sb-label { font-size: 10px; padding-top: 0; letter-spacing: 0.14em; }
+    .sb-purpose { font-size: 14.5px !important; line-height: 1.8; }
+
+    /* Structure items */
+    .sb-structure { gap: 12px; }
+    .struct-item { padding: 14px 16px; }
+    .struct-head { font-size: 14px; margin-bottom: 4px; }
+    .struct-body { font-size: 13px; line-height: 1.7; padding-left: 14px; }
+    a.struct-link::after { top: 14px; right: 14px; font-size: 12px; }
+    .struct-sublist { font-size: 13px; }
+    .struct-sublist li { padding-left: 14px; }
+
+    /* Example dark blocks */
+    .sb-example { padding: 18px 16px; font-size: 13px; line-height: 1.8; }
+    .sb-example-head { font-size: 10px; margin-bottom: 10px; letter-spacing: 0.12em; }
+    .sb-example-title { font-size: 14px; }
+    .sb-example .role { font-size: 10px; }
+    .sb-example .sb-example-item { font-size: 13px; }
+    .quote-bad, .quote-good { font-size: 13px; padding: 10px 12px; }
+    .quote-tag { font-size: 10px; }
+
+    /* Keywords */
+    .sb-keywords { gap: 6px; }
+    .kw { font-size: 11px; padding: 4px 8px; }
+
+    /* Flow diagrams */
+    .flow { padding: 16px; gap: 10px; }
+    .flow-row {
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+    }
+    .flow-n { font-size: 10px; padding: 3px 6px; }
+    .flow-content { font-size: 13px; line-height: 1.65; }
+
+    /* Diagram evolve */
+    .diagram-evolve { grid-template-columns: 1fr; }
+    .de-step {
+      border-right: none;
+      border-bottom: 1px solid var(--hair);
+      padding: 16px 14px;
+    }
+    .de-step:last-child { border-bottom: none; }
+    .de-step-n { font-size: 11px; }
+    .de-step-name { font-size: 15px; }
+    .de-step-desc { font-size: 13px; }
+
+    /* ---- Closing ---- */
+    .closing { padding: 64px 0; }
+    .closing-inner {
+      padding: 0 16px;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .closing h2 { font-size: 28px !important; line-height: 1.3; }
+    .closing h2 br { display: none; }
+    .closing-eyebrow { font-size: 10px; margin-bottom: 14px; }
+    .closing-side h3 { font-size: 10px; margin-bottom: 12px; }
+    .closing-side p { font-size: 14px; line-height: 1.85; }
+    .closing-actions { margin-top: 24px; padding-top: 24px; }
+    .closing-actions a { font-size: 14px; padding-bottom: 10px; }
+    .closing-canvas, .closing-grid { display: none !important; }
+    .closing .hud-readout { display: none !important; }
+
+    /* Footer */
+    footer { font-size: 10px; padding: 24px 16px; }
+
+    /* Disable scroll animations on mobile (kept static for performance + clarity) */
+    body.is-animated [data-anim],
+    body.is-animated .reveal,
+    body.is-animated .reveal-stagger > *,
+    body.is-animated .ch-banner-num,
+    body.is-animated .closing h2 {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+    body.is-animated .session-timeline-inner::after { width: 92% !important; }
+  }
 </style>
 </head>
 <body>
@@ -1359,7 +1767,7 @@
       <div class="brand-mark">AI</div>
       <span>社内勉強会 / AIエージェントチーム</span>
     </div>
-    <div class="topnav-links">
+    <div class="topnav-links" id="topnavLinks">
       <a href="#roadmap">ロードマップ</a>
       <a href="#chapter-1">第1章</a>
       <a href="#chapter-2">第2章</a>
@@ -1368,8 +1776,35 @@
       <a href="#closing">総括</a>
     </div>
     <div class="topnav-meta">全10回 / 4章構成</div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー" aria-expanded="false" aria-controls="topnavLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ================= MOBILE STATIC HERO (≤768px only) ================= -->
+<section class="mobile-hero" aria-label="イントロダクション">
+  <div class="mh-inner">
+    <div class="mh-eyebrow">KANHOKYO INTERNAL TRAINING / 2026</div>
+    <h1 class="mh-title">
+      AIエージェントチームで実現する<br>
+      <span class="mh-accent">組織のAI化</span>
+    </h1>
+    <p class="mh-sub">
+      AIを「便利なツール」として使う段階から、自律して動く「チームメンバー」として迎え入れる段階へ。基礎から実践まで、全10回で組織変革のロードマップを共有します。
+    </p>
+    <div class="mh-shift">研修を貫く軸</div>
+    <div class="mh-shift-line">
+      <span class="from">便利なツール</span><span class="arrow">➝</span><span class="to">自律するチームメンバー</span>
+    </div>
+    <div class="mh-meta">
+      <span>04 Chapters</span>
+      <span>10 Sessions</span>
+      <span>30+ Topics</span>
+    </div>
+    <a href="#roadmap" class="mh-cta">ロードマップを見る ↓</a>
+  </div>
+</section>
 
 <!-- ================= CINEMATIC INTRO ================= -->
 <div class="scroll-prog" id="scrollProg"></div>
@@ -1389,6 +1824,41 @@
   <div class="scene-wrap tall-2" data-scene-idx="0">
     <section class="scene scene-hero">
       <canvas class="neural-canvas" id="neuralCanvas"></canvas>
+      <div class="orbital-rings" aria-hidden="true">
+        <svg class="ring-a" viewBox="-220 -220 440 440">
+          <circle r="210" fill="none" stroke="oklch(0.78 0.10 35 / 0.18)" stroke-width="0.5" stroke-dasharray="2 8"/>
+          <circle cx="210" cy="0" r="3.5" fill="oklch(0.85 0.15 35)"/>
+          <circle cx="-148" cy="-148" r="2" fill="oklch(0.85 0.15 35 / 0.6)"/>
+          <circle r="200" fill="none" stroke="oklch(0.78 0.10 35 / 0.10)" stroke-width="0.5"/>
+        </svg>
+        <svg class="ring-b" viewBox="-220 -220 440 440">
+          <circle r="155" fill="none" stroke="oklch(0.78 0.10 35 / 0.20)" stroke-width="0.5" stroke-dasharray="1 4"/>
+          <circle cx="0" cy="-155" r="3" fill="oklch(0.85 0.15 35)"/>
+          <circle cx="110" cy="110" r="2" fill="oklch(0.85 0.15 35 / 0.5)"/>
+          <path d="M 100 -100 A 141 141 0 0 1 141 0" fill="none" stroke="oklch(0.85 0.15 35 / 0.45)" stroke-width="1"/>
+        </svg>
+        <svg class="ring-c" viewBox="-220 -220 440 440">
+          <circle r="105" fill="none" stroke="oklch(0.78 0.10 35 / 0.22)" stroke-width="0.5"/>
+          <circle cx="-105" cy="0" r="2.5" fill="oklch(0.85 0.15 35)"/>
+          <circle cx="74" cy="-74" r="1.8" fill="oklch(0.85 0.15 35 / 0.5)"/>
+        </svg>
+        <svg class="ring-d" viewBox="-220 -220 440 440">
+          <circle r="60" fill="none" stroke="oklch(0.85 0.16 35 / 0.4)" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <circle r="30" fill="none" stroke="oklch(0.85 0.16 35 / 0.5)" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="data-streams" aria-hidden="true">
+        <span class="stream" style="left: 8%;  animation-duration: 7s;  animation-delay: 0s;"></span>
+        <span class="stream" style="left: 17%; animation-duration: 9s;  animation-delay: -3s;"></span>
+        <span class="stream" style="left: 26%; animation-duration: 6s;  animation-delay: -1s;"></span>
+        <span class="stream" style="left: 38%; animation-duration: 11s; animation-delay: -5s;"></span>
+        <span class="stream" style="left: 52%; animation-duration: 8s;  animation-delay: -2s;"></span>
+        <span class="stream" style="left: 63%; animation-duration: 10s; animation-delay: -6s;"></span>
+        <span class="stream" style="left: 75%; animation-duration: 7s;  animation-delay: -4s;"></span>
+        <span class="stream" style="left: 86%; animation-duration: 9s;  animation-delay: -1s;"></span>
+        <span class="stream" style="left: 94%; animation-duration: 12s; animation-delay: -7s;"></span>
+      </div>
+      <div class="mouse-spot" aria-hidden="true"></div>
       <div class="vignette"></div>
       <div class="hud-corners"><span></span><span></span></div>
       <div class="hud-readout hud-tl">
@@ -1405,13 +1875,13 @@
         <span>SCROLL TO BEGIN &nbsp;→</span>
       </div>
       <div class="inner">
-        <div class="eyebrow">KANHOKYO ／ Internal Training Program 2026</div>
+        <div class="eyebrow">KANHOKYO INTERNAL TRAINING PROGRAM 2026</div>
         <h1 style="font-size: 80px">
           <span class="word" data-w="0">AIエージェントチームで</span>
           <span class="word" data-w="1">実現する</span><br>
           <span class="word accent" data-w="2" style="font-size: 100px">組織のAI化</span>
         </h1>
-        <p class="sub" style="width: 10000px; margin: 1px 0px 0px; padding: 0px 1px 0px 0px">
+        <p class="sub" style="width: 10000px; margin: 1px 0px 0px; padding: 0px 1px 0px 0px; opacity: 2">
           AIを「便利なツール」として使う段階から、自律して動く「チームメンバー」として迎え入れる段階へ。<br>
           基礎から実践まで、全10回で組織変革のロードマップを共有します。
         </p>
@@ -1467,7 +1937,7 @@
           <span class="shift-line">
             AIは<span class="shift-word tool">便利なツール</span>
           </span>
-          <span class="shift-arrow-big">↓</span>
+          <span class="shift-arrow-big" style="line-height: 1.25;">⬇</span>
           <span class="shift-line">
             自律する<span class="shift-word team">チームメンバー</span>へ
           </span>
@@ -1493,7 +1963,8 @@
         <div class="head">
           <div>
             <div class="eyebrow">Roadmap</div>
-            <h2>4章 × 10回の<br>研修ロードマップ。</h2>
+            <h2 style="font-size: 45px">4章 × 10回の
+研修ロードマップ</h2>
           </div>
           <p class="lede">
             個人のAI活用から、社内データ連携、自律型エージェント、そしてエージェントチームによる組織変革まで。段階的にスコープを広げていきます。
@@ -1530,7 +2001,7 @@
             </div>
             <div class="bar"></div>
           </div>
-          <div class="map-card" data-mc="1">
+          <div class="map-card" data-mc="1" style="font-size: 18px">
             <div class="card-glyph">
               <!-- Chapter 2: Integration / overlapping rings -->
               <svg viewBox="0 0 56 56">
@@ -1541,11 +2012,12 @@
                 <line x1="54" y1="28" x2="50" y2="28" class="glyph-line glyph-dim"/>
               </svg>
             </div>
-            <div class="n">Chapter 02</div>
-            <div class="t">自社データ・<br>社内システムとの連携</div>
+            <div class="n" style="font-size: 12px">Chapter 02</div>
+            <div class="t" style="font-size: 16px">自社データ・
+社内システムとの連携</div>
             <div class="sessions">
-              <span>04 — 社内知識とRAGの基礎</span>
-              <span>05 — 業務ワークフローの自動化</span>
+              <span style="font-size: 12px">04 — 社内知識とRAGの基礎</span>
+              <span style="font-size: 12px">05 — 業務ワークフローの自動化</span>
             </div>
             <div class="bar"></div>
           </div>
@@ -1600,7 +2072,7 @@
 <!-- ================= /CINEMATIC INTRO ================= -->
 
 <!-- ================= ROADMAP ================= -->
-<section class="roadmap" id="roadmap">
+<section class="roadmap" id="roadmap" style="padding: 100px 32px 80px">
   <div class="section-head reveal">
     <div>
       <div class="section-eyebrow">Roadmap</div>
@@ -1639,7 +2111,8 @@
     </div>
     <div class="rm-chapter">
       <div class="rm-num">Chapter 02</div>
-      <div class="rm-title">自社データ・<br>社内システムとの連携</div>
+      <div class="rm-title">自社データ・
+社内システムとの連携</div>
       <div class="rm-sessions">
         <a class="rm-session" href="#session-4"><span class="rm-session-n">04</span><span>社内知識とRAGの基礎</span></a>
         <a class="rm-session" href="#session-5"><span class="rm-session-n">05</span><span>業務ワークフローの自動化</span></a>
@@ -1722,7 +2195,9 @@
       <div class="session-meta">
         <div class="session-num">Session 01</div>
         <div class="session-tag">Foundation</div>
-        <h3 class="session-title">AIの進化と最終ゴール<br>— 生成AIから「エージェントチーム」が動く組織へ</h3>
+        <h3 class="session-title" style="font-size: 22px">AIの進化と最終ゴール
+— 生成AIから「エージェントチーム」
+が動く組織へ</h3>
       </div>
       <div class="session-body">
         <div class="sb-block">
@@ -1804,7 +2279,8 @@
       <div class="session-meta">
         <div class="session-num">Session 02</div>
         <div class="session-tag">Foundation</div>
-        <h3 class="session-title">LLMの仕組みと「プロンプト」の作法</h3>
+        <h3 class="session-title" style="font-size: 22px">LLMの仕組みと
+「プロンプト」の作法</h3>
       </div>
       <div class="session-body">
         <div class="sb-block">
@@ -1872,7 +2348,10 @@
       <div class="session-meta">
         <div class="session-num">Session 03</div>
         <div class="session-tag">Practice</div>
-        <h3 class="session-title">個人業務のAIハック<br>— 文書作成・要約・データ処理の半自動化</h3>
+        <h3 class="session-title">個人業務のAIハック
+— 文書作成・
+要約・データ処理の
+半自動化</h3>
       </div>
       <div class="session-body">
         <div class="sb-block">
@@ -1985,7 +2464,9 @@
       <div class="session-meta">
         <div class="session-num">Session 04</div>
         <div class="session-tag">Integration</div>
-        <h3 class="session-title">社内独自の知識をAIに持たせる<br>— セキュアな環境とRAGの基礎</h3>
+        <h3 class="session-title">社内独自の知識を
+AIに持たせる
+— セキュアな環境とRAGの基礎</h3>
       </div>
       <div class="session-body">
         <div class="sb-block">
@@ -2381,7 +2862,7 @@
       <div class="session-meta">
         <div class="session-num">Session 08</div>
         <div class="session-tag">Team</div>
-        <h3 class="session-title">複数のAIが協働する「エージェントチーム」<br>— 人事評価シミュレーション</h3>
+        <h3 class="session-title" style="font-size: 22px">複数のAIが協働する「エージェントチーム」<br>— 人事評価シミュレーション</h3>
       </div>
       <div class="session-body">
         <div class="sb-block">
@@ -2536,7 +3017,7 @@
       <div class="session-meta">
         <div class="session-num">Session 10</div>
         <div class="session-tag">Governance</div>
-        <h3 class="session-title">AI時代のガバナンスと、<br>人間が担う「ディレクター」としての新たな役割</h3>
+        <h3 class="session-title" style="font-size: 22px">AI時代のガバナンスと、<br>人間が担う「ディレクター」としての新たな役割</h3>
       </div>
       <div class="session-body">
         <div class="sb-block">
@@ -2627,9 +3108,7 @@
   </div>
 </section>
 
-<footer>
-  AI勉強会 — Internal Training Program / 全10回 4章構成
-</footer>
+<footer>AI勉強会 — KANHOKYO Internal Training Program / 全10回 4章構成</footer>
 
 <script>
   // ====== Scroll progress bar ======
@@ -2720,11 +3199,15 @@
   (function() {
     const canvas = document.getElementById('neuralCanvas');
     if (!canvas) return;
+    const hero = canvas.closest('.scene-hero');
     const ctx = canvas.getContext('2d');
     let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
     let particles = [];
-    const PARTICLE_COUNT = 75;
-    const MAX_DIST = 160;
+    let pulses = []; // travelling sparks along edges
+    const mouse = { x: -9999, y: -9999, active: false };
+    const PARTICLE_COUNT = 100;
+    const MAX_DIST = 180;
+    const MOUSE_REACH = 240;
 
     function resize() {
       const rect = canvas.getBoundingClientRect();
@@ -2757,9 +3240,48 @@
     const nodesEl = document.getElementById('hudNodes');
     if (nodesEl) nodesEl.textContent = PARTICLE_COUNT.toString().padStart(3, '0');
 
+    // Mouse tracking — drives both canvas interaction and the CSS spotlight
+    if (hero) {
+      hero.addEventListener('mousemove', (e) => {
+        const r = hero.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        mouse.x = x;
+        mouse.y = y;
+        mouse.active = true;
+        hero.classList.add('has-mouse');
+        hero.style.setProperty('--mx', (x / r.width * 100) + '%');
+        hero.style.setProperty('--my', (y / r.height * 100) + '%');
+      });
+      hero.addEventListener('mouseleave', () => {
+        mouse.active = false;
+        hero.classList.remove('has-mouse');
+      });
+    }
+
+    // Spawn travelling pulses along connections periodically
+    function spawnPulse() {
+      if (particles.length < 2 || pulses.length > 24) return;
+      const ai = Math.floor(Math.random() * particles.length);
+      const a = particles[ai];
+      const candidates = [];
+      for (let j = 0; j < particles.length; j++) {
+        if (j === ai) continue;
+        const b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < MAX_DIST) candidates.push(j);
+      }
+      if (!candidates.length) return;
+      const bi = candidates[Math.floor(Math.random() * candidates.length)];
+      pulses.push({ a: ai, b: bi, t: 0, speed: 0.008 + Math.random() * 0.012 });
+    }
+    setInterval(spawnPulse, 180);
+
     function frame(t) {
       ctx.clearRect(0, 0, w, h);
-      // update positions
+
+      // update particle positions
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
@@ -2767,7 +3289,8 @@
         if (p.x < 0 || p.x > w) p.vx *= -1;
         if (p.y < 0 || p.y > h) p.vy *= -1;
       }
-      // draw connections
+
+      // draw connections between particles
       for (let i = 0; i < particles.length; i++) {
         const a = particles[i];
         for (let j = i + 1; j < particles.length; j++) {
@@ -2775,9 +3298,15 @@
           const dx = a.x - b.x, dy = a.y - b.y;
           const d = Math.sqrt(dx*dx + dy*dy);
           if (d < MAX_DIST) {
-            const alpha = (1 - d / MAX_DIST) * 0.4;
-            ctx.strokeStyle = `oklch(0.78 0.10 35 / ${alpha})`;
-            ctx.lineWidth = 0.6;
+            let alpha = (1 - d / MAX_DIST) * 0.4;
+            // boost alpha when this edge is near the mouse
+            if (mouse.active) {
+              const mx = (a.x + b.x) * 0.5, my = (a.y + b.y) * 0.5;
+              const md = Math.hypot(mx - mouse.x, my - mouse.y);
+              if (md < MOUSE_REACH) alpha += (1 - md / MOUSE_REACH) * 0.5;
+            }
+            ctx.strokeStyle = `oklch(0.85 0.15 35 / ${Math.min(0.9, alpha)})`;
+            ctx.lineWidth = 0.7;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -2785,20 +3314,78 @@
           }
         }
       }
+
+      // draw connections from mouse to nearby particles
+      if (mouse.active) {
+        for (const p of particles) {
+          const d = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+          if (d < MOUSE_REACH) {
+            const alpha = (1 - d / MOUSE_REACH) * 0.7;
+            ctx.strokeStyle = `oklch(0.95 0.18 35 / ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+          }
+        }
+        // soft glow at cursor
+        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 90);
+        g.addColorStop(0, 'oklch(0.95 0.20 35 / 0.35)');
+        g.addColorStop(1, 'oklch(0.95 0.20 35 / 0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 90, 0, Math.PI * 2);
+        ctx.fill();
+        // cursor core dot
+        ctx.fillStyle = 'oklch(0.97 0.18 35 / 0.9)';
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       // draw particles
       for (const p of particles) {
         const glow = (Math.sin(p.pulse) + 1) * 0.5;
-        const radius = p.r + glow * 0.8;
-        ctx.fillStyle = `oklch(0.85 0.15 35 / ${0.55 + glow * 0.45})`;
+        // mouse proximity boost
+        let prox = 0;
+        if (mouse.active) {
+          const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+          if (md < MOUSE_REACH) prox = 1 - md / MOUSE_REACH;
+        }
+        const radius = p.r + glow * 0.8 + prox * 1.5;
+        ctx.fillStyle = `oklch(0.92 0.16 35 / ${0.55 + glow * 0.45 + prox * 0.3})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
         ctx.fill();
         // outer glow
-        ctx.fillStyle = `oklch(0.78 0.18 35 / ${0.10 + glow * 0.10})`;
+        ctx.fillStyle = `oklch(0.78 0.18 35 / ${0.10 + glow * 0.10 + prox * 0.2})`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, radius * 3.5, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, radius * (3.5 + prox * 1.5), 0, Math.PI * 2);
         ctx.fill();
       }
+
+      // travelling pulses along connections
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const pl = pulses[i];
+        pl.t += pl.speed;
+        if (pl.t >= 1) { pulses.splice(i, 1); continue; }
+        const a = particles[pl.a], b = particles[pl.b];
+        if (!a || !b) { pulses.splice(i, 1); continue; }
+        const x = a.x + (b.x - a.x) * pl.t;
+        const y = a.y + (b.y - a.y) * pl.t;
+        // outer halo
+        ctx.fillStyle = `oklch(0.95 0.18 35 / 0.35)`;
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, Math.PI * 2);
+        ctx.fill();
+        // core
+        ctx.fillStyle = `oklch(0.98 0.18 35 / 1)`;
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -3002,6 +3589,34 @@
       }
     }
     requestAnimationFrame(frame);
+  })();
+
+  // ====== Mobile nav hamburger toggle ======
+  (function() {
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('topnavLinks');
+    if (!toggle || !links) return;
+    function setOpen(open) {
+      links.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setOpen(!links.classList.contains('open'));
+    });
+    // Close drawer when a link inside is tapped
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setOpen(false));
+    });
+    // Close on outside tap
+    document.addEventListener('click', (e) => {
+      if (!links.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+    });
+    // Close if resized to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) setOpen(false);
+    });
   })();
 
   // ====== active section in topnav ======

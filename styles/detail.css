@@ -693,14 +693,814 @@ footer.foot {
   .hero-illust .frame { padding: 24px; }
 }
 
-    grid-template-columns: 1fr; gap: 32px;
+/* ============== MOBILE LAYOUT (≤ 768px) ============== */
+@media (max-width: 768px) {
+  body { font-size: 14px; line-height: 1.7; }
+
+  /* ---- Top nav: stacked, compact ---- */
+  .topnav-inner {
+    padding: 12px 16px;
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    justify-content: space-between;
+    align-items: center;
   }
-  .hero-detail h1 { font-size: 40px; }
-  .metaphor-q { font-size: 26px; }
-  .section-head h2 { font-size: 26px; }
-  .df-arrow { transform: rotate(90deg); }
+  .back-link {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    order: 1;
+  }
+  .crumb {
+    font-size: 12px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    min-width: 0;
+    order: 2;
+    margin-left: auto;
+  }
+  .crumb a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 28vw;
+  }
+  .crumb-current {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50vw;
+  }
+  /* Hide the chapter counter on the right of the topnav (3rd direct child) */
+  .topnav-inner > .crumb-sep:last-child { display: none; }
+
+  /* ---- Hero ---- */
+  .hero-detail {
+    padding: 40px 16px 28px;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    margin-bottom: 14px;
+  }
+  .hero-eyebrow::before { width: 18px; }
+  .hero-detail h1 { font-size: 28px; line-height: 1.25; }
+  .hero-detail h1 br { display: none; }
+  .hero-lede {
+    font-size: 14px;
+    line-height: 1.85;
+    padding-left: 16px;
+  }
+
+  /* ---- Hero illustration ---- */
+  .hero-illust {
+    padding: 0 16px 24px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .hero-illust .label { font-size: 10px; padding-top: 0; }
+  .hero-illust .frame { padding: 16px 14px; }
+
+  /* ---- Metaphor block ---- */
+  .metaphor { padding: 48px 0; }
+  .metaphor-inner {
+    padding: 0 16px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .metaphor-label { font-size: 10px; }
+  .metaphor-q { font-size: 22px; line-height: 1.4; }
+  .metaphor-q br { display: none; }
+
+  /* ---- Section base ---- */
+  .section { padding: 48px 16px; }
+  .section-head {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .section-head .label {
+    font-size: 10px;
+    padding-top: 0;
+    letter-spacing: 0.14em;
+  }
+  .section-head h2 { font-size: 22px; line-height: 1.35; }
+  .section-head .sub {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 100%;
+  }
+
+  /* ---- Diagrams ---- */
+  .diagram { padding: 20px 16px; }
+  .diagram-flow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .df-node { padding: 16px 14px; gap: 8px; }
+  .df-node-label { font-size: 10px; }
+  .df-node-name { font-size: 14px; }
+  .df-node-desc { font-size: 13px; line-height: 1.65; }
+  .df-arrow {
+    transform: rotate(90deg);
+    font-size: 24px;
+    padding: 4px 0;
+  }
+
+  /* ---- Compare grid ---- */
+  .compare {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .compare-col { padding: 20px 18px; }
+  .compare-tag { font-size: 10px; }
+  .compare-title { font-size: 17px; margin-bottom: 12px; }
+  .compare-desc { font-size: 13.5px; line-height: 1.8; }
+  .compare-points { font-size: 13.5px; gap: 8px; margin-top: 14px; }
+
+  /* ---- Steps ---- */
+  .step {
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+  }
+  .step-n { font-size: 36px; }
+  .step-body h3 { font-size: 17px; margin-bottom: 8px; }
+  .step-body p { font-size: 13.5px; line-height: 1.8; }
+
+  /* ---- Levels ---- */
   .level-row { grid-template-columns: 1fr; }
-  .level-num, .level-name, .level-desc { border-right: none; border-bottom: 1px solid var(--hair); }
-  .pullquote { font-size: 22px; padding: 40px 24px; }
-  .nn-layers { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .level-num, .level-name, .level-desc {
+    border-right: none;
+    border-bottom: 1px solid var(--hair);
+    padding: 14px 18px;
+  }
+  .level-num { font-size: 11px; }
+  .level-name { font-size: 14px; }
+  .level-desc { font-size: 13.5px; line-height: 1.7; border-bottom: none; }
+
+  /* ---- Example card ---- */
+  .example-card {
+    grid-template-columns: 1fr;
+  }
+  .example-side {
+    padding: 20px 18px;
+    gap: 8px;
+  }
+  .example-side .tag { font-size: 10px; }
+  .example-side h3 { font-size: 17px; }
+  .example-content {
+    padding: 20px 18px;
+    font-size: 13.5px;
+    line-height: 1.8;
+    gap: 12px;
+  }
+
+  /* ---- Quotes ---- */
+  .quote-bad, .quote-good {
+    font-size: 13.5px;
+    padding: 14px 16px;
+    line-height: 1.75;
+  }
+  .quote-tag { font-size: 10px; }
+
+  /* ---- Pullquote ---- */
+  .pullquote {
+    font-size: 20px;
+    padding: 40px 16px;
+    line-height: 1.55;
+  }
+  .pullquote br { display: none; }
+
+  /* ---- Pagenav ---- */
+  .pagenav { padding: 32px 0; }
+  .pagenav-inner {
+    padding: 0 16px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .pagenav a { padding: 18px 18px; gap: 6px; }
+  .pagenav .dir { font-size: 10px; }
+  .pagenav .nxt { font-size: 14px; line-height: 1.4; }
+  .pagenav .right { text-align: left; align-items: flex-start; }
+
+  /* ---- Footer ---- */
+  footer.foot { font-size: 10px; padding: 24px 16px; letter-spacing: 0.1em; }
+
+  /* ---- Bubble (chat-like) ---- */
+  .bubble { gap: 10px; flex-direction: column; }
+  .bubble .who {
+    width: auto; padding-top: 0;
+    font-size: 10px;
+  }
+  .bubble .msg {
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    width: 100%;
+  }
+
+  /* ---- Probability viz ---- */
+  .prob-row {
+    grid-template-columns: 80px 1fr 44px;
+    gap: 10px;
+  }
+  .prob-token { font-size: 12px; padding: 4px 8px; }
+  .prob-pct { font-size: 12px; }
+  .prob-bar { height: 10px; }
+
+  /* ---- NN layers ---- */
+  .nn-layers { gap: 12px; }
+  .nn-node { width: 12px; height: 12px; }
+  .nn-col-label { font-size: 10px; margin-top: 10px; letter-spacing: 0.1em; }
+
+  /* ---- Jargon cards ---- */
+  .jargon-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+  .jargon-card { padding: 16px 18px; gap: 8px; }
+  .jargon-term { font-size: 16px; gap: 8px; }
+  .jargon-term .en { font-size: 11px; }
+  .jargon-plain { font-size: 13.5px; line-height: 1.75; }
+  .jargon-plain .like {
+    font-size: 13px;
+    padding: 8px 10px;
+    margin-top: 8px;
+  }
+  .jargon-plain .like::before { font-size: 9.5px; }
+
+  /* ---- Analogy ---- */
+  .analogy {
+    grid-template-columns: 1fr !important;
+  }
+  .analogy-side { padding: 20px 18px; gap: 10px; }
+  .analogy-tag { font-size: 10px; }
+  .analogy-h { font-size: 17px; line-height: 1.4; }
+  .analogy-body { font-size: 13.5px; line-height: 1.8; }
+  .analogy-eq {
+    transform: none;
+    padding: 14px 0;
+    font-size: 28px;
+    border-left: none; border-right: none;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+  }
+
+  /* ---- Concept ---- */
+  .concept { padding: 20px 18px; gap: 18px; }
+  .concept-row { grid-template-columns: 1fr; gap: 8px; }
+  .concept-row .who { font-size: 10px; }
+  .concept-row .vis .chip { font-size: 13px; padding: 8px 12px; }
+  .concept-row .vis .arrow { font-size: 18px; }
+
+  /* ---- WWW grid ---- */
+  .www-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .www-cell { padding: 18px 18px 22px; gap: 8px; }
+  .www-cell .tag { font-size: 10px; }
+  .www-cell h3 { font-size: 16px; }
+  .www-cell p { font-size: 13px; line-height: 1.75; }
+
+  /* ---- SVG concept ---- */
+  .svg-concept {
+    grid-template-columns: 1fr !important;
+    padding: 20px 18px;
+    gap: 18px;
+  }
+  .svg-concept svg { max-height: 220px; }
+  .svg-concept .caption h3 { font-size: 17px; margin-bottom: 10px; }
+  .svg-concept .caption p { font-size: 13.5px; line-height: 1.8; }
+
+  /* ---- Everyday block ---- */
+  .everyday {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+  .everyday .tag { font-size: 10px; padding-top: 0; }
+  .everyday p { font-size: 14px; line-height: 1.75; }
 }
+
+
+/* ============== PAGE-SPECIFIC MOBILE OVERRIDES (≤768px) ============== */
+/* Individual pages define their own grid layouts in inline <style> blocks.
+   These collapse them to single column on mobile so layouts don't break. */
+@media (max-width: 768px) {
+  /* Generic 2-column "label + content" patterns across detail pages */
+  .arch-row,
+  .gen-row,
+  .debate-row,
+  .df-step,
+  .conv-msg,
+  .dt-row,
+  .rag-step,
+  .rf-row,
+  .rung-simple,
+  .ws-section,
+  .tool-board {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    align-items: start !important;
+    padding: 20px 16px !important;
+  }
+  .arch-row, .gen-row, .debate-row, .df-step, .conv-msg,
+  .dt-row, .rag-step, .rf-row, .rung-simple, .ws-section {
+    padding: 0 !important;
+  }
+
+  /* Label texts in those rows */
+  .arch-label { font-size: 11px !important; padding-top: 0 !important; }
+  .arch-box { padding: 14px 16px !important; font-size: 13.5px !important; }
+  .arch-box.process { font-size: 12px !important; }
+  .token-row { gap: 4px !important; }
+  .token-row .tok {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 2px 6px;
+  }
+
+  /* 3-column row patterns: label + content + status */
+  .embed-system,
+  .task {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    padding: 14px 16px !important;
+  }
+
+  /* tool-board: AI center + tools wheel */
+  .tool-board { padding: 20px 16px !important; gap: 18px !important; }
+  .ai-center { width: 140px !important; height: 140px !important; }
+
+  /* role-shift (ai-director): before / arrow / after */
+  .role-shift {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .role-block { padding: 20px 18px !important; }
+  .role-shift .arrow,
+  .role-shift > div:nth-child(2) {
+    transform: rotate(90deg);
+    align-self: center;
+    justify-self: center;
+    padding: 6px 0;
+  }
+
+  /* Multi-column tables: collapse to vertical cards */
+  .evolve-table,
+  .rung,
+  .risk-matrix,
+  .pipe-row {
+    grid-template-columns: 1fr !important;
+    gap: 1px !important;
+  }
+  .evolve-table > *,
+  .rung > *,
+  .risk-matrix > *,
+  .pipe-row > * {
+    padding: 12px 14px !important;
+    font-size: 13.5px !important;
+  }
+
+  /* Inline-style grids inside .diagram (llm-what scale rows, excel-data etc.) */
+  .diagram > div > div[style*="grid-template-columns"],
+  .diagram > div[style*="grid-template-columns"],
+  .section > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* Scale bars (llm-what): keep horizontal proportional */
+  .scale-bar { height: 22px !important; }
+  .scale-bar div { font-size: 10px !important; }
+
+  /* Generic safety: prevent horizontal scroll from oversized children */
+  body { overflow-x: hidden; }
+  .diagram, .section, .metaphor-inner, .hero-detail, .hero-illust {
+    overflow-x: hidden;
+  }
+
+  /* SVG diagrams in hero-illust and svg-concept: let them shrink */
+  .hero-illust svg,
+  .svg-concept svg {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* ============== ADDITIONAL PAGE-SPECIFIC MOBILE FIXES (≤768px) ==============
+   Each individual page defines its own grid layouts in inline <style> blocks.
+   These overrides collapse them to single column on mobile and right-size
+   their inner content. !important is required because inline <style> in
+   pages loads AFTER this stylesheet. */
+@media (max-width: 768px) {
+
+  /* === Collapse multi-column grids to single column === */
+  .before-after-org,
+  .compress,
+  .shift-stages,
+  .shift-grid,
+  .compare-models,
+  .calc-demo,
+  .topology-pat,
+  .biz-grid,
+  .vs-grid,
+  .roles-grid,
+  .bad-good,
+  .lens,
+  .openbook,
+  .protocols,
+  .scenarios,
+  .modes,
+  .role-split,
+  .risk-grid,
+  .checkpoint-grid,
+  .tools-grid,
+  .types,
+  .deploy-grid,
+  .docs-grid,
+  .who,
+  .principles,
+  .four-grid,
+  .fail-modes,
+  .strategies,
+  .know-circles,
+  .pipeline,
+  .nl-formula,
+  .react-nodes,
+  .ba-row,
+  .gov-pillars,
+  .loop-ring,
+  .decomp-grid,
+  .stage-chart,
+  .task-matrix,
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Override grid-template-rows on auto-flow diagrams */
+  .loop-ring, .react-nodes {
+    grid-template-rows: auto !important;
+  }
+
+  /* === Visual swarms / proportional bars: keep horizontal but compact === */
+  .data-pile {
+    grid-template-columns: repeat(8, 1fr) !important;
+    gap: 3px !important;
+  }
+  .org-diagram {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 3px !important;
+  }
+  .process-line {
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 2px !important;
+  }
+  .lf-row {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 4px !important;
+  }
+  .nn-deep {
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 4px !important;
+    padding: 16px 0 !important;
+  }
+  .nn-deep-label { font-size: 9px !important; margin-top: 8px !important; letter-spacing: 0.06em !important; }
+  .nn-deep-sub { font-size: 10px !important; line-height: 1.3 !important; }
+  .nn-dot { width: 10px !important; height: 10px !important; }
+  .nn-deep-col::after { display: none !important; }
+
+  /* Multi-viz: 3 agent columns stack to 1 */
+  .multi-viz {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 12px 0 !important;
+  }
+
+  /* Team agents: keep 2-col on mobile (compact agent cards) */
+  .team-agents {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* === 3-col patterns (left / arrow / right): rotate arrow when stacked === */
+  .compress > :nth-child(2),
+  .shift-stages > :nth-child(2),
+  .shift-grid > :nth-child(2),
+  .nl-formula > :nth-child(2),
+  .ba-row > :nth-child(2),
+  .decomp-arrow {
+    transform: rotate(90deg) !important;
+    justify-self: center !important;
+    padding: 4px 0 !important;
+    font-size: 24px !important;
+  }
+
+  /* === 2-col label-content rows: stack label above content === */
+  .rf-row,
+  .conv-msg,
+  .debate-row,
+  .df-step,
+  .dt-row,
+  .rag-step,
+  .arch-row,
+  .gen-row,
+  .rung-simple,
+  .ws-section {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding: 0 !important;
+  }
+
+  /* === Multi-col table-style rows: stack each cell vertically === */
+  .rung,
+  .evolve-table,
+  .pipe-row,
+  .risk-matrix {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .rung > *,
+  .evolve-table > *,
+  .pipe-row > *,
+  .risk-matrix > * {
+    padding: 12px 16px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--hair) !important;
+    font-size: 13.5px !important;
+    line-height: 1.7 !important;
+  }
+  .rung > *:last-child,
+  .evolve-table > *:last-child,
+  .pipe-row > *:last-child,
+  .risk-matrix > *:last-child {
+    border-bottom: none !important;
+  }
+  .rung-name h3 { font-size: 16px !important; }
+  .rung-name .who { font-size: 10px !important; }
+  .rung-level { font-size: 11px !important; }
+  .rung-icon { display: none !important; }
+
+  /* Pipeline arrows */
+  .pipeline { gap: 10px !important; }
+  .pipe-arrow {
+    transform: rotate(90deg) !important;
+    justify-self: center !important;
+    padding: 4px 0 !important;
+    font-size: 22px !important;
+  }
+  .pipe-node { padding: 16px 14px !important; gap: 8px !important; }
+  .pipe-label { font-size: 10px !important; }
+  .pipe-name { font-size: 14px !important; }
+  .pipe-desc { font-size: 13px !important; line-height: 1.7 !important; }
+
+  /* === Team director (agent-future) === */
+  .team { gap: 14px !important; }
+  .team-director {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 18px 16px !important;
+  }
+  .team-director .badge {
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+    justify-self: start !important;
+  }
+  .team-director h3 { font-size: 16px !important; }
+  .team-connector { font-size: 20px !important; padding: 2px 0 !important; }
+  .agent-card { padding: 12px 10px !important; gap: 6px !important; }
+  .agent-tag { font-size: 10px !important; }
+  .agent-name { font-size: 12.5px !important; line-height: 1.3 !important; }
+  .agent-role { font-size: 11px !important; line-height: 1.6 !important; }
+
+  /* === Decomp (task-decomposition) === */
+  .decomp-box { padding: 18px 16px !important; }
+  .decomp-box.lump h3 { font-size: 17px !important; margin-bottom: 10px !important; }
+  .decomp-box.lump p { font-size: 13.5px !important; line-height: 1.75 !important; }
+  .decomp-tasks { gap: 6px !important; }
+  .task {
+    grid-template-columns: 40px 1fr !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+    align-items: start !important;
+  }
+  .task .who {
+    grid-column: 1 / -1 !important;
+    justify-self: start !important;
+    margin-top: 2px !important;
+    font-size: 10px !important;
+    padding: 2px 6px !important;
+  }
+  .task .tn { font-size: 11px !important; }
+  .task .tt { font-size: 13.5px !important; line-height: 1.5 !important; }
+  .decomp-arrow { padding-top: 0 !important; }
+  .principles { grid-template-columns: 1fr !important; gap: 1px !important; }
+  .principle { padding: 18px 16px !important; gap: 6px !important; }
+  .principle h3 { font-size: 16px !important; line-height: 1.4 !important; }
+  .principle p { font-size: 13.5px !important; line-height: 1.75 !important; }
+  .principle .pn { font-size: 10px !important; }
+  .checklist { padding: 20px 18px !important; }
+  .check-item {
+    grid-template-columns: 22px 1fr !important;
+    gap: 12px !important;
+    padding: 12px 0 !important;
+  }
+  .check-mark { width: 18px !important; height: 18px !important; font-size: 10px !important; }
+  .check-q { font-size: 13.5px !important; margin-bottom: 4px !important; line-height: 1.45 !important; }
+  .check-desc { font-size: 12.5px !important; line-height: 1.7 !important; }
+
+  /* === ai-director skill-card === */
+  .skill-card {
+    grid-template-columns: 40px 1fr !important;
+    gap: 12px !important;
+    padding: 16px 14px !important;
+  }
+
+  /* === embed-system (embed-ai): 3-col row → stack === */
+  .embed-system {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    padding: 14px 16px !important;
+  }
+
+  /* === Generic cards inside collapsed grids: tighten padding and fonts === */
+  .org-card, .doc-chip, .lens-card, .pat, .ob-card,
+  .scen, .mode-card, .know-card, .deploy-card, .risk-card,
+  .checkpoint, .type-card, .who-card, .calc-side, .model-card,
+  .vs-card, .proto, .roles-grid > *, .bad-good-card,
+  .four-card, .pillar, .biz-card, .gen-side, .nl-box,
+  .role-block {
+    padding: 16px 14px !important;
+  }
+  .org-card h3, .lens-card h3, .pat h3, .ob-card h3, .scen h3,
+  .mode-card h3, .deploy-card h3, .risk-card h3, .type-card h3,
+  .who-card h3, .vs-card h3, .pillar h3, .biz-card h3,
+  .four-card h3, .know-card h3, .checkpoint h3, .model-card h3,
+  .proto h3, .bad-good-card h3 {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 6px !important;
+  }
+  .org-card p, .lens-card p, .pat p, .ob-card p, .scen p,
+  .mode-card p, .deploy-card p, .risk-card p, .type-card p,
+  .who-card p, .vs-card p, .pillar p, .biz-card p,
+  .four-card p, .know-card p, .checkpoint p, .model-card p,
+  .proto p, .bad-good-card p, .calc-side p, .gen-side p, .nl-box p,
+  .role-block p {
+    font-size: 13px !important;
+    line-height: 1.75 !important;
+  }
+
+  /* Generic tag/label badges inside diagram cards */
+  .pipe-label, .agent-tag, .pat-tag, .scen-tag, .proto-tag,
+  .deploy-tag, .role-tag, .model-tag,
+  .pillar .num, .know-card .num, .four-card .num,
+  .risk-card .level, .checkpoint .level {
+    font-size: 10px !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  /* Tighten any inline-style 2-col grids that survive */
+  [style*="grid-template-columns: 1fr 1fr"]:not(.topnav-inner):not(.pagenav-inner):not(.hero-detail):not(.section-head),
+  [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Llm-what arch label rows (already collapsed above); shrink scale demo */
+  .scale-bar {
+    height: 18px !important;
+    grid-template-columns: 1fr 4fr 80fr !important;
+  }
+  .scale-bar div {
+    font-size: 9px !important;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .arch-label { padding-top: 0 !important; font-size: 10px !important; }
+  .arch-box { padding: 14px 16px !important; }
+  .arch-box .arch-name { font-size: 14px !important; }
+  .arch-box p { font-size: 13px !important; line-height: 1.7 !important; }
+
+  /* Ladder (agent-future): gap between rungs */
+  .ladder { gap: 1px !important; }
+
+  /* ai-board: lens uses h4 instead of h3 — apply same sizes */
+  .lens-card h4 { font-size: 16px !important; line-height: 1.35 !important; margin-bottom: 6px !important; }
+  .lens-card p { font-size: 13px !important; line-height: 1.75 !important; }
+
+  /* react-nodes inner content (ai-agent) */
+  .react-nodes .react-node { padding: 16px 14px !important; }
+  /* Children have inline grid-column/grid-row — strip them so they stack */
+  .react-nodes > * {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    max-width: 100% !important;
+  }
+  .react-nodes > div:empty { display: none !important; }
+  .react-nodes .react-arrow {
+    transform: rotate(90deg) !important;
+    justify-self: center !important;
+    font-size: 22px !important;
+    padding: 4px 0 !important;
+  }
+
+  /* role-shift (ai-director): also stack arrow */
+  .role-shift > :nth-child(2),
+  .role-shift .arrow {
+    transform: rotate(90deg) !important;
+    justify-self: center !important;
+    padding: 4px 0 !important;
+    font-size: 24px !important;
+  }
+
+  /* === Tree diagram (rule-based.html) === */
+  .tree { gap: 12px !important; }
+  .tree-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  .tree-indent,
+  .tree-row[style*="padding-left"] {
+    padding-left: 14px !important;
+    border-left: 2px solid var(--hair);
+  }
+  .tree-row.tree-indent { padding-left: 14px !important; }
+  .tree-cond, .tree-out, .tree-else {
+    padding: 12px 14px !important;
+    font-size: 13px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .tree-arrow {
+    transform: rotate(90deg) !important;
+    align-self: center !important;
+    padding: 0 !important;
+    font-size: 18px !important;
+  }
+  .pseudocode {
+    padding: 18px 16px !important;
+    font-size: 12px !important;
+    line-height: 1.85 !important;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* === Flex-based horizontal rows that should stack === */
+  .compress-arrow,
+  .shift-mid,
+  .shift-divider,
+  .ba-divider,
+  .arrow-mid {
+    flex-direction: row !important;
+    transform: rotate(0deg) !important;
+    padding: 6px 0 !important;
+    font-size: 22px !important;
+  }
+
+  /* AI-board: round table → stack vertically */
+  .table-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+  }
+  .table-row .seat { width: 100% !important; }
+  .table-center {
+    min-height: 60px !important;
+    height: auto !important;
+    padding: 14px !important;
+    font-size: 11px !important;
+  }
+
+  /* Agent-roles: top-row of nodes → stack */
+  .top-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+  .top-node { width: 100% !important; }
+
+  /* Approval-gates: rm-cell — keep tight */
+  .rm-cell { padding: 12px 10px !important; font-size: 11px !important; min-height: 0 !important; }
+
+  /* === Excessive inline padding-left overrides (tree indents and similar) === */
+  [style*="padding-left: 32px"] { padding-left: 14px !important; }
+  [style*="padding-left: 64px"] { padding-left: 14px !important; }
+  [style*="padding-left: 96px"] { padding-left: 14px !important; }
+
+  /* Pseudocode/code blocks: allow horizontal scroll instead of overflow */
+  pre, code, .pseudocode, .codeblock {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
