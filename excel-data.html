@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「対話型AI」から「組み込み型AI」へ — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .ui-mock {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 12px;
+    min-height: 240px;
+  }
+  .ui-mock .titlebar {
+    background: var(--ink); color: var(--paper);
+    padding: 8px 14px;
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ui-mock .titlebar::before {
+    content: ""; width: 8px; height: 8px;
+    background: oklch(0.78 0.10 35);
+    border-radius: 50%;
+  }
+  .chat-bubble {
+    background: var(--paper);
+    padding: 10px 14px;
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.6;
+    max-width: 80%;
+  }
+  .chat-bubble.user {
+    background: var(--accent-soft);
+    align-self: flex-end;
+  }
+  .chat-row { display: flex; }
+  .chat-row.user { justify-content: flex-end; }
+
+  .embed-flow {
+    display: grid; gap: 12px;
+  }
+  .embed-system {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 16px 20px;
+    display: grid; grid-template-columns: 80px 1fr 100px;
+    gap: 20px; align-items: center;
+  }
+  .embed-system.ai {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+    border-left: 4px solid var(--accent);
+  }
+  .embed-system .sys-name {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .embed-system.ai .sys-name { color: oklch(0.7 0.10 35); }
+  .embed-system .action {
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.6;
+  }
+  .embed-system .auto {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.12em;
+    text-align: right; text-transform: uppercase;
+  }
+  .embed-arrow {
+    text-align: center; color: var(--accent);
+    font-family: var(--serif); font-size: 15pt; font-weight: 100;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-5">第5回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">「対話型AI」から「組み込み型AI」へ</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Workflow 01 / 02</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 05 ／ ワークフロー自動化</div>
+    <h1>対話型 → 組み込み型へ<br><em>AIを、チャット画面から解放する。</em></h1>
+  </div>
+  <p class="hero-lede">
+    人間がコピペで仲介する時代は終わる。AIをAPI経由でメール、Slack、ERP、CRMに直接組み込み、業務プロセスの中に "見えないAI" として埋め込む。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Left: chat interface (manual copy/paste) -->
+      <g transform="translate(40 30)">
+        <text x="120" y="0" class="ill-text" text-anchor="middle">CONVERSATIONAL AI</text>
+        <rect width="240" height="220" class="ill-soft"/>
+        <rect x="20" y="20" width="160" height="30" class="ill-warm"/>
+        <text x="100" y="40" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink);">User input</text>
+        <rect x="60" y="60" width="160" height="30" fill="var(--ink)"/>
+        <text x="140" y="80" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--paper);">AI reply</text>
+        <rect x="20" y="100" width="160" height="30" class="ill-warm"/>
+        <rect x="60" y="140" width="160" height="30" fill="var(--ink)"/>
+        <text x="120" y="200" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">人間が毎回コピペ</text>
+      </g>
+
+      <!-- Arrow -->
+      <g transform="translate(310 130)">
+        <path d="M 0 10 L 80 10" class="ill-accent-fat"/>
+        <polygon points="80,5 90,10 80,15" class="ill-dot"/>
+        <text x="40" y="-5" class="ill-text-accent" text-anchor="middle">EMBED</text>
+      </g>
+
+      <!-- Right: embedded AI inside business system -->
+      <g transform="translate(420 30)">
+        <text x="170" y="0" class="ill-text-accent" text-anchor="middle">EMBEDDED AI</text>
+        <rect width="340" height="220" class="ill-warm"/>
+        <text x="170" y="30" class="ill-text" text-anchor="middle" style="fill: var(--ink); font-family: var(--serif); font-size: 14px; font-weight: 700;">業務システム</text>
+        <!-- workflow blocks with AI in middle -->
+        <g transform="translate(20 50)">
+          <rect width="60" height="40" class="ill-soft"/>
+          <text x="30" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--ink);">受信</text>
+        </g>
+        <text x="90" y="73" class="ill-text-accent">→</text>
+        <g transform="translate(105 50)">
+          <rect width="60" height="40" fill="var(--accent)"/>
+          <text x="30" y="25" text-anchor="middle" fill="var(--paper)" font-family="var(--mono)" font-size="11">AI</text>
+        </g>
+        <text x="175" y="73" class="ill-text-accent">→</text>
+        <g transform="translate(190 50)">
+          <rect width="60" height="40" class="ill-soft"/>
+          <text x="30" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--ink);">判定</text>
+        </g>
+        <text x="260" y="73" class="ill-text-accent">→</text>
+        <g transform="translate(275 50)">
+          <rect width="50" height="40" class="ill-soft"/>
+          <text x="25" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--ink);">登録</text>
+        </g>
+        <text x="170" y="130" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink); font-size: 13px;">AI が裏側で動き、</text>
+        <text x="170" y="150" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink); font-size: 13px;">人間は判断・承認に集中</text>
+        <text x="170" y="190" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: var(--accent);">コピペ不要</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIに <em>"会いに行く"</em> のをやめる。<br>仕事の流れの中に、AIが<em>"いる"</em> 状態を作る。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>対話型 vs 組み込み型</h2>
+      <p class="sub">同じ「AI活用」でも、人間のかかわり方がまったく違う。対話型は人間がAIを使う／組み込み型はAIが業務に組み込まれている。</p>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+    <div>
+      <div style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 12px; text-transform: uppercase;">Mode A ／ 対話型</div>
+      <div class="ui-mock">
+        <div class="titlebar">ChatGPT — chat.openai.com</div>
+        <div class="chat-row user"><div class="chat-bubble user">この見積書PDF、金額と納期だけ抜いて</div></div>
+        <div class="chat-row"><div class="chat-bubble">金額：1,250,000円<br>納期：2024年12月20日</div></div>
+        <div class="chat-row user"><div class="chat-bubble user">じゃあそれをCSVで…</div></div>
+      </div>
+      <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 16px; line-height: 1.8;">
+        人間が <strong style="color: var(--ink);">毎回コピペで仲介</strong>する。PDFを開く → AIに貼る → 結果をシステムに転記。間に人が入り続ける。
+      </p>
+    </div>
+    <div>
+      <div style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 12px; text-transform: uppercase;">Mode B ／ 組み込み型</div>
+      <div class="embed-flow">
+        <div class="embed-system">
+          <div class="sys-name">Mail</div>
+          <div class="action">取引先から見積書PDFが届く</div>
+          <div class="auto">受信</div>
+        </div>
+        <div class="embed-arrow">↓</div>
+        <div class="embed-system ai">
+          <div class="sys-name">AI ／ 抽出</div>
+          <div class="action">PDFから「会社名・金額・納期」を構造化抽出</div>
+          <div class="auto">自動</div>
+        </div>
+        <div class="embed-arrow">↓</div>
+        <div class="embed-system">
+          <div class="sys-name">CRM</div>
+          <div class="action">案件レコードへ自動転記</div>
+          <div class="auto">自動</div>
+        </div>
+        <div class="embed-arrow">↓</div>
+        <div class="embed-system">
+          <div class="sys-name">Slack</div>
+          <div class="action">担当者へ通知 "新規見積を起票しました"</div>
+          <div class="auto">自動</div>
+        </div>
+      </div>
+      <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 16px; line-height: 1.8;">
+        AIは <strong style="color: var(--accent);">既存システムの中に埋め込まれて</strong>動く。人間は通知を見て承認するだけ。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>API連携 — 接着剤としてのAIを理解する</h2>
+      <p class="sub">業務システムは元々API（プログラム同士の窓口）を持っている。AIを「API経由」で呼べば、メール／Slack／Excel／ERPに組み込める。これが組み込み型の技術的な核。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center;">
+      <div>
+        <div class="arch-label" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; margin-bottom: 12px;">既存システム</div>
+        <div style="display: grid; gap: 8px;">
+          <div class="tok" style="text-align: center; padding: 12px;">Outlook / Gmail</div>
+          <div class="tok" style="text-align: center; padding: 12px;">Salesforce / kintone</div>
+          <div class="tok" style="text-align: center; padding: 12px;">Slack / Teams</div>
+          <div class="tok" style="text-align: center; padding: 12px;">SAP / 基幹システム</div>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-family: var(--serif); font-size: 32px; color: var(--accent); font-weight: 100;">⇄</div>
+        <div style="font-family: var(--mono); font-size: 15pt; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px;">API ／ Webhook</div>
+        <div style="font-family: var(--serif); font-size: 32px; color: var(--accent); font-weight: 100; margin-top: 16px;">⇄</div>
+        <div style="font-family: var(--mono); font-size: 15pt; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px;">RPA ／ iPaaS</div>
+      </div>
+      <div>
+        <div class="arch-label" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px;">AI / 自動化</div>
+        <div style="display: grid; gap: 8px;">
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">LLM API（GPT等）</div>
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">Zapier / Make</div>
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">Power Automate</div>
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">自社開発ボット</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AIを <em>"使いに行く"</em> 時代から、<br>
+  AIが <em>"そこにいる"</em> 時代へ。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Patterns</div>
+    <div>
+      <h2>定番の組み込みパターン</h2>
+      <p class="sub">「人がコピペで仲介していた箇所」を見つけて、そこをAI＋自動化に置き換える、というのが基本の発想。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>メール → 構造化 → CRM</h3>
+        <p>受信メールから案件情報を抽出し、CRMの新規レコードを自動作成。営業の入力工数を削減し、入力漏れもなくす。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>Slackメンション → RAG回答</h3>
+        <p>「@AI 出張規程の上限は？」のような社内チャットでの質問に、ナレッジボットがその場で答える。問い合わせ対応の専任担当を不要にする。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>会議録画 → 議事録 → 共有</h3>
+        <p>Zoom録画完了をトリガーに、文字起こし → AI要約 → 議事録テンプレに整形 → 関係者にSlack送信。会議の "後工程" がほぼ消える。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>顧客問合せ → 一次対応ドラフト</h3>
+        <p>サポートシステムに問合せが入ると、AIが過去事例（RAG）から返信ドラフトを生成。オペレーターは内容確認＋送信のみで対応時間が大幅短縮。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">API <span class="en">API</span></div>
+      <p class="jargon-plain">プログラム同士が話すための共通の窓口。<span class="like">駅の券売機にあいてる "改札のスリット"。決まった形でカードを入れると、決まった応答が返る。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Webhook <span class="en">Webhook</span></div>
+      <p class="jargon-plain">"何かが起きたら自動で通知する" 仕組み。<span class="like">"新着メールが届いたら教えて" の機械版。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">対話型AI <span class="en">Conversational AI</span></div>
+      <p class="jargon-plain">人がチャット欄に入力する形のAI。ChatGPTのような画面。<span class="like">"AIに窓口に来てもらう" 形。毎回コピペが発生。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">組み込み型AI <span class="en">Embedded AI</span></div>
+      <p class="jargon-plain">既存業務システムの裏側でAIが自動で動く形。人間からは見えない。<span class="like">"AIに席を用意して、ふだんから業務に同席させる" 形。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ノーコード連携 <span class="en">Zapier / Make</span></div>
+      <p class="jargon-plain">"AならBする" をマウス操作だけで作れるツール群。<span class="like">Excelの IF 関数の "業務システム間バージョン"。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">対話型 → 組み込み型</h3>
+      <p class="analogy-body">AIをチャット画面から解放し、業務システムの裏側で常時稼働させる方式。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"受付の人" → "席を持つメンバー"</h3>
+      <p class="analogy-body">対話型は、用があるたび受付に行って依頼する形。<br>組み込み型は、AIが机を持ってチームに居て、業務が発生した瞬間に動く。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-5">
+      <span class="dir">← Back</span>
+      <span class="nxt">第5回トップに戻る</span>
+    </a>
+    <a href="human-ai-divide.html" class="right">
+      <span class="dir">Next ／ Workflow 02 →</span>
+      <span class="nxt">人間とAIの分業</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第5回 ／ 組み込み型AIへ</footer>
+</body>
+</html>

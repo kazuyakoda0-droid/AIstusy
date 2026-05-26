@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アイデア出しの壁打ち — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .modes {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .mode-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .mode-card.reverse {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+  }
+  .mode-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .mode-card.reverse .mode-tag { color: oklch(0.78 0.10 35); }
+  .mode-card h3 { font-family: var(--serif); font-weight: 800; font-size: 24px; line-height: 1.3; }
+  .mode-card p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .mode-card.reverse p { color: oklch(0.85 0.008 70); }
+
+  .conv-flow {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .msg-row { display: flex; gap: 16px; align-items: flex-start; }
+  .msg-who {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--muted);
+    width: 60px; padding-top: 14px; flex-shrink: 0;
+    text-transform: uppercase;
+  }
+  .msg-bubble {
+    background: var(--bg-alt);
+    padding: 14px 18px;
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.7; flex: 1; max-width: 720px;
+  }
+  .msg-row.ai .msg-bubble {
+    background: var(--ink); color: var(--paper);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-3">第3回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">アイデア出しの壁打ち</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Practice 04 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 03 ／ 個人業務ハック</div>
+    <h1>アイデア出しの壁打ち<br><em>"考える相手" が、いつでもいる。</em></h1>
+  </div>
+  <p class="hero-lede">
+    AIに答えだけを求めない。「私の考えを批判して」「私に質問して」と頼めば、思考のパートナーになる。一人で煮詰まる時間を、対話の時間に変える。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Central idea node + branches -->
+      <circle cx="400" cy="140" r="40" class="ill-warm"/>
+      <text x="400" y="145" class="ill-text-accent" text-anchor="middle">CORE IDEA</text>
+
+      <g stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 3" fill="none">
+        <line x1="380" y1="115" x2="240" y2="60"/>
+        <line x1="370" y1="130" x2="180" y2="120"/>
+        <line x1="380" y1="160" x2="220" y2="220"/>
+        <line x1="420" y1="115" x2="580" y2="50"/>
+        <line x1="430" y1="135" x2="620" y2="120"/>
+        <line x1="420" y1="160" x2="580" y2="220"/>
+      </g>
+
+      <g font-family="var(--serif)" font-size="13" fill="var(--ink)" text-anchor="middle">
+        <rect x="160" y="40" width="160" height="40" class="ill-soft"/>
+        <text x="240" y="65">ターゲットを絞る？</text>
+        <rect x="100" y="100" width="160" height="40" class="ill-soft"/>
+        <text x="180" y="125">価格の前提を変える</text>
+        <rect x="140" y="200" width="160" height="40" class="ill-soft"/>
+        <text x="220" y="225">既存資産を再利用</text>
+
+        <rect x="500" y="30" width="160" height="40" class="ill-warm"/>
+        <text x="580" y="55" style="fill: var(--accent); font-weight: 700;">サブスク化</text>
+        <rect x="540" y="100" width="160" height="40" class="ill-soft"/>
+        <text x="620" y="125">パートナー巻き込む</text>
+        <rect x="500" y="200" width="160" height="40" class="ill-soft"/>
+        <text x="580" y="225">逆引きで設計</text>
+      </g>
+
+      <text x="400" y="270" class="ill-text" text-anchor="middle">AI壁打ち → 発散 → 収束</text>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"答えをくれるAI" ではなく、<em>"質問してくるAI"</em>。<br>使い方次第で、頭の中の整理係になる。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>2つのモード — 順引き vs 逆引き</h2>
+      <p class="sub">「アイデアちょうだい」（順引き）と「私に質問して」（逆引き）。後者を使いこなすかで、生産性が変わる。</p>
+    </div>
+  </div>
+
+  <div class="modes">
+    <div class="mode-card">
+      <div class="mode-tag">Mode 01 ／ 順引き</div>
+      <h3>"案をくれ"</h3>
+      <p>「新サービスのネーミング案を10個出して」「新人向けの研修テーマのアイデアを」。AIが候補を列挙してくれる。広く浅く出すのが得意。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent);">→ 数を出すフェーズで有効</p>
+    </div>
+    <div class="mode-card reverse">
+      <div class="mode-tag">Mode 02 ／ 逆引き</div>
+      <h3>"私に質問して"</h3>
+      <p>「ターゲット設定で悩んでいる。私に3つ質問をして、絞り込ませて」。AIがファシリテーターとなり、人間の思考を引き出してくれる。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: oklch(0.78 0.10 35);">→ 自分の考えを言語化するフェーズで有効</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>逆引きプロンプトの実例</h2>
+      <p class="sub">企画のターゲット設定で詰まっているとき、AIに「質問させる」と、こうなる。一人で堂々巡りしていた思考が、対話の中で整理されていく。</p>
+    </div>
+  </div>
+
+  <div class="conv-flow">
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">新企画のターゲット設定で悩んでいます。私に3つ質問をして、ターゲットを絞り込ませてください。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">承知しました。順番にお伺いします。<br><br>
+      Q1: この企画で、ユーザーが「これまで諦めていた・我慢していた」ことは何ですか？</div>
+    </div>
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">朝の身支度の時間がなくて、スキンケアを諦めている人が多いと感じています。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">なるほど。<br>Q2: その人たちは、なぜ "時短化されたスキンケア商品" ではなく、御社の企画を選ぶべきだと考えていますか？</div>
+    </div>
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">…そう言われると、差別化が弱い気がしてきました。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">良い気づきです。<br>Q3: 時間がない朝に "1ステップで終わる" 以外で、ユーザーの本音は何でしょう？（例：罪悪感を消したい、自己肯定感を上げたい、誰かに褒められたい）</div>
+    </div>
+    <div class="msg-row">
+      <div class="msg-who">User</div>
+      <div class="msg-bubble">"忙しくても自分を大切にできている" という感覚かもしれません。</div>
+    </div>
+    <div class="msg-row ai">
+      <div class="msg-who">AI</div>
+      <div class="msg-bubble">3つの回答をまとめると、ターゲットは「時短を求める層」ではなく「忙しさの中で自己肯定感を保ちたい20代後半〜30代女性」ではないでしょうか。差別化は時間ではなく "セルフケアの感情価値" で考えると、企画が立ちやすくなりそうです。</div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AIは <em>答えを持っていない</em>。<br>
+  しかし、人間の中にある答えを<em>引き出す手助け</em>はできる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Templates</div>
+    <div>
+      <h2>壁打ちの定番プロンプト</h2>
+      <p class="sub">「ただアイデアちょうだい」を卒業すると、AIは一気に頼れる相棒になる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>批判してもらう</h3>
+        <p>「以下の企画書を、厳しめのマーケティング部長の視点で批判してください。具体的に5つ。」<br>→ 自分では見落とす欠点を、容赦なく指摘してくれる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>異なる視点から見てもらう</h3>
+        <p>「この提案を、(a)新人エンジニア、(b)経理部長、(c)エンドユーザー の3つの視点で評価してください。」<br>→ 一つの企画を多角的に検証できる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>反対意見を出させる</h3>
+        <p>「私の意見：○○ですが、これに最も鋭く反論する人なら、何と言いますか？」<br>→ 反対意見を先に潰せる。後の説得材料になる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>質問でファシリテートさせる</h3>
+        <p>「私に5つ質問してください。一つずつ答えるので、最後にまとめてください。テーマは○○です。」<br>→ AIが取材者・ファシリテーターとして、思考を整理してくれる。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">壁打ち <span class="en">Sparring / Bouncing Ideas</span></div>
+      <p class="jargon-plain">相手に話しながら、自分の考えを整理していくこと。<span class="like">ホワイトボードの前で同僚に話しながら考えがまとまる、あの感覚。AIが相手になる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">発散と収束 <span class="en">Divergence / Convergence</span></div>
+      <p class="jargon-plain">アイデア出しの2段階。たくさん出す→絞り込む、を繰り返す。<span class="like">"とにかく100個出す" → "上位3つを深掘り" のリズム。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">認知バイアス <span class="en">Cognitive Bias</span></div>
+      <p class="jargon-plain">人間が無意識に陥る思考の偏り。AIに代わりに指摘させると気付ける。<span class="like">"前例があるからこれでいい" "上司が好きそうな案" など、無自覚な思い込み。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">逆引きプロンプト <span class="en">Reverse Prompting</span></div>
+      <p class="jargon-plain">"あなたから私に質問して" とAIに会話を主導させる手法。<span class="like">考えがぼんやりしているとき、AIに質問させて自分の頭の中を整理する。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AI壁打ち／ブレスト</h3>
+      <p class="analogy-body">対話を通じて自分の思考の解像度を上げる作業のAI化。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">気軽に話せる、博識な同僚</h3>
+      <p class="analogy-body">時間も気にせず、何度脱線してもOK。<br>"ちょっと相談いいですか" の心理的ハードルがゼロの相手。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="excel-data.html">
+      <span class="dir">← Prev ／ Practice 03</span>
+      <span class="nxt">データ処理・Excel連携</span>
+    </a>
+    <a href="../index.html#session-4" class="right">
+      <span class="dir">Next ／ Session 04 →</span>
+      <span class="nxt">社内ナレッジへの接続（RAG）</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第3回 ／ アイデア出しの壁打ち</footer>
+</body>
+</html>

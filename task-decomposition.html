@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>情報圧縮と要約 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .compress {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 24px; align-items: stretch;
+  }
+  .big-text {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 24px;
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.75; color: var(--ink-soft);
+    max-height: 380px; overflow: hidden;
+    position: relative;
+  }
+  .big-text::after {
+    content: "";
+    position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+    background: linear-gradient(transparent, var(--bg-alt));
+  }
+  .big-text .tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+    display: block; margin-bottom: 12px;
+  }
+  .compress-arrow {
+    display: flex; flex-direction: column; gap: 10px;
+    align-items: center; justify-content: center;
+  }
+  .compress-arrow .arr { font-family: var(--serif); font-size: 36px; color: var(--accent); font-weight: 100; }
+  .compress-arrow .lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .out-formats {
+    display: grid; gap: 12px;
+  }
+  .out-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 18px 20px;
+  }
+  .out-card.highlight { background: var(--accent-soft); border-color: var(--accent); }
+  .out-card h4 {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .out-card .content {
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.7; color: var(--ink);
+  }
+  .out-card table {
+    width: 100%; font-size: 15pt; line-height: 1.5;
+    border-collapse: collapse;
+  }
+  .out-card td, .out-card th {
+    padding: 4px 8px; border-bottom: 1px solid var(--hair);
+    text-align: left;
+  }
+  .out-card th { font-family: var(--mono); font-size: 15pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-3">第3回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">情報圧縮と要約</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Practice 02 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 03 ／ 個人業務ハック</div>
+    <h1>情報圧縮と要約<br><em>"読まない時間" を取り戻す。</em></h1>
+  </div>
+  <p class="hero-lede">
+    1時間の会議の文字起こし、100ページのPDF、長大なメールスレッド。「読み切れない情報」から、必要な要点だけを瞬時に取り出す。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <text x="120" y="25" class="ill-text" text-anchor="middle">LONG TEXT / 議事録60分</text>
+      <g transform="translate(40 40)">
+        <rect width="240" height="220" class="ill-soft"/>
+        <line x1="20" y1="20" x2="220" y2="20" class="ill-line"/><line x1="20" y1="31" x2="205" y2="31" class="ill-line"/><line x1="20" y1="42" x2="190" y2="42" class="ill-line"/><line x1="20" y1="53" x2="220" y2="53" class="ill-line"/><line x1="20" y1="64" x2="205" y2="64" class="ill-line"/><line x1="20" y1="75" x2="190" y2="75" class="ill-line"/><line x1="20" y1="86" x2="220" y2="86" class="ill-line"/><line x1="20" y1="97" x2="205" y2="97" class="ill-line"/><line x1="20" y1="108" x2="190" y2="108" class="ill-line"/><line x1="20" y1="119" x2="220" y2="119" class="ill-line"/><line x1="20" y1="130" x2="205" y2="130" class="ill-line"/><line x1="20" y1="141" x2="190" y2="141" class="ill-line"/><line x1="20" y1="152" x2="220" y2="152" class="ill-line"/><line x1="20" y1="163" x2="205" y2="163" class="ill-line"/><line x1="20" y1="174" x2="190" y2="174" class="ill-line"/><line x1="20" y1="185" x2="220" y2="185" class="ill-line"/><line x1="20" y1="196" x2="205" y2="196" class="ill-line"/><line x1="20" y1="207" x2="190" y2="207" class="ill-line"/>
+      </g>
+
+      <!-- Compression arrow -->
+      <g transform="translate(310 130)">
+        <path d="M 0 10 L 80 10" class="ill-accent-fat"/>
+        <polygon points="80,5 90,10 80,15" class="ill-dot"/>
+        <text x="40" y="-5" class="ill-text-accent" text-anchor="middle">COMPRESS</text>
+      </g>
+
+      <text x="580" y="25" class="ill-text-accent" text-anchor="middle">3-LINE SUMMARY</text>
+      <g transform="translate(440 40)">
+        <rect width="320" height="220" class="ill-warm"/>
+        <text x="20" y="40" class="ill-text-accent" font-weight="700">決定事項</text>
+        <line x1="20" y1="55" x2="300" y2="55" class="ill-accent"/>
+        <text x="20" y="100" class="ill-text-accent" font-weight="700">未決事項</text>
+        <line x1="20" y1="115" x2="280" y2="115" class="ill-accent"/>
+        <text x="20" y="160" class="ill-text-accent" font-weight="700">Next Action</text>
+        <line x1="20" y1="175" x2="300" y2="175" class="ill-accent"/>
+        <line x1="20" y1="195" x2="260" y2="195" class="ill-accent"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">毎日3時間の "読む仕事" を、<em>3分に圧縮する</em>。<br>その分、判断と対話に時間を使う。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>長文 → 多様な要約形式</h2>
+      <p class="sub">同じ会議の文字起こしから、欲しい形に合わせて違う要約を出せる。「3行で」「表で」「Todoとして」「課題だけ」など、目的に応じて指定。</p>
+    </div>
+  </div>
+
+  <div class="compress">
+    <div class="big-text">
+      <span class="tag">Input ／ 1時間の議事録（抜粋）</span>
+      田中：先週の販促キャンペーンですが、想定より反響が大きく、在庫が10日で底を尽きそうです。鈴木：それは嬉しい悲鳴ですね。ただ、追加発注は最短でも2週間かかります。山本：その間、機会損失が出ますね。代替案として、別商品の在庫を回せませんか。田中：それは可能ですが、現場の混乱が…。鈴木：店舗側にはこちらから説明します。山本：では、別商品の在庫を回すこと、追加発注を進めること、店舗説明は鈴木さん、で進めましょう。次回ミーティングは来週月曜、進捗確認します。田中：はい、別商品の在庫リストは私の方で今日中に出します。鈴木：店舗説明資料は明日朝までに作ります。山本：では本件、お願いします。
+    </div>
+    <div class="compress-arrow">
+      <div class="arr">→</div>
+      <div class="lbl">AIに要約依頼</div>
+    </div>
+    <div class="out-formats">
+      <div class="out-card highlight">
+        <h4>Format A ／ 3行要約</h4>
+        <div class="content">販促キャンペーンの反響で在庫が10日で枯渇見込み。代替商品の在庫を回しつつ追加発注を進めることで合意。次回月曜に進捗確認。</div>
+      </div>
+      <div class="out-card">
+        <h4>Format B ／ Next Action 表</h4>
+        <table>
+          <thead><tr><th>誰が</th><th>何を</th><th>いつまでに</th></tr></thead>
+          <tbody>
+            <tr><td>田中</td><td>別商品の在庫リスト作成</td><td>本日中</td></tr>
+            <tr><td>鈴木</td><td>店舗説明資料作成</td><td>明日朝まで</td></tr>
+            <tr><td>全員</td><td>進捗確認ミーティング</td><td>来週月曜</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="out-card">
+        <h4>Format C ／ 決定 / 未決定</h4>
+        <div class="content">
+          <strong style="color: var(--accent);">決定：</strong>別商品の在庫を回す／追加発注を進める／店舗説明は鈴木<br>
+          <strong style="color: var(--ink-soft);">未決：</strong>追加発注の具体的数量（次回確認）
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>こんなインプットも、要約できる</h2>
+      <p class="sub">テキスト形式に変換できれば、ほぼ全ての情報源が要約対象。音声→テキスト化サービスと組み合わせれば、会議も電話も。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>会議の音声文字起こし</h3>
+        <p>Zoom等の録画から自動文字起こし → AIに「決定事項・宿題・論点」を抽出依頼。議事録作成の工数が桁違いに減る。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>長大なPDF資料</h3>
+        <p>業界レポート、競合分析、研究論文。100ページのPDFをまるごと渡して「自社事業に関係する論点だけ抜き出して」「要点を5つ」と指示。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>メールスレッド・チャットログ</h3>
+        <p>長期化した顧客対応のスレッドを「経緯まとめ」「未解決の論点」として再整理。引き継ぎ時にも有効。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>議事録 vs 公式発表の差分</h3>
+        <p>「議事録ではこう議論されたが、最終発表では何が変わったか」を比較。複数文書を渡して差分要約も可能。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  読むという作業から、<em>考えるという仕事へ</em>。<br>
+  時間配分そのものが、シフトする。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Caveat</div>
+    <div>
+      <h2>注意点 — 要約は「ロスのある圧縮」</h2>
+      <p class="sub">便利な反面、要約は元情報の一部を捨てている。重要な意思決定の場では、AIの要約だけで判断せず、原文に戻る習慣を。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col right">
+      <div class="compare-tag">✓ Good for</div>
+      <div class="compare-title">要約に向くシーン</div>
+      <ul class="compare-points">
+        <li>関心の高くない会議の概要把握</li>
+        <li>長文資料の「読む価値判断」</li>
+        <li>議事録の下書き</li>
+        <li>Next Action抽出</li>
+      </ul>
+    </div>
+    <div class="compare-col left">
+      <div class="compare-tag">⚠ Caution</div>
+      <div class="compare-title">原文確認が必要なシーン</div>
+      <ul class="compare-points">
+        <li>契約書・規程の解釈</li>
+        <li>法的・規制関連の文書</li>
+        <li>数値・固有名詞が重要な報告</li>
+        <li>意思決定の根拠となる発言の引用</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">要約 <span class="en">Summarization</span></div>
+      <p class="jargon-plain">長い文章から要点だけ抜き出して短くまとめること。AIが最も得意な作業の1つ。<span class="like">会議の最後に幹事が「今日決まったことは…」とまとめる、あれ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">構造化 <span class="en">Structuring</span></div>
+      <p class="jargon-plain">バラバラの情報を「決定事項／未決／Todo」のように、見出しごとに整理すること。<span class="like">雑然とした机を、書類トレイに分類していく作業。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">アクションアイテム <span class="en">Action Item</span></div>
+      <p class="jargon-plain">会議後にやるべきこと。"誰が／いつまでに／何を" の3点セット。<span class="like">AIに「Action Itemだけ表で抜き出して」と言える時代になった。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">文字起こし <span class="en">Transcription</span></div>
+      <p class="jargon-plain">音声を文字に書き起こすこと。これも今やAIが自動で行う。<span class="like">Zoomの録音 →自動文字起こし →AI要約、で議事録が完成する。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">長文要約／情報圧縮</h3>
+      <p class="analogy-body">大量の情報から「使える形」だけを抽出する作業。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">新聞記事の見出しを作る編集者</h3>
+      <p class="analogy-body">記事1本ぶんの内容を、見出し1行に圧縮できる人。<br>AIはこの仕事を、雑な原稿でも瞬時にやってくれる。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="doc-acceleration.html">
+      <span class="dir">← Prev ／ Practice 01</span>
+      <span class="nxt">文書作成の高速化</span>
+    </a>
+    <a href="excel-data.html" class="right">
+      <span class="dir">Next ／ Practice 03 →</span>
+      <span class="nxt">データ処理・Excel連携</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第3回 ／ 情報圧縮と要約</footer>
+</body>
+</html>

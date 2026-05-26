@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIの進化の先 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  /* Maturity ladder */
+  .ladder {
+    display: grid; gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+  }
+  .rung {
+    display: grid;
+    grid-template-columns: 100px 240px 1fr 60px;
+    background: var(--paper);
+    align-items: stretch;
+  }
+  .rung.future { background: var(--ink); color: var(--paper); }
+  .rung.current { background: var(--accent-soft); }
+  .rung-level {
+    padding: 32px 24px;
+    border-right: 1px solid var(--hair);
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .rung.future .rung-level { color: oklch(0.78 0.10 35); border-right-color: oklch(0.32 0.02 60); }
+  .rung-name {
+    padding: 28px 28px;
+    border-right: 1px solid var(--hair);
+    display: flex; flex-direction: column; gap: 6px;
+    justify-content: center;
+  }
+  .rung.future .rung-name { border-right-color: oklch(0.32 0.02 60); }
+  .rung-name h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 20px; line-height: 1.3;
+  }
+  .rung-name .who {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .rung.future .rung-name .who { color: oklch(0.7 0.10 35); }
+  .rung-desc {
+    padding: 28px 32px;
+    font-size: 15pt; line-height: 1.8; color: var(--ink-soft);
+    display: flex; align-items: center;
+  }
+  .rung.future .rung-desc { color: oklch(0.85 0.008 70); }
+  .rung-icon {
+    border-left: 1px solid var(--hair);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 22px; color: var(--accent);
+    font-weight: 100;
+  }
+  .rung.future .rung-icon { color: oklch(0.78 0.10 35); border-left-color: oklch(0.32 0.02 60); }
+
+  /* Team viz */
+  .team {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .team-director {
+    background: var(--ink); color: var(--paper);
+    padding: 28px 32px;
+    display: grid; grid-template-columns: auto 1fr; gap: 24px;
+    align-items: center;
+  }
+  .team-director .badge {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: oklch(0.7 0.10 35);
+    padding: 6px 12px; border: 1px solid oklch(0.7 0.10 35);
+    text-transform: uppercase;
+  }
+  .team-director h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.3;
+  }
+  .team-agents {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .agent-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 24px 20px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .agent-tag {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .agent-name {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; line-height: 1.35;
+  }
+  .agent-role {
+    font-size: 15pt; color: var(--ink-soft); line-height: 1.7;
+  }
+  .team-connector {
+    text-align: center;
+    font-family: var(--serif); font-size: 28px;
+    color: var(--accent); font-weight: 100; line-height: 1;
+    padding: 4px 0;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html">第1回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">AIの進化の先</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">The Future</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">The Future ／ AIの進化の先</div>
+    <h1>一問一答のチャットボットから、<br><em>「AIエージェントチーム」へ。</em></h1>
+  </div>
+  <p class="hero-lede">
+    生成AIで止まらない。AIに「ゴール」を渡せば、自分で計画を立て、道具を使い、複数のAIが協働してタスクを完遂する時代へ。これが本研修が描く到達点。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Past: chat -->
+      <text x="140" y="30" class="ill-text" text-anchor="middle">CHATBOT ／ これまで</text>
+      <g transform="translate(40 50)">
+        <rect width="200" height="40" class="ill-soft"/>
+        <text x="100" y="25" class="ill-text-soft" text-anchor="middle">「○○って何？」</text>
+      </g>
+      <g transform="translate(40 100)">
+        <rect width="200" height="40" class="ill-warm"/>
+        <text x="100" y="25" class="ill-text-soft" text-anchor="middle" style="fill: var(--accent);">「○○とは…です」</text>
+      </g>
+      <text x="140" y="180" class="ill-text-soft" text-anchor="middle" style="font-size: 11px; fill: var(--muted);">→ 一問一答</text>
+
+      <!-- Arrow forward -->
+      <g transform="translate(300 130)">
+        <path d="M 0 10 L 80 10" class="ill-accent-fat"/>
+        <polygon points="80,5 90,10 80,15" class="ill-dot"/>
+      </g>
+
+      <!-- Future: agent with autonomy -->
+      <text x="600" y="30" class="ill-text-accent" text-anchor="middle">AGENT ／ これから</text>
+      <rect x="450" y="50" width="300" height="200" class="ill-warm"/>
+      <text x="465" y="75" class="ill-text-accent">GOAL: 出張準備</text>
+      <g transform="translate(465 90)" font-family="var(--serif)" font-size="12" fill="var(--ink)">
+        <circle cx="6" cy="20" r="3" class="ill-dot"/>
+        <text x="20" y="24">空き枠を確認</text>
+        <circle cx="6" cy="45" r="3" class="ill-dot"/>
+        <text x="20" y="49">航空券を予約</text>
+        <circle cx="6" cy="70" r="3" class="ill-dot"/>
+        <text x="20" y="74">ホテルを取る</text>
+        <circle cx="6" cy="95" r="3" class="ill-dot"/>
+        <text x="20" y="99">経費を申請</text>
+        <circle cx="6" cy="120" r="3" class="ill-dot"/>
+        <text x="20" y="124">スケジュール登録</text>
+        <circle cx="6" cy="145" r="3" class="ill-dim"/>
+        <text x="20" y="149" style="fill: var(--muted);">完了報告 →</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIが<em>「作業者」</em>から<em>「チームメンバー」</em>になる。<br>人間は「ディレクター」として、設計と承認に集中する。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>AIの成熟度 — 5段階のラダー</h2>
+      <p class="sub">単に「AI＝賢い」ではなく、どの段階のAIなのかを区別することが大切。組織は今、Level 02 から Level 04 への移行期にいる。</p>
+    </div>
+  </div>
+
+  <div class="ladder">
+    <div class="rung">
+      <div class="rung-level">Level 01</div>
+      <div class="rung-name">
+        <span class="who">A few years ago</span>
+        <h3>分類器・予測器</h3>
+      </div>
+      <div class="rung-desc">過去のデータからパターンを学び、新しい入力を分類・予測する。迷惑メール判定、需要予測など。</div>
+      <div class="rung-icon">○</div>
+    </div>
+    <div class="rung">
+      <div class="rung-level">Level 02</div>
+      <div class="rung-name">
+        <span class="who">2023</span>
+        <h3>対話型 生成AI</h3>
+      </div>
+      <div class="rung-desc">プロンプトを与えると、文章・画像・コードを生成する。一問一答ベース。人間が手順を一つずつ指示。</div>
+      <div class="rung-icon">◔</div>
+    </div>
+    <div class="rung current">
+      <div class="rung-level">Level 03</div>
+      <div class="rung-name">
+        <span class="who">Now</span>
+        <h3>ツールを使うAI</h3>
+      </div>
+      <div class="rung-desc">Web検索、計算、ファイル読み込みなど「道具」を自ら呼び出す。社内データベースとも繋がれる（RAG）。</div>
+      <div class="rung-icon">◑</div>
+    </div>
+    <div class="rung future">
+      <div class="rung-level">Level 04</div>
+      <div class="rung-name">
+        <span class="who">Near future</span>
+        <h3>自律型エージェント</h3>
+      </div>
+      <div class="rung-desc">大枠の「ゴール」を渡せば、計画→実行→観察→修正のループを自ら回す。指示待ちではなく自律行動する部下。</div>
+      <div class="rung-icon">◕</div>
+    </div>
+    <div class="rung future">
+      <div class="rung-level">Level 05</div>
+      <div class="rung-name">
+        <span class="who">The horizon</span>
+        <h3>マルチエージェントチーム</h3>
+      </div>
+      <div class="rung-desc">役割の違うAIたちがチームを組み、議論・分業・承認しながら業務プロセス全体を完遂する。人間はディレクター。</div>
+      <div class="rung-icon">●</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>マルチエージェントチームのイメージ</h2>
+      <p class="sub">単体の「万能AI」より、役割を分けた複数AIのチームの方が、ハルシネーションが減り、業務を強固に遂行できる。下は「顧客への提案書を作成する」タスクの例。</p>
+    </div>
+  </div>
+
+  <div class="team">
+    <div class="team-director">
+      <span class="badge">Director ／ Human</span>
+      <div>
+        <h3>ゴール提示 → 「A社向けの提案書を作って」</h3>
+        <p style="color: oklch(0.85 0.008 70); font-size: 15pt; margin-top: 6px;">人間は「ゴール」と「制約条件」だけ伝える。手順は指示しない。</p>
+      </div>
+    </div>
+    <div class="team-connector">↓</div>
+    <div class="team-agents">
+      <div class="agent-card">
+        <div class="agent-tag">Agent 01</div>
+        <div class="agent-name">リサーチエージェント</div>
+        <div class="agent-role">A社の業界・最近のプレスリリース・課題仮説をWeb検索して整理する。</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-tag">Agent 02</div>
+        <div class="agent-name">事例検索エージェント</div>
+        <div class="agent-role">社内ナレッジから類似業界の過去提案・事例をRAGで引いてくる。</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-tag">Agent 03</div>
+        <div class="agent-name">執筆エージェント</div>
+        <div class="agent-role">リサーチ結果と事例をもとに、提案書のドラフトを構成・執筆する。</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-tag">Agent 04</div>
+        <div class="agent-name">レビューエージェント</div>
+        <div class="agent-role">「顧客視点」「営業マネージャー視点」から批判的にレビューし、修正案を出す。</div>
+      </div>
+    </div>
+    <div class="team-connector">↑</div>
+    <div class="team-director" style="background: var(--accent-soft); color: var(--ink);">
+      <span class="badge" style="color: var(--accent); border-color: var(--accent);">Director Review</span>
+      <div>
+        <h3 style="color: var(--ink);">最終確認 → 承認 / 修正指示</h3>
+        <p style="color: var(--ink-soft); font-size: 15pt; margin-top: 6px;">出来上がった成果物を人間が評価。承認ボタンを押すか、追加の指示を出す。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  目指すのは <em>「AIを使う組織」</em> ではなく、<br>
+  <em>「AIチームと協働する組織」</em>。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Implication</div>
+    <div>
+      <h2>では、人間は何をするのか</h2>
+      <p class="sub">AIが自律的に動くようになると、人間の役割は「作業」から「設計と判断」に重心が移る。これが研修最終回（第10回）のテーマ「AIディレクター」に繋がる。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">Until now</div>
+      <div class="compare-title">これまでの人間の仕事</div>
+      <ul class="compare-points">
+        <li>資料を自分で作る</li>
+        <li>データを自分で集める</li>
+        <li>メールを自分で書く</li>
+        <li>システムに自分で入力する</li>
+        <li>判断も承認も自分で行う</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">From now</div>
+      <div class="compare-title">これからの人間の仕事</div>
+      <ul class="compare-points">
+        <li>業務プロセスを設計する</li>
+        <li>AIチームに「ゴール」を伝える</li>
+        <li>成果物の品質を評価する</li>
+        <li>重要な判断と承認に集中する</li>
+        <li>結果に対して責任を持つ</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">AIエージェント <span class="en">AI Agent</span></div>
+      <p class="jargon-plain">人の細かい指示を待たず、目標を与えれば自分で計画して動くAI。<span class="like">"出張の手配やっといて" で完結する自律型アシスタント。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">自律性 <span class="en">Autonomy</span></div>
+      <p class="jargon-plain">次に何をすべきかをAI自身が決められる度合い。<span class="like">"言われたことだけやる派遣"  ⇔  "目的を聞いて段取りまで考える正社員" のグラデーション。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ツール利用 <span class="en">Tool Use</span></div>
+      <p class="jargon-plain">AIが必要に応じて、Web検索・計算機・社内DBなどを自分で呼び出す機能。<span class="like">困ったら自分でググったり、Excel開いたりする、行動できる新人。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">オーケストレーション <span class="en">Orchestration</span></div>
+      <p class="jargon-plain">複数のAI／ツールを順序立てて動かす指揮の仕組み。<span class="like">プロジェクトマネージャー。誰が何をするか、いつ何が出来上がるかを管理する役割。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">チャットボットからエージェントへ</h3>
+      <p class="analogy-body">一問一答の "相談相手" から、業務を任せる "部下" への進化。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">受付係 → アシスタント</h3>
+      <p class="analogy-body">受付係は質問に答えるだけ。<br>アシスタントは「打ち合わせ調整しといて」で、空き枠を見て、相手にメールし、カレンダーに登録するところまでやる。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="predict-to-generate.html">
+      <span class="dir">← Prev ／ Shift</span>
+      <span class="nxt">「予測・分類」から「生成」へ</span>
+    </a>
+    <a href="../index.html#session-2" class="right">
+      <span class="dir">Next ／ Session 02 →</span>
+      <span class="nxt">LLMの仕組みとプロンプト</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第1回 ／ AIの進化の先</footer>
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マルチエージェントシステムとは — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .compare-models {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .model-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .model-card.single { background: var(--bg-alt); }
+  .model-card.multi { background: var(--accent-soft); border-color: var(--accent); }
+  .model-card h3 { font-family: var(--serif); font-weight: 800; font-size: 22px; line-height: 1.3; }
+  .model-card p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .single-viz {
+    display: flex; justify-content: center; padding: 24px 0;
+  }
+  .single-viz .one {
+    width: 100px; height: 100px;
+    background: var(--ink); color: var(--paper);
+    display: grid; place-items: center;
+    font-family: var(--serif); font-weight: 800; font-size: 15pt;
+    border-radius: 50%;
+  }
+  .multi-viz {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    padding: 24px 0;
+  }
+  .multi-viz .a {
+    aspect-ratio: 1;
+    background: var(--ink); color: var(--paper);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--serif); font-weight: 700; font-size: 15pt;
+    text-align: center;
+  }
+
+  .debate-flow {
+    display: flex; flex-direction: column; gap: 14px;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+  }
+  .debate-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 20px; align-items: start;
+  }
+  .debate-who {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em;
+    padding: 8px 12px;
+    background: var(--bg-alt);
+    color: var(--ink-soft);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .debate-who.persona-a { background: oklch(0.92 0.05 30); color: oklch(0.4 0.12 30); }
+  .debate-who.persona-b { background: oklch(0.92 0.05 200); color: oklch(0.4 0.10 200); }
+  .debate-who.persona-c { background: oklch(0.92 0.05 150); color: oklch(0.35 0.10 150); }
+  .debate-who.human { background: var(--ink); color: var(--paper); }
+  .debate-msg {
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.75;
+    padding: 10px 14px;
+    background: var(--bg-alt);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-8">第8回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">マルチエージェントシステム</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Team 01 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 08 ／ エージェントチーム</div>
+    <h1>マルチエージェントシステム<br><em>"1人の万能AI" より、"役割を持つチーム"。</em></h1>
+  </div>
+  <p class="hero-lede">
+    異なるペルソナ・専門性を与えたAIたちが議論し協働する仕組み。単体のAIより、ハルシネーションが減り、視点が多角化し、複雑な意思決定にも耐える成果を出せる。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"何でも知っている1人" より、<em>"得意分野を持つ複数人"</em>。<br>会議室の英知を、AIで再現する。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>Single vs Multi — なぜチームが強いか</h2>
+      <p class="sub">同じLLMでも、役割を分けたチームのほうが結果の質が安定する。一人で全てを抱えるより、視点と責任を分散させる。</p>
+    </div>
+  </div>
+
+  <div class="compare-models">
+    <div class="model-card single">
+      <h3>Single Agent</h3>
+      <div class="single-viz"><div class="one">AI</div></div>
+      <p>1つのAIが全てを担当。万能だが、苦手領域での誤答リスク、視点の偏り、自己検証ができない。複雑なタスクで品質が安定しない。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--muted); margin-top: 8px;">→ 単純タスク向き</p>
+    </div>
+    <div class="model-card multi">
+      <h3>Multi-Agent</h3>
+      <div class="multi-viz">
+        <div class="a">研究者</div>
+        <div class="a">執筆者</div>
+        <div class="a">編集者</div>
+        <div class="a">批評家</div>
+        <div class="a">技術者</div>
+        <div class="a">統括</div>
+      </div>
+      <p>役割の違うAIたちがチームを組み、議論・分業しながらタスクを進める。視点が多角化し、互いに検証し合うことで品質が向上。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent); margin-top: 8px;">→ 複雑タスク・意思決定支援に強い</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>議論する3つのAI — 新規事業企画レビュー</h2>
+      <p class="sub">「新規事業の企画書」を、3つの異なるペルソナのAIに議論させると、こうなる。1人のAIには引き出せない視点が、衝突の中から見えてくる。</p>
+    </div>
+  </div>
+
+  <div class="debate-flow">
+    <div class="debate-row">
+      <div class="debate-who human">User</div>
+      <div class="debate-msg">新規事業企画書（添付）を、3つの視点でレビューし、議論してください。</div>
+    </div>
+    <div class="debate-row">
+      <div class="debate-who persona-a">Agent A<br>営業</div>
+      <div class="debate-msg">市場規模の試算が楽観的すぎる。実際の競合シェアを考えると、目標数値は30%減で見直すべき。</div>
+    </div>
+    <div class="debate-row">
+      <div class="debate-who persona-b">Agent B<br>技術</div>
+      <div class="debate-msg">プロトタイプ開発の工数見積が甘い。記載されている機能を実現するには、現状の技術スタックでは3か月ではなく6か月以上必要と推定。</div>
+    </div>
+    <div class="debate-row">
+      <div class="debate-who persona-c">Agent C<br>財務</div>
+      <div class="debate-msg">初期投資の回収シナリオが単一前提に依存。需要が想定の70%に留まった場合、5年でも回収不能になる。リスクシナリオの試算が必要。</div>
+    </div>
+    <div class="debate-row">
+      <div class="debate-who persona-a">Agent A</div>
+      <div class="debate-msg">Cの財務指摘に賛成。私の市場再見積もりと合わせて考えると、投資判断は段階的（ステージゲート）にする方が安全。</div>
+    </div>
+    <div class="debate-row">
+      <div class="debate-who persona-b">Agent B</div>
+      <div class="debate-msg">技術面でも段階制に賛成。最小プロトタイプを2か月で作り、市場検証してから本格開発に進む案を提案します。</div>
+    </div>
+    <div class="debate-row">
+      <div class="debate-who human">User</div>
+      <div class="debate-msg">3者の指摘を踏まえ、ステージゲート方式で再計画を立てます。</div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AI同士の <em>"健全な衝突"</em> が、<br>
+  単体では届かなかった結論を導く。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Patterns</div>
+    <div>
+      <h2>マルチエージェントの典型パターン</h2>
+      <p class="sub">役割の組み合わせ方には、いくつかの定型がある。タスクに応じて選び分ける。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>Generator + Critic（書き手 + 批判者）</h3>
+        <p>一方が案を作り、もう一方が批判して改善案を返す。文章、企画、デザインなど、品質向上に有効。最もシンプルで強力な組み合わせ。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>Planner + Executor（計画者 + 実行者）</h3>
+        <p>計画専門のAIが全体像を設計し、実行専門のAIが個別タスクをこなす。複雑な業務プロセスの自動化（第9回のテーマ）に必須の構成。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>Persona Debate（ペルソナ討論）</h3>
+        <p>異なる役職・立場のAIを複数立て、議論させる。経営判断、人事評価、顧客対応など、視点の多角化が価値を生む場面で活躍。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>Pipeline（バケツリレー）</h3>
+        <p>専門特化したAIを順番に並べ、前段の出力を次段が処理する。第9回で扱う「仕様書受領→受注可否判定」の業務フローはこの形。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">マルチエージェント <span class="en">Multi-Agent System</span></div>
+      <p class="jargon-plain">役割の違うAIを複数組み合わせ、議論・協働させる仕組み。<span class="like">プロジェクトチームを組むのと同じ発想。一人より多角的に見える。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ペルソナ <span class="en">Persona</span></div>
+      <p class="jargon-plain">AIに割り当てる役柄・立場。<span class="like">"営業部長として" "懐疑的な顧客として" など。視点が一気に変わる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">オーケストレーション <span class="en">Orchestration</span></div>
+      <p class="jargon-plain">複数のAIを順序立てて指揮する仕組み。<span class="like">PM（プロジェクトマネージャー）が、誰に何をいつ頼むかを采配する仕事。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ハンドオフ <span class="en">Hand-off</span></div>
+      <p class="jargon-plain">あるAIが作った成果物を、次のAIに引き継ぐこと。<span class="like">"営業AIが資料作成→法務AIが契約レビュー" のリレー。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">多角的レビュー <span class="en">Multi-perspective Review</span></div>
+      <p class="jargon-plain">同じ案を、複数の視点からチェックすること。<span class="like">一人で見落としていた論点が、別視点を入れた途端に見えてくる、あの感覚。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">マルチエージェントシステム</h3>
+      <p class="analogy-body">役割を持たせた複数のAIに、議論・分業・協働させる仕組み。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"プロジェクトチーム" を組む</h3>
+      <p class="analogy-body">営業・法務・経理・現場、それぞれの視点を持つメンバーが集まれば、独りでは気付けない論点が出てくる。<br>AIにも、同じことをやらせる。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-8">
+      <span class="dir">← Back</span>
+      <span class="nxt">第8回トップに戻る</span>
+    </a>
+    <a href="agent-roles.html" class="right">
+      <span class="dir">Next ／ Team 02 →</span>
+      <span class="nxt">エージェントの役割設計</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第8回 ／ マルチエージェントシステム</footer>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ルールベース — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  /* page-specific: decision tree */
+  .tree {
+    display: grid; gap: 16px;
+    font-family: var(--mono); font-size: 15pt;
+  }
+  .tree-row {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .tree-cond {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair-strong);
+    padding: 14px 20px;
+    flex: 1;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .tree-cond .kw {
+    color: var(--accent); font-weight: 500;
+  }
+  .tree-out {
+    background: var(--ink); color: var(--paper);
+    padding: 14px 20px;
+    min-width: 200px;
+    font-family: var(--serif); font-size: 15pt;
+  }
+  .tree-arrow {
+    color: var(--accent); font-size: 20px;
+    font-family: var(--serif); font-weight: 100;
+  }
+  .tree-indent { padding-left: 32px; }
+  .tree-else {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 14px 20px;
+    flex: 1;
+    border: 1px dashed var(--accent);
+  }
+  .pseudocode {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 32px;
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.9;
+    border-left: 3px solid var(--accent);
+  }
+  .pseudocode .kw { color: oklch(0.75 0.10 35); font-weight: 500; }
+  .pseudocode .str { color: oklch(0.78 0.08 150); }
+  .pseudocode .com { color: oklch(0.58 0.01 70); font-style: italic; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html">第1回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">ルールベース</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Phase 01 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Phase 01 ／ AIの進化の系譜</div>
+    <h1>ルールベース<br><em>条件分岐する電卓。</em></h1>
+  </div>
+  <p class="hero-lede">
+    人間が事前に書いた「もしAならB」というルールに、忠実に従って動く時代のAI。融通は利かないが、決められたことは確実にこなす。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <text x="80" y="55" class="ill-text">INPUT</text>
+      <rect x="40" y="70" width="120" height="50" class="ill-soft"/>
+      <text x="100" y="100" class="ill-text-soft" text-anchor="middle">mail.subject</text>
+
+      <path d="M 160 95 L 250 95" class="ill-accent"/>
+      <polygon points="200,75 240,95 200,115 160,95" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="200" y="99" class="ill-text-accent" text-anchor="middle">IF</text>
+
+      <path d="M 240 95 L 320 95" class="ill-accent"/>
+      <text x="280" y="88" class="ill-text-accent">YES</text>
+      <rect x="320" y="70" width="160" height="50" class="ill-warm"/>
+      <text x="400" y="100" class="ill-text-soft" text-anchor="middle" style="fill: var(--accent);">経理フォルダへ</text>
+
+      <path d="M 200 115 L 200 170" class="ill-accent ill-dash"/>
+      <text x="220" y="150" class="ill-text-accent">NO</text>
+      <polygon points="200,170 240,190 200,210 160,190" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+      <text x="200" y="194" class="ill-text-accent" text-anchor="middle">IF</text>
+      <path d="M 240 190 L 320 190" class="ill-accent"/>
+      <rect x="320" y="165" width="160" height="50" class="ill-soft"/>
+      <text x="400" y="195" class="ill-text-soft" text-anchor="middle">顧客対応へ</text>
+
+      <path d="M 200 210 L 200 250" class="ill-accent ill-dash"/>
+      <path d="M 200 250 L 320 250" class="ill-accent ill-dash"/>
+      <rect x="320" y="230" width="160" height="40" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="400" y="255" class="ill-text-soft" text-anchor="middle">ELSE / 未分類</text>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"if A then B" を積み重ねた、<em>頭のいい電卓</em>。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>仕組み — 決められた手順を粛々と実行する</h2>
+      <p class="sub">人間がすべての分岐ルートをあらかじめ設計し、AIはその通りにYES/NOを判定して結論に至る。「考えている」ように見えても、条件分岐のツリーを辿っているだけ。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="tree">
+      <div class="tree-row">
+        <div class="tree-cond"><span class="kw">IF</span> 件名に「請求書」を含む</div>
+        <div class="tree-arrow">→</div>
+        <div class="tree-out">「経理」フォルダへ</div>
+      </div>
+      <div class="tree-row tree-indent">
+        <div class="tree-cond"><span class="kw">ELSE IF</span> 送信元が顧客ドメイン</div>
+        <div class="tree-arrow">→</div>
+        <div class="tree-out">「顧客対応」フォルダへ</div>
+      </div>
+      <div class="tree-row tree-indent" style="padding-left: 64px;">
+        <div class="tree-cond"><span class="kw">ELSE IF</span> 件名に「会議」を含む</div>
+        <div class="tree-arrow">→</div>
+        <div class="tree-out">「予定」フォルダへ</div>
+      </div>
+      <div class="tree-row tree-indent" style="padding-left: 96px;">
+        <div class="tree-else">ELSE — 受信トレイへ（人間が判断）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Pseudocode</div>
+    <div>
+      <h2>本質は、こう書ける</h2>
+      <p class="sub">どんなに複雑なルールベースシステムも、根本はこの「条件分岐の積み重ね」に過ぎない。</p>
+    </div>
+  </div>
+
+  <div class="pseudocode">
+    <span class="com"># メール振り分けの「AI」（ルールベース）</span><br>
+    <span class="kw">function</span> classify(mail):<br>
+    &nbsp;&nbsp;<span class="kw">if</span> <span class="str">"請求書"</span> <span class="kw">in</span> mail.subject:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"経理"</span><br>
+    &nbsp;&nbsp;<span class="kw">elif</span> mail.sender <span class="kw">in</span> customer_domains:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"顧客対応"</span><br>
+    &nbsp;&nbsp;<span class="kw">elif</span> <span class="str">"会議"</span> <span class="kw">in</span> mail.subject:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"予定"</span><br>
+    &nbsp;&nbsp;<span class="kw">else</span>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"未分類"</span>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">In practice</div>
+    <div>
+      <h2>身の回りにある「ルールベース」</h2>
+      <p class="sub">私たちは既に多くのルールベースシステムに囲まれている。重要なのは「これはAIか？」という問いではなく「どこまでが事前のルールで、どこからが学習か」という区別。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>自動販売機</h3>
+        <p>「投入金額 ≥ 商品価格 かつ ボタンが押された かつ 在庫がある」→ 商品を出す。完全にルールベース。例外（紙幣が斜めに入った等）は処理できず、エラーになる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>経費精算システムの自動承認</h3>
+        <p>「金額 ＜ 1万円 かつ 勘定科目が定義済み」→ 自動承認、それ以外は上長へ。社内規程の電子化＝ルールベースAIの典型。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>初期のチャットボット（電話の自動応答）</h3>
+        <p>「1を押せば営業時間、2を押せばお問い合わせ…」。決められた選択肢の中でしか動けない。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  ルールベースは "事前に書かれた人間の知恵" を実行するシステム。<br>
+  AIが <em>「学ぶ」</em> 前の時代のかたち。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Limits</div>
+    <div>
+      <h2>限界 — なぜ次の時代が必要だったのか</h2>
+      <p class="sub">ルールベースは堅牢だが、現実の業務は「ルールに収まらないこと」だらけ。ここから機械学習の必要性が生まれた。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">Strength</div>
+      <div class="compare-title">得意なこと</div>
+      <ul class="compare-points">
+        <li>結果が常に同じ（再現性）</li>
+        <li>「なぜそう判断したか」が明示できる（説明可能性）</li>
+        <li>少ないデータでも動く</li>
+        <li>規則が明確な業務（経理、社内規程）</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">Weakness</div>
+      <div class="compare-title">苦手なこと</div>
+      <ul class="compare-points">
+        <li>例外パターンに弱い（想定外＝動かない）</li>
+        <li>曖昧さ・グラデーションが扱えない</li>
+        <li>ルールが数千個になると保守不能</li>
+        <li>「この写真は猫か犬か」のような問題に手も足も出ない</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">条件分岐 <span class="en">If-Then-Else</span></div>
+      <p class="jargon-plain">「もしAなら〇〇、そうでなければ△△」と進路が分かれる判断のかたち。<span class="like">フローチャートのひし形。Excelの IF 関数と同じ発想。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">アルゴリズム <span class="en">Algorithm</span></div>
+      <p class="jargon-plain">目的を達成するための「手順書」のこと。料理のレシピと同じで、順番が決まっている。<span class="like">味噌汁を作る手順を箇条書きにしたもの、と思えばよい。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">説明可能性 <span class="en">Explainability</span></div>
+      <p class="jargon-plain">「なぜそう判断したか」を人間が後から追えること。<span class="like">"件名に請求書があったから経理フォルダへ" と理由を1行で言える。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">例外処理 <span class="en">Edge Case</span></div>
+      <p class="jargon-plain">ルールから外れる、想定外のパターンへの対応。ルールベースが最も苦手とする領域。<span class="like">"紙幣が斜めに入った自動販売機" のような、決められた手順から外れる状況。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">ルールベース</h3>
+      <p class="analogy-body">人間が書いた条件分岐に忠実に従って判定する仕組み。早く正確だが、想定外の状況には対応できない。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">料理レシピをそのまま実行する</h3>
+      <p class="analogy-body">手順書の通りに進めれば、誰がやっても同じ味になる。<br>でも「冷蔵庫の余り物で何か作って」と言われた途端、手が止まる。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-1">
+      <span class="dir">← Back</span>
+      <span class="nxt">AI勉強会トップに戻る</span>
+    </a>
+    <a href="machine-learning.html" class="right">
+      <span class="dir">Next ／ Phase 02 →</span>
+      <span class="nxt">機械学習 / 深層学習</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第1回 ／ ルールベース</footer>
+
+</body>
+</html>

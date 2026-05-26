@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIディレクターの役割 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .role-shift {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 24px; align-items: stretch;
+  }
+  .role-block {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .role-block.before { background: var(--bg-alt); }
+  .role-block.after { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .role-block .tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .role-block.after .tag { color: oklch(0.78 0.10 35); }
+  .role-block h3 { font-family: var(--serif); font-weight: 800; font-size: 26px; line-height: 1.2; }
+  .role-block .activities {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .role-block .activities li {
+    font-size: 15pt; line-height: 1.7;
+    padding-left: 22px; position: relative;
+  }
+  .role-block .activities li::before {
+    content: "◇"; position: absolute; left: 0;
+    color: var(--accent); top: 4px; font-size: 15pt;
+  }
+  .role-block.after .activities li::before { color: oklch(0.78 0.10 35); }
+  .arrow-mid {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+  }
+  .arrow-mid .arr { font-family: var(--serif); font-size: 48px; color: var(--accent); font-weight: 100; }
+  .arrow-mid .lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .skill-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 28px 32px;
+    display: grid; grid-template-columns: 60px 1fr;
+    gap: 20px; align-items: start;
+  }
+  .skill-num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 36px; color: var(--accent); line-height: 1;
+  }
+  .skill-body h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; margin-bottom: 8px; }
+  .skill-body p { font-size: 15pt; line-height: 1.75; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-10">第10回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">AIディレクターの役割</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Governance 03 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 10 ／ 新しい役割</div>
+    <h1>AIディレクター<br><em>"作業者" から "監督" へ。</em></h1>
+  </div>
+  <p class="hero-lede">
+    人間の仕事は「手を動かす」から「業務プロセスを設計し、AIチームに指示を出し、品質を評価・責任を持つ」へ。これがAI時代の新しい仕事の輪郭。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Director silhouette in center -->
+      <g transform="translate(370 70)" class="ill-glow">
+        <ellipse cx="30" cy="20" rx="22" ry="22" fill="var(--ink)"/>
+        <path d="M 0 50 Q 0 95 30 95 Q 60 95 60 50 L 60 130 L 0 130 Z" fill="var(--ink)"/>
+        <!-- Baton -->
+        <line x1="50" y1="60" x2="100" y2="40" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="100" cy="40" r="5" fill="var(--accent)"/>
+      </g>
+      <text x="400" y="220" class="ill-text-accent" text-anchor="middle">AI DIRECTOR</text>
+
+      <!-- AI team radiating -->
+      <g stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 4" fill="none">
+        <line x1="370" y1="120" x2="200" y2="60"/>
+        <line x1="350" y1="160" x2="150" y2="180"/>
+        <line x1="450" y1="120" x2="620" y2="60"/>
+        <line x1="470" y1="160" x2="650" y2="180"/>
+      </g>
+
+      <g font-family="var(--mono)" font-size="11" text-anchor="middle">
+        <g transform="translate(140 40)">
+          <rect width="120" height="40" class="ill-warm"/>
+          <text x="60" y="18" fill="var(--accent)">PIPELINE</text>
+          <text x="60" y="33" font-family="var(--serif)" fill="var(--ink)" font-size="11">設計する</text>
+        </g>
+        <g transform="translate(80 165)">
+          <rect width="120" height="40" class="ill-warm"/>
+          <text x="60" y="18" fill="var(--accent)">QUALITY</text>
+          <text x="60" y="33" font-family="var(--serif)" fill="var(--ink)" font-size="11">品質を見る</text>
+        </g>
+        <g transform="translate(560 40)">
+          <rect width="120" height="40" class="ill-warm"/>
+          <text x="60" y="18" fill="var(--accent)">DELEGATE</text>
+          <text x="60" y="33" font-family="var(--serif)" fill="var(--ink)" font-size="11">委ねる</text>
+        </g>
+        <g transform="translate(620 165)">
+          <rect width="120" height="40" class="ill-warm"/>
+          <text x="60" y="18" fill="var(--accent)">RESPONSIBILITY</text>
+          <text x="60" y="33" font-family="var(--serif)" fill="var(--ink)" font-size="11">責任を負う</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">プレイヤーから、<em>監督・編集者・建築家</em>へ。<br>仕事の "層" が、ひとつ上に移る。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>役割の根本的なシフト</h2>
+      <p class="sub">日々の業務時間の使い方が、根本から変わる。これまで時間の8割を占めていた "手を動かす作業" が、AIに移譲される。</p>
+    </div>
+  </div>
+
+  <div class="role-shift">
+    <div class="role-block before">
+      <div class="tag">Until ／ プレイヤー</div>
+      <h3>これまでの仕事</h3>
+      <ul class="activities">
+        <li>資料を自分の手で作成する</li>
+        <li>データを自分で集める・集計する</li>
+        <li>メールを自分で書いて送る</li>
+        <li>システムに自分で入力する</li>
+        <li>会議のために材料を準備する</li>
+        <li>調査・リサーチを自分で行う</li>
+        <li>判断も承認も自分でやる</li>
+      </ul>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--muted); margin-top: 8px; letter-spacing: 0.1em;">→ 時間の大半は "作業" に</p>
+    </div>
+    <div class="arrow-mid">
+      <div class="arr">→</div>
+      <div class="lbl">Role Shift</div>
+    </div>
+    <div class="role-block after">
+      <div class="tag">From ／ ディレクター</div>
+      <h3>これからの仕事</h3>
+      <ul class="activities">
+        <li>業務プロセスを設計する</li>
+        <li>AIチームに "ゴール" を伝える</li>
+        <li>AIの出力の品質を評価する</li>
+        <li>重要な判断と承認に集中する</li>
+        <li>結果に対する責任を負う</li>
+        <li>新しい業務の自動化機会を探す</li>
+        <li>人間にしかできない仕事（関係構築、創造）に時間を使う</li>
+      </ul>
+      <p style="font-family: var(--mono); font-size: 15pt; color: oklch(0.78 0.10 35); margin-top: 8px; letter-spacing: 0.1em;">→ 時間は "設計" と "判断" に</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>AIディレクターに求められる6つのスキル</h2>
+      <p class="sub">プログラミング能力ではない。むしろ "仕事を整理する力" "問いを立てる力" "判断する力" など、これまで以上に人間的な能力が問われる。</p>
+    </div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-num">01</div>
+      <div class="skill-body">
+        <h3>業務プロセス設計力</h3>
+        <p>業務を「タスク単位」に分解し、各ステップを「AI／人間／既存システム」のどれに割り当てるかを考える力。建築家のような思考。</p>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">02</div>
+      <div class="skill-body">
+        <h3>ゴール設定力</h3>
+        <p>「何ができれば成功か」を、AIに伝えられる粒度で定義する力。曖昧な依頼を、検証可能なゴールに翻訳する。</p>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">03</div>
+      <div class="skill-body">
+        <h3>品質評価力</h3>
+        <p>AIが出した成果物を、目利きとして評価する力。「これは使える／使えない」「ここが惜しい」を素早く判定。編集者の眼。</p>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">04</div>
+      <div class="skill-body">
+        <h3>制約設計力</h3>
+        <p>AIの自由度が増す分、暴走を防ぐ "ガードレール" を設計する力。やってよいこと／いけないことを明示する。</p>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">05</div>
+      <div class="skill-body">
+        <h3>判断力・倫理観</h3>
+        <p>AIに代行できない、最終的な判断を下す力。法的・倫理的・人間関係的な側面を含む、総合的な判断。これは決して自動化できない。</p>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">06</div>
+      <div class="skill-body">
+        <h3>説明責任を負う覚悟</h3>
+        <p>AIに任せた結果がどうあれ、最終的に「私が決めました」と言える覚悟。AIを使うほど、人間の責任は重くなる。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AIに <em>"使われる人"</em> ではなく、<br>
+  AIを <em>"使いこなす人"</em> になる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Mindset</div>
+    <div>
+      <h2>"AIディレクター" としての日常</h2>
+      <p class="sub">毎日の仕事の中で、ディレクターらしい関わり方をする。具体的な習慣として、3つ挙げる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>朝の30分で "今日の指示" を設計する</h3>
+        <p>今日やるべきタスクを書き出し、「自分が手を動かすこと」と「AIに任せること」に仕分けする。AIに渡すタスクには、ゴール・制約・形式を明記したプロンプトを準備する。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>AIの成果物には "なぜ" を問う</h3>
+        <p>AIの出力を見て、「いい感じ」で済ませない。「なぜこの結論なのか」「他の選択肢は」「弱点は」を必ず問う。納得できる根拠がある場合のみ、採用する。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>週次で "業務の棚卸し" を行う</h3>
+        <p>今週、自分が手を動かして時間をかけた業務を振り返り、「これは来週からAIに任せられないか」を考える。継続的な業務移譲が、ディレクターの仕事のリズム。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">AIディレクター <span class="en">AI Director</span></div>
+      <p class="jargon-plain">AIをチームの一員として "采配する" 役割の人。<span class="like">"プレイヤー" から "監督" への意識転換。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">業務分解 <span class="en">Task Breakdown</span></div>
+      <p class="jargon-plain">自分の仕事を "AIに任せる部分／自分でやる部分" に切り分ける作業。<span class="like">料理に例えれば "下処理は弟子、味の決定は自分" と分けるシェフの発想。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">役割設計 <span class="en">Role Design</span></div>
+      <p class="jargon-plain">AIに何の "立場" "範囲" "判断基準" を持たせるかの設計。<span class="like">新人に "あなたの担当はこれ、この線は越えないで" と伝える、その設計。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">KPI <span class="en">Key Performance Indicator</span></div>
+      <p class="jargon-plain">"うまくいっているか" を測る指標。<span class="like">AI導入が成功か失敗かを、感覚ではなく数字で語れるようにする。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">委譲 <span class="en">Delegation</span></div>
+      <p class="jargon-plain">権限と責任を、相手に任せる行為。<span class="like">"承認だけはする" を残して、それ以外は任せる、上司のスキル。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AIディレクター</h3>
+      <p class="analogy-body">自分の業務をAIチームに分解・委譲し、品質と責任を担う人材。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"映画監督" や "オーケストラ指揮者"</h3>
+      <p class="analogy-body">自分でカメラを回さない／楽器を弾かない。<br>でも、誰に何を任せ、どう仕上げるか、全体の品質を決めている。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="human-in-the-loop.html">
+      <span class="dir">← Prev ／ Governance 02</span>
+      <span class="nxt">Human in the Loop</span>
+    </a>
+    <a href="action-plan.html" class="right">
+      <span class="dir">Next ／ Governance 04 →</span>
+      <span class="nxt">研修の総括・アクションプラン</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第10回 ／ AIディレクター</footer>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>研修の総括・アクションプラン — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .worksheet {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 40px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .ws-section {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .ws-label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--accent);
+    padding-top: 8px;
+    text-transform: uppercase;
+  }
+  .ws-content h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .ws-content p {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  }
+  .ws-line {
+    height: 32px;
+    border-bottom: 1px dashed var(--hair-strong);
+    margin: 16px 0;
+  }
+  .ws-line.tall { height: 64px; }
+
+  .stage-chart {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+  }
+  .stage-week {
+    background: var(--paper);
+    padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .stage-week.active { background: var(--accent-soft); }
+  .stage-week .wnum {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .stage-week h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.3; }
+  .stage-week p { font-size: 15pt; color: var(--ink-soft); line-height: 1.7; }
+
+  .closing-final {
+    background: var(--ink); color: var(--paper);
+    padding: 80px 0;
+  }
+  .closing-final-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px; align-items: center;
+  }
+  .closing-final .eyebrow {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.18em; color: oklch(0.7 0.10 35);
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .closing-final h2 {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 40px; line-height: 1.25;
+    letter-spacing: -0.005em;
+  }
+  .closing-final p {
+    font-size: 15pt; line-height: 1.9;
+    color: oklch(0.85 0.008 70);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-10">第10回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">研修の総括・アクションプラン</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Governance 04 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 10 ／ 研修の総括</div>
+    <h1>研修の総括 ／<br>アクションプラン<br><em>明日から、何を始めるか。</em></h1>
+  </div>
+  <p class="hero-lede">
+    10回の学びを、自分の業務に落とし込むワークの時間。「自分の業務フローをどう分解し、どこをAIチームに任せられるか」を、各自が設計する。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Staircase / milestones -->
+      <g font-family="var(--serif)" font-size="13" fill="var(--ink)">
+        <!-- Stair 1 -->
+        <rect x="40" y="220" width="140" height="30" class="ill-soft"/>
+        <text x="110" y="240" class="ill-text-accent" text-anchor="middle">DAY 1</text>
+        <rect x="40" y="195" width="140" height="25" class="ill-warm"/>
+        <text x="110" y="213" text-anchor="middle">業務を書き出す</text>
+
+        <!-- Stair 2 -->
+        <rect x="200" y="190" width="140" height="60" class="ill-soft"/>
+        <text x="270" y="240" class="ill-text-accent" text-anchor="middle">WEEK 1</text>
+        <rect x="200" y="165" width="140" height="25" class="ill-warm"/>
+        <text x="270" y="183" text-anchor="middle">タスク分解</text>
+
+        <!-- Stair 3 -->
+        <rect x="360" y="160" width="140" height="90" class="ill-soft"/>
+        <text x="430" y="240" class="ill-text-accent" text-anchor="middle">MONTH 1</text>
+        <rect x="360" y="135" width="140" height="25" class="ill-warm"/>
+        <text x="430" y="153" text-anchor="middle">PoC試行</text>
+
+        <!-- Stair 4 -->
+        <rect x="520" y="130" width="140" height="120" class="ill-soft"/>
+        <text x="590" y="240" class="ill-text-accent" text-anchor="middle">Q1</text>
+        <rect x="520" y="105" width="140" height="25" class="ill-warm"/>
+        <text x="590" y="123" text-anchor="middle">部署展開</text>
+
+        <!-- Final -->
+        <rect x="680" y="80" width="80" height="170" fill="var(--ink)"/>
+        <text x="720" y="240" class="ill-text-accent" text-anchor="middle" style="fill: oklch(0.78 0.10 35);">GOAL</text>
+        <text x="720" y="100" text-anchor="middle" fill="var(--paper)" font-weight="700" font-size="12">全社化</text>
+      </g>
+
+      <!-- Arrow up & to the right -->
+      <g stroke="var(--accent)" stroke-width="2" fill="none">
+        <path d="M 60 200 L 700 100" stroke-dasharray="4 4"/>
+        <polygon points="700,100 695,108 705,108" fill="var(--accent)"/>
+      </g>
+      <text x="400" y="50" class="ill-text" text-anchor="middle">SMALL → LEARN → SCALE</text>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">研修は、<em>"スタートライン"</em>。<br>明日からの一歩を、ここで設計する。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>個人ワークシート — 業務の分解</h2>
+      <p class="sub">配布フォーマット。研修ラスト30分で、自分の担当業務に当てはめて記入する。</p>
+    </div>
+  </div>
+
+  <div class="worksheet">
+    <div class="ws-section">
+      <div class="ws-label">Step 01</div>
+      <div class="ws-content">
+        <h3>あなたの担当業務を、3つ書き出してください。</h3>
+        <p>「週次レポート作成」「顧客への提案書作成」「在庫データの集計」など、定常的に時間がかかっている業務。</p>
+        <div class="ws-line"></div>
+        <div class="ws-line"></div>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+    <div class="ws-section">
+      <div class="ws-label">Step 02</div>
+      <div class="ws-content">
+        <h3>その業務を、5〜7のタスクに分解してください。</h3>
+        <p>例：「週次レポート作成」→ ①データ収集 ②集計 ③グラフ作成 ④ドラフト執筆 ⑤上司レビュー ⑥修正 ⑦配信。</p>
+        <div class="ws-line tall"></div>
+      </div>
+    </div>
+    <div class="ws-section">
+      <div class="ws-label">Step 03</div>
+      <div class="ws-content">
+        <h3>各タスクを「AI／自動化／人間」のどれに任せるか、印を付けてください。</h3>
+        <p>判断基準：量・速度の仕事 → AI／自動化、責任・判断 → 人間。<a href="human-ai-divide.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">人間とAIの分業</a>を参照。</p>
+        <div class="ws-line"></div>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+    <div class="ws-section">
+      <div class="ws-label">Step 04</div>
+      <div class="ws-content">
+        <h3>来週、最初に試すタスクを1つ決めてください。</h3>
+        <p>"最小の成功体験"を作ることが大事。小さく始めて、効果を測り、横展開する。</p>
+        <div class="ws-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>4週間ロードマップ</h2>
+      <p class="sub">「やる気はあるが、何から始めればいいかわからない」を防ぐ、4週間の道筋。</p>
+    </div>
+  </div>
+
+  <div class="stage-chart">
+    <div class="stage-week active">
+      <div class="wnum">Week 01</div>
+      <h3>個人の成功体験</h3>
+      <p>第3回の内容を、自分の日常業務で試す。文書ドラフト、要約、Excel連携など。「これは便利」と実感することを優先。</p>
+    </div>
+    <div class="stage-week">
+      <div class="wnum">Week 02</div>
+      <h3>プロンプト設計の習得</h3>
+      <p>4要素（役割／文脈／タスク／形式）を意識して書く。テンプレを3つ作って繰り返し使う。出力品質の差を体感する。</p>
+    </div>
+    <div class="stage-week">
+      <div class="wnum">Week 03</div>
+      <h3>チーム内での共有</h3>
+      <p>うまくいったプロンプト、失敗したパターンを部署内で共有する。自分の知見が組織の財産になる。</p>
+    </div>
+    <div class="stage-week">
+      <div class="wnum">Week 04</div>
+      <h3>業務プロセス設計</h3>
+      <p>自分の担当業務を「AIに任せられるタスク／人間が残すタスク」に分解。次の業務改善案を作って提案する。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  研修で学んだことは、<em>"使って初めて自分のもの"</em>。<br>
+  明日、最初の一歩を。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Recap</div>
+    <div>
+      <h2>10回を貫いた、ひとつの軸</h2>
+      <p class="sub">どんな技術トピックも、最終的にはこの一行に収斂する。研修の出発点であり、ゴール。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>From：作業者としてのAI</h3>
+        <p>第1回〜第3回。AIを「便利なツール」として、個人の生産性向上に使う段階。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>Through：社内データと既存システムとの連携</h3>
+        <p>第4回〜第5回。RAGとAPI連携で、社内固有の情報・既存業務システムにAIを組み込む段階。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>To：自律するチームメンバーとしてのAI</h3>
+        <p>第6回〜第9回。AIエージェント、コーディングエージェント、マルチエージェント。AIが自分で計画し、道具を使い、チームで協働する段階。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>And：AIディレクターとしての人間</h3>
+        <p>第10回。AIに使われるのではなく、AIを使いこなす立場へ。設計と判断、最終責任を担う新しい役割へ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing-final">
+  <div class="closing-final-inner">
+    <div>
+      <div class="eyebrow">End of Program</div>
+      <h2>研修は<br>終わり、<br>始まり。</h2>
+    </div>
+    <div>
+      <p>
+        10回の研修を経て、AIの正体と可能性が解像度を持って見えてきたはずです。
+      </p>
+      <p style="margin-top: 16px;">
+        ここからは、各自が現場で実践するフェーズ。失敗を恐れず、小さく試し、知見を共有し、組織として "AIと協働する文化" を育てていきましょう。
+      </p>
+      <p style="margin-top: 16px; color: oklch(0.78 0.10 35); font-family: var(--serif);">
+        皆さんがAIディレクターとして、組織を次の段階へ導く存在になることを願っています。
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">PoC <span class="en">Proof of Concept</span></div>
+      <p class="jargon-plain">"小さく試して、効果を確かめる" 段階。<span class="like">"いきなり全社展開" の前に、1チームで2週間試してみる、あの試運転。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ROI <span class="en">Return on Investment</span></div>
+      <p class="jargon-plain">"投資した分、どれだけ戻ってきたか" を測る指標。<span class="like">"AI月額〇万円 → 削減できた時間〇時間" を比較する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">スコープ <span class="en">Scope</span></div>
+      <p class="jargon-plain">"今回どこまでやるか" の範囲設定。広げすぎると失敗する。<span class="like">"全業務を一気に" ではなく "経理の請求書処理だけ" のように絞る。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ステークホルダー <span class="en">Stakeholder</span></div>
+      <p class="jargon-plain">その施策に利害関係のある人々。<span class="like">現場・上長・情シス・法務・人事…誰に話を通すかの相関図。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">クイックウィン <span class="en">Quick Win</span></div>
+      <p class="jargon-plain">短期間で目に見える成果が出る取り組み。AI推進の最初の一歩に向く。<span class="like">"議事録の自動化" のような、現場の喜びがすぐ伝わるテーマ。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AI導入のアクションプラン</h3>
+      <p class="analogy-body">小さく始めて、勝ち筋を見つけ、段階的に広げていく進め方。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"新しい料理を店に出すまで" の手順</h3>
+      <p class="analogy-body">まず賄いで試す → 常連数人に出してみる → 期間限定メニューにする → 定番に昇格。<br>AI導入も、いきなり全店展開しない。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="ai-director.html">
+      <span class="dir">← Prev ／ Governance 03</span>
+      <span class="nxt">AIディレクター</span>
+    </a>
+    <a href="../index.html" class="right">
+      <span class="dir">Home →</span>
+      <span class="nxt">AI勉強会トップへ</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第10回 ／ 研修の総括</footer>
+</body>
+</html>

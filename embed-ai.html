@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文書作成の高速化 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .ba-row {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    gap: 24px; align-items: stretch;
+  }
+  .ba-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .ba-card.before { background: var(--bg-alt); }
+  .ba-card.after { background: var(--accent-soft); border-color: var(--accent); }
+  .ba-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .ba-card.after .ba-tag { color: var(--accent); }
+  .ba-content {
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.85; color: var(--ink); white-space: pre-line;
+  }
+  .ba-divider {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  .ba-divider .arrow {
+    font-family: var(--serif); font-size: 48px;
+    color: var(--accent); font-weight: 100;
+  }
+  .ba-divider .label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .ba-meta {
+    font-size: 15pt; color: var(--ink-soft);
+    font-family: var(--mono); letter-spacing: 0.05em;
+  }
+  .types {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .type-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 24px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .type-card h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; }
+  .type-card .ico {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .type-card p { font-size: 15pt; color: var(--ink-soft); line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-3">第3回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">文書作成の高速化</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Practice 01 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 03 ／ 個人業務ハック</div>
+    <h1>文書作成の高速化<br><em>白紙の恐怖から、解放される。</em></h1>
+  </div>
+  <p class="hero-lede">
+    箇条書きの雑なメモを、社外向けの丁寧なメールや報告書のドラフトに。文書作成で最も時間がかかる「ゼロから書き始める」フェーズを、AIにスキップさせる。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Messy notes -->
+      <text x="100" y="30" class="ill-text" text-anchor="middle">MEMO / 雑な箇条書き</text>
+      <g transform="translate(40 50)">
+        <rect width="200" height="180" class="ill-soft"/>
+        <text x="20" y="30" class="ill-text-soft">・予算オーバー懸念</text>
+        <text x="20" y="55" class="ill-text-soft">・10/末まで</text>
+        <text x="20" y="80" class="ill-text-soft">・先方は山田氏</text>
+        <text x="20" y="105" class="ill-text-soft">・追加機能の話</text>
+        <text x="20" y="130" class="ill-text-soft">・次回 11/5(月)</text>
+        <text x="20" y="155" class="ill-text-soft" style="font-family: var(--mono); fill: var(--muted);">(走り書き)</text>
+      </g>
+
+      <!-- Arrow with AI label -->
+      <g transform="translate(280 130)">
+        <path d="M 0 10 L 80 10" class="ill-accent-fat"/>
+        <polygon points="80,5 90,10 80,15" class="ill-dot"/>
+        <text x="40" y="-5" class="ill-text-accent" text-anchor="middle">AI DRAFT</text>
+      </g>
+
+      <!-- Clean doc -->
+      <text x="600" y="30" class="ill-text-accent" text-anchor="middle">DRAFT EMAIL / 整文済み</text>
+      <g transform="translate(440 50)">
+        <rect width="320" height="200" class="ill-warm"/>
+        <text x="20" y="30" class="ill-text-accent">山田 様</text>
+        <line x1="20" y1="50" x2="300" y2="50" class="ill-accent"/>
+        <line x1="20" y1="70" x2="300" y2="70" class="ill-accent"/>
+        <line x1="20" y1="90" x2="280" y2="90" class="ill-accent"/>
+        <text x="20" y="125" class="ill-text-soft" style="fill: var(--ink); font-weight: 700;">▼ 主要論点</text>
+        <line x1="20" y1="145" x2="300" y2="145" class="ill-accent"/>
+        <line x1="20" y1="165" x2="300" y2="165" class="ill-accent"/>
+        <text x="20" y="195" class="ill-text-soft" style="fill: var(--ink); font-weight: 700;">▼ 次回</text>
+        <line x1="20" y1="210" x2="240" y2="210" class="ill-accent"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"白紙のWord" を、<em>"8割完成のWord"</em> に。<br>人間は残り2割の仕上げに集中する。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>Before / After — 雑メモから整文へ</h2>
+      <p class="sub">仕事の現場で実際に発生する「箇条書きの議論メモ → 顧客向けの丁寧なメール」というタスクで比べる。</p>
+    </div>
+  </div>
+
+  <div class="ba-row">
+    <div class="ba-card before">
+      <div class="ba-tag">Input ／ 雑メモ</div>
+      <div class="ba-content">- A社、納期遅延の件
+- 工場停止、来週まで
+- 代替案：別ラインで対応可
+- 量は半分、品質OK
+- 値段すえおき
+- 連絡＝今日中</div>
+      <div class="ba-meta">所要時間：30秒で書ける</div>
+    </div>
+    <div class="ba-divider">
+      <div class="arrow">→</div>
+      <div class="label">AIに整文依頼</div>
+    </div>
+    <div class="ba-card after">
+      <div class="ba-tag">Output ／ 整文後</div>
+      <div class="ba-content">A社 ご担当者様
+
+平素より大変お世話になっております。
+標題の件、納期に関するご相談がございます。
+
+弊社工場の都合により、来週まで一部ラインが停止しております。つきましては、別ラインでの代替対応をご提案させてください。生産量は通常の半分となりますが、品質基準は同水準を維持し、価格も据え置きでご提供可能です。
+
+ご検討のうえ、本日中にご返信いただけますと幸いです。
+何卒よろしくお願いいたします。</div>
+      <div class="ba-meta">所要時間：5秒で生成</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>応用 — どんな文書タイプにも効く</h2>
+      <p class="sub">同じ「メモ → 文書」の流れで、社内外のあらゆる文書を高速化できる。</p>
+    </div>
+  </div>
+
+  <div class="types">
+    <div class="type-card">
+      <div class="ico">Type 01</div>
+      <h3>社外メール</h3>
+      <p>取引先・顧客への返信、案内、お詫び、納期相談など。トーンを「丁寧」「事務的」「親しみやすく」と指定できる。</p>
+    </div>
+    <div class="type-card">
+      <div class="ico">Type 02</div>
+      <h3>社内報告書</h3>
+      <p>週次報告、出張報告、案件状況報告。事実の箇条書きから、論点整理された報告文へ。</p>
+    </div>
+    <div class="type-card">
+      <div class="ico">Type 03</div>
+      <h3>提案書・企画書</h3>
+      <p>アイデアの断片から、構成のあるドラフトへ。背景・課題・施策・効果の流れを自動で組み立てる。</p>
+    </div>
+    <div class="type-card">
+      <div class="ico">Type 04</div>
+      <h3>議事録の清書</h3>
+      <p>走り書きから、配布できる議事録へ。論点ごとに整理し、決定事項・宿題を構造化。</p>
+    </div>
+    <div class="type-card">
+      <div class="ico">Type 05</div>
+      <h3>FAQ・マニュアル</h3>
+      <p>過去のメール対応履歴から、FAQの形へ整形。「想定問い合わせ」もリストアップさせる。</p>
+    </div>
+    <div class="type-card">
+      <div class="ico">Type 06</div>
+      <h3>翻訳付き文書</h3>
+      <p>英文メール、英文契約書のドラフト。日本語の意図を伝えれば、自然な英文として出力。</p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  「考えた」と「書いた」の<em>間にあった摩擦</em>が、消えた。<br>
+  人間は構想と検証に集中できる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Workflow</div>
+    <div>
+      <h2>失敗しないコツ — 3つの作法</h2>
+      <p class="sub">単純にAIに任せると、当たり障りのない文章になりがち。少しの工夫で精度は劇的に上がる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>「読み手」と「目的」を最初に伝える</h3>
+        <p>「これは社外の取引先向け、納期相談に応じてもらうため」。読み手と意図が分かれば、トーンと構成は勝手に決まる。<a href="prompt-4elements.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">プロンプト4要素</a> の「Context」に該当。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>「事実」と「推測」を分けて伝える</h3>
+        <p>事実：「来週まで工場停止」、推測：「半分なら品質OKなはず」。AIに渡すメモで両者が混ざると、推測が事実として書かれてしまう。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>出力後、必ず読んで「自分の言葉」に直す</h3>
+        <p>AIの文章はどこか定型的。固有名詞、自社の文化に合う言い回し、ニュアンスは人間が最終調整する。「下書きはAI、署名は人間」が原則。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">ドラフト <span class="en">Draft</span></div>
+      <p class="jargon-plain">完成形ではない "下書き"。AIは下書きを瞬時に作るのが得意。<span class="like">人間が "白紙から書き始める" 苦しさをスキップして、添削から始められる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">テンプレート <span class="en">Template</span></div>
+      <p class="jargon-plain">繰り返し使える型・ひな形。AIに「この型に沿って書いて」と指示できる。<span class="like">社内の議事録フォーマット、定型メールの型紙、など。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ペルソナ <span class="en">Persona</span></div>
+      <p class="jargon-plain">想定する読み手・受け手の人物像。<span class="like">同じ説明でも「役員向け」と「現場担当者向け」では用語・粒度を変える。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">トーン＆マナー <span class="en">Tone of Voice</span></div>
+      <p class="jargon-plain">文章の硬さ・温度感などの "雰囲気"。<span class="like">同僚へのSlack文体 ⇔ 顧客への正式文書、その間の距離感。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AIによる文書ドラフト生成</h3>
+      <p class="analogy-body">雑なメモから、目的別に整った文章のたたき台を生成する作業。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"優秀な秘書に下書きを任せる"</h3>
+      <p class="analogy-body">0→1で書き始める苦痛がなくなる。<br>人間は "1→100" に集中できる（事実確認・微調整・最終署名）。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-3">
+      <span class="dir">← Back</span>
+      <span class="nxt">第3回トップに戻る</span>
+    </a>
+    <a href="summary.html" class="right">
+      <span class="dir">Next ／ Practice 02 →</span>
+      <span class="nxt">情報圧縮と要約</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第3回 ／ 文書作成の高速化</footer>
+</body>
+</html>

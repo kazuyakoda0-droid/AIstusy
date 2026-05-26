@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIの壁打ち・ボードメンバー化 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .boardroom {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .table-row {
+    display: flex; justify-content: center; gap: 16px;
+  }
+  .seat {
+    width: 130px;
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .seat .role {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.1em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .seat .name {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; color: var(--ink);
+    line-height: 1.4;
+  }
+  .seat.ai .role { color: var(--accent); }
+  .seat.ai { background: oklch(0.95 0.05 35); border-color: oklch(0.78 0.10 35); }
+  .seat.human { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .seat.human .role { color: oklch(0.78 0.10 35); }
+  .seat.human .name { color: var(--paper); }
+  .table-shape {
+    height: 80px; background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .lens {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .lens-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 24px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .lens-card .pname {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .lens-card h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; }
+  .lens-card .q { font-family: var(--serif); font-size: 15pt; color: var(--ink); line-height: 1.7;
+    background: var(--accent-soft); padding: 10px 14px;
+    border-left: 2px solid var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-8">第8回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">AIの壁打ち・ボードメンバー化</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Team 03 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 08 ／ エージェントチーム</div>
+    <h1>AIの壁打ち・ボードメンバー化<br><em>会議に、AIを同席させる。</em></h1>
+  </div>
+  <p class="hero-lede">
+    経営会議や企画会議に、「批判的思考のAI」「顧客視点のAI」「リスク管理のAI」を同席させる。人間の盲点を補い、議論の質を上げる "AIボードメンバー" の使い方。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">会議の席に、<em>常に存在しなかった視点</em>を座らせる。<br>顧客、批判者、未来の自分。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>新しいボードメンバーの構成</h2>
+      <p class="sub">人間のメンバーだけでは欠けがちな視点を、ペルソナを与えたAIで補う。AIは助言を出すだけで、決定権は持たない。</p>
+    </div>
+  </div>
+
+  <div class="boardroom">
+    <div class="table-row">
+      <div class="seat human">
+        <div class="role">CEO</div>
+        <div class="name">人間</div>
+      </div>
+      <div class="seat human">
+        <div class="role">CTO</div>
+        <div class="name">人間</div>
+      </div>
+      <div class="seat human">
+        <div class="role">CFO</div>
+        <div class="name">人間</div>
+      </div>
+    </div>
+    <div class="table-shape">Boardroom Table</div>
+    <div class="table-row">
+      <div class="seat ai">
+        <div class="role">AI Member</div>
+        <div class="name">顧客代理人</div>
+      </div>
+      <div class="seat ai">
+        <div class="role">AI Member</div>
+        <div class="name">批判的レビュアー</div>
+      </div>
+      <div class="seat ai">
+        <div class="role">AI Member</div>
+        <div class="name">リスク管理者</div>
+      </div>
+      <div class="seat ai">
+        <div class="role">AI Member</div>
+        <div class="name">10年後の自分</div>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8; text-align: center;">
+    人間メンバーの議論に対し、AIメンバーが各ペルソナの視点からコメント／質問／反論を投げる。最終決定は人間が下す。
+  </p>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>ボードメンバー候補 — 8つのペルソナ</h2>
+      <p class="sub">議論の質を上げるために置きたいペルソナ。会議の性格に応じて選ぶ。</p>
+    </div>
+  </div>
+
+  <div class="lens">
+    <div class="lens-card">
+      <div class="pname">Persona 01</div>
+      <h3>顧客代理人</h3>
+      <div class="q">「これ、私（顧客）にとって本当に欲しい価値ですか？」</div>
+    </div>
+    <div class="lens-card">
+      <div class="pname">Persona 02</div>
+      <h3>批判的レビュアー</h3>
+      <div class="q">「最も鋭い批判者なら、この提案にどう反論しますか？」</div>
+    </div>
+    <div class="lens-card">
+      <div class="pname">Persona 03</div>
+      <h3>リスク管理者</h3>
+      <div class="q">「最悪のシナリオは何で、その兆候は何ですか？」</div>
+    </div>
+    <div class="lens-card">
+      <div class="pname">Persona 04</div>
+      <h3>10年後の自分</h3>
+      <div class="q">「10年後、この決定を振り返って後悔しない理由は何ですか？」</div>
+    </div>
+    <div class="lens-card">
+      <div class="pname">Persona 05</div>
+      <h3>現場担当者</h3>
+      <div class="q">「実際に運用する立場として、これは現実的に回りますか？」</div>
+    </div>
+    <div class="lens-card">
+      <div class="pname">Persona 06</div>
+      <h3>競合の戦略家</h3>
+      <div class="q">「私（競合）なら、この発表後にどう動きますか？」</div>
+    </div>
+    <div class="lens-card">
+      <div class="pname">Persona 07</div>
+      <h3>新卒入社員</h3>
+      <div class="q">「業界知識ゼロの人にこれを説明できますか？」</div>
+    </div>
+    <div class="lens-card">
+      <div class="pname">Persona 08</div>
+      <h3>退職した先輩</h3>
+      <div class="q">「過去に同じことを試した人がいたとしたら、何に詰まったでしょう？」</div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  会議の盲点は、<em>"そこにいない人の視点"</em>。<br>
+  AIで、その席を埋める。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">How</div>
+    <div>
+      <h2>運用のコツ</h2>
+      <p class="sub">AIボードメンバーを機能させるには、運用上の工夫が必要。「便利だけで終わる」のと「意思決定の質を変える」の差は、ここに出る。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>事前に "ペルソナ設定" を作り込む</h3>
+        <p>役割、思考の癖、優先順位、典型的な質問パターンを文章化する。「顧客代理人＝50代の現場管理者、価格より時短を重視、保守的」など、具体的なほど良い。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>議論の "途中で" 投入する</h3>
+        <p>議論の冒頭ではなく、人間がある程度議論した後にAIに問うと効果的。「ここまでの議論を踏まえ、顧客視点で問題はあるか？」のように使う。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>AIの発言を、人間が "翻訳" する</h3>
+        <p>AIの指摘をそのまま受け取らない。「今のAIの指摘は、要するに自分たちが○○を軽視している、ということでは？」と人間が意味付けする。これが意思決定の質を上げる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>決定権は人間に残す</h3>
+        <p>AIは助言まで。「AIが言ったから」で決めない。最終的に説明責任を負うのは、決定した人間。これは第10回の「Human in the Loop」原則の応用。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">ボードメンバー化 <span class="en">AI Board</span></div>
+      <p class="jargon-plain">AIを会議の "もう一人の参加者" として座らせる使い方。<span class="like">"批判役の役員" のシートに、専用ペルソナを与えたAIを置く。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">認知バイアス <span class="en">Cognitive Bias</span></div>
+      <p class="jargon-plain">人間が無意識に陥る思考の偏り。<span class="like">"上司が好きそうな案" "社歴の長い人の意見が強い" など、論理外の力で決まる現象。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">壁打ち相手 <span class="en">Sparring Partner</span></div>
+      <p class="jargon-plain">本気で議論してくれる相手。AIは時間も気にせず相手をしてくれる。<span class="like">"忙しいベテラン" の代わりに、思考のキャッチボール相手を確保できる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">多様性／視点の数 <span class="en">Diversity of Perspectives</span></div>
+      <p class="jargon-plain">違う立場の意見が入っているか。決定の質を大きく左右する。<span class="like">"似た人ばかりの会議" は心地よいが、盲点だらけになる。AIに別視点を担わせる。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">AIのボードメンバー化</h3>
+      <p class="analogy-body">会議の意思決定にAIを "別視点の参加者" として組み込む手法。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"あえて反対意見を言う役員席"</h3>
+      <p class="analogy-body">本物の人間で全視点を揃えるのは大変。<br>AIなら "懐疑派" "顧客視点" "現場視点" を瞬時に並べられる。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="agent-roles.html">
+      <span class="dir">← Prev ／ Team 02</span>
+      <span class="nxt">エージェントの役割設計</span>
+    </a>
+    <a href="agent-discussion.html" class="right">
+      <span class="dir">Next ／ Team 04 →</span>
+      <span class="nxt">エージェント同士の議論プロトコル</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第8回 ／ AIの壁打ち・ボードメンバー化</footer>
+</body>
+</html>

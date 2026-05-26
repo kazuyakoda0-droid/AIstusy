@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>エージェント・パイプライン設計 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .pipe-grid {
+    display: grid; gap: 0;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+  }
+  .pipe-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 120px 1fr 120px;
+    align-items: stretch;
+    gap: 0;
+  }
+  .pipe-box {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair-strong);
+    padding: 18px 16px;
+    display: flex; flex-direction: column; gap: 6px;
+    text-align: center;
+  }
+  .pipe-box.agent { background: var(--accent-soft); border-color: var(--accent); }
+  .pipe-box.human { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .pipe-box .label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.1em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .pipe-box.agent .label { color: var(--accent); }
+  .pipe-box.human .label { color: oklch(0.78 0.10 35); }
+  .pipe-box .name {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 15pt; color: var(--ink); line-height: 1.4;
+  }
+  .pipe-box.human .name { color: var(--paper); }
+  .pipe-flow {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-family: var(--mono);
+    font-size: 15pt;
+  }
+
+  .schema {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 32px;
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.85;
+    border-left: 3px solid var(--accent);
+    overflow-x: auto;
+  }
+  .schema .key { color: oklch(0.78 0.10 35); }
+  .schema .str { color: oklch(0.78 0.08 150); }
+  .schema .num { color: oklch(0.78 0.10 70); }
+  .schema .com { color: oklch(0.58 0.01 70); font-style: italic; }
+
+  .topology-pat {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .pat {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .pat-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .pat h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.4;
+  }
+  .pat p {
+    font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  }
+  .pat-viz {
+    background: var(--bg-alt); border: 1px solid var(--hair);
+    padding: 16px; margin-top: 8px;
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--ink);
+    line-height: 2;
+  }
+  .pat-viz .ag {
+    display: inline-block;
+    background: var(--accent); color: var(--paper);
+    padding: 2px 8px; margin: 0 4px;
+    font-size: 15pt;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-9">第9回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">エージェント・パイプライン設計</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Pipeline 02 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 09 ／ 業務委譲</div>
+    <h1>エージェント・<br>パイプライン設計<br><em>AIの "バケツリレー" を組み立てる。</em></h1>
+  </div>
+  <p class="hero-lede">
+    分解されたタスクを、特化エージェントの連なりで繋ぐ。各エージェントは "受け取る → 加工する → 渡す" を厳密に守る — 工場のベルトコンベアと同じ発想。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIエージェントを <em>"工場のライン"</em> に並べる。<br>誰から何を受け取り、誰に何を渡すかを決め切る。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>パイプライン全体像 — エージェントの直列接続</h2>
+      <p class="sub">受注審査のパイプラインを例に、各エージェントの役割と接続を可視化する。</p>
+    </div>
+  </div>
+
+  <div class="pipe-grid">
+    <div class="pipe-row" style="margin-bottom: 24px;">
+      <div class="pipe-box human">
+        <div class="label">Input</div>
+        <div class="name">顧客メール<br>(PDF添付)</div>
+      </div>
+      <div class="pipe-flow">→</div>
+      <div class="pipe-box agent">
+        <div class="label">Agent 01</div>
+        <div class="name">仕様書<br>抽出</div>
+      </div>
+      <div class="pipe-flow">→</div>
+      <div class="pipe-box agent">
+        <div class="label">Agent 02</div>
+        <div class="name">規格照合<br>(RAG)</div>
+      </div>
+    </div>
+    <div class="pipe-row" style="margin-bottom: 24px;">
+      <div class="pipe-box agent">
+        <div class="label">Agent 03</div>
+        <div class="name">キャパ判定<br>(社内DB)</div>
+      </div>
+      <div class="pipe-flow">→</div>
+      <div class="pipe-box agent">
+        <div class="label">Agent 04</div>
+        <div class="name">受注可否<br>レポート作成</div>
+      </div>
+      <div class="pipe-flow">→</div>
+      <div class="pipe-box human">
+        <div class="label">Human</div>
+        <div class="name">承認</div>
+      </div>
+    </div>
+    <div class="pipe-row">
+      <div class="pipe-box agent">
+        <div class="label">Agent 05</div>
+        <div class="name">基幹システム<br>起票</div>
+      </div>
+      <div class="pipe-flow">→</div>
+      <div class="pipe-box human">
+        <div class="label">Output</div>
+        <div class="name">受注完了<br>通知</div>
+      </div>
+      <div class="pipe-flow"></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>エージェント間の "受け渡し" — スキーマで形を固定する</h2>
+      <p class="sub">各エージェントの入力・出力を JSON のような構造化データで定義する。"受け渡しの型" さえ決まっていれば、中身は自由に差し替えられる。</p>
+    </div>
+  </div>
+
+  <div class="schema">
+    <span class="com">// Agent 01（仕様書抽出）の Output ／ Agent 02 の Input</span><br>
+    {<br>
+    &nbsp;&nbsp;<span class="key">"customer_name"</span>: <span class="str">"株式会社〇〇"</span>,<br>
+    &nbsp;&nbsp;<span class="key">"items"</span>: [<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"product_code"</span>: <span class="str">"A-123"</span>,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"quantity"</span>: <span class="num">100</span>,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"inspection"</span>: <span class="str">"検査項目A"</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;],<br>
+    &nbsp;&nbsp;<span class="key">"deadline"</span>: <span class="str">"2025-10-01"</span>,<br>
+    &nbsp;&nbsp;<span class="key">"total_amount"</span>: <span class="num">1500000</span>,<br>
+    &nbsp;&nbsp;<span class="key">"source_doc"</span>: <span class="str">"spec_v3.pdf"</span> &nbsp;<span class="com">// 追跡用</span><br>
+    }
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+    出力スキーマを固定すると、Agent 01 を差し替えても Agent 02 はそのまま動く。"AI部品" の差し替えが効くアーキテクチャになる。
+  </p>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Patterns</div>
+    <div>
+      <h2>パイプラインの代表的トポロジー</h2>
+      <p class="sub">業務の性質によって、エージェントの並べ方を変える。</p>
+    </div>
+  </div>
+
+  <div class="topology-pat">
+    <div class="pat">
+      <div class="pat-tag">Pattern 01</div>
+      <h3>直列型 ／ Sequential</h3>
+      <p>A → B → C と1本道で繋ぐ。各段で前段の出力を受けて加工する。最もシンプルで、デバッグしやすい。</p>
+      <div class="pat-viz">
+        <span class="ag">A</span> → <span class="ag">B</span> → <span class="ag">C</span> → 出力
+      </div>
+    </div>
+    <div class="pat">
+      <div class="pat-tag">Pattern 02</div>
+      <h3>並列型 ／ Parallel</h3>
+      <p>同じ入力から、複数のエージェントが同時に処理する。最後にマージ。時短に効く。</p>
+      <div class="pat-viz" style="line-height: 1.4;">
+        ┌→ <span class="ag">B1</span> →┐<br>
+        <span class="ag">A</span> ┤&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├→ <span class="ag">M</span> → 出力<br>
+        └→ <span class="ag">B2</span> →┘
+      </div>
+    </div>
+    <div class="pat">
+      <div class="pat-tag">Pattern 03</div>
+      <h3>分岐型 ／ Conditional</h3>
+      <p>判定エージェントの結果で、次に呼ぶエージェントを変える。"金額 ≥ 100万なら法務へ" のような業務分岐に有効。</p>
+      <div class="pat-viz" style="line-height: 1.4;">
+        <span class="ag">A</span> → 判定 → 高額？<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes → <span class="ag">法務</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No  → <span class="ag">通常</span>
+      </div>
+    </div>
+    <div class="pat">
+      <div class="pat-tag">Pattern 04</div>
+      <h3>ループ型 ／ Iterative</h3>
+      <p>"出力が条件を満たすまで繰り返す" 型。修正提案 → 評価 → 修正提案、を品質OKまでループ。上限回数は必ず設定する。</p>
+      <div class="pat-viz" style="line-height: 1.4;">
+        <span class="ag">A</span> → <span class="ag">B</span> → <span class="ag">評価</span><br>
+        &nbsp;&nbsp;↑&nbsp;&nbsp;&nbsp;&nbsp;NG ↙<br>
+        OK → 出力
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  パイプラインの強さは <em>"配線の明確さ"</em> で決まる。<br>
+  AI自体の賢さより、繋ぎ方が結果を左右する。
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">パイプライン <span class="en">Pipeline</span></div>
+      <p class="jargon-plain">複数のエージェントを順番に繋いだ処理の流れ。<span class="like">工場のベルトコンベア。1工程の出力が、次工程の入力になる連なり。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">スキーマ <span class="en">Schema</span></div>
+      <p class="jargon-plain">エージェント間でやり取りされるデータの "型"。決められた項目・型のみを許す。<span class="like">"バトンの規格" を統一する。形が違うバトンは渡せない、を機械的に保証する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">直列／並列 <span class="en">Sequential / Parallel</span></div>
+      <p class="jargon-plain">エージェントを1本道で並べるか、横並びで同時実行するか。<span class="like">"1人ずつ報告" ⇔ "全員一斉に動き出す"。スピード重視なら並列、整合性重視なら直列。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">条件分岐 <span class="en">Conditional Branching</span></div>
+      <p class="jargon-plain">判定の結果で、次に呼ぶエージェントを切り替える。<span class="like">"金額が100万円超なら部長承認、それ以下なら課長承認" の経路分け。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ループ／反復 <span class="en">Iterative Loop</span></div>
+      <p class="jargon-plain">"OKになるまで繰り返す" 構造。修正→評価を繰り返すパターンが代表的。<span class="like">レポートを書き直して上司レビューに通すサイクル。"OKもらえるまで何度でも" を、AIに任せる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">トレーサビリティ <span class="en">Traceability</span></div>
+      <p class="jargon-plain">パイプラインの各段で "何が、いつ、誰のせいで起きたか" を追跡可能にすること。<span class="like">宅配便の追跡番号。どの段階でどう動いたかを後から辿れる仕組み。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">パイプラインの設計思想は、製造業の "工程設計" と同じ。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">エージェント・パイプライン</h3>
+      <p class="analogy-body">特化エージェントを順序立てて接続し、入出力スキーマで結合した処理アーキテクチャ。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"寿司屋のカウンター内" の連携</h3>
+      <p class="analogy-body">仕入れ → ネタ切り → シャリ握り → 盛り付け → 提供。<br>各職人は1つの工程に集中し、前の工程からのバトンを受けて、次の工程に渡す。<br>"職人が変わっても店は回る" のは、工程設計が完成しているから。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="task-decomposition.html">
+      <span class="dir">← Prev ／ Pipeline 01</span>
+      <span class="nxt">業務プロセスの分解設計</span>
+    </a>
+    <a href="approval-gates.html" class="right">
+      <span class="dir">Next ／ Pipeline 03 →</span>
+      <span class="nxt">承認ポイントの配置</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第9回 ／ エージェント・パイプライン設計</footer>
+</body>
+</html>

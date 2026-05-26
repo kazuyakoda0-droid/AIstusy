@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「コード生成」から「自律開発」へ — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .shift-stages {
+    display: grid; grid-template-columns: 1fr 100px 1fr; gap: 24px;
+    align-items: stretch;
+  }
+  .stage-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .stage-card.legacy { background: var(--bg-alt); }
+  .stage-card.modern { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .stage-card .tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .stage-card.modern .tag { color: oklch(0.78 0.10 35); }
+  .stage-card h3 { font-family: var(--serif); font-weight: 800; font-size: 22px; line-height: 1.3; }
+  .stage-card p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .stage-card.modern p { color: oklch(0.85 0.008 70); }
+  .stage-flow {
+    margin-top: auto;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stage-flow span {
+    font-family: var(--mono); font-size: 15pt;
+    padding: 6px 10px;
+    background: var(--paper);
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+  }
+  .stage-card.modern .stage-flow span { background: oklch(0.3 0.015 60); color: var(--paper); }
+  .shift-mid {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  .shift-mid .arr { font-family: var(--serif); font-size: 48px; color: var(--accent); font-weight: 100; }
+  .shift-mid .lbl {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .ide-mock {
+    background: oklch(0.18 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 0; overflow: hidden;
+    border: 1px solid oklch(0.32 0.012 60);
+    font-family: var(--mono); font-size: 15pt;
+    line-height: 1.7;
+  }
+  .ide-bar {
+    background: oklch(0.24 0.012 60);
+    padding: 10px 16px;
+    font-size: 15pt;
+    color: oklch(0.6 0.01 70);
+    border-bottom: 1px solid oklch(0.32 0.012 60);
+    display: flex; gap: 14px;
+  }
+  .ide-bar::before {
+    content: "● ● ●";
+    color: oklch(0.45 0.012 60);
+    letter-spacing: 4px;
+  }
+  .ide-body {
+    padding: 18px 22px;
+  }
+  .ide-body .prompt { color: oklch(0.78 0.10 35); }
+  .ide-body .ai { color: oklch(0.78 0.08 200); }
+  .ide-body .ok { color: oklch(0.78 0.08 150); }
+  .ide-body .err { color: oklch(0.7 0.10 30); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-7">第7回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">「コード生成」から「自律開発」へ</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Coding 01 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 07 ／ コーディングエージェント</div>
+    <h1>コード生成 → 自律開発<br><em>AIが、自分でPCを操作して開発する。</em></h1>
+  </div>
+  <p class="hero-lede">
+    ChatGPTにコードを書かせて人間がコピペする時代は終わり。コーディングエージェントは、エディタ／ターミナル／ファイルシステムを自分で操作し、コードを書き、実行し、テストする。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <text x="80" y="30" class="ill-text">USER / 自然言語の依頼</text>
+      <g transform="translate(40 50)">
+        <rect width="280" height="60" class="ill-soft"/>
+        <text x="20" y="25" font-family="var(--serif)" font-size="13" fill="var(--ink)">「現場写真100枚に</text>
+        <text x="20" y="45" font-family="var(--serif)" font-size="13" fill="var(--ink)">透かしを入れて」</text>
+      </g>
+
+      <g transform="translate(40 140)">
+        <path d="M 140 0 L 140 30" class="ill-accent-fat"/>
+        <polygon points="135,30 140,40 145,30" class="ill-dot"/>
+      </g>
+
+      <g transform="translate(40 180)">
+        <rect width="280" height="80" fill="oklch(0.22 0.012 60)"/>
+        <text x="15" y="25" font-family="var(--mono)" font-size="11" fill="oklch(0.75 0.10 35)">import os</text>
+        <text x="15" y="42" font-family="var(--mono)" font-size="11" fill="oklch(0.92 0.008 70)">from PIL import Image</text>
+        <text x="15" y="59" font-family="var(--mono)" font-size="11" fill="oklch(0.78 0.08 150)">for f in os.listdir(dir):</text>
+        <text x="15" y="76" font-family="var(--mono)" font-size="11" fill="oklch(0.92 0.008 70)">  img.save(...)</text>
+      </g>
+
+      <!-- Arrow right -->
+      <g transform="translate(350 140)">
+        <path d="M 0 0 L 60 0" class="ill-accent-fat"/>
+        <polygon points="60,-5 70,0 60,5" class="ill-dot"/>
+        <text x="35" y="-10" class="ill-text-accent" text-anchor="middle">RUN</text>
+      </g>
+
+      <!-- Result -->
+      <g transform="translate(440 50)">
+        <text x="160" y="0" class="ill-text-accent" text-anchor="middle">RESULT / 100ファイル</text>
+        <rect width="320" height="200" class="ill-warm"/>
+        <g>
+          <rect x="20" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="34" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="56" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="70" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="92" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="106" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="128" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="142" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="164" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="178" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="200" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="214" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="236" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="250" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="272" y="20" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="286" y="42" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="20" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="34" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="56" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="70" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="92" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="106" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="128" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="142" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="164" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="178" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="200" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="214" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="236" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="250" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="272" y="55" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="286" y="77" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="20" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="34" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="56" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="70" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="92" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="106" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="128" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="142" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="164" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="178" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="200" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="214" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="236" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="250" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="272" y="90" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="286" y="112" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="20" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="34" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="56" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="70" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="92" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="106" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="128" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="142" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="164" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="178" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="200" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="214" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="236" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="250" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="272" y="125" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="286" y="147" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="20" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="34" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="56" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="70" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="92" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="106" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="128" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="142" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="164" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="178" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="200" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="214" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="236" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="250" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text><rect x="272" y="160" width="28" height="28" fill="var(--paper)" stroke="var(--accent)" stroke-width="0.6"/><text x="286" y="182" font-family="var(--mono)" font-size="7" fill="var(--accent)" text-anchor="middle">©</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"コードを書くAI" から、<em>"開発するAI"</em> へ。<br>人間は、要件を伝えて成果物を確認する。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>2世代の開発スタイル</h2>
+      <p class="sub">同じ「AIにコードを頼む」でも、人間の関わり方が一変する。コピペ職人 → ディレクター。</p>
+    </div>
+  </div>
+
+  <div class="shift-stages">
+    <div class="stage-card legacy">
+      <div class="tag">Before ／ 2023</div>
+      <h3>コード生成</h3>
+      <p>ChatGPTに「Pythonで○○を書いて」と頼む → 生成されたコードを人間がコピペ → 自分のエディタで実行 → エラーが出たらまた質問。</p>
+      <div class="stage-flow">
+        <span>人間：仕様を伝える</span>
+        <span>AI：コード生成</span>
+        <span>人間：コピペ＆実行</span>
+        <span>人間：エラーをAIに貼る</span>
+        <span>人間：修正コードをコピペ</span>
+        <span>...繰り返し</span>
+      </div>
+    </div>
+    <div class="shift-mid">
+      <div class="arr">→</div>
+      <div class="lbl">Paradigm Shift</div>
+    </div>
+    <div class="stage-card modern">
+      <div class="tag">Now ／ 2024〜</div>
+      <h3>自律開発</h3>
+      <p>エージェントに「○○というツールが欲しい」と伝える → エージェントが自分でファイルを作り、コードを書き、実行し、エラーを直し、完成させる。</p>
+      <div class="stage-flow">
+        <span>人間：要件を伝える</span>
+        <span>AI：ファイル作成・コード記述</span>
+        <span>AI：実行 → エラー検知</span>
+        <span>AI：自己修正 → 再実行</span>
+        <span>AI：成功 → 報告</span>
+        <span>人間：成果物の確認</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>エージェントが実際に動く様子</h2>
+      <p class="sub">「100枚の現場写真に透かしを入れる」というタスクを与えたときの、ターミナル上での動作イメージ。</p>
+    </div>
+  </div>
+
+  <div class="ide-mock">
+    <div class="ide-bar">~/projects/photo-task</div>
+    <div class="ide-body">
+<span class="prompt">$</span> <span style="color: var(--paper);">claude "現場写真フォルダの全ファイルに『2024年工事完了』の透かしを入れて別フォルダに保存して"</span><br><br>
+<span class="ai">●</span> 了解しました。タスクを計画します。<br>
+<span class="ai">●</span> ① 入力フォルダのファイル一覧を取得<br>
+<span class="ai">●</span> ② Pythonスクリプトを作成<br>
+<span class="ai">●</span> ③ 実行してテスト → 全体実行<br><br>
+<span class="ai">●</span> watermark.py を作成中...<br>
+<span class="ok">✓</span> watermark.py 作成完了 (32 lines)<br><br>
+<span class="ai">●</span> 1枚でテスト実行中...<br>
+<span class="err">✗</span> エラー: ModuleNotFoundError: No module named 'PIL'<br>
+<span class="ai">●</span> Pillow ライブラリが必要なようです。インストールします。<br>
+<span class="prompt">$</span> pip install Pillow<br>
+<span class="ok">✓</span> インストール成功。再実行します。<br><br>
+<span class="ai">●</span> 1枚テスト → 出力確認 → OK<br>
+<span class="ai">●</span> 残り99枚を処理中... [████████░░] 80/100<br>
+<span class="ok">✓</span> 完了：100枚すべてに透かしを入れ、output/ フォルダに保存しました。
+    </div>
+  </div>
+  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+    エージェントは「コードを書く → 実行 → エラー検知 → 自己修正」のループを、人間の介入なしで回す。これが <a href="auto-debug.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">自律デバッグ</a>。
+  </p>
+</section>
+
+<section class="pullquote">
+  プログラミングは、<em>"言葉で指示する仕事"</em> になる。<br>
+  非エンジニアでも、ツールを内製できる。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Tools</div>
+    <div>
+      <h2>主要なコーディングエージェント</h2>
+      <p class="sub">2025年時点の代表例。それぞれ得意領域が違うが、共通するのは「自然言語 → 自律的にコードを書いて実行」というスタイル。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>Claude Code</h3>
+        <p>ターミナルベースで動くコーディングエージェント。プロジェクトディレクトリ全体を理解し、複数ファイルにわたる変更、テスト実行、Gitコミットまで自律的に行う。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>Cursor</h3>
+        <p>VS Code 風のエディタにAIが統合されたIDE。コード補完、エージェント機能、プロジェクト全体への適用などを直感的なUIで操作できる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>GitHub Copilot / Copilot Workspace</h3>
+        <p>GitHub標準のAI開発支援。Issue起票からプルリクエスト作成まで、開発フローに沿った自律支援。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">コーディングエージェント <span class="en">Coding Agent</span></div>
+      <p class="jargon-plain">コードを "書く" だけでなく "実行・修正" まで自分でできるAI。<span class="like">Claude Code / Cursor / GitHub Copilot などが該当。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">IDE <span class="en">IDE</span></div>
+      <p class="jargon-plain">プログラマーが使う、コードを書くための作業環境。<span class="like">Wordの「プログラム版」。最近はAIが標準搭載されている。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">リポジトリ <span class="en">Repository</span></div>
+      <p class="jargon-plain">コードをまとめて保管・履歴管理する場所。<span class="like">"全社版のGoogleドライブで、変更履歴がすべて残るもの"。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">プルリクエスト <span class="en">Pull Request</span></div>
+      <p class="jargon-plain">AIが書いたコードを "人間がレビューしてマージする" 仕組み。<span class="like">"AIが書いた稟議書を、上司が承認するかどうか" のフロー。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">開発の民主化 <span class="en">Democratization</span></div>
+      <p class="jargon-plain">プログラミングを、専門家以外にも開放する流れ。<span class="like">デザインがCanvaで誰でもできるようになったのと同じ波が、開発でも起きている。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">コーディングエージェント</h3>
+      <p class="analogy-body">自然言語で依頼すると、コードを書いて実行・テストまで一気にこなすAI。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"翻訳者付きの工務店"</h3>
+      <p class="analogy-body">"こういう棚が欲しい" と日本語で言えば、設計→材料調達→組立→動作確認までやる。<br>こちらはDIY未経験のままでよい。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-7">
+      <span class="dir">← Back</span>
+      <span class="nxt">第7回トップに戻る</span>
+    </a>
+    <a href="auto-debug.html" class="right">
+      <span class="dir">Next ／ Coding 02 →</span>
+      <span class="nxt">自律デバッグ</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第7回 ／ コード生成から自律開発へ</footer>
+</body>
+</html>

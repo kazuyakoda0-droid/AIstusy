@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLMとは何か — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .arch-flow { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  .arch-row { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: center; }
+  .arch-label { font-family: var(--mono); font-size: 15pt; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; }
+  .arch-box { background: var(--paper); border: 1px solid var(--hair); padding: 18px 22px; }
+  .arch-box.in { background: var(--bg-alt); }
+  .arch-box.process { background: var(--accent-soft); border-color: var(--accent); font-family: var(--mono); font-size: 15pt; }
+  .arch-box.out { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .token-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .scale-bar {
+    height: 28px; display: grid; grid-template-columns: 1fr 4fr 80fr;
+    gap: 2px;
+  }
+  .scale-bar div {
+    background: var(--bg-alt);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 15pt; color: var(--ink);
+  }
+  .scale-bar div:nth-child(2) { background: oklch(0.75 0.05 35); color: var(--paper); }
+  .scale-bar div:nth-child(3) { background: var(--accent); color: var(--paper); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-2">第2回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">LLMとは何か</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Foundation 01 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 02 ／ LLMの仕組み</div>
+    <h1>LLMとは何か<br><em>言葉を確率で紡ぐ機械。</em></h1>
+  </div>
+  <p class="hero-lede">
+    Large Language Model（大規模言語モデル）。インターネット中の膨大な文章を読み込み、「次に来る確率が高い単語」を一語ずつ予測しているだけの、巨大な確率モデル。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <text x="60" y="30" class="ill-text">CONTEXT (so far)</text>
+      <g transform="translate(40 50)" font-family="var(--mono)" font-size="13">
+        <rect width="60" height="30" class="ill-soft"/><text x="30" y="20" text-anchor="middle" fill="var(--ink)">今日</text>
+        <rect x="70" width="40" height="30" class="ill-soft"/><text x="90" y="20" text-anchor="middle" fill="var(--ink)">の</text>
+        <rect x="120" width="60" height="30" class="ill-soft"/><text x="150" y="20" text-anchor="middle" fill="var(--ink)">会議</text>
+        <rect x="190" width="40" height="30" class="ill-soft"/><text x="210" y="20" text-anchor="middle" fill="var(--ink)">の</text>
+        <rect x="240" width="60" height="30" class="ill-soft"/><text x="270" y="20" text-anchor="middle" fill="var(--ink)">議事</text>
+        <rect x="310" width="40" height="30" class="ill-soft"/><text x="330" y="20" text-anchor="middle" fill="var(--ink)">録</text>
+        <rect x="360" width="40" height="30" class="ill-soft"/><text x="380" y="20" text-anchor="middle" fill="var(--ink)">を</text>
+        <rect x="410" width="60" height="30" class="ill-soft"/><text x="440" y="20" text-anchor="middle" fill="var(--ink)">要約</text>
+        <rect x="480" width="40" height="30" class="ill-soft"/><text x="500" y="20" text-anchor="middle" fill="var(--ink)">し</text>
+        <rect x="530" width="40" height="30" class="ill-soft"/><text x="550" y="20" text-anchor="middle" fill="var(--ink)">て</text>
+        <rect x="580" y="-5" width="50" height="40" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3 3"/>
+        <text x="605" y="20" text-anchor="middle" fill="var(--accent)">?</text>
+      </g>
+      <text x="605" y="95" class="ill-text-accent" text-anchor="middle">NEXT TOKEN</text>
+
+      <!-- Probability bars -->
+      <text x="40" y="140" class="ill-text">PROBABILITY DISTRIBUTION</text>
+      <g transform="translate(40 155)" font-family="var(--mono)" font-size="13">
+        <text x="0" y="14" fill="var(--accent)" font-weight="700">「決定」</text>
+        <rect x="80" y="2" width="380" height="14" class="ill-warm"/>
+        <rect x="80" y="2" width="280" height="14" class="ill-dot"/>
+        <text x="470" y="14" class="ill-text-accent">42%</text>
+      </g>
+      <g transform="translate(40 180)" font-family="var(--mono)" font-size="13">
+        <text x="0" y="14" fill="var(--ink-soft)">「結論」</text>
+        <rect x="80" y="2" width="380" height="14" class="ill-soft"/>
+        <rect x="80" y="2" width="190" height="14" class="ill-dim"/>
+        <text x="470" y="14" class="ill-text">28%</text>
+      </g>
+      <g transform="translate(40 205)" font-family="var(--mono)" font-size="13">
+        <text x="0" y="14" fill="var(--ink-soft)">「内容」</text>
+        <rect x="80" y="2" width="380" height="14" class="ill-soft"/>
+        <rect x="80" y="2" width="100" height="14" class="ill-dim"/>
+        <text x="470" y="14" class="ill-text">15%</text>
+      </g>
+      <g transform="translate(40 230)" font-family="var(--mono)" font-size="13">
+        <text x="0" y="14" fill="var(--ink-soft)">他…</text>
+        <rect x="80" y="2" width="380" height="14" class="ill-soft"/>
+        <rect x="80" y="2" width="80" height="14" class="ill-dim"/>
+        <text x="470" y="14" class="ill-text">15%</text>
+      </g>
+
+      <!-- Side: arrow back -->
+      <g transform="translate(550 155)">
+        <text x="80" y="0" class="ill-text-accent" text-anchor="middle">SAMPLE &amp; LOOP</text>
+        <path d="M 80 10 Q 130 60 80 95" class="ill-accent ill-dash" fill="none"/>
+        <polygon points="80,90 80,105 90,98" class="ill-dot"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">世界中の文章を読みきった<em>確率の達人</em>。<br>"次に来そうな言葉" を、ひたすら一語ずつ書き続ける。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>仕組み — 入力から出力まで</h2>
+      <p class="sub">LLMの中身は驚くほどシンプルな繰り返し処理。テキストを「トークン」に分割し、文脈を踏まえて次のトークンを予測する、これを一語ずつ繰り返している。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="arch-flow">
+      <div class="arch-row">
+        <div class="arch-label">Step 01 ／ 入力</div>
+        <div class="arch-box in">「今日の会議の<strong>議事録</strong>を3行で要約して」</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-label">Step 02 ／ トークン化</div>
+        <div class="arch-box">
+          <div class="token-row">
+            <span class="tok">今日</span><span class="tok">の</span><span class="tok">会議</span><span class="tok">の</span>
+            <span class="tok">議事</span><span class="tok">録</span><span class="tok">を</span><span class="tok">3</span>
+            <span class="tok">行</span><span class="tok">で</span><span class="tok">要約</span><span class="tok">して</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 15pt; color: var(--ink-soft);">文章をトークン（単語の断片）に分解する。日本語1文字＝1トークンとは限らない。</p>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-label">Step 03 ／ 文脈処理</div>
+        <div class="arch-box process">
+          Transformer Layers × N<br>
+          各トークンが「どの単語と関係が深いか」を計算（Attention機構）
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-label">Step 04 ／ 次のトークン予測</div>
+        <div class="arch-box">
+          <div class="prob-stack">
+            <div class="prob-row top"><div class="prob-token">議事録</div><div class="prob-bar"><div class="prob-bar-fill" style="width: 72%;"></div></div><div class="prob-pct">72%</div></div>
+            <div class="prob-row"><div class="prob-token">本日</div><div class="prob-bar"><div class="prob-bar-fill" style="width: 14%; background: var(--ink-soft);"></div></div><div class="prob-pct">14%</div></div>
+            <div class="prob-row"><div class="prob-token">会議</div><div class="prob-bar"><div class="prob-bar-fill" style="width: 8%; background: var(--ink-soft);"></div></div><div class="prob-pct">8%</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-label">Step 05 ／ 繰り返し</div>
+        <div class="arch-box out">最も確率の高いトークンを選び、それを入力に加えて Step 03 へ戻る → 一文章ができあがるまでループ。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>「Large」の意味 — 学習データと パラメータ数</h2>
+      <p class="sub">GPT-4クラスのLLMは、人類が一生かけても読み切れない量の文章を学習している。これがLLMの「常識」の源泉。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div style="display: grid; gap: 16px;">
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center;">
+        <div class="arch-label">人間の生涯読書量</div>
+        <div class="scale-bar"><div>≒1</div><div></div><div></div></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center;">
+        <div class="arch-label">Wikipedia 全文</div>
+        <div class="scale-bar"><div></div><div>≒4</div><div></div></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center;">
+        <div class="arch-label">大規模LLMの学習データ</div>
+        <div class="scale-bar"><div></div><div></div><div>≒80,000+</div></div>
+      </div>
+    </div>
+    <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); text-align: center;">
+      数兆トークン規模の文章を学習し、数千億〜数兆個のパラメータ（重み）に圧縮している。
+    </p>
+  </div>
+</section>
+
+<section class="pullquote">
+  LLMは "意味" を理解していない。<br>
+  <em>"統計的に尤もらしい次の言葉"</em> を選び続けているだけ。<br>
+  でも、それで多くの仕事ができてしまう。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Implication</div>
+    <div>
+      <h2>「確率モデル」という理解が、業務利用の前提</h2>
+      <p class="sub">LLMの正体を「魔法」だと思っていると、間違った使い方をする。「確率モデル」だと知っていれば、得意な仕事・任せてはいけない仕事の境目が見えてくる。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>意味より「言葉のパターン」</h3>
+        <p>LLMは「会議の議事録」という単語列の後に「を要約します」が来やすい、というパターンを知っている。だから議事要約が得意。ただし「会議の事実関係」を知っているわけではない。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>同じ入力でも、出力は揺れる</h3>
+        <p>確率モデルだから、毎回まったく同じ答えにはならない。これは欠陥ではなく仕様。再現性が必要な仕事には、別の工夫（テンプレート化や検証）が要る。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>「学習に含まれること」しか答えられない</h3>
+        <p>学習時点より新しいニュース、社内固有の情報、機密データはLLM単体では知らない。これを補うのが <a href="rag.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">RAG</a> や Tool Use といった仕組み。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">LLM <span class="en">Large Language Model</span></div>
+      <p class="jargon-plain">インターネット上の膨大な文章を読み込んで、「次に来そうな言葉」を当てる訓練を受けた巨大な確率モデル。<span class="like">ChatGPTやClaudeの中身は全部これ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">トークン <span class="en">Token</span></div>
+      <p class="jargon-plain">AIにとっての言葉の最小単位。単語より細かい "かけら" のこと。<span class="like">「学習」=「学」+「習」のように、AIは文字より少し大きい単位で文を切る。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Transformer <span class="en">Transformer</span></div>
+      <p class="jargon-plain">LLMの心臓部にあたる構造。文中の単語同士の関係（誰が誰を修飾するか、など）を一気に捉える仕組み。<span class="like">長文を読むときに「あの "彼" は誰のことだっけ？」と前後を確認しながら読む、賢い読み方。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Attention <span class="en">Attention</span></div>
+      <p class="jargon-plain">「いま注目すべきはどの単語か」を計算するTransformerの中核機能。<span class="like">会議中、議題に関係する人の発言だけ集中して聞き取る能力。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">パラメータ <span class="en">Parameter</span></div>
+      <p class="jargon-plain">学習で自動調整された、LLMの内部のつまみ。数千億〜数兆個もある。<span class="like">巨大なオーケストラの楽器の数。1つ1つの音量バランスで全体のサウンドが決まる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">確率モデル <span class="en">Probabilistic Model</span></div>
+      <p class="jargon-plain">「絶対そう」ではなく「たぶんこれ」で動く仕組み。同じ質問でも答えが微妙に揺れる原因。<span class="like">天気予報のようなもの。「降水確率70%」とは言えても「絶対雨」とは言わない。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">LLM ／ 次トークン予測</h3>
+      <p class="analogy-body">文脈から「次に来る確率が高い言葉」を一語ずつ選んで出力する仕組み。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">すごい "文章の続き予想ゲーム" 名人</h3>
+      <p class="analogy-body">膨大な文章を読みつくしたので、文の途中まで見せれば自然な続きを書ける。<br>意味を理解しているわけではないが、それで多くの仕事ができてしまう。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-2">
+      <span class="dir">← Back</span>
+      <span class="nxt">第2回トップに戻る</span>
+    </a>
+    <a href="llm-pros-cons.html" class="right">
+      <span class="dir">Next ／ Foundation 02 →</span>
+      <span class="nxt">LLMの得意・不得意</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第2回 ／ LLMとは何か</footer>
+</body>
+</html>

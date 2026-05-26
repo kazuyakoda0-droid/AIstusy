@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>実務への恩恵 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .who {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .who-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 28px; display: flex; flex-direction: column; gap: 14px;
+  }
+  .who-card.now { background: var(--accent-soft); border-color: var(--accent); }
+  .who-card h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.3; }
+  .who-card .role-tag {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .who-card.now .role-tag { color: var(--accent); }
+  .who-card p { font-size: 15pt; color: var(--ink-soft); line-height: 1.7; }
+
+  .request-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 24px 28px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .request-card .who-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--accent);
+    text-transform: uppercase;
+  }
+  .request-card .request-q {
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.7; color: var(--ink);
+  }
+  .request-card .result {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--ink-soft); line-height: 1.7;
+    background: var(--paper);
+    padding: 10px 14px;
+    border-left: 2px solid var(--accent);
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-7">第7回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">実務への恩恵</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Coding 03 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 07 ／ コーディングエージェント</div>
+    <h1>実務への恩恵<br><em>"開発" が、現場の手に降りてくる。</em></h1>
+  </div>
+  <p class="hero-lede">
+    ノーコード／ローコードの究極形。プログラミング未経験の現場担当者が、自分の業務を効率化するツールを「言葉だけ」で内製できる。情シスへの依頼待ち時間が消える。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Past: engineer monopoly -->
+      <g transform="translate(40 50)">
+        <text x="100" y="0" class="ill-text" text-anchor="middle">UNTIL / これまで</text>
+        <rect width="200" height="180" class="ill-soft"/>
+        <!-- only one figure -->
+        <g transform="translate(80 40)">
+          <circle cx="20" cy="15" r="12" fill="var(--ink)"/>
+          <rect x="5" y="30" width="30" height="40" fill="var(--ink)"/>
+        </g>
+        <text x="100" y="100" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); fill: var(--ink); font-weight: 700;">エンジニアのみ</text>
+        <text x="100" y="135" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">現場 → 依頼 → 待つ</text>
+        <text x="100" y="155" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">数週間〜数ヶ月</text>
+      </g>
+
+      <g transform="translate(280 130)">
+        <path d="M 0 0 L 60 0" class="ill-accent-fat"/>
+        <polygon points="60,-5 70,0 60,5" class="ill-dot"/>
+      </g>
+
+      <!-- Now: everyone can build -->
+      <g transform="translate(380 50)">
+        <text x="190" y="0" class="ill-text-accent" text-anchor="middle">NOW / これから</text>
+        <rect width="380" height="180" class="ill-warm"/>
+        <!-- Multiple people -->
+        
+          <g transform="translate(30 40)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">営業</text>
+          </g>
+        
+          <g transform="translate(110 40)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">経理</text>
+          </g>
+        
+          <g transform="translate(190 40)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">人事</text>
+          </g>
+        
+          <g transform="translate(270 40)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">品質</text>
+          </g>
+        
+          <g transform="translate(70 110)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">広報</text>
+          </g>
+        
+          <g transform="translate(150 110)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">法務</text>
+          </g>
+        
+          <g transform="translate(230 110)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">生産</text>
+          </g>
+        
+          <g transform="translate(310 110)">
+            <circle cx="20" cy="12" r="10" fill="var(--accent)"/>
+            <rect x="6" y="24" width="28" height="32" fill="var(--accent)"/>
+            <text x="20" y="76" font-family="var(--mono)" font-size="10" fill="var(--ink)" text-anchor="middle">物流</text>
+          </g>
+        
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">"あの人に頼まないと作れない" が、終わる。<br><em>自分の業務は、自分で道具を作る</em>。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>"開発できる人" が、こう広がる</h2>
+      <p class="sub">これまで「ツールを作る」のはエンジニアの仕事だった。コーディングエージェントの登場で、現場の誰もが内製できる時代に。</p>
+    </div>
+  </div>
+
+  <div class="who">
+    <div class="who-card">
+      <div class="role-tag">Until ／ これまで</div>
+      <h3>エンジニア</h3>
+      <p>プログラミング言語、フレームワーク、デバッグ手法を習得した専門職のみが内製できた。現場の要望は依頼ベース、待ち時間が長い。</p>
+    </div>
+    <div class="who-card">
+      <div class="role-tag">Until ／ これまで</div>
+      <h3>Excelマクロ職人</h3>
+      <p>VBAができる一部の人が、現場で小規模なツールを作っていた。だが属人化しがちで、本人不在で誰も触れない。</p>
+    </div>
+    <div class="who-card now">
+      <div class="role-tag">From ／ これから</div>
+      <h3>現場担当者（全員）</h3>
+      <p>業務知識があれば、自然言語でAIに依頼するだけで内製できる。「自分の困りごと」を一番分かっている人が、一番速く解決できる。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Examples</div>
+    <div>
+      <h2>こんな依頼が、現場で実現できる</h2>
+      <p class="sub">「ちょっとした業務」を効率化するスクリプト。これまでなら諦めていた／情シスに何か月も並んでいた依頼が、その日のうちに動く。</p>
+    </div>
+  </div>
+
+  <div style="display: grid; gap: 16px;">
+    <div class="request-card">
+      <div class="who-tag">経理担当 → AI</div>
+      <div class="request-q">「銀行明細のCSVを読み込んで、勘定科目を推定し、会計ソフト取込形式に変換するスクリプトを作って。」</div>
+      <div class="result">→ pandas で読み込み → ルールベースで科目推定 → 会計ソフト形式CSVを出力。月次10時間の手作業が、ボタン一つに。</div>
+    </div>
+    <div class="request-card">
+      <div class="who-tag">人事担当 → AI</div>
+      <div class="request-q">「全社員の有給取得状況Excelから、取得率が30%以下の人をリストアップし、本人と上司にリマインドメール文面を作って。」</div>
+      <div class="result">→ Excel読み込み → 条件抽出 → メール文面生成 → Outlook下書きへ自動投入。チェックして送信するだけ。</div>
+    </div>
+    <div class="request-card">
+      <div class="who-tag">営業担当 → AI</div>
+      <div class="request-q">「過去3年の見積データから、月別・顧客別の合計を出して、グラフを描いて。」</div>
+      <div class="result">→ CSV読み込み → ピボット集計 → matplotlib でグラフ生成 → PowerPoint貼り付け可能なPNGを出力。</div>
+    </div>
+    <div class="request-card">
+      <div class="who-tag">品質管理 → AI</div>
+      <div class="request-q">「検査機の出力する独自フォーマットのログファイルから、規格外の値だけを抜き出して日次サマリーを作って。」</div>
+      <div class="result">→ ログをパース → 規格値と照合 → 規格外データの一覧と発生時刻、頻度を表とグラフで出力。</div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  情シスへの依頼を <em>"待つ" 時代</em> から、<br>
+  現場が <em>"作る" 時代</em> へ。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Caveat</div>
+    <div>
+      <h2>"民主化" の陰の落とし穴</h2>
+      <p class="sub">便利な反面、無制限に広がると組織として制御不能になる。「シャドーAI」「シャドーIT」を防ぐ仕組みが必要。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col right">
+      <div class="compare-tag">✓ Good</div>
+      <div class="compare-title">健全な内製の条件</div>
+      <ul class="compare-points">
+        <li>会社が承認したAI環境を使う</li>
+        <li>機密データを扱わない／マスキング</li>
+        <li>個人業務の自動化に留める</li>
+        <li>定期的に動作確認、エラー時の責任者を決める</li>
+      </ul>
+    </div>
+    <div class="compare-col left">
+      <div class="compare-tag">✗ Caution</div>
+      <div class="compare-title">注意すべき暴走</div>
+      <ul class="compare-points">
+        <li>顧客データを個人PCで処理</li>
+        <li>業務上重要なバッチ処理を担当者個人が運用</li>
+        <li>動作確認なしで本番運用</li>
+        <li>引き継ぎ・ドキュメントなしで属人化</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">ノーコード <span class="en">No-code</span></div>
+      <p class="jargon-plain">コードを書かず、画面操作だけでツールを作る方式。<span class="like">iPhoneのショートカット／Zapier／kintone のような世界。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ローコード <span class="en">Low-code</span></div>
+      <p class="jargon-plain">少しだけコードを書く程度で、ツールを作れる方式。<span class="like">"完全に職人に任せる" と "全部DIY" の間、半分くらい自分でやる感じ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">内製化 <span class="en">In-house Development</span></div>
+      <p class="jargon-plain">外注に頼まず、自分の会社／部署でツールを作ること。<span class="like">"レンタル業者を呼ぶ" のではなく、"自分たちでDIYする" 発想。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">シチズンデベロッパー <span class="en">Citizen Developer</span></div>
+      <p class="jargon-plain">非エンジニアが、自分の業務のために小さなツールを作る人。<span class="like">営業の人がExcelマクロを組むのと同じ感覚で、AIで業務ツールを作る人。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">開発の民主化</h3>
+      <p class="analogy-body">プログラミングを専門家から解放し、現場の人が自分でツールを作れる時代。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"プロカメラマンしか撮れなかった写真が、iPhoneで撮れる時代"</h3>
+      <p class="analogy-body">かつてはスタジオに頼んでいた写真も、いまは誰でも撮れる。<br>同じ波が、開発の領域にも来ている。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="auto-debug.html">
+      <span class="dir">← Prev ／ Coding 02</span>
+      <span class="nxt">自律デバッグ</span>
+    </a>
+    <a href="../index.html#session-8" class="right">
+      <span class="dir">Next ／ Session 08 →</span>
+      <span class="nxt">マルチエージェント</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第7回 ／ 実務への恩恵</footer>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG（検索拡張生成）とは — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .rag-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .rag-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px; align-items: center;
+  }
+  .rag-num {
+    background: var(--accent); color: var(--paper);
+    width: 64px; height: 64px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-weight: 900; font-size: 24px;
+  }
+  .rag-box {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 22px 28px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .rag-box.user { background: var(--bg-alt); }
+  .rag-box.ai { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .rag-box .label {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .rag-box.ai .label { color: oklch(0.7 0.10 35); }
+  .rag-box .content {
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.7;
+  }
+  .rag-arrow-down {
+    text-align: center; padding: 0 0 0 24px;
+    color: var(--accent); font-family: var(--serif);
+    font-size: 22px; font-weight: 100;
+  }
+
+  .docs-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  }
+  .doc-chip {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 14px 12px;
+    font-size: 15pt;
+    text-align: center;
+  }
+  .doc-chip.match { background: var(--accent-soft); border-color: var(--accent); }
+  .doc-chip strong { font-family: var(--serif); display: block; }
+  .doc-chip .meta {
+    font-family: var(--mono); font-size: 15pt; color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .openbook {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .ob-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+  }
+  .ob-card.no { background: var(--bg-alt); }
+  .ob-card.yes { background: var(--accent-soft); border-color: var(--accent); }
+  .ob-card h3 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; margin-bottom: 12px;
+  }
+  .ob-card .tag {
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted); letter-spacing: 0.14em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .ob-card.yes .tag { color: var(--accent); }
+  .ob-card p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-4">第4回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">RAG（検索拡張生成）</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Integration 02 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 04 ／ 社内データ連携</div>
+    <h1>RAG<br><em>AIに "カンペ" を持たせる仕組み。</em></h1>
+  </div>
+  <p class="hero-lede">
+    Retrieval-Augmented Generation。質問されたら、まず社内マニュアルを検索し、該当箇所をAIに読ませてから答えさせる。AIに「オープンブックテスト」を受けさせるイメージ。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIに、<em>"持ち込み可のテスト"</em> を受けさせる。<br>記憶ではなく、毎回マニュアルを参照させる。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>RAGの全体像 — 4ステップ</h2>
+      <p class="sub">ユーザーの質問に答える前に、必ず「検索」が挟まる。これがRAGの肝。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="rag-flow">
+      <div class="rag-step">
+        <div class="rag-num">1</div>
+        <div class="rag-box user">
+          <div class="label">User ／ 質問</div>
+          <div class="content">来月から産休に入ります。必要な手続きを教えて。</div>
+        </div>
+      </div>
+      <div class="rag-arrow-down">↓ 検索クエリに変換</div>
+      <div class="rag-step">
+        <div class="rag-num">2</div>
+        <div class="rag-box">
+          <div class="label">Retrieve ／ 社内ナレッジから検索</div>
+          <div class="docs-grid">
+            <div class="doc-chip match"><strong>就業規則</strong><div class="meta">産休/育休 §42</div></div>
+            <div class="doc-chip match"><strong>申請ガイド</strong><div class="meta">人事フォーム集</div></div>
+            <div class="doc-chip"><strong>会社案内</strong><div class="meta">PR資料</div></div>
+            <div class="doc-chip"><strong>経費規程</strong><div class="meta">出張・接待</div></div>
+            <div class="doc-chip"><strong>給与規程</strong><div class="meta">賃金体系</div></div>
+            <div class="doc-chip match"><strong>福利厚生</strong><div class="meta">育児支援</div></div>
+            <div class="doc-chip"><strong>営業マニュアル</strong><div class="meta">提案手順</div></div>
+            <div class="doc-chip"><strong>セキュリティ</strong><div class="meta">情報取扱規定</div></div>
+          </div>
+          <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 12px;">関連度の高い文書（黄色）を抽出。</p>
+        </div>
+      </div>
+      <div class="rag-arrow-down">↓ 該当箇所を抽出してプロンプトに添付</div>
+      <div class="rag-step">
+        <div class="rag-num">3</div>
+        <div class="rag-box">
+          <div class="label">Augment ／ プロンプトに知識を注入</div>
+          <div class="content" style="font-family: var(--mono); font-size: 15pt; line-height: 1.85;">
+            [指示] 以下のドキュメントだけを参照して、質問に答えなさい。<br>
+            [ドキュメント] 就業規則§42（産休）...／申請ガイド第3章...／福利厚生ガイド...<br>
+            [質問] 来月から産休に入ります。必要な手続きを教えて。
+          </div>
+        </div>
+      </div>
+      <div class="rag-arrow-down">↓ LLMが文脈を踏まえて回答</div>
+      <div class="rag-step">
+        <div class="rag-num">4</div>
+        <div class="rag-box ai">
+          <div class="label">Generate ／ 出典付きで回答</div>
+          <div class="content">当社の就業規則第42条に基づき、以下の手続きが必要です。<br>1. 産前休業届の提出（人事ポータル「申請フォーム集 §3.1」）<br>2. 出産予定証明書の添付<br>3. 直属上長への連絡<br><br><span style="color: oklch(0.78 0.10 35); font-size: 15pt;">出典：就業規則第42条 ／ 申請ガイド 第3章 ／ 福利厚生ガイド 2024年版</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>"オープンブックテスト" のメタファー</h2>
+      <p class="sub">RAGの本質は、AIに「記憶」させるのではなく「参照」させること。受験で言えば、暗記テストではなく、教科書持ち込み可のテスト。</p>
+    </div>
+  </div>
+
+  <div class="openbook">
+    <div class="ob-card no">
+      <div class="tag">Without RAG</div>
+      <h3>記憶頼りのテスト</h3>
+      <p>AIは学習時の "おぼろげな記憶" で答える。社内独自の情報は知らない／古い／間違える。ハルシネーション多発。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--ink-soft); margin-top: 12px;">「うちの規定は...たしか○○だったような...」</p>
+    </div>
+    <div class="ob-card yes">
+      <div class="tag">With RAG</div>
+      <h3>持ち込み可のテスト</h3>
+      <p>毎回マニュアルを開いて該当箇所を確認しながら答える。出典まで明示できるので、人間が検証もしやすい。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent); margin-top: 12px;">「§42 にこう書いてあります」</p>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AIに <em>"丸暗記" を求めない</em>。<br>
+  必要なときに、必要な情報を渡せばいい。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Use cases</div>
+    <div>
+      <h2>業務での活用パターン</h2>
+      <p class="sub">RAGは「自社固有の情報を扱う仕事」全てに適用できる。属人化していたナレッジが、AI経由で全員に開放される。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>社内ヘルプデスクボット</h3>
+        <p>就業規則、申請手続き、福利厚生、ITサポート手順… 人事・総務・情シスへの問い合わせ対応をAIが一次受け。24時間応答、出典付き。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>製品マニュアルQAボット</h3>
+        <p>顧客向け／社内営業向けに、製品仕様・トラブルシュートを即答。カスタマーサポートの一次対応や、新入社員の学習補助に。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>過去案件の検索</h3>
+        <p>過去の提案書・契約書・議事録から「類似案件はあったか」「あの取引先との過去の論点は」を引き出す。営業・法務の暗黙知を可視化。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>規格・法令の参照</h3>
+        <p>JIS規格、業界基準、法令データベースを参照しながら回答。第9回で扱う「仕様書受領 → 受注可否判定」フローの中核技術。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">RAG <span class="en">Retrieval-Augmented Generation</span></div>
+      <p class="jargon-plain">AIが答える前に、社内マニュアルから「該当箇所」を探してきて参照させる仕組み。<span class="like">"カンペを持たせて答えさせる" 仕組みと覚えればよい。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ベクトル化／埋め込み <span class="en">Embedding</span></div>
+      <p class="jargon-plain">文章を「数字の列」に変換すること。意味が近い文章ほど、数字の値も近くなる。<span class="like">本を住所付き番地に並べ替える作業。"似た本は近くの本棚に" 並べておくイメージ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ベクトルデータベース <span class="en">Vector Database</span></div>
+      <p class="jargon-plain">ベクトル化された文章を高速で検索できる、専用の保管庫。<span class="like">社内Wikiの中身を意味で探せる、新しい形の検索インデックス。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">セマンティック検索 <span class="en">Semantic Search</span></div>
+      <p class="jargon-plain">"単語の一致" ではなく "意味の近さ" で検索する技術。<span class="like">"育休取りたい" で「産前産後休業」のマニュアルが出てくる。キーワードが一致しなくても見つかる。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">出典付き回答 <span class="en">Citation</span></div>
+      <p class="jargon-plain">AIの答えに「どの文書のどこを参照したか」を併記すること。RAGの利点。<span class="like">上長への報告書に "出典：人事規程§42" と書く、あの感覚。人間が検証しやすくなる。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">RAG ／ 検索拡張生成</h3>
+      <p class="analogy-body">都度マニュアルを参照しながら回答するAI。記憶頼りの暗記テストの逆。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">持ち込み可の "オープンブックテスト"</h3>
+      <p class="analogy-body">AIに丸暗記させる必要はない。<br>毎回マニュアルを開いて該当ページを見せれば、正確に答えられる。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="llm-limit.html">
+      <span class="dir">← Prev ／ Integration 01</span>
+      <span class="nxt">汎用LLMの限界</span>
+    </a>
+    <a href="security.html" class="right">
+      <span class="dir">Next ／ Integration 03 →</span>
+      <span class="nxt">セキュリティとローカル環境</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第4回 ／ RAG（検索拡張生成）</footer>
+</body>
+</html>

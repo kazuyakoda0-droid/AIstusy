@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社内ナレッジ共有の未来 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .before-after-org {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .org-card {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .org-card.before { background: var(--bg-alt); }
+  .org-card.after { background: var(--accent-soft); border-color: var(--accent); }
+  .org-card h3 { font-family: var(--serif); font-weight: 800; font-size: 22px; line-height: 1.3; }
+  .org-card .tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .org-card.after .tag { color: var(--accent); }
+  .org-diagram {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+    margin-top: 8px;
+  }
+  .org-person {
+    aspect-ratio: 1;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--ink-soft);
+  }
+  .org-person.expert {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+  }
+  .org-person.junior { background: var(--paper); }
+  .org-arrow {
+    text-align: center; padding-top: 8px;
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted);
+  }
+  .org-card.after .org-person {
+    background: var(--paper); color: var(--ink);
+  }
+  .org-ai {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--serif); font-size: 15pt;
+  }
+  .org-ai-icon {
+    width: 28px; height: 28px;
+    background: oklch(0.78 0.10 35); color: var(--ink);
+    display: grid; place-items: center;
+    font-family: var(--serif); font-weight: 900;
+    font-size: 15pt;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-4">第4回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">社内ナレッジ共有の未来</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Integration 04 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 04 ／ 組織変革</div>
+    <h1>社内ナレッジ共有の未来<br><em>"あの人に聞かないと" を、なくす。</em></h1>
+  </div>
+  <p class="hero-lede">
+    属人化したベテランのノウハウ、過去案件の暗黙知、新人が知りたい "聞きづらいこと"。RAG ボットを介して、全員が24時間引き出せる環境へ。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- Veteran head with knowledge inside, transferring to DB -->
+      <g transform="translate(50 50)">
+        <text x="80" y="0" class="ill-text" text-anchor="middle">VETERAN / ベテラン</text>
+        <!-- head silhouette -->
+        <ellipse cx="80" cy="80" rx="50" ry="60" fill="var(--bg-alt)" stroke="var(--hair-strong)" stroke-width="1.5"/>
+        <!-- knowledge dots inside -->
+        <circle cx="60" cy="60" r="3" class="ill-dot"/>
+        <circle cx="90" cy="55" r="3" class="ill-dot"/>
+        <circle cx="75" cy="80" r="3" class="ill-dot"/>
+        <circle cx="100" cy="85" r="3" class="ill-dot"/>
+        <circle cx="55" cy="95" r="3" class="ill-dot"/>
+        <circle cx="85" cy="105" r="3" class="ill-dot"/>
+        <circle cx="70" cy="120" r="3" class="ill-dot"/>
+        <text x="80" y="170" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">暗黙知 / 属人化</text>
+      </g>
+
+      <!-- Arrow with extraction -->
+      <g transform="translate(220 110)">
+        <path d="M 0 30 L 160 30" class="ill-accent-fat ill-dash"/>
+        <polygon points="160,25 170,30 160,35" class="ill-dot"/>
+        <text x="85" y="15" class="ill-text-accent" text-anchor="middle">AI構造化</text>
+        <text x="85" y="55" class="ill-text" text-anchor="middle">EXTRACT / 形式知化</text>
+      </g>
+
+      <!-- Database / shared knowledge -->
+      <g transform="translate(440 50)">
+        <text x="160" y="0" class="ill-text-accent" text-anchor="middle">COMPANY KNOWLEDGE</text>
+        <!-- Database shape -->
+        <g fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5">
+          <ellipse cx="160" cy="35" rx="80" ry="14"/>
+          <path d="M 80 35 L 80 130 Q 80 144 160 144 Q 240 144 240 130 L 240 35"/>
+          <ellipse cx="160" cy="35" rx="80" ry="14" fill="var(--accent)"/>
+          <line x1="80" y1="65" x2="240" y2="65"/>
+          <line x1="80" y1="95" x2="240" y2="95"/>
+          <ellipse cx="160" cy="65" rx="80" ry="14" fill="none"/>
+          <ellipse cx="160" cy="95" rx="80" ry="14" fill="none"/>
+        </g>
+        <text x="160" y="170" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px;">全社員がアクセス可</text>
+        <!-- arrows to many people -->
+        <g stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 3" fill="none">
+          <line x1="100" y1="160" x2="60" y2="200"/>
+          <line x1="140" y1="160" x2="130" y2="200"/>
+          <line x1="180" y1="160" x2="190" y2="200"/>
+          <line x1="220" y1="160" x2="260" y2="200"/>
+        </g>
+        <g transform="translate(40 200)">
+          <circle cx="20" cy="10" r="6" class="ill-dot"/>
+          <circle cx="90" cy="10" r="6" class="ill-dot"/>
+          <circle cx="150" cy="10" r="6" class="ill-dot"/>
+          <circle cx="220" cy="10" r="6" class="ill-dot"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">ベテランの頭の中を、<em>組織の共有資産</em>に変える。<br>退職・異動で消えていた知が、残る。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>Before / After — 知の流れ方</h2>
+      <p class="sub">これまでの組織は、知が「特定の人」に溜まっていた。AIナレッジ基盤があると、知は中央に集まり、誰でも取り出せる。</p>
+    </div>
+  </div>
+
+  <div class="before-after-org">
+    <div class="org-card before">
+      <div class="tag">Before</div>
+      <h3>属人化した組織</h3>
+      <p style="font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">「あの件は田中さんに聞いて」「ベテランの山本さんしか知らない」。質問は人に集中、本人不在で業務が停まる。退職・異動で知が失われる。</p>
+      <div class="org-diagram">
+        <div class="org-person junior">新人</div>
+        <div class="org-arrow">→</div>
+        <div class="org-person expert">田中</div>
+        <div class="org-arrow">←</div>
+        <div class="org-person junior">新人</div>
+        <div class="org-person junior">中堅</div>
+        <div class="org-arrow">→</div>
+        <div class="org-person expert">山本</div>
+        <div class="org-arrow">←</div>
+        <div class="org-person junior">新人</div>
+      </div>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--ink-soft); margin-top: 8px;">知はベテラン個人の頭の中</p>
+    </div>
+    <div class="org-card after">
+      <div class="tag">After</div>
+      <h3>ナレッジ中心の組織</h3>
+      <p style="font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">ベテランの知（議事録・メモ・対応履歴）が中央のナレッジベースに蓄積され、AIがそれを参照して全員に開放する。本人不在でも仕事は止まらない。</p>
+      <div class="org-diagram">
+        <div class="org-person">新人</div>
+        <div class="org-person">中堅</div>
+        <div class="org-person">新人</div>
+        <div class="org-person">新人</div>
+        <div class="org-person">中堅</div>
+      </div>
+      <div class="org-ai">
+        <div class="org-ai-icon">AI</div>
+        <span>社内ナレッジボット（RAG）<br><span style="font-family: var(--mono); font-size: 15pt; color: oklch(0.7 0.10 35);">就業規則 / 過去案件 / FAQ / 議事録 / 対応履歴</span></span>
+      </div>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent); margin-top: 4px;">知は組織の共有資産に</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Use cases</div>
+    <div>
+      <h2>"あの人に聞かないと" を、こう解消する</h2>
+      <p class="sub">部署ごとに、属人化していた知を切り出してナレッジ化する。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>営業：過去案件の引き継ぎ知</h3>
+        <p>「○○社、過去5年で何を提案した？」「あの顧客の決裁者は誰だった？」「失注した時の理由は？」 過去の提案書・議事録・対応履歴を全部ナレッジ化し、新任担当者が即時キャッチアップ。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>技術部門：トラブル対応事例</h3>
+        <p>「この症状、過去にあった？」「○○エラーの最終的な原因は？」 不具合対応記録、解決履歴をRAG化。新人エンジニアが先輩を呼ばずに自力で初動できる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>人事・総務：聞きづらい質問</h3>
+        <p>「育休、本当はどこまで延ばせる？」「経費の按分は？」 規則そのものはあるが読みづらい／聞きづらい情報を、対話形式で引き出せる。問い合わせ件数の劇的な削減も。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <h3>製造・品質：ベテランの判断軸</h3>
+        <p>「この検査値、不良の閾値はどこ？」「過去の同様事象は何が原因だった？」 ベテラン技術者が引退する前に、判断の根拠と過去事例を文書化してナレッジ化。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  個人の知を、<em>組織の知に変換する</em>仕組み。<br>
+  これが、組織のAI化の本丸の一つ。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Caveat</div>
+    <div>
+      <h2>導入時の落とし穴</h2>
+      <p class="sub">RAGボットを作ることが目的化しがち。本当に難しいのは "良いナレッジを揃え続けること"。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col right">
+      <div class="compare-tag">✓ Key</div>
+      <div class="compare-title">うまくいくケース</div>
+      <ul class="compare-points">
+        <li>ナレッジの「鮮度」を更新する仕組みがある</li>
+        <li>「答えられなかった質問」をログ化、追加する</li>
+        <li>ベテラン本人が知の整理に巻き込まれている</li>
+        <li>「出典がない回答は信用しない」文化が根付く</li>
+      </ul>
+    </div>
+    <div class="compare-col left">
+      <div class="compare-tag">✗ Pitfall</div>
+      <div class="compare-title">陥りがちな失敗</div>
+      <ul class="compare-points">
+        <li>古いドキュメントを入れたまま放置 → 嘘を返す</li>
+        <li>整理されていない文書を大量投入 → 検索精度が低い</li>
+        <li>「AIに任せたから安心」→ ベテランが文書化を怠る</li>
+        <li>ガバナンス不在で、機密情報まで混入</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">属人化 <span class="en">Tribal Knowledge</span></div>
+      <p class="jargon-plain">"あの人に聞かないと分からない" 状態。退職で消える。<span class="like">40年のベテランの頭の中にしかない、製造ノウハウ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ナレッジマネジメント <span class="en">Knowledge Management</span></div>
+      <p class="jargon-plain">社内の知識を共有資産にしておく取り組み。<span class="like">個人のWordファイルやメモ → 全社で検索できる仕組みへ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">形式知／暗黙知 <span class="en">Explicit / Tacit Knowledge</span></div>
+      <p class="jargon-plain">マニュアル化されているか／頭の中にしかないかの違い。AIは "暗黙知" の言語化を助ける。<span class="like">ベテランへのインタビューをAIが構造化し、マニュアル化する。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">セマンティック検索 <span class="en">Semantic Search</span></div>
+      <p class="jargon-plain">意味で探せる検索。"出張のお金" → "旅費規程" のように、言い回しが違っても見つかる。<span class="like">ベテランに "あれってどうやるんでしたっけ" と聞くのに近い感覚。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">社内ナレッジのAI化</h3>
+      <p class="analogy-body">個人の頭の中の知識を、組織の検索可能な資産に変えること。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"24時間営業の、社内案内係"</h3>
+      <p class="analogy-body">ベテランの代わりに、社内文書を読み込んだAIが、誰の質問にもいつでも答える。<br>聞きにくかった "今さら聞けない質問" のハードルも下がる。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="security.html">
+      <span class="dir">← Prev ／ Integration 03</span>
+      <span class="nxt">セキュリティとローカル環境</span>
+    </a>
+    <a href="../index.html#session-5" class="right">
+      <span class="dir">Next ／ Session 05 →</span>
+      <span class="nxt">業務ワークフローの自動化</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第4回 ／ 社内ナレッジ共有の未来</footer>
+</body>
+</html>

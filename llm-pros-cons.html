@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汎用LLMの限界 — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .know-circles {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .know-card {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .know-card.no { background: var(--bg-alt); }
+  .know-card.maybe { background: oklch(0.95 0.05 80); }
+  .know-card.yes { background: var(--accent-soft); }
+  .know-circle {
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-weight: 900; font-size: 28px;
+    color: var(--paper);
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .know-card.no .know-circle { background: oklch(0.6 0.06 30); }
+  .know-card.maybe .know-circle { background: oklch(0.55 0.10 70); }
+  .know-card h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.4; }
+  .know-card p { font-size: 15pt; line-height: 1.75; color: var(--ink-soft); }
+  .know-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .timeline-bar {
+    height: 60px;
+    background: linear-gradient(90deg,
+      var(--bg-alt) 0%,
+      var(--bg-alt) 60%,
+      oklch(0.78 0.10 35 / 0.4) 60%,
+      oklch(0.78 0.10 35 / 0.4) 75%,
+      oklch(0.6 0.10 30 / 0.5) 75%,
+      oklch(0.6 0.10 30 / 0.5) 100%);
+    border: 1px solid var(--hair);
+    position: relative;
+    margin: 24px 0;
+  }
+  .timeline-bar::before {
+    content: "学習済み（〜2024年4月など）";
+    position: absolute;
+    left: 16px; top: 50%; transform: translateY(-50%);
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--ink);
+  }
+  .timeline-bar::after {
+    content: "↑ Knowledge cutoff";
+    position: absolute; left: 60%; top: -22px;
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .timeline-label {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-4">第4回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">汎用LLMの限界</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Integration 01 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 04 ／ 社内データ連携</div>
+    <h1>汎用LLMの限界<br><em>"あなたの会社のこと" は、知らない。</em></h1>
+  </div>
+  <p class="hero-lede">
+    ChatGPTは賢い。でも「うちの出張規定は？」「あの顧客の過去案件は？」には答えられない。社内固有の情報・最新情報を扱う仕組みが必要になる。
+  </p>
+</header>
+
+<section class="hero-illust">
+  <div class="label">Concept</div>
+  <div class="frame"><svg viewBox="0 0 800 280">
+      <!-- World knowledge bubble -->
+      <circle cx="280" cy="140" r="110" class="ill-warm"/>
+      <text x="280" y="100" class="ill-text-accent" text-anchor="middle">WORLD KNOWLEDGE</text>
+      <text x="280" y="145" class="ill-text-soft" text-anchor="middle" style="font-family: var(--serif); font-size: 14px;">一般常識 / 公開情報</text>
+      <text x="280" y="175" class="ill-text-soft" text-anchor="middle" style="font-family: var(--mono); font-size: 11px; fill: var(--muted);">学習時点まで</text>
+
+      <!-- Gap -->
+      <text x="450" y="80" class="ill-text" text-anchor="middle">GAP</text>
+      <g stroke="oklch(0.6 0.14 30)" stroke-width="1.5" fill="none">
+        <line x1="430" y1="100" x2="500" y2="180"/>
+        <line x1="500" y1="100" x2="430" y2="180"/>
+      </g>
+
+      <!-- Company-specific knowledge -->
+      <rect x="540" y="40" width="220" height="200" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <text x="650" y="35" class="ill-text" text-anchor="middle">YOUR COMPANY</text>
+      <g font-family="var(--serif)" font-size="13" fill="var(--ink)">
+        <circle cx="560" cy="80" r="3" class="ill-dot"/><text x="572" y="84">出張規程</text>
+        <circle cx="560" cy="110" r="3" class="ill-dot"/><text x="572" y="114">顧客リスト</text>
+        <circle cx="560" cy="140" r="3" class="ill-dot"/><text x="572" y="144">製品仕様書</text>
+        <circle cx="560" cy="170" r="3" class="ill-dot"/><text x="572" y="174">社内マニュアル</text>
+        <circle cx="560" cy="200" r="3" class="ill-dot"/><text x="572" y="204">過去の案件履歴</text>
+        <circle cx="560" cy="230" r="3" class="ill-dot"/><text x="572" y="234">機密情報</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">優秀な家庭教師でも、<em>"あなたの家のルール"</em> は知らない。<br>知らないことを、まことしやかに語ることもある。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>LLMが答えられる範囲 — 3つのゾーン</h2>
+      <p class="sub">同じ質問でも、LLMが答えられるかどうかは「どこの情報を聞いているか」で決まる。3つに分けて整理する。</p>
+    </div>
+  </div>
+
+  <div class="know-circles">
+    <div class="know-card yes">
+      <div class="know-tag">Zone A ／ 答えられる</div>
+      <div class="know-circle">○</div>
+      <h3>公開・一般知識</h3>
+      <p>歴史、科学、プログラミングの一般論、有名な企業のニュース（カットオフ前）。学習データに含まれるもの。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent); margin-top: 8px;">例：「VLOOKUP の使い方」</p>
+    </div>
+    <div class="know-card maybe">
+      <div class="know-tag">Zone B ／ あぶない</div>
+      <div class="know-circle">△</div>
+      <h3>最新情報・専門領域</h3>
+      <p>カットオフ後のニュース、最新の法改正、ニッチな専門分野。曖昧・古い・誤った情報を返すことがある。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: oklch(0.55 0.10 70); margin-top: 8px;">例：「今年4月の税制改正」</p>
+    </div>
+    <div class="know-card no">
+      <div class="know-tag">Zone C ／ 答えられない</div>
+      <div class="know-circle">×</div>
+      <h3>社内固有・機密情報</h3>
+      <p>自社の規程、製品仕様、顧客データ、過去案件。LLM単体では絶対に知らない。聞くとハルシネーションを起こす。</p>
+      <p style="font-family: var(--mono); font-size: 15pt; color: oklch(0.6 0.06 30); margin-top: 8px;">例：「うちの出張規程は？」</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Diagram 02</div>
+    <div>
+      <h2>Knowledge Cutoff — "ある時点で時計が止まっている"</h2>
+      <p class="sub">LLMは学習が完了した時点までの情報しか持たない。それ以降のニュース、新製品、最新の規程改定は知らない。これが「最新情報に弱い」理由。</p>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="timeline-label">
+      <span>過去 ──────</span>
+      <span>──── 未来</span>
+    </div>
+    <div class="timeline-bar"></div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px;">
+      <div style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7;">
+        <strong style="color: var(--ink);">過去 〜 カットオフ</strong><br>
+        LLMが学習したデータ。一般知識、定番ニュース、公開情報。
+      </div>
+      <div style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7;">
+        <strong style="color: oklch(0.55 0.10 70);">カットオフ後 〜 現在</strong><br>
+        LLMは知らない。聞くと "それっぽい答え" を作って返してくる。
+      </div>
+      <div style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7;">
+        <strong style="color: oklch(0.6 0.06 30);">社内・機密情報</strong><br>
+        いつの時点でも、LLM単体は永遠に知らない。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  汎用LLMは「世界中の一般知識」を知っているが、<br>
+  <em>「あなたの仕事」を知らない</em>。
+</section>
+
+<section class="section" style="padding-top: 32px;">
+  <div class="section-head">
+    <div class="label">Solution</div>
+    <div>
+      <h2>解決策 — "外部の知識を渡す" 仕組み</h2>
+      <p class="sub">この限界は、LLMを再学習させずに、必要な情報を毎回プロンプトに付け加える仕組みで解決できる。それが <a href="rag.html" style="color: var(--accent); border-bottom: 1px solid var(--accent);">RAG（検索拡張生成）</a> や Tool Use（ツール利用）。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>社内固有情報には、RAG</h3>
+        <p>社内マニュアル、規程集、過去のFAQをデータベース化し、質問に応じて関連部分を検索 → LLMに渡す。「うちの出張規程は？」に正確に答えられるようになる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>最新情報には、Web検索ツール</h3>
+        <p>「最新のニュース」「今日の天気」「最新の法改正」など、リアルタイム情報は、AIにWeb検索をさせて取得 → 引用付きで回答させる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>計算・データ参照には、専用ツール</h3>
+        <p>計算機、社内データベース、CRMなどを「道具」としてAIに使わせる（Tool Use）。これが第6回で扱うAIエージェントの基礎になる。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">知識カットオフ <span class="en">Knowledge Cutoff</span></div>
+      <p class="jargon-plain">AIの学習が止まった時点。それ以降の情報は素のままでは知らない。<span class="like">"先月までの新聞を全部読んで止まった人"。今週の出来事は答えられない。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ドメイン知識 <span class="en">Domain Knowledge</span></div>
+      <p class="jargon-plain">ある業界・会社特有の専門知識のこと。<span class="like">うちの会社の出張規程・JIS規格・社内用語など、外に出ていない情報。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">一般化された知識 <span class="en">Generic Knowledge</span></div>
+      <p class="jargon-plain">誰でも知っていそうな、世間一般の情報。<span class="like">"小麦粉の薄力粉と強力粉の違い" は知っていても、"うちの調達ルート" は知らない。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ハルシネーション <span class="en">Hallucination</span></div>
+      <p class="jargon-plain">AIがもっともらしい嘘をつくこと。社内固有のことを聞くと特に起きやすい。<span class="like">"たしかそんな規定があったような…" と新人がうろ覚えで答える、あの状態。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">汎用LLMの限界</h3>
+      <p class="analogy-body">一般情報には強いが、特定の組織・業界の事情には全くアクセスできない。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"博識だが入社1日目" の新人</h3>
+      <p class="analogy-body">世界中のことを知っているのに、御社のことは何ひとつ知らない。<br>"うちの規程ではどう？" と聞いても、勘で答えてしまう。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="../index.html#session-4">
+      <span class="dir">← Back</span>
+      <span class="nxt">第4回トップに戻る</span>
+    </a>
+    <a href="rag.html" class="right">
+      <span class="dir">Next ／ Integration 02 →</span>
+      <span class="nxt">RAG（検索拡張生成）とは</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第4回 ／ 汎用LLMの限界</footer>
+</body>
+</html>

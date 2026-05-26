@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>エージェント同士の議論プロトコル — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+<style>
+  .discuss-flow {
+    display: grid; gap: 16px;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 32px;
+  }
+  .df-step {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px; align-items: stretch;
+  }
+  .df-n {
+    background: var(--accent); color: var(--paper);
+    padding: 12px 14px;
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.1em;
+    text-align: center;
+    display: flex; flex-direction: column;
+    justify-content: center; gap: 4px;
+    text-transform: uppercase;
+  }
+  .df-n strong {
+    font-family: var(--serif); font-size: 20px;
+    font-weight: 800; letter-spacing: 0;
+  }
+  .df-body {
+    background: var(--bg-alt);
+    border: 1px solid var(--hair);
+    padding: 18px 22px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .df-h {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 18px; color: var(--ink);
+  }
+  .df-p { font-size: 15pt; color: var(--ink-soft); line-height: 1.8; }
+
+  .conv {
+    background: oklch(0.22 0.012 60);
+    color: oklch(0.92 0.008 70);
+    padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .conv-msg {
+    display: grid; grid-template-columns: 160px 1fr;
+    gap: 20px; align-items: start;
+  }
+  .conv-who {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.12em; color: oklch(0.7 0.10 35);
+    text-transform: uppercase;
+    padding-top: 6px;
+  }
+  .conv-bub {
+    background: oklch(0.28 0.012 60);
+    padding: 14px 18px;
+    border-left: 2px solid var(--accent);
+    font-family: var(--serif); font-size: 15pt;
+    line-height: 1.8;
+  }
+  .conv-msg.critic .conv-bub { border-left-color: oklch(0.65 0.14 60); }
+  .conv-msg.critic .conv-who { color: oklch(0.75 0.12 60); }
+  .conv-msg.final { margin-top: 8px; }
+  .conv-msg.final .conv-bub {
+    background: oklch(0.30 0.025 150);
+    border-left-color: oklch(0.65 0.12 150);
+  }
+  .conv-msg.final .conv-who { color: oklch(0.75 0.12 150); }
+
+  .protocols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .proto {
+    background: var(--paper); border: 1px solid var(--hair);
+    padding: 28px;
+  }
+  .proto-tag {
+    font-family: var(--mono); font-size: 15pt;
+    letter-spacing: 0.16em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .proto-h {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.4; margin-bottom: 12px;
+  }
+  .proto-p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .proto-when {
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px dashed var(--hair-strong);
+    font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-8">第8回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">エージェント同士の議論プロトコル</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Team 04 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 08 ／ エージェントチーム</div>
+    <h1>エージェント同士の<br>議論プロトコル<br><em>"合議" のフォーマット。</em></h1>
+  </div>
+  <p class="hero-lede">
+    複数のAIに合議させるには、ただ並べるだけでは足りない。意見表明 → 批判 → 修正 → 合意 — どの順番で、誰が発言し、いつ終わるかを決めるルールが必要。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">AIチームに <em>"議事ルール"</em> を渡す。<br>誰がいつ口を開き、誰が決を取るかを決めておく。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>議論プロトコルの基本フロー — 4ステップ</h2>
+      <p class="sub">AI同士が無秩序に会話すると、堂々巡りや延々と続くループに陥る。"ステップ＋上限回数" を設計に組み込む。</p>
+    </div>
+  </div>
+
+  <div class="discuss-flow">
+    <div class="df-step">
+      <div class="df-n"><strong>01</strong>Propose</div>
+      <div class="df-body">
+        <div class="df-h">意見表明 ／ 専門家が最初の案を提示</div>
+        <div class="df-p">指揮役からの依頼を受け、各専門家エージェントが「私の案」を提出する。並列で進める。</div>
+      </div>
+    </div>
+    <div class="df-step">
+      <div class="df-n"><strong>02</strong>Critique</div>
+      <div class="df-body">
+        <div class="df-h">批判 ／ 批評役が問題点・盲点を指摘</div>
+        <div class="df-p">「この案は〇〇のリスクがある」「別視点ではこう見える」と、批評エージェントが懐疑的に突っ込む。複数の批評役を置いてもよい。</div>
+      </div>
+    </div>
+    <div class="df-step">
+      <div class="df-n"><strong>03</strong>Revise</div>
+      <div class="df-body">
+        <div class="df-h">修正 ／ 提案者が批判を受けて改稿</div>
+        <div class="df-p">最初の専門家が、批判を踏まえて案を更新する。修正→批判のループを 1〜2 回まで許す（無制限にしない）。</div>
+      </div>
+    </div>
+    <div class="df-step">
+      <div class="df-n"><strong>04</strong>Synthesize</div>
+      <div class="df-body">
+        <div class="df-h">統合 ／ オーケストレーターが結論をまとめる</div>
+        <div class="df-p">最終案、残った論点、それぞれの根拠を、人間が判断できる形に整理して提示。"AI同士の議論" を 1 枚のレポートに圧縮する。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Case</div>
+    <div>
+      <h2>サンプル — "新規顧客の与信判断" を AI で合議させる</h2>
+      <p class="sub">実際にこのプロトコルが回ると、どんな対話が生まれるか。AIたちの議論は、後から人間が議事録のように読める。</p>
+    </div>
+  </div>
+
+  <div class="conv">
+    <div class="conv-msg">
+      <div class="conv-who">Agent A ／ 財務</div>
+      <div class="conv-bub">過去3年の財務指標は良好。流動比率も健全。<strong style="color: oklch(0.9 0.005 70);">→ 与信OK</strong>と判断します。</div>
+    </div>
+    <div class="conv-msg critic">
+      <div class="conv-who">Agent B ／ 批評</div>
+      <div class="conv-bub">ただし、その3年は業界全体の好況期と重なっています。景気減速時のレジリエンスは未検証では？</div>
+    </div>
+    <div class="conv-msg">
+      <div class="conv-who">Agent C ／ 営業履歴</div>
+      <div class="conv-bub">過去にうちの顧客で2社、同社グループから倒産案件あり。グループ全体の信用情報の確認が必要そうです。</div>
+    </div>
+    <div class="conv-msg critic">
+      <div class="conv-who">Agent B ／ 批評</div>
+      <div class="conv-bub">グループ会社の与信情報を取得した上で、再評価すべき。<strong style="color: oklch(0.9 0.005 70);">"条件付き承認"</strong> が妥当では？</div>
+    </div>
+    <div class="conv-msg final">
+      <div class="conv-who">Orchestrator</div>
+      <div class="conv-bub">3エージェントの議論を統合した結果、<strong style="color: oklch(0.95 0.05 70);">条件付き承認</strong>を推奨。条件は ① グループ会社の信用照会、② 与信限度額の段階引き上げ、の2点。人間の最終判断を仰ぐ。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Patterns</div>
+    <div>
+      <h2>議論プロトコルの代表的パターン</h2>
+      <p class="sub">問題の性質によって、使うフォーマットを変える。万能はない。</p>
+    </div>
+  </div>
+
+  <div class="protocols">
+    <div class="proto">
+      <div class="proto-tag">Pattern 01</div>
+      <div class="proto-h">Round Robin ／ 順番発言型</div>
+      <p class="proto-p">専門家が順番に意見を述べる。シンプルで予測しやすい。発言順による先行有利／不利が出るので、順番をランダムにすることもある。</p>
+      <div class="proto-when">向いている：構造的タスクの分担</div>
+    </div>
+    <div class="proto">
+      <div class="proto-tag">Pattern 02</div>
+      <div class="proto-h">Critic-in-the-Loop ／ 批評ループ型</div>
+      <p class="proto-p">提案 → 批判 → 修正、を 1〜2 回繰り返す。品質を上げるのに有効だが、ループ上限を必ず設定する（無限に続く危険）。</p>
+      <div class="proto-when">向いている：意思決定・文章レビュー</div>
+    </div>
+    <div class="proto">
+      <div class="proto-tag">Pattern 03</div>
+      <div class="proto-h">Debate ／ 賛否ディベート型</div>
+      <p class="proto-p">「賛成役」「反対役」を割り当て、それぞれが根拠を提示。第三のエージェントが審判として判定する。盲点が見つかりやすい。</p>
+      <div class="proto-when">向いている：曖昧な戦略判断</div>
+    </div>
+    <div class="proto">
+      <div class="proto-tag">Pattern 04</div>
+      <div class="proto-h">Voting ／ 投票合議型</div>
+      <p class="proto-p">複数のエージェントに独立に判断させ、多数決で結論を出す。"アンサンブル" 効果でハルシネーションが減る。</p>
+      <div class="proto-when">向いている：分類タスクの精度向上</div>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  AI同士の議論は <em>"会議のフォーマット"</em> 次第。<br>
+  ルールがなければ、知能を並べても賢くはならない。
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">議論プロトコル <span class="en">Discussion Protocol</span></div>
+      <p class="jargon-plain">AI同士に "合議" させるための手順書。誰が、いつ、何を言うかを規定する。<span class="like">会議の議事次第。"まず A 部長から、次に B 課長、最後に決を取る" のような流れ。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">Critic-in-the-Loop <span class="en">CITL</span></div>
+      <p class="jargon-plain">"批評役" を必ずプロセスに組み込むパターン。AIに自己批判させて品質を上げる手法。<span class="like">提案資料を上司レビューに通すフロー。出した瞬間にチェックが入る前提で書く。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">アンサンブル <span class="en">Ensemble</span></div>
+      <p class="jargon-plain">複数のAIに独立に判断させ、結果を統合する手法。多数決で精度が上がる。<span class="like">3人の医師に "セカンドオピニオン" を取って、過半数が同じ診断ならその答えを採用、という考え方。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ループ上限 <span class="en">Max Iterations</span></div>
+      <p class="jargon-plain">議論や修正の繰り返し回数の上限。これを設定しないと AI 同士が延々と話し続けてしまう。<span class="like">"最大2回までやり直し" の社内ルール。コスト管理と打ち切り判断のために必須。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">合意形成 <span class="en">Consensus</span></div>
+      <p class="jargon-plain">複数の異なる意見を持つAIが、最終的に1つの結論にまとめるプロセス。<span class="like">役員会の "合議"。全員一致じゃなくても、議論を経た上で判断が記録される。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ディベート <span class="en">Debate Protocol</span></div>
+      <p class="jargon-plain">2 体に "賛成" と "反対" を割り当てて議論させる手法。第三者が審判する。<span class="like">学校のディベート大会。立場を強制することで論点が明確になる。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">AI同士の議論も、人間の会議と仕組みは同じ。"良い会議のルール" を AI チームにも適用する。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">議論プロトコルの設計</h3>
+      <p class="analogy-body">複数AIの発言順・批判ループ回数・終了条件を定義した、合議プロセスの仕様。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">"司会のいる会議" の進行表</h3>
+      <p class="analogy-body">いつ意見を出すか、いつ反論タイムか、いつ決を取るか。<br>進行表のない会議が長引くのと同じく、AIにも進行設計を渡す必要がある。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="ai-board.html">
+      <span class="dir">← Prev ／ Team 03</span>
+      <span class="nxt">AIの壁打ち・ボードメンバー化</span>
+    </a>
+    <a href="../index.html#session-9" class="right">
+      <span class="dir">Next ／ Session 09 →</span>
+      <span class="nxt">業務プロセスの委譲</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第8回 ／ エージェント同士の議論プロトコル</footer>
+</body>
+</html>
