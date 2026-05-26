@@ -247,6 +247,41 @@
   }
   .rm-session:hover .rm-session-n { color: var(--accent); }
 
+  /* Scope stats row */
+  .rm-stats {
+    display: flex; gap: 64px;
+    padding: 28px 0 24px;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    margin: 32px 0 0;
+  }
+  .rm-stat-num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 44px; line-height: 1;
+    color: var(--ink);
+  }
+  .rm-stat-num em {
+    color: var(--accent); font-style: normal;
+  }
+  .rm-stat-lbl {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.18em; color: var(--muted);
+    margin-top: 10px; text-transform: uppercase;
+  }
+
+  /* Chapter card glyph */
+  .rm-glyph {
+    width: 48px; height: 48px;
+    margin-bottom: -4px;
+  }
+  .rm-glyph svg { width: 100%; height: 100%; overflow: visible; }
+  .rm-glyph .glyph-line {
+    fill: none; stroke: var(--accent);
+    stroke-width: 1.5; stroke-linecap: round;
+  }
+  .rm-glyph .glyph-dot { fill: var(--accent); }
+  .rm-glyph .glyph-dim { stroke: var(--hair-strong); opacity: 0.6; }
+
   /* ============== CHAPTER SECTION ============== */
   .chapter {
     border-top: 1px solid var(--hair-strong);
@@ -1177,8 +1212,8 @@
   /* Session timeline graphic (between roadmap header and grid) */
   .session-timeline {
     position: relative;
-    margin: 24px 0 48px;
-    padding: 20px 0;
+    margin: 24px 0 20px;
+    padding: 16px 0 12px;
     border-top: 1px dashed var(--hair-strong);
     border-bottom: 1px dashed var(--hair-strong);
   }
@@ -1191,13 +1226,13 @@
   }
   .session-timeline-inner::before {
     content: ""; position: absolute;
-    left: 4%; right: 4%; top: 50%;
+    left: 4%; right: 4%; top: calc(50% - 6px);
     height: 1px; background: var(--hair-strong);
     z-index: 0;
   }
   .session-timeline-inner::after {
     content: ""; position: absolute;
-    left: 4%; top: 50%;
+    left: 4%; top: calc(50% - 6px);
     height: 1px; background: var(--accent);
     width: 92%;
     z-index: 1;
@@ -1627,6 +1662,10 @@
     .roadmap-grid { grid-template-columns: 1fr; }
     .rm-chapter { padding: 20px 18px 22px; gap: 14px; }
     .rm-num { font-size: 11px; }
+    .rm-glyph { width: 36px; height: 36px; }
+    .rm-stats { gap: 28px; padding: 18px 0 16px; margin-top: 20px; flex-wrap: wrap; }
+    .rm-stat-num { font-size: 30px; }
+    .rm-stat-lbl { font-size: 10px; margin-top: 6px; }
     .rm-title {
       font-family: var(--serif); font-weight: 700;
       font-size: 17px; line-height: 1.4;
@@ -1815,7 +1854,6 @@
 <div class="scene-counter" id="sceneCounter">
   <div class="dot" data-scene="0"></div>
   <div class="dot" data-scene="1"></div>
-  <div class="dot" data-scene="2"></div>
 </div>
 
 <div class="cinema">
@@ -1956,118 +1994,6 @@
     </section>
   </div>
 
-  <!-- Scene 3: Roadmap reveal -->
-  <div class="scene-wrap tall-3" data-scene-idx="2">
-    <section class="scene scene-map">
-      <div class="inner">
-        <div class="head">
-          <div>
-            <div class="eyebrow">Roadmap</div>
-            <h2 style="font-size: 45px">4章 × 10回の
-研修ロードマップ</h2>
-          </div>
-          <p class="lede">
-            個人のAI活用から、社内データ連携、自律型エージェント、そしてエージェントチームによる組織変革まで。段階的にスコープを広げていきます。
-          </p>
-        </div>
-        <div class="stats">
-          <div class="stat"><div class="num"><em>04</em></div><div class="lbl">Chapters</div></div>
-          <div class="stat"><div class="num"><em>10</em></div><div class="lbl">Sessions</div></div>
-          <div class="stat"><div class="num"><em>30+</em></div><div class="lbl">Topics</div></div>
-          <div class="stat"><div class="num"><em>∞</em></div><div class="lbl">Use Cases</div></div>
-        </div>
-        <div class="map-cards" id="mapCards">
-          <div class="map-card" data-mc="0">
-            <div class="card-glyph">
-              <!-- Chapter 1: Foundation / nodes -->
-              <svg viewBox="0 0 56 56">
-                <circle cx="14" cy="14" r="3" class="glyph-dot"/>
-                <circle cx="42" cy="14" r="3" class="glyph-dot"/>
-                <circle cx="28" cy="28" r="4" class="glyph-dot"/>
-                <circle cx="14" cy="42" r="3" class="glyph-dot"/>
-                <circle cx="42" cy="42" r="3" class="glyph-dot"/>
-                <line x1="14" y1="14" x2="28" y2="28" class="glyph-line glyph-anim"/>
-                <line x1="42" y1="14" x2="28" y2="28" class="glyph-line glyph-anim"/>
-                <line x1="14" y1="42" x2="28" y2="28" class="glyph-line glyph-anim"/>
-                <line x1="42" y1="42" x2="28" y2="28" class="glyph-line glyph-anim"/>
-              </svg>
-            </div>
-            <div class="n">Chapter 01</div>
-            <div class="t">AI活用の基礎と<br>個人の業務効率化</div>
-            <div class="sessions">
-              <span>01 — AIの進化と最終ゴール</span>
-              <span>02 — LLMの仕組みとプロンプト</span>
-              <span>03 — 個人業務のAIハック</span>
-            </div>
-            <div class="bar"></div>
-          </div>
-          <div class="map-card" data-mc="1" style="font-size: 18px">
-            <div class="card-glyph">
-              <!-- Chapter 2: Integration / overlapping rings -->
-              <svg viewBox="0 0 56 56">
-                <circle cx="20" cy="28" r="12" class="glyph-line glyph-anim" fill="none"/>
-                <circle cx="36" cy="28" r="12" class="glyph-line glyph-anim" fill="none"/>
-                <circle cx="28" cy="28" r="3" class="glyph-dot"/>
-                <line x1="6" y1="28" x2="2" y2="28" class="glyph-line glyph-dim"/>
-                <line x1="54" y1="28" x2="50" y2="28" class="glyph-line glyph-dim"/>
-              </svg>
-            </div>
-            <div class="n" style="font-size: 12px">Chapter 02</div>
-            <div class="t" style="font-size: 16px">自社データ・
-社内システムとの連携</div>
-            <div class="sessions">
-              <span style="font-size: 12px">04 — 社内知識とRAGの基礎</span>
-              <span style="font-size: 12px">05 — 業務ワークフローの自動化</span>
-            </div>
-            <div class="bar"></div>
-          </div>
-          <div class="map-card" data-mc="2">
-            <div class="card-glyph">
-              <!-- Chapter 3: Autonomy / arrow loop -->
-              <svg viewBox="0 0 56 56">
-                <path d="M 12 18 Q 28 4 44 18 Q 50 28 44 38 Q 28 52 12 38 Q 6 28 12 18 Z"
-                  class="glyph-line glyph-anim" stroke-dasharray="4 3"/>
-                <circle cx="28" cy="28" r="4" class="glyph-dot"/>
-                <polygon points="44,16 50,18 46,22" class="glyph-dot"/>
-              </svg>
-            </div>
-            <div class="n">Chapter 03</div>
-            <div class="t">自律型AIと<br>開発の民主化</div>
-            <div class="sessions">
-              <span>06 — AIエージェントの仕組み</span>
-              <span>07 — コーディングエージェント</span>
-            </div>
-            <div class="bar"></div>
-          </div>
-          <div class="map-card" data-mc="3">
-            <div class="card-glyph">
-              <!-- Chapter 4: Team / multi-agent constellation -->
-              <svg viewBox="0 0 56 56">
-                <circle cx="28" cy="10" r="3" class="glyph-dot"/>
-                <circle cx="10" cy="36" r="3" class="glyph-dot"/>
-                <circle cx="46" cy="36" r="3" class="glyph-dot"/>
-                <circle cx="28" cy="46" r="3" class="glyph-dot"/>
-                <circle cx="28" cy="28" r="5" class="glyph-line glyph-anim" fill="none"/>
-                <line x1="28" y1="10" x2="28" y2="23" class="glyph-line glyph-anim"/>
-                <line x1="10" y1="36" x2="23" y2="30" class="glyph-line glyph-anim"/>
-                <line x1="46" y1="36" x2="33" y2="30" class="glyph-line glyph-anim"/>
-                <line x1="28" y1="46" x2="28" y2="33" class="glyph-line glyph-anim"/>
-              </svg>
-            </div>
-            <div class="n">Chapter 04</div>
-            <div class="t">エージェントチームによる<br>組織変革と未来</div>
-            <div class="sessions">
-              <span>08 — エージェントチームの構築</span>
-              <span>09 — 業務プロセスの委譲</span>
-              <span>10 — ガバナンスとAIディレクター</span>
-            </div>
-            <div class="bar"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
 </div>
 <!-- ================= /CINEMATIC INTRO ================= -->
 
@@ -2081,6 +2007,14 @@
     <p class="section-lede">
       個人のAI活用から始まり、社内データとの連携、自律型エージェント、そしてエージェントチームによる組織変革まで。段階的にスコープを広げる構成です。
     </p>
+  </div>
+
+  <!-- Scope stats -->
+  <div class="rm-stats reveal">
+    <div class="rm-stat"><div class="rm-stat-num"><em>04</em></div><div class="rm-stat-lbl">Chapters</div></div>
+    <div class="rm-stat"><div class="rm-stat-num"><em>10</em></div><div class="rm-stat-lbl">Sessions</div></div>
+    <div class="rm-stat"><div class="rm-stat-num"><em>30+</em></div><div class="rm-stat-lbl">Topics</div></div>
+    <div class="rm-stat"><div class="rm-stat-num"><em>∞</em></div><div class="rm-stat-lbl">Use Cases</div></div>
   </div>
 
   <!-- Session Timeline -->
@@ -2101,6 +2035,19 @@
 
   <div class="roadmap-grid reveal-stagger">
     <div class="rm-chapter">
+      <div class="rm-glyph" aria-hidden="true">
+        <svg viewBox="0 0 56 56">
+          <circle cx="14" cy="14" r="3" class="glyph-dot"/>
+          <circle cx="42" cy="14" r="3" class="glyph-dot"/>
+          <circle cx="28" cy="28" r="4" class="glyph-dot"/>
+          <circle cx="14" cy="42" r="3" class="glyph-dot"/>
+          <circle cx="42" cy="42" r="3" class="glyph-dot"/>
+          <line x1="14" y1="14" x2="28" y2="28" class="glyph-line"/>
+          <line x1="42" y1="14" x2="28" y2="28" class="glyph-line"/>
+          <line x1="14" y1="42" x2="28" y2="28" class="glyph-line"/>
+          <line x1="42" y1="42" x2="28" y2="28" class="glyph-line"/>
+        </svg>
+      </div>
       <div class="rm-num">Chapter 01</div>
       <div class="rm-title">AI活用の基礎と<br>個人の業務効率化</div>
       <div class="rm-sessions">
@@ -2110,15 +2057,30 @@
       </div>
     </div>
     <div class="rm-chapter">
+      <div class="rm-glyph" aria-hidden="true">
+        <svg viewBox="0 0 56 56">
+          <circle cx="20" cy="28" r="12" class="glyph-line" fill="none"/>
+          <circle cx="36" cy="28" r="12" class="glyph-line" fill="none"/>
+          <circle cx="28" cy="28" r="3" class="glyph-dot"/>
+          <line x1="6" y1="28" x2="2" y2="28" class="glyph-line glyph-dim"/>
+          <line x1="54" y1="28" x2="50" y2="28" class="glyph-line glyph-dim"/>
+        </svg>
+      </div>
       <div class="rm-num">Chapter 02</div>
-      <div class="rm-title">自社データ・
-社内システムとの連携</div>
+      <div class="rm-title">自社データ・<br>社内システムとの連携</div>
       <div class="rm-sessions">
         <a class="rm-session" href="#session-4"><span class="rm-session-n">04</span><span>社内知識とRAGの基礎</span></a>
         <a class="rm-session" href="#session-5"><span class="rm-session-n">05</span><span>業務ワークフローの自動化</span></a>
       </div>
     </div>
     <div class="rm-chapter">
+      <div class="rm-glyph" aria-hidden="true">
+        <svg viewBox="0 0 56 56">
+          <path d="M 12 18 Q 28 4 44 18 Q 50 28 44 38 Q 28 52 12 38 Q 6 28 12 18 Z" class="glyph-line" stroke-dasharray="4 3"/>
+          <circle cx="28" cy="28" r="4" class="glyph-dot"/>
+          <polygon points="44,16 50,18 46,22" class="glyph-dot"/>
+        </svg>
+      </div>
       <div class="rm-num">Chapter 03</div>
       <div class="rm-title">自律型AIと<br>開発の民主化</div>
       <div class="rm-sessions">
@@ -2127,6 +2089,19 @@
       </div>
     </div>
     <div class="rm-chapter">
+      <div class="rm-glyph" aria-hidden="true">
+        <svg viewBox="0 0 56 56">
+          <circle cx="28" cy="10" r="3" class="glyph-dot"/>
+          <circle cx="10" cy="36" r="3" class="glyph-dot"/>
+          <circle cx="46" cy="36" r="3" class="glyph-dot"/>
+          <circle cx="28" cy="46" r="3" class="glyph-dot"/>
+          <circle cx="28" cy="28" r="5" class="glyph-line" fill="none"/>
+          <line x1="28" y1="10" x2="28" y2="23" class="glyph-line"/>
+          <line x1="10" y1="36" x2="23" y2="30" class="glyph-line"/>
+          <line x1="46" y1="36" x2="33" y2="30" class="glyph-line"/>
+          <line x1="28" y1="46" x2="28" y2="33" class="glyph-line"/>
+        </svg>
+      </div>
       <div class="rm-num">Chapter 04</div>
       <div class="rm-title">エージェントチームによる<br>組織変革と未来</div>
       <div class="rm-sessions">
