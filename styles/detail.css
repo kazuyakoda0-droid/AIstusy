@@ -20,7 +20,7 @@ body {
   font-family: var(--sans);
   background: var(--bg);
   color: var(--ink);
-  font-size: 15pt;
+  font-size: 16px;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -42,14 +42,14 @@ a { color: inherit; text-decoration: none; }
 }
 .crumb {
   display: flex; align-items: center; gap: 14px;
-  font-size: 15pt; color: var(--ink-soft);
+  font-size: 14px; color: var(--ink-soft);
 }
 .crumb a { color: var(--ink-soft); transition: color 0.2s; }
 .crumb a:hover { color: var(--accent); }
 .crumb-sep { color: var(--muted); font-family: var(--mono); }
 .crumb-current { color: var(--ink); font-weight: 500; }
 .back-link {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.12em; color: var(--accent);
   display: flex; align-items: center; gap: 8px;
   transition: opacity 0.2s;
@@ -64,7 +64,7 @@ a { color: inherit; text-decoration: none; }
   gap: 80px; align-items: end;
 }
 .hero-eyebrow {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 24px;
   display: flex; align-items: center; gap: 12px;
@@ -82,7 +82,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-lede {
   font-family: var(--serif); font-weight: 500;
-  font-size: 15pt; line-height: 1.85;
+  font-size: 17px; line-height: 1.85;
   color: var(--ink-soft);
   border-left: 2px solid var(--accent);
   padding-left: 24px;
@@ -99,7 +99,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
 }
 .metaphor-label {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.18em; color: oklch(0.7 0.10 35);
   text-transform: uppercase;
 }
@@ -122,7 +122,7 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 48px;
 }
 .section-head .label {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.16em; color: var(--muted);
   text-transform: uppercase;
   padding-top: 12px;
@@ -134,7 +134,7 @@ a { color: inherit; text-decoration: none; }
 }
 .section-head .sub {
   margin-top: 16px;
-  font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  font-size: 16px; line-height: 1.85; color: var(--ink-soft);
   max-width: 640px;
 }
 
@@ -158,16 +158,16 @@ a { color: inherit; text-decoration: none; }
   position: relative;
 }
 .df-node-label {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.14em; color: var(--muted);
   text-transform: uppercase;
 }
 .df-node-name {
   font-family: var(--serif); font-weight: 700;
-  font-size: 15pt; color: var(--ink); line-height: 1.4;
+  font-size: 16px; color: var(--ink); line-height: 1.4;
 }
 .df-node-desc {
-  font-size: 15pt; color: var(--ink-soft); line-height: 1.7;
+  font-size: 13.5px; color: var(--ink-soft); line-height: 1.7;
 }
 .df-arrow {
   display: flex; align-items: center; justify-content: center;
@@ -189,7 +189,7 @@ a { color: inherit; text-decoration: none; }
 .compare-col.left { border-top: 3px solid var(--hair-strong); }
 .compare-col.right { border-top: 3px solid var(--accent); background: var(--accent-soft); }
 .compare-tag {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.16em; color: var(--muted);
   text-transform: uppercase; margin-bottom: 12px;
 }
@@ -200,12 +200,12 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 18px;
 }
 .compare-desc {
-  font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  font-size: 15px; line-height: 1.85; color: var(--ink-soft);
 }
 .compare-points {
   margin-top: 20px;
   display: flex; flex-direction: column; gap: 10px;
-  font-size: 15pt; color: var(--ink);
+  font-size: 15px; color: var(--ink);
 }
 .compare-points li {
   list-style: none; padding-left: 20px; position: relative;
@@ -213,7 +213,7 @@ a { color: inherit; text-decoration: none; }
 }
 .compare-points li::before {
   content: "◆"; position: absolute; left: 0;
-  color: var(--accent); font-size: 15pt; top: 5px;
+  color: var(--accent); font-size: 10px; top: 7px;
 }
 
 /* ===== vertical step diagram ===== */
@@ -237,7 +237,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 22px; line-height: 1.35; margin-bottom: 12px;
 }
 .step-body p {
-  font-size: 15pt; line-height: 1.85; color: var(--ink-soft);
+  font-size: 15px; line-height: 1.85; color: var(--ink-soft);
   max-width: 720px;
 }
 
@@ -256,18 +256,18 @@ a { color: inherit; text-decoration: none; }
 .level-num {
   padding: 28px 24px;
   border-right: 1px solid var(--hair);
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   color: var(--accent); letter-spacing: 0.14em;
 }
 .level-name {
   padding: 28px 24px;
   border-right: 1px solid var(--hair);
   font-family: var(--serif); font-weight: 700;
-  font-size: 15pt; color: var(--ink);
+  font-size: 16px; color: var(--ink);
 }
 .level-desc {
   padding: 28px 32px;
-  font-size: 15pt; line-height: 1.75; color: var(--ink-soft);
+  font-size: 15px; line-height: 1.75; color: var(--ink-soft);
 }
 
 /* ===== example callout ===== */
@@ -285,7 +285,7 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
 }
 .example-side .tag {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.14em; color: oklch(0.7 0.10 35);
   text-transform: uppercase;
 }
@@ -296,21 +296,21 @@ a { color: inherit; text-decoration: none; }
 .example-content {
   padding: 32px 40px;
   display: flex; flex-direction: column; gap: 16px;
-  font-size: 15pt; line-height: 1.85;
+  font-size: 15px; line-height: 1.85;
 }
 .example-content strong { font-weight: 700; color: var(--ink); }
 
 /* ===== prompt-like blocks ===== */
 .quote-bad, .quote-good {
   padding: 18px 22px;
-  font-family: var(--serif); font-size: 15pt;
+  font-family: var(--serif); font-size: 15px;
   line-height: 1.75;
   background: var(--paper);
   border-left: 3px solid var(--hair-strong);
 }
 .quote-good { border-left-color: var(--accent); background: var(--accent-soft); }
 .quote-tag {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--muted); text-transform: uppercase;
   display: block; margin-bottom: 8px;
@@ -355,13 +355,13 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-2px);
 }
 .pagenav .dir {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.16em; color: var(--muted);
   text-transform: uppercase;
 }
 .pagenav .nxt {
   font-family: var(--serif); font-weight: 700;
-  font-size: 15pt; line-height: 1.4; color: var(--ink);
+  font-size: 16px; line-height: 1.4; color: var(--ink);
 }
 .pagenav a:hover .nxt { color: var(--accent); }
 .pagenav .right { text-align: right; align-items: flex-end; }
@@ -369,7 +369,7 @@ a { color: inherit; text-decoration: none; }
 footer.foot {
   padding: 32px;
   text-align: center;
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   color: var(--muted);
   letter-spacing: 0.08em;
   border-top: 1px solid var(--hair);
@@ -383,7 +383,7 @@ footer.foot {
   display: flex; gap: 16px; align-items: flex-start;
 }
 .bubble .who {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.12em; color: var(--muted);
   text-transform: uppercase;
   width: 80px; padding-top: 14px; flex-shrink: 0;
@@ -392,7 +392,7 @@ footer.foot {
   background: var(--paper);
   border: 1px solid var(--hair);
   padding: 14px 18px;
-  font-family: var(--serif); font-size: 15pt;
+  font-family: var(--serif); font-size: 15px;
   line-height: 1.75; flex: 1;
 }
 .bubble.ai .msg {
@@ -410,7 +410,7 @@ footer.foot {
   gap: 16px; align-items: center;
 }
 .prob-token {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   color: var(--ink);
   background: var(--bg-alt);
   padding: 6px 12px;
@@ -426,7 +426,7 @@ footer.foot {
 }
 .prob-row.top .prob-token { background: var(--accent); color: var(--paper); }
 .prob-pct {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   color: var(--ink-soft); text-align: right;
 }
 
@@ -451,7 +451,7 @@ footer.foot {
 .nn-node.output { background: var(--accent); }
 .nn-col-label {
   margin-top: 16px;
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.12em; color: var(--muted);
   text-transform: uppercase;
 }
@@ -474,12 +474,12 @@ footer.foot {
   flex-wrap: wrap;
 }
 .jargon-term .en {
-  font-family: var(--mono); font-size: 11pt;
+  font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.05em; color: var(--muted);
   font-weight: 400;
 }
 .jargon-plain {
-  font-size: 14pt; line-height: 1.75; color: var(--ink-soft);
+  font-size: 14.5px; line-height: 1.75; color: var(--ink-soft);
 }
 .jargon-plain .like {
   display: block; margin-top: 10px;
@@ -487,11 +487,11 @@ footer.foot {
   background: var(--bg-alt);
   font-family: var(--serif);
   color: var(--ink); border-left: 2px solid var(--accent);
-  font-size: 13.5pt;
+  font-size: 13.5px;
 }
 .jargon-plain .like::before {
   content: "つまり ／ ";
-  font-family: var(--mono); font-size: 10.5pt;
+  font-family: var(--mono); font-size: 10px;
   letter-spacing: 0.12em; color: var(--accent);
   text-transform: uppercase;
 }
@@ -510,7 +510,7 @@ footer.foot {
 .analogy-tech { background: var(--bg-alt); }
 .analogy-real { background: var(--accent-soft); }
 .analogy-tag {
-  font-family: var(--mono); font-size: 11pt; letter-spacing: 0.16em;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
   color: var(--muted); text-transform: uppercase;
 }
 .analogy-real .analogy-tag { color: var(--accent); }
@@ -519,7 +519,7 @@ footer.foot {
   line-height: 1.4; color: var(--ink);
 }
 .analogy-body {
-  font-size: 14pt; line-height: 1.85; color: var(--ink-soft);
+  font-size: 14.5px; line-height: 1.85; color: var(--ink-soft);
 }
 .analogy-eq {
   display: flex; align-items: center; justify-content: center;
@@ -541,7 +541,7 @@ footer.foot {
   align-items: center;
 }
 .concept-row .who {
-  font-family: var(--mono); font-size: 12pt; letter-spacing: 0.14em;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
   color: var(--muted); text-transform: uppercase;
 }
 .concept-row .vis {
@@ -549,7 +549,7 @@ footer.foot {
 }
 .concept-row .vis .chip {
   background: var(--bg-alt); border: 1px solid var(--hair);
-  padding: 10px 16px; font-family: var(--serif); font-size: 14pt;
+  padding: 10px 16px; font-family: var(--serif); font-size: 14.5px;
 }
 .concept-row .vis .chip.on { background: var(--accent); color: var(--paper); border-color: var(--accent); }
 .concept-row .vis .chip.warn { background: oklch(0.92 0.05 60); border-color: oklch(0.75 0.08 60); }
@@ -565,7 +565,7 @@ footer.foot {
   display: flex; flex-direction: column; gap: 12px;
 }
 .www-cell .tag {
-  font-family: var(--mono); font-size: 11pt;
+  font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.16em; color: var(--accent);
   text-transform: uppercase;
 }
@@ -574,7 +574,7 @@ footer.foot {
   font-size: 20px; line-height: 1.4; color: var(--ink);
 }
 .www-cell p {
-  font-size: 13.5pt; line-height: 1.8; color: var(--ink-soft);
+  font-size: 13.5px; line-height: 1.8; color: var(--ink-soft);
 }
 
 /* ===== visual SVG concept blocks ===== */
@@ -591,7 +591,7 @@ footer.foot {
   margin-bottom: 14px;
 }
 .svg-concept .caption p {
-  font-size: 14pt; line-height: 1.85; color: var(--ink-soft);
+  font-size: 14.5px; line-height: 1.85; color: var(--ink-soft);
 }
 
 /* ===== "everyday version" intro block (mini-metaphor at section top) ===== */
@@ -604,13 +604,13 @@ footer.foot {
   align-items: start;
 }
 .everyday .tag {
-  font-family: var(--mono); font-size: 11pt;
+  font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.16em; color: var(--accent);
   text-transform: uppercase;
   padding-top: 4px;
 }
 .everyday p {
-  font-family: var(--serif); font-size: 16pt; line-height: 1.7;
+  font-family: var(--serif); font-size: 17px; line-height: 1.7;
   color: var(--ink);
 }
 .everyday p strong {
@@ -637,7 +637,7 @@ footer.foot {
   align-items: start;
 }
 .hero-illust .label {
-  font-family: var(--mono); font-size: 15pt;
+  font-family: var(--mono); font-size: 12px;
   letter-spacing: 0.16em; color: var(--muted);
   text-transform: uppercase;
   padding-top: 12px;

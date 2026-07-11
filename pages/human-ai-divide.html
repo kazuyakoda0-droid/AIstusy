@@ -25,7 +25,7 @@
     font-size: 28px; line-height: 1.2;
   }
   .role-side .tag {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.16em; color: var(--accent);
     text-transform: uppercase;
   }
@@ -36,11 +36,11 @@
   }
   .role-side li {
     padding-left: 22px; position: relative;
-    font-size: 15pt; line-height: 1.8;
+    font-size: 15px; line-height: 1.8;
   }
   .role-side li::before {
     content: "◇"; position: absolute; left: 0; top: 4px;
-    color: var(--accent); font-size: 15pt;
+    color: var(--accent); font-size: 15px;
   }
   .role-side.ai li::before { color: oklch(0.78 0.10 35); }
 
@@ -53,21 +53,21 @@
   .stage {
     padding: 18px 8px;
     text-align: center;
-    font-size: 15pt;
+    font-size: 15px;
     line-height: 1.4;
     border: 1px solid var(--hair);
   }
   .stage.ai { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .stage.human { background: var(--accent-soft); border-color: var(--accent); }
   .stage .role-name {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.1em;
     margin-bottom: 6px; text-transform: uppercase;
     color: var(--muted);
   }
   .stage.ai .role-name { color: oklch(0.7 0.10 35); }
   .stage.human .role-name { color: var(--accent); }
-  .stage strong { font-family: var(--serif); font-size: 15pt; font-weight: 700; }
+  .stage strong { font-family: var(--serif); font-size: 15px; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -80,7 +80,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">人間とAIの分業</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Workflow 02 / 02</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Workflow 02 / 02</div>
   </div>
 </nav>
 
@@ -160,7 +160,7 @@
         <li>形式変換・要約・翻訳</li>
         <li>「あらゆるパターンを網羅すべき」場面の網羅</li>
       </ul>
-      <p style="color: oklch(0.78 0.10 35); font-family: var(--mono); font-size: 15pt; margin-top: 12px; letter-spacing: 0.1em;">→ 量・速度が求められる仕事</p>
+      <p style="color: oklch(0.78 0.10 35); font-family: var(--mono); font-size: 12px; margin-top: 12px; letter-spacing: 0.1em;">→ 量・速度が求められる仕事</p>
     </div>
     <div class="role-side">
       <div class="tag">Human ／ 判断担当</div>
@@ -174,7 +174,7 @@
         <li>倫理的・法的な判断</li>
         <li>結果に対する説明責任</li>
       </ul>
-      <p style="color: var(--accent); font-family: var(--mono); font-size: 15pt; margin-top: 12px; letter-spacing: 0.1em;">→ 責任と判断が問われる仕事</p>
+      <p style="color: var(--accent); font-family: var(--mono); font-size: 12px; margin-top: 12px; letter-spacing: 0.1em;">→ 責任と判断が問われる仕事</p>
     </div>
   </div>
 </section>
@@ -189,45 +189,45 @@
   </div>
 
   <div class="diagram">
-    <div style="font-family: var(--serif); font-weight: 700; font-size: 15pt; margin-bottom: 8px; color: var(--ink);">見積書受領 → 承認プロセス</div>
+    <div style="font-family: var(--serif); font-weight: 700; font-size: 15px; margin-bottom: 8px; color: var(--ink);">見積書受領 → 承認プロセス</div>
     <div class="process-line">
       <div class="stage">
         <div class="role-name">Event</div>
         <strong>受信</strong>
-        <div style="font-size: 15pt; color: var(--ink-soft); margin-top: 4px;">取引先から見積書PDF</div>
+        <div style="font-size: 15px; color: var(--ink-soft); margin-top: 4px;">取引先から見積書PDF</div>
       </div>
       <div class="stage ai">
         <div class="role-name">AI</div>
         <strong>抽出</strong>
-        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">金額・品目・納期を構造化</div>
+        <div style="font-size: 15px; color: oklch(0.85 0.008 70); margin-top: 4px;">金額・品目・納期を構造化</div>
       </div>
       <div class="stage ai">
         <div class="role-name">AI</div>
         <strong>照合</strong>
-        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">社内規程と照合（RAG）</div>
+        <div style="font-size: 15px; color: oklch(0.85 0.008 70); margin-top: 4px;">社内規程と照合（RAG）</div>
       </div>
       <div class="stage ai">
         <div class="role-name">AI</div>
         <strong>ルーティング</strong>
-        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">承認者を自動判定</div>
+        <div style="font-size: 15px; color: oklch(0.85 0.008 70); margin-top: 4px;">承認者を自動判定</div>
       </div>
       <div class="stage human">
         <div class="role-name">Human</div>
         <strong>承認判断</strong>
-        <div style="font-size: 15pt; color: var(--ink-soft); margin-top: 4px;">承認者が最終判断</div>
+        <div style="font-size: 15px; color: var(--ink-soft); margin-top: 4px;">承認者が最終判断</div>
       </div>
       <div class="stage ai">
         <div class="role-name">AI</div>
         <strong>起票</strong>
-        <div style="font-size: 15pt; color: oklch(0.85 0.008 70); margin-top: 4px;">基幹システムへ自動入力</div>
+        <div style="font-size: 15px; color: oklch(0.85 0.008 70); margin-top: 4px;">基幹システムへ自動入力</div>
       </div>
       <div class="stage human">
         <div class="role-name">Human</div>
         <strong>送付</strong>
-        <div style="font-size: 15pt; color: var(--ink-soft); margin-top: 4px;">取引先へ正式返信</div>
+        <div style="font-size: 15px; color: var(--ink-soft); margin-top: 4px;">取引先へ正式返信</div>
       </div>
     </div>
-    <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 20px; line-height: 1.8;">
+    <p style="font-size: 15px; color: var(--ink-soft); margin-top: 20px; line-height: 1.8;">
       7ステップのうち、人間が "判断" するのは2箇所のみ。それ以外はAI／自動化で処理。<br>
       ポイント：判断と送付（責任の発生する箇所）には必ず人間を残す。
     </p>

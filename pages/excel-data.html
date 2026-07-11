@@ -24,18 +24,18 @@
   .nl-box.formula {
     background: oklch(0.22 0.012 60);
     color: oklch(0.92 0.008 70);
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     border-left: 3px solid var(--accent);
   }
   .nl-box .label {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.14em; color: var(--muted);
     text-transform: uppercase;
     margin-bottom: 10px;
   }
   .nl-box.formula .label { color: oklch(0.7 0.10 35); }
   .nl-box .request {
-    font-family: var(--serif); font-size: 15pt; line-height: 1.7;
+    font-family: var(--serif); font-size: 15px; line-height: 1.7;
     color: var(--ink);
   }
   .nl-arrow {
@@ -48,7 +48,7 @@
     background: oklch(0.22 0.012 60);
     color: oklch(0.92 0.008 70);
     padding: 28px;
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     line-height: 1.85;
     border-left: 3px solid var(--accent);
   }
@@ -67,7 +67,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">データ処理・Excel連携</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Practice 03 / 04</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Practice 03 / 04</div>
   </div>
 </nav>
 
@@ -151,12 +151,12 @@
       <div class="nl-formula">
         <div class="nl-box nl">
           <div class="label">Request 02 ／ 自然言語</div>
-          <div class="request">売上データから「2024年の月別売上合計」を出したい。日付はB列、売上はC列にある。</div>
+          <div class="request">売上データから「2025年の月別売上合計」を出したい。日付はB列、売上はC列にある。</div>
         </div>
         <div class="nl-arrow">→</div>
         <div class="nl-box formula">
           <div class="label">Output ／ Excel関数</div>
-          =SUMPRODUCT((YEAR($B$2:$B$1000)=2024)*(MONTH($B$2:$B$1000)=ROW()-1)*$C$2:$C$1000)
+          =SUMPRODUCT((YEAR($B$2:$B$1000)=2025)*(MONTH($B$2:$B$1000)=ROW()-1)*$C$2:$C$1000)
         </div>
       </div>
     </div>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>推論モデル — 「考えてから答える」AI — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-2">第2回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">推論モデル</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Foundation 03 / 04</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 02 ／ LLMの仕組み</div>
+    <h1>推論モデル<br><em>「考えてから、答える」AI。</em></h1>
+  </div>
+  <p class="hero-lede">
+    Reasoning Model。即答型のLLMに対し、回答の前に内部で思考ステップを組み立ててから答える新世代のモデル。複雑な分析・計画・計算をともなうタスクで精度が大きく向上し、2026年には各社の主力になった。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">反射で返す営業トークではなく、<br><em>"一晩考えてから出す企画書"</em>。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>即答型 と 推論モデル — 何が違うのか</h2>
+      <p class="sub">どちらも同じLLMの仲間。違いは「答える前に、見えない下書き（思考）を書くかどうか」。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">従来 ／ 即答型LLM</div>
+      <div class="compare-title">聞かれた瞬間に、言葉を紡ぎ出す</div>
+      <p class="compare-desc">「次に来る確率が高い単語」を一気に出力する。速くて安いが、段取りが必要な問題では途中の論理が飛びやすい。</p>
+      <ul class="compare-points">
+        <li>応答が速い・コストが低い</li>
+        <li>要約・翻訳・ドラフト作成に最適</li>
+        <li>複雑な計算・多段の判断は苦手</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">新世代 ／ 推論モデル</div>
+      <div class="compare-title">脳内で下書きを重ねてから、答える</div>
+      <p class="compare-desc">回答の前に「まず条件を整理→仮説→検算」という思考プロセスを内部で実行。時間とコストは増えるが、難問の正答率が跳ね上がる。</p>
+      <ul class="compare-points">
+        <li>複雑な分析・戦略立案・コードに強い</li>
+        <li>自分の間違いに途中で気づいて直せる</li>
+        <li>時間がかかる（数秒〜数分）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  賢さは「モデルの大きさ」だけでなく、<br><em>「考える時間」</em>からも生まれる。
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">How to use</div>
+    <div>
+      <h2>使い分けの目安</h2>
+      <p class="sub">全部を推論モデルに投げるのは、社内メモを役員会にかけるようなもの。タスクの重さで使い分ける。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>日常の軽作業 → 即答型</h3>
+        <p>メールのドラフト、要約、翻訳、言い換え。スピードが正義の作業は即答型で十分。むしろ速い方が快適。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>複雑な判断・分析 → 推論モデル</h3>
+        <p>複数条件の比較検討、データ分析の設計、規定との照合、トラブルの原因究明。「間違えたくない」仕事は考えさせる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>エージェントの頭脳 → 推論モデルが標準</h3>
+        <p>第6回以降で扱う自律エージェントは「計画を立てて実行する」のが仕事。その頭脳には推論モデルが使われるのが2026年の標準構成。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">推論モデル <span class="en">Reasoning Model</span></div>
+      <p class="jargon-plain">答える前に、内部で思考ステップを踏むタイプのLLM。<span class="like">"ちょっと考えさせてください" と言ってから答える同僚。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">思考の連鎖 <span class="en">Chain of Thought</span></div>
+      <p class="jargon-plain">「まず条件を整理して、次に…」と段階を踏んで考えること。推論モデルはこれを自動で行う。<span class="like">暗算をやめて、途中式を書くこと。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">思考時間 <span class="en">Test-time Compute</span></div>
+      <p class="jargon-plain">回答時にAIへ与える「考える時間」。長く考えさせるほど難問の精度が上がる、という2025年以降の大発見。<span class="like">試験時間を延長してもらうと点が上がる、あの感覚。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">コンテキストエンジニアリング <span class="en">Context Engineering</span></div>
+      <p class="jargon-plain">指示文だけでなく「AIに何を読ませてから考えさせるか」を設計すること。プロンプトエンジニアリングの発展形。<span class="like">新人に頼む前に、関連資料一式を机に揃えておく段取り力。</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Analogy</div>
+    <div>
+      <h2>イメージで掴む — 日常のあのシーンに置き換えると</h2>
+      <p class="sub">専門用語のまま考えるとモヤモヤする概念も、身近な例に置き換えると一気に輪郭がつかめる。</p>
+    </div>
+  </div>
+  <div class="analogy">
+    <div class="analogy-side analogy-tech">
+      <div class="analogy-tag">技術用語では</div>
+      <h3 class="analogy-h">推論モデル ／ Reasoning Model</h3>
+      <p class="analogy-body">回答前に内部で思考プロセスを実行し、自己検証しながら答えを組み立てるLLM。</p>
+    </div>
+    <div class="analogy-eq">≒</div>
+    <div class="analogy-side analogy-real">
+      <div class="analogy-tag">日常で言うと</div>
+      <h3 class="analogy-h">一晩考えてから答える参謀</h3>
+      <p class="analogy-body">即レスはしないが、翌朝には検算済みの答えを持ってくる。<br>急ぎの雑務は即答型、重要な判断はこちらに。</p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="llm-pros-cons.html">
+      <span class="dir">← Prev ／ Foundation 02</span>
+      <span class="nxt">LLMの得意・不得意</span>
+    </a>
+    <a href="prompt-4elements.html" class="right">
+      <span class="dir">Next ／ Foundation 04 →</span>
+      <span class="nxt">プロンプトエンジニアリングの基本</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第2回 ／ 推論モデル</footer>
+</body>
+</html>

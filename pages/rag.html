@@ -34,13 +34,13 @@
   .rag-box.user { background: var(--bg-alt); }
   .rag-box.ai { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .rag-box .label {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.14em; color: var(--muted);
     text-transform: uppercase;
   }
   .rag-box.ai .label { color: oklch(0.7 0.10 35); }
   .rag-box .content {
-    font-family: var(--serif); font-size: 15pt;
+    font-family: var(--serif); font-size: 15px;
     line-height: 1.7;
   }
   .rag-arrow-down {
@@ -56,13 +56,13 @@
     background: var(--paper);
     border: 1px solid var(--hair);
     padding: 14px 12px;
-    font-size: 15pt;
+    font-size: 15px;
     text-align: center;
   }
   .doc-chip.match { background: var(--accent-soft); border-color: var(--accent); }
   .doc-chip strong { font-family: var(--serif); display: block; }
   .doc-chip .meta {
-    font-family: var(--mono); font-size: 15pt; color: var(--muted);
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
     margin-top: 4px;
   }
 
@@ -81,12 +81,12 @@
     font-size: 22px; margin-bottom: 12px;
   }
   .ob-card .tag {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--muted); letter-spacing: 0.14em;
     text-transform: uppercase; margin-bottom: 12px;
   }
   .ob-card.yes .tag { color: var(--accent); }
-  .ob-card p { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .ob-card p { font-size: 15px; line-height: 1.85; color: var(--ink-soft); }
 </style>
 </head>
 <body>
@@ -99,7 +99,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">RAG（検索拡張生成）</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Integration 02 / 04</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Integration 02 / 04</div>
   </div>
 </nav>
 
@@ -153,7 +153,7 @@
             <div class="doc-chip"><strong>営業マニュアル</strong><div class="meta">提案手順</div></div>
             <div class="doc-chip"><strong>セキュリティ</strong><div class="meta">情報取扱規定</div></div>
           </div>
-          <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 12px;">関連度の高い文書（黄色）を抽出。</p>
+          <p style="font-size: 15px; color: var(--ink-soft); margin-top: 12px;">関連度の高い文書（黄色）を抽出。</p>
         </div>
       </div>
       <div class="rag-arrow-down">↓ 該当箇所を抽出してプロンプトに添付</div>
@@ -161,7 +161,7 @@
         <div class="rag-num">3</div>
         <div class="rag-box">
           <div class="label">Augment ／ プロンプトに知識を注入</div>
-          <div class="content" style="font-family: var(--mono); font-size: 15pt; line-height: 1.85;">
+          <div class="content" style="font-family: var(--mono); font-size: 12px; line-height: 1.85;">
             [指示] 以下のドキュメントだけを参照して、質問に答えなさい。<br>
             [ドキュメント] 就業規則§42（産休）...／申請ガイド第3章...／福利厚生ガイド...<br>
             [質問] 来月から産休に入ります。必要な手続きを教えて。
@@ -173,7 +173,7 @@
         <div class="rag-num">4</div>
         <div class="rag-box ai">
           <div class="label">Generate ／ 出典付きで回答</div>
-          <div class="content">当社の就業規則第42条に基づき、以下の手続きが必要です。<br>1. 産前休業届の提出（人事ポータル「申請フォーム集 §3.1」）<br>2. 出産予定証明書の添付<br>3. 直属上長への連絡<br><br><span style="color: oklch(0.78 0.10 35); font-size: 15pt;">出典：就業規則第42条 ／ 申請ガイド 第3章 ／ 福利厚生ガイド 2024年版</span></div>
+          <div class="content">当社の就業規則第42条に基づき、以下の手続きが必要です。<br>1. 産前休業届の提出（人事ポータル「申請フォーム集 §3.1」）<br>2. 出産予定証明書の添付<br>3. 直属上長への連絡<br><br><span style="color: oklch(0.78 0.10 35); font-size: 15px;">出典：就業規則第42条 ／ 申請ガイド 第3章 ／ 福利厚生ガイド 2026年版</span></div>
         </div>
       </div>
     </div>
@@ -194,13 +194,13 @@
       <div class="tag">Without RAG</div>
       <h3>記憶頼りのテスト</h3>
       <p>AIは学習時の "おぼろげな記憶" で答える。社内独自の情報は知らない／古い／間違える。ハルシネーション多発。</p>
-      <p style="font-family: var(--mono); font-size: 15pt; color: var(--ink-soft); margin-top: 12px;">「うちの規定は...たしか○○だったような...」</p>
+      <p style="font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 12px;">「うちの規定は...たしか○○だったような...」</p>
     </div>
     <div class="ob-card yes">
       <div class="tag">With RAG</div>
       <h3>持ち込み可のテスト</h3>
       <p>毎回マニュアルを開いて該当箇所を確認しながら答える。出典まで明示できるので、人間が検証もしやすい。</p>
-      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent); margin-top: 12px;">「§42 にこう書いてあります」</p>
+      <p style="font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 12px;">「§42 にこう書いてあります」</p>
     </div>
   </div>
 </section>

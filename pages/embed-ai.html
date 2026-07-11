@@ -19,7 +19,7 @@
   .ui-mock .titlebar {
     background: var(--ink); color: var(--paper);
     padding: 8px 14px;
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.08em;
     display: flex; align-items: center; gap: 8px;
   }
@@ -31,7 +31,7 @@
   .chat-bubble {
     background: var(--paper);
     padding: 10px 14px;
-    font-family: var(--serif); font-size: 15pt;
+    font-family: var(--serif); font-size: 15px;
     line-height: 1.6;
     max-width: 80%;
   }
@@ -57,23 +57,23 @@
     border-left: 4px solid var(--accent);
   }
   .embed-system .sys-name {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--muted); letter-spacing: 0.08em;
     text-transform: uppercase;
   }
   .embed-system.ai .sys-name { color: oklch(0.7 0.10 35); }
   .embed-system .action {
-    font-family: var(--serif); font-size: 15pt;
+    font-family: var(--serif); font-size: 15px;
     line-height: 1.6;
   }
   .embed-system .auto {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--accent); letter-spacing: 0.12em;
     text-align: right; text-transform: uppercase;
   }
   .embed-arrow {
     text-align: center; color: var(--accent);
-    font-family: var(--serif); font-size: 15pt; font-weight: 100;
+    font-family: var(--serif); font-size: 15px; font-weight: 100;
   }
 </style>
 </head>
@@ -87,7 +87,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">「対話型AI」から「組み込み型AI」へ</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Workflow 01 / 02</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Workflow 01 / 02</div>
   </div>
 </nav>
 
@@ -175,19 +175,19 @@
 
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
     <div>
-      <div style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 12px; text-transform: uppercase;">Mode A ／ 対話型</div>
+      <div style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 12px; text-transform: uppercase;">Mode A ／ 対話型</div>
       <div class="ui-mock">
         <div class="titlebar">ChatGPT — chat.openai.com</div>
         <div class="chat-row user"><div class="chat-bubble user">この見積書PDF、金額と納期だけ抜いて</div></div>
-        <div class="chat-row"><div class="chat-bubble">金額：1,250,000円<br>納期：2024年12月20日</div></div>
+        <div class="chat-row"><div class="chat-bubble">金額：1,250,000円<br>納期：2026年12月20日</div></div>
         <div class="chat-row user"><div class="chat-bubble user">じゃあそれをCSVで…</div></div>
       </div>
-      <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 16px; line-height: 1.8;">
+      <p style="font-size: 15px; color: var(--ink-soft); margin-top: 16px; line-height: 1.8;">
         人間が <strong style="color: var(--ink);">毎回コピペで仲介</strong>する。PDFを開く → AIに貼る → 結果をシステムに転記。間に人が入り続ける。
       </p>
     </div>
     <div>
-      <div style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 12px; text-transform: uppercase;">Mode B ／ 組み込み型</div>
+      <div style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 12px; text-transform: uppercase;">Mode B ／ 組み込み型</div>
       <div class="embed-flow">
         <div class="embed-system">
           <div class="sys-name">Mail</div>
@@ -213,7 +213,7 @@
           <div class="auto">自動</div>
         </div>
       </div>
-      <p style="font-size: 15pt; color: var(--ink-soft); margin-top: 16px; line-height: 1.8;">
+      <p style="font-size: 15px; color: var(--ink-soft); margin-top: 16px; line-height: 1.8;">
         AIは <strong style="color: var(--accent);">既存システムの中に埋め込まれて</strong>動く。人間は通知を見て承認するだけ。
       </p>
     </div>
@@ -232,7 +232,7 @@
   <div class="diagram">
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: center;">
       <div>
-        <div class="arch-label" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; margin-bottom: 12px;">既存システム</div>
+        <div class="arch-label" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; margin-bottom: 12px;">既存システム</div>
         <div style="display: grid; gap: 8px;">
           <div class="tok" style="text-align: center; padding: 12px;">Outlook / Gmail</div>
           <div class="tok" style="text-align: center; padding: 12px;">Salesforce / kintone</div>
@@ -242,17 +242,17 @@
       </div>
       <div style="text-align: center;">
         <div style="font-family: var(--serif); font-size: 32px; color: var(--accent); font-weight: 100;">⇄</div>
-        <div style="font-family: var(--mono); font-size: 15pt; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px;">API ／ Webhook</div>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px;">API ／ Webhook</div>
         <div style="font-family: var(--serif); font-size: 32px; color: var(--accent); font-weight: 100; margin-top: 16px;">⇄</div>
-        <div style="font-family: var(--mono); font-size: 15pt; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px;">RPA ／ iPaaS</div>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px;">RPA ／ iPaaS</div>
       </div>
       <div>
-        <div class="arch-label" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px;">AI / 自動化</div>
+        <div class="arch-label" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px;">AI / 自動化</div>
         <div style="display: grid; gap: 8px;">
-          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">LLM API（GPT等）</div>
-          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">Zapier / Make</div>
-          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">Power Automate</div>
-          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 15pt; text-align: center;">自社開発ボット</div>
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 12px; text-align: center;">LLM API（GPT等）</div>
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 12px; text-align: center;">Zapier / Make</div>
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 12px; text-align: center;">Power Automate</div>
+          <div style="background: var(--ink); color: var(--paper); padding: 12px; font-family: var(--mono); font-size: 12px; text-align: center;">自社開発ボット</div>
         </div>
       </div>
     </div>

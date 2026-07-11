@@ -33,7 +33,7 @@
   .rl-node.action { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .rl-node.thought { background: var(--accent-soft); border-color: var(--accent); }
   .rl-node .label {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.14em; color: var(--muted);
     text-transform: uppercase; margin-bottom: 6px;
   }
@@ -41,9 +41,9 @@
   .rl-node.thought .label { color: var(--accent); }
   .rl-node .name {
     font-family: var(--serif); font-weight: 700;
-    font-size: 15pt; margin-bottom: 4px;
+    font-size: 15px; margin-bottom: 4px;
   }
-  .rl-node .desc { font-size: 15pt; color: var(--ink-soft); line-height: 1.6; }
+  .rl-node .desc { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
   .rl-node.action .desc { color: oklch(0.85 0.008 70); }
   .rl-arrow {
     text-align: center; color: var(--accent);
@@ -54,7 +54,7 @@
     background: oklch(0.22 0.012 60);
     color: oklch(0.92 0.008 70);
     padding: 28px 32px;
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     line-height: 1.85;
     border-left: 3px solid var(--accent);
   }
@@ -74,7 +74,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">AIエージェントとは</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Agent 01 / 03</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Agent 01 / 03</div>
   </div>
 </nav>
 
@@ -157,7 +157,7 @@
       <div class="rl-arrow" style="grid-column: 3; grid-row: 2;">↓</div>
       <div></div>
       <div style="grid-column: 2; grid-row: 2;">
-        <div style="font-family: var(--mono); font-size: 15pt; color: var(--muted); letter-spacing: 0.14em; text-align: center; text-transform: uppercase;">Loop</div>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.14em; text-align: center; text-transform: uppercase;">Loop</div>
       </div>
       <div></div>
       <div class="rl-node" style="grid-column: 1 / span 3; grid-row: 3; max-width: 320px; margin: 0 auto;">
@@ -166,7 +166,7 @@
         <div class="desc">結果を見て次のThoughtへ</div>
       </div>
     </div>
-    <p style="font-size: 15pt; color: var(--ink-soft); text-align: center; max-width: 540px; line-height: 1.8;">
+    <p style="font-size: 15px; color: var(--ink-soft); text-align: center; max-width: 540px; line-height: 1.8;">
       ゴールに到達するまで、このループを何度も回す。1ターンで終わらない、複雑なタスクをこなせるようになる。
     </p>
   </div>
@@ -187,7 +187,7 @@
     <span class="a">[Action]</span> web_search("A社 IR 決算")<br>
     <span class="o">[Observation]</span> 検索結果から最新決算PDFのURLを取得<br><br>
     <span class="t">[Thought]</span> PDFを読み込んで売上と営業利益を抽出する<br>
-    <span class="a">[Action]</span> fetch_pdf(url=A社IR/2024Q4.pdf)<br>
+    <span class="a">[Action]</span> fetch_pdf(url=A社IR/2025Q4.pdf)<br>
     <span class="o">[Observation]</span> 売上: 8,500億 / 営業利益: 720億<br><br>
     <span class="t">[Thought]</span> 同じくB社の決算も取得<br>
     <span class="a">[Action]</span> web_search("B社 IR 決算")<br>

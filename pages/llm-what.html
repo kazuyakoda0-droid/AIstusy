@@ -11,10 +11,10 @@
 <style>
   .arch-flow { display: grid; grid-template-columns: 1fr; gap: 24px; }
   .arch-row { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: center; }
-  .arch-label { font-family: var(--mono); font-size: 15pt; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; }
+  .arch-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; }
   .arch-box { background: var(--paper); border: 1px solid var(--hair); padding: 18px 22px; }
   .arch-box.in { background: var(--bg-alt); }
-  .arch-box.process { background: var(--accent-soft); border-color: var(--accent); font-family: var(--mono); font-size: 15pt; }
+  .arch-box.process { background: var(--accent-soft); border-color: var(--accent); font-family: var(--mono); font-size: 12px; }
   .arch-box.out { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .token-row { display: flex; flex-wrap: wrap; gap: 6px; }
   .scale-bar {
@@ -24,7 +24,7 @@
   .scale-bar div {
     background: var(--bg-alt);
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 15pt; color: var(--ink);
+    font-family: var(--mono); font-size: 12px; color: var(--ink);
   }
   .scale-bar div:nth-child(2) { background: oklch(0.75 0.05 35); color: var(--paper); }
   .scale-bar div:nth-child(3) { background: var(--accent); color: var(--paper); }
@@ -40,7 +40,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">LLMとは何か</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Foundation 01 / 03</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Foundation 01 / 03</div>
   </div>
 </nav>
 
@@ -141,7 +141,7 @@
             <span class="tok">議事</span><span class="tok">録</span><span class="tok">を</span><span class="tok">3</span>
             <span class="tok">行</span><span class="tok">で</span><span class="tok">要約</span><span class="tok">して</span>
           </div>
-          <p style="margin-top: 14px; font-size: 15pt; color: var(--ink-soft);">文章をトークン（単語の断片）に分解する。日本語1文字＝1トークンとは限らない。</p>
+          <p style="margin-top: 14px; font-size: 15px; color: var(--ink-soft);">文章をトークン（単語の断片）に分解する。日本語1文字＝1トークンとは限らない。</p>
         </div>
       </div>
       <div class="arch-row">
@@ -193,7 +193,7 @@
         <div class="scale-bar"><div></div><div></div><div>≒80,000+</div></div>
       </div>
     </div>
-    <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); text-align: center;">
+    <p style="margin-top: 20px; font-size: 15px; color: var(--ink-soft); text-align: center;">
       数兆トークン規模の文章を学習し、数千億〜数兆個のパラメータ（重み）に圧縮している。
     </p>
   </div>

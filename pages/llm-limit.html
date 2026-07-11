@@ -31,10 +31,10 @@
   }
   .know-card.no .know-circle { background: oklch(0.6 0.06 30); }
   .know-card.maybe .know-circle { background: oklch(0.55 0.10 70); }
-  .know-card h3 { font-family: var(--serif); font-weight: 700; font-size: 15pt; line-height: 1.4; }
-  .know-card p { font-size: 15pt; line-height: 1.75; color: var(--ink-soft); }
+  .know-card h3 { font-family: var(--serif); font-weight: 700; font-size: 15px; line-height: 1.4; }
+  .know-card p { font-size: 15px; line-height: 1.75; color: var(--ink-soft); }
   .know-tag {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--muted);
   }
@@ -52,22 +52,22 @@
     margin: 24px 0;
   }
   .timeline-bar::before {
-    content: "学習済み（〜2024年4月など）";
+    content: "学習済み（〜2025年など）";
     position: absolute;
     left: 16px; top: 50%; transform: translateY(-50%);
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--ink);
   }
   .timeline-bar::after {
     content: "↑ Knowledge cutoff";
     position: absolute; left: 60%; top: -22px;
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--accent); letter-spacing: 0.1em;
     text-transform: uppercase;
   }
   .timeline-label {
     display: flex; justify-content: space-between;
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--muted);
   }
 </style>
@@ -82,7 +82,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">汎用LLMの限界</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Integration 01 / 04</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Integration 01 / 04</div>
   </div>
 </nav>
 
@@ -149,21 +149,21 @@
       <div class="know-circle">○</div>
       <h3>公開・一般知識</h3>
       <p>歴史、科学、プログラミングの一般論、有名な企業のニュース（カットオフ前）。学習データに含まれるもの。</p>
-      <p style="font-family: var(--mono); font-size: 15pt; color: var(--accent); margin-top: 8px;">例：「VLOOKUP の使い方」</p>
+      <p style="font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 8px;">例：「VLOOKUP の使い方」</p>
     </div>
     <div class="know-card maybe">
       <div class="know-tag">Zone B ／ あぶない</div>
       <div class="know-circle">△</div>
       <h3>最新情報・専門領域</h3>
       <p>カットオフ後のニュース、最新の法改正、ニッチな専門分野。曖昧・古い・誤った情報を返すことがある。</p>
-      <p style="font-family: var(--mono); font-size: 15pt; color: oklch(0.55 0.10 70); margin-top: 8px;">例：「今年4月の税制改正」</p>
+      <p style="font-family: var(--mono); font-size: 12px; color: oklch(0.55 0.10 70); margin-top: 8px;">例：「今年4月の税制改正」</p>
     </div>
     <div class="know-card no">
       <div class="know-tag">Zone C ／ 答えられない</div>
       <div class="know-circle">×</div>
       <h3>社内固有・機密情報</h3>
       <p>自社の規程、製品仕様、顧客データ、過去案件。LLM単体では絶対に知らない。聞くとハルシネーションを起こす。</p>
-      <p style="font-family: var(--mono); font-size: 15pt; color: oklch(0.6 0.06 30); margin-top: 8px;">例：「うちの出張規程は？」</p>
+      <p style="font-family: var(--mono); font-size: 12px; color: oklch(0.6 0.06 30); margin-top: 8px;">例：「うちの出張規程は？」</p>
     </div>
   </div>
 </section>
@@ -184,15 +184,15 @@
     </div>
     <div class="timeline-bar"></div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px;">
-      <div style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7;">
+      <div style="font-size: 15px; color: var(--ink-soft); line-height: 1.7;">
         <strong style="color: var(--ink);">過去 〜 カットオフ</strong><br>
         LLMが学習したデータ。一般知識、定番ニュース、公開情報。
       </div>
-      <div style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7;">
+      <div style="font-size: 15px; color: var(--ink-soft); line-height: 1.7;">
         <strong style="color: oklch(0.55 0.10 70);">カットオフ後 〜 現在</strong><br>
         LLMは知らない。聞くと "それっぽい答え" を作って返してくる。
       </div>
-      <div style="font-size: 15pt; color: var(--ink-soft); line-height: 1.7;">
+      <div style="font-size: 15px; color: var(--ink-soft); line-height: 1.7;">
         <strong style="color: oklch(0.6 0.06 30);">社内・機密情報</strong><br>
         いつの時点でも、LLM単体は永遠に知らない。
       </div>

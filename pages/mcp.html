@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCP — AI連携の共通コネクタ — AI勉強会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../styles/detail.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="back-link" href="../index.html">← AI勉強会</a>
+    <div class="crumb">
+      <a href="../index.html#session-5">第5回</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current">MCP（連携の標準規格）</span>
+    </div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Integration 03 / 03</div>
+  </div>
+</nav>
+
+<header class="hero-detail">
+  <div>
+    <div class="hero-eyebrow">Session 05 ／ ワークフロー自動化</div>
+    <h1>MCP<br><em>AI連携の、共通コネクタ。</em></h1>
+  </div>
+  <p class="hero-lede">
+    Model Context Protocol。AIと社内システム・SaaSをつなぐためのオープン標準。2024年末の登場からわずか1年半で主要ベンダーが軒並み採用し、「AI界のUSB-C」と呼ばれる事実上の標準になった。現在は中立の標準化団体が管理している。
+  </p>
+</header>
+
+<section class="metaphor">
+  <div class="metaphor-inner">
+    <div class="metaphor-label">In one sentence</div>
+    <h2 class="metaphor-q">機器ごとにバラバラだったケーブルが、<br><em>USB-Cの一本</em>に揃った。</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">Diagram 01</div>
+    <div>
+      <h2>Before / After — 配線問題の解消</h2>
+      <p class="sub">AI連携の最大のボトルネックは、モデルの性能ではなく「つなぎ込み」の工数だった。</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-col left">
+      <div class="compare-tag">Before ／ 個別配線</div>
+      <div class="compare-title">AI × システムの数だけ、専用開発</div>
+      <p class="compare-desc">AIが3種類、社内システムが10個なら、最大30本の専用連携を開発・保守する必要があった（N×M問題）。AIを乗り換えると連携は作り直し。</p>
+      <ul class="compare-points">
+        <li>連携ごとに個別のAPI開発</li>
+        <li>ベンダーを替えると資産が消える</li>
+        <li>保守コストが増え続ける</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <div class="compare-tag">After ／ MCP</div>
+      <div class="compare-title">システム側に「口」を1つ作れば、どのAIからも挿せる</div>
+      <p class="compare-desc">システム側が「MCPサーバー」という規格化された接続口を1つ用意すれば、MCP対応のAIすべてがそのまま接続できる（N+M）。</p>
+      <ul class="compare-points">
+        <li>接続口は1システムにつき1つ</li>
+        <li>AIを乗り換えても連携資産は残る</li>
+        <li>主要SaaSは公式MCPサーバーを提供済み</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="pullquote">
+  「つなぎ込み」の時代から、<br><em>「差すだけ」の時代へ</em>。
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Why it matters</div>
+    <div>
+      <h2>自社にとっての意味 — 3つ</h2>
+      <p class="sub">規格の話に見えて、実は投資判断と統制の話。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>連携の内製がぐっと軽くなる</h3>
+        <p>基幹システムや社内DBに一度MCPサーバーを立てれば、チャットAIからもエージェントからも同じ口で接続できる。第9回のエージェント・パイプラインの土台になる。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>ベンダーロックインの回避</h3>
+        <p>モデルの主役は数ヶ月ごとに入れ替わる時代。連携をMCPで組んでおけば、AI本体を乗り換えても接続資産はそのまま使える。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>権限と監査の一元管理</h3>
+        <p>「誰のAIが、どのシステムに、何をして良いか」を会社のID基盤で集中管理する企業向け認証の仕組みが整備された。野良連携（シャドーAI）対策としても重要。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="label">Plain Language</div>
+    <div>
+      <h2>用語解説 — むずかしい言葉をやさしく</h2>
+      <p class="sub">このページに出てくる専門用語を、業務や日常に置き換えて理解する。</p>
+    </div>
+  </div>
+  <div class="jargon-grid">
+    <div class="jargon-card">
+      <div class="jargon-term">MCPサーバー <span class="en">MCP Server</span></div>
+      <p class="jargon-plain">システム側に用意する「AI用の接続口」。そのシステムでできる操作（検索・登録・更新など）をAIに開示する。<span class="like">ビルの受付窓口。用件ごとの手続きが整理されている。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">MCPクライアント <span class="en">MCP Client</span></div>
+      <p class="jargon-plain">AI側の差し込みプラグ。チャットAIやエージェントがこれを使ってサーバーに接続する。<span class="like">USB-Cケーブルの、AI側の端子。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">ツール <span class="en">Tool</span></div>
+      <p class="jargon-plain">MCPサーバーがAIに開示する個々の操作。「在庫を検索する」「伝票を起票する」など。<span class="like">受付窓口に並んだ申請書の種類。</span></p>
+    </div>
+    <div class="jargon-card">
+      <div class="jargon-term">A2A <span class="en">Agent to Agent</span></div>
+      <p class="jargon-plain">MCPが「AIと道具」をつなぐ規格なのに対し、「AI同士」の連携を担う標準プロトコル。第8回のマルチエージェントで登場。<span class="like">MCPが内線電話なら、A2Aは部署間の連絡便。</span></p>
+    </div>
+  </div>
+</section>
+
+<nav class="pagenav">
+  <div class="pagenav-inner">
+    <a href="human-ai-divide.html">
+      <span class="dir">← Prev ／ Integration 02</span>
+      <span class="nxt">人間とAIの分業</span>
+    </a>
+    <a href="ai-agent.html" class="right">
+      <span class="dir">Next ／ 第6回へ →</span>
+      <span class="nxt">AIエージェントとは</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="foot">AI勉強会 / 第5回 ／ MCP（連携の標準規格）</footer>
+</body>
+</html>

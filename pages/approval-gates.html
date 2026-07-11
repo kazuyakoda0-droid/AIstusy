@@ -21,7 +21,7 @@
     background: var(--bg-alt);
     border: 1px solid var(--hair-strong);
     padding: 12px 18px;
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     text-align: center;
     min-width: 100px;
   }
@@ -41,7 +41,7 @@
     border-bottom: 6px solid oklch(0.78 0.10 35);
   }
   .gate-arrow {
-    color: var(--accent); font-family: var(--mono); font-size: 15pt;
+    color: var(--accent); font-family: var(--mono); font-size: 12px;
   }
 
   .risk-matrix {
@@ -53,17 +53,17 @@
   .rm-cell {
     background: var(--paper);
     padding: 18px 16px;
-    font-size: 15pt;
+    font-size: 15px;
     line-height: 1.5;
   }
   .rm-head {
     background: var(--ink); color: var(--paper);
     font-family: var(--mono); letter-spacing: 0.1em;
-    font-size: 15pt; text-transform: uppercase;
+    font-size: 15px; text-transform: uppercase;
   }
   .rm-axis {
     background: var(--bg-alt);
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--muted); letter-spacing: 0.1em;
     text-transform: uppercase;
     display: flex; align-items: center;
@@ -80,7 +80,7 @@
     padding: 28px;
   }
   .scen-tag {
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.14em; color: var(--accent);
     text-transform: uppercase; margin-bottom: 10px;
   }
@@ -93,10 +93,10 @@
     padding: 12px 14px;
     background: var(--bg-alt);
     border-left: 2px solid var(--accent);
-    font-family: var(--mono); font-size: 15pt;
+    font-family: var(--mono); font-size: 12px;
     color: var(--ink);
   }
-  .scen .why { font-size: 15pt; line-height: 1.85; color: var(--ink-soft); }
+  .scen .why { font-size: 15px; line-height: 1.85; color: var(--ink-soft); }
 </style>
 </head>
 <body>
@@ -109,7 +109,7 @@
       <span class="crumb-sep">/</span>
       <span class="crumb-current">承認ポイントの配置</span>
     </div>
-    <div class="crumb-sep" style="font-family: var(--mono); font-size: 15pt; letter-spacing: 0.12em;">Pipeline 03 / 04</div>
+    <div class="crumb-sep" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;">Pipeline 03 / 04</div>
   </div>
 </nav>
 
@@ -154,7 +154,7 @@
     <div class="gate-arrow">→</div>
     <div class="gate-step agent">A05 通知</div>
   </div>
-  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+  <p style="margin-top: 20px; font-size: 15px; color: var(--ink-soft); line-height: 1.8;">
     "判定" と "起票" の前後に人間ゲートを置く。それ以外は AI が自動で進む。承認ボタンを押すだけで、業務が完結する。
   </p>
 </section>
@@ -189,7 +189,7 @@
     <div class="rm-cell full"><strong>毎回承認</strong><br>例: 採用判定の素案</div>
     <div class="rm-cell full"><strong>毎回承認＋第三者</strong><br>例: 法令・コンプラ判断</div>
   </div>
-  <p style="margin-top: 20px; font-size: 15pt; color: var(--ink-soft); line-height: 1.8;">
+  <p style="margin-top: 20px; font-size: 15px; color: var(--ink-soft); line-height: 1.8;">
     "影響度: 大" の列は、必ず人間ゲートを置く。"頻度: 高 × 影響度: 小" は迷わず自動化する。
   </p>
 </section>
