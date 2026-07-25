@@ -14,13 +14,9 @@ mkdirSync(outDir, { recursive: true });
 
 const byslug = Object.fromEntries(PAGES.map((p) => [p.slug, p]));
 
-const CAT = `<svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
-<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
-<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
-<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
-<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
-<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>`;
+/** 写真のねこ。CSS の多重背景で、写真が無いときは線画ねこにフォールバックする */
+const cat = (v = 'kitten') => `<span class="catpic catpic-${v} cat" aria-hidden="true"></span>`;
+const CAT = cat('kitten');
 
 function block(b) {
   switch (b.t) {
@@ -47,7 +43,7 @@ function block(b) {
     case 'note':
       return `<div class="dnote"><div class="h">${b.h}</div><p>${b.p}</p></div>`;
     case 'meta':
-      return `<div class="dmeta">${CAT}<div><div class="h">${b.h ?? 'たとえるなら'}</div><p>${b.p}</p></div></div>`;
+      return `<div class="dmeta">${cat('silver')}<div><div class="h">${b.h ?? 'たとえるなら'}</div><p>${b.p}</p></div></div>`;
     case 'faq':
       return `<div class="faq">${b.items
         .map((f) => `<details><summary>${f.q}</summary><div class="a">${f.a}</div></details>`)

@@ -66,12 +66,49 @@
 }
 .hero .hero-cta { margin-top: 46px; display: flex; gap: 14px; flex-wrap: wrap; }
 
+/* ヒーローのねこ。縁をぼかして背景に溶かすので、貼りつけた感じにならない */
 .hero-cat {
-  width: min(260px, 22vw);
-  height: auto;
-  color: var(--accent-soft);
+  width: min(330px, 27vw);
+  aspect-ratio: 1 / 1;
   align-self: end;
-  margin-bottom: -6px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  box-shadow: none;
+  background-color: transparent;
+  background-size: cover, 58%;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 56%, rgba(0,0,0,.6) 80%, transparent 100%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 56%, rgba(0,0,0,.6) 80%, transparent 100%);
+}
+.hero-cat::after { background: rgba(142, 86, 65, .05); }
+
+/* 章と章のあいだの写真バンド。左右上下を紙色にフェードさせて埋め込む */
+.photoband { background: var(--bg-alt); padding: 0 0 var(--pad-y); }
+.pb-img {
+  position: relative;
+  height: clamp(210px, 32vw, 400px);
+  background-image: url(../img/cat-duo.jpg);
+  background-size: cover;
+  background-position: 50% 26%;
+  background-repeat: no-repeat;
+}
+.pb-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, var(--bg-alt) 0%, rgba(236,232,228,0) 22%, rgba(236,232,228,0) 78%, var(--bg-alt) 100%),
+    linear-gradient(to bottom, var(--bg-alt) 0%, rgba(236,232,228,0) 30%, rgba(236,232,228,0) 58%, var(--bg-alt) 100%),
+    rgba(142, 86, 65, .05);
+}
+.pb-cap { text-align: center; margin-top: -14px; position: relative; z-index: 1; }
+.pb-cap .eyebrow { justify-content: center; }
+.pb-cap .eyebrow::before { display: none; }
+.pb-lead {
+  font-size: clamp(17px, 2.2vw, 23px);
+  font-weight: 450;
+  letter-spacing: 0.1em;
+  line-height: 2;
+  margin: 0;
 }
 
 /* 事実の帯 */

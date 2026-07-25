@@ -138,9 +138,54 @@ code {
 .btn-fill { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .btn-fill:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* ---------- ねこ ---------- */
+/* ---------- ねこ（写真） ----------
+   多重背景にしてあり、1枚目（写真）が無い/読めない場合は
+   2枚目の線画ねこが見える。壊れた画像アイコンは出ない。 */
 
-.cat-line { color: var(--accent); }
+.catpic {
+  display: block;
+  position: relative;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--accent-tint);
+  background-repeat: no-repeat;
+  background-size: cover, 64%;
+  box-shadow: 0 0 0 1px rgba(56, 38, 35, .10), 0 10px 26px rgba(56, 38, 35, .10);
+}
+/* 写真全体をほんの少し暖色へ寄せて、紙の色となじませる */
+.catpic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(142, 86, 65, .07);
+  pointer-events: none;
+}
+
+.catpic-kitten {
+  background-image:
+    url(../img/cat-kitten.jpg),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%238e5641' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M22 44 L20 16 L42 30'/><path d='M78 44 L80 16 L58 30'/><path d='M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z'/><path d='M35 56q5-6 10 0'/><path d='M55 56q5-6 10 0'/><path d='M46 66h8l-4 5z' fill='%238e5641' stroke='none'/><path d='M50 71v3'/><path d='M50 74q-5 5-9 0'/><path d='M50 74q5 5 9 0'/></svg>");
+  background-position: 54% 38%, 50% 54%;
+}
+.catpic-silver {
+  background-image:
+    url(../img/cat-silver.jpg),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%238e5641' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M22 44 L20 16 L42 30'/><path d='M78 44 L80 16 L58 30'/><path d='M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z'/><path d='M35 56q5-6 10 0'/><path d='M55 56q5-6 10 0'/><path d='M46 66h8l-4 5z' fill='%238e5641' stroke='none'/><path d='M50 71v3'/><path d='M50 74q-5 5-9 0'/><path d='M50 74q5 5 9 0'/></svg>");
+  background-position: 50% 36%, 50% 54%;
+}
+
+/* 小さく使うところは、影を落とさず細いリングだけにする */
+.brand .catpic,
+.dbar .back .catpic {
+  box-shadow: 0 0 0 1px rgba(56, 38, 35, .14);
+}
+
+/* 濃色の面にのせるときは、縁を明るいリングに差し替える */
+.meow.on-dark .catpic,
+.oneline .catpic {
+  box-shadow: 0 0 0 1px rgba(250, 236, 190, .22), 0 10px 26px rgba(0, 0, 0, .28);
+}
 
 /* ふきだし（ねこの解説） */
 .meow {
@@ -384,7 +429,7 @@ code {
   padding: 54px 0 60px;
   text-align: center;
 }
-.foot .cat { width: 46px; height: 46px; color: var(--accent-soft); margin-bottom: 16px; }
+.foot .cat { width: 46px; height: 46px; color: var(--accent-soft); margin: 0 auto 16px; }
 .foot p {
   font-family: var(--mono);
   font-size: 11px;

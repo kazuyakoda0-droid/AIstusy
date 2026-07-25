@@ -15,40 +15,12 @@
 </head>
 <body>
 
-<!-- ねこアイコン定義 -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="ico-cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 44 L20 16 L42 30"/>
-    <path d="M78 44 L80 16 L58 30"/>
-    <path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
-    <path d="M35 56q5-6 10 0"/>
-    <path d="M55 56q5-6 10 0"/>
-    <path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
-    <path d="M50 71v3"/>
-    <path d="M50 74q-5 5-9 0"/>
-    <path d="M50 74q5 5 9 0"/>
-    <path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/>
-  </symbol>
-  <symbol id="ico-cat-sit" viewBox="0 0 200 260" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M68 238C58 210 62 168 80 148h40c18 20 22 62 12 90Z"/>
-    <path d="M132 238c36-2 50-28 40-52-6-14-22-14-24 0"/>
-    <path d="M76 238q10-10 20 0M104 238q10-10 20 0"/>
-    <path d="M68 84 64 50l26 16"/>
-    <path d="M132 84l4-34-26 16"/>
-    <path d="M62 100c0-22 17-38 38-38s38 16 38 38c0 20-17 34-38 34s-38-14-38-34Z"/>
-    <path d="M84 102q6-7 12 0M104 102q6-7 12 0"/>
-    <path d="M96 112h8l-4 5z" fill="currentColor" stroke="none"/>
-    <path d="M100 117v3M100 120q-5 5-9 0M100 120q5 5 9 0"/>
-    <path d="M64 106H40M64 113l-22 6M136 106h24M136 113l22 6"/>
-  </symbol>
-</svg>
-
 <div class="prog" id="prog"></div>
 
 <header class="topbar">
   <div class="topbar-in">
     <a class="brand" href="#top">
-      <svg class="cat"><use href="#ico-cat"/></svg>
+      <span class="catpic catpic-silver cat" aria-hidden="true"></span>
       <span>AI STUDY</span>
       <span class="ver">VER.2</span>
     </a>
@@ -84,7 +56,7 @@
       <a class="btn" href="#ch1">第1回からはじめる <span class="arw">→</span></a>
     </div>
     </div>
-    <svg class="hero-cat" viewBox="0 0 200 260" aria-hidden="true"><use href="#ico-cat-sit"/></svg>
+    <span class="catpic catpic-silver hero-cat" aria-hidden="true"></span>
    </div>
 
     <div class="facts">
@@ -124,7 +96,7 @@
     </div>
 
     <div class="meow rise" style="margin-top:44px;max-width:820px">
-      <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+      <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
       <div class="bubble">
         <span class="who">Navigator</span>
         こんにちは、案内役のねこです。<br>
@@ -205,7 +177,7 @@
     </div>
 
     <div class="meow rise" style="margin-top:52px;max-width:860px">
-      <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+      <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
       <div class="bubble">
         <span class="who">Navigator</span>
         ざっくり言うと、<strong class="mark">「AIに手伝ってもらう」から「AIに任せる」へ</strong>という10回です。
@@ -238,7 +210,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             AIは、<strong class="mark">「言われたことをやる道具」から「目的を伝えると自分で段取りする相棒」</strong>に変わりつつあります。この10回はその移り変わりを追いかける旅です。
@@ -309,7 +281,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             AIは意味を「分かって」いません。<strong class="mark">次に来そうな言葉を、確率でつないでいるだけ</strong>です。だから、頼み方しだいで結果がガラッと変わります。
@@ -375,7 +347,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             まずは<strong class="mark">「文章を書く・まとめる・整える」</strong>の3つから。ここだけで、たいていの人は1日30分〜1時間ぶん軽くなります。
@@ -447,7 +419,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             RAG（ラグ）は、AIに<strong class="mark">「カンペ持ち込みOKのテスト」</strong>を受けさせる仕組みです。暗記させるのではなく、その場で社内資料を引かせます。
@@ -504,7 +476,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             AIをチャット画面から出してあげる回です。<strong class="mark">人間がコピペで運んでいた部分</strong>を、そのまま自動でつなぎます。
@@ -576,7 +548,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             エージェントとは、<strong class="mark">「手順」ではなく「ゴール」を渡せる相手</strong>のこと。あとは自分で考え、道具を使い、確かめながら進みます。
@@ -606,7 +578,7 @@
           その頭脳に<strong class="mark">「手足」と「作業机」と「安全のためのひも」をつけて、実際の仕事場に連れていく仕組み</strong>——それがハーネスです。</p>
           <p>犬やねこに付ける胴輪（ハーネス）と同じ言葉です。力を仕事にきちんと伝えつつ、行ってほしくない方向には行かせない。エージェントが「動ける」のは、賢いモデルがあるからではなく、その周りにハーネスがあるからです。</p>
           <div class="meow" style="margin-top:26px">
-            <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+            <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
             <div class="bubble">
               <span class="who">Navigator</span>
               「AIエージェント」として世に出ている製品は、だいたい<strong class="mark">賢いモデル＋よくできたハーネス</strong>の組み合わせです。同じモデルでも、ハーネスの出来で仕事の質がまるで変わります。道具選びのときは、ここを見てください。
@@ -653,7 +625,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             AIが自分でファイルを書き、動かし、エラーを直すようになりました。つまり<strong class="mark">プログラムを書けない人でも、言葉だけで自分用の道具を作れる</strong>ということです。
@@ -703,7 +675,7 @@
             この4つがそろうと、AIは「毎回ゼロから説明しないと動かない相手」から、<strong class="mark">「うちのやり方を知っている担当者」</strong>に変わります。
           </p>
           <div class="meow" style="margin-top:26px">
-            <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+            <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
             <div class="bubble">
               <span class="who">Navigator</span>
               ここ、プログラミングの話に見えて、実は<strong class="mark">「新しく入った人への引き継ぎ資料の作り方」</strong>とまったく同じ話です。ルールを書いて、手順書を渡して、ゴールを伝えて、定期の仕事をお願いする。人に頼むときにやっていることを、AI向けにやるだけ。
@@ -734,6 +706,15 @@
   </div>
 </section>
 
+<!-- ---- 章と章のあいだ ---- -->
+<section class="photoband">
+  <div class="pb-img"></div>
+  <div class="wrap pb-cap rise">
+    <p class="eyebrow">Next chapter</p>
+    <p class="pb-lead">ここからは、AIを1匹ではなく<span class="mark">何匹も</span>並べます。</p>
+  </div>
+</section>
+
 <!-- ============================ CHAPTER 4 ============================ -->
 <section class="sec" id="ch4">
   <div class="wrap-wide">
@@ -757,7 +738,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             <strong class="mark">万能なねこ1匹より、役割の違うねこ3匹</strong>。立場を分けて議論させたほうが、思い込みも減って、結論が強くなります。
@@ -820,7 +801,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             複雑な仕事は、<strong class="mark">小さく切って、1工程に1匹ずつ</strong>。バケツリレーの形にすると、まるごと自動化できます。
@@ -873,7 +854,7 @@
       </div>
       <div class="s-body">
         <div class="meow">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">ひとことで言うと</span>
             AIが作業をするようになると、人の仕事は<strong class="mark">「自分でやること」から「設計して、確かめて、責任を取ること」</strong>に移ります。
@@ -916,7 +897,7 @@
             </div>
           </div>
           <div class="meow" style="margin-top:28px">
-            <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+            <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
             <div class="bubble">
               <span class="who">Navigator</span>
               必要になるのはプログラミング能力ではありません。<strong class="mark">仕事を整理する力、良い問いを立てる力、そして判断する力</strong>。
@@ -968,7 +949,7 @@
           結局のところ、10回かけてやっているのはその練習です。
         </p>
         <div class="meow on-dark" style="margin-top:38px">
-          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
           <div class="bubble">
             <span class="who">Navigator</span>
             おつかれさまでした。<br>
@@ -995,7 +976,7 @@
 
 <footer class="foot">
   <div class="wrap">
-    <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
     <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
     <p>全10回 · 4章構成 · 23トピック</p>
     <div class="links">
