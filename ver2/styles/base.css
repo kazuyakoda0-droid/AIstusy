@@ -166,13 +166,13 @@ code {
   background-image:
     url(../img/cat-kitten.jpg),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%238e5641' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M22 44 L20 16 L42 30'/><path d='M78 44 L80 16 L58 30'/><path d='M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z'/><path d='M35 56q5-6 10 0'/><path d='M55 56q5-6 10 0'/><path d='M46 66h8l-4 5z' fill='%238e5641' stroke='none'/><path d='M50 71v3'/><path d='M50 74q-5 5-9 0'/><path d='M50 74q5 5 9 0'/></svg>");
-  background-position: 54% 38%, 50% 54%;
+  background-position: 50% 50%, 50% 54%;
 }
 .catpic-silver {
   background-image:
     url(../img/cat-silver.jpg),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%238e5641' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M22 44 L20 16 L42 30'/><path d='M78 44 L80 16 L58 30'/><path d='M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z'/><path d='M35 56q5-6 10 0'/><path d='M55 56q5-6 10 0'/><path d='M46 66h8l-4 5z' fill='%238e5641' stroke='none'/><path d='M50 71v3'/><path d='M50 74q-5 5-9 0'/><path d='M50 74q5 5 9 0'/></svg>");
-  background-position: 50% 36%, 50% 54%;
+  background-position: 50% 50%, 50% 54%;
 }
 
 /* 小さく使うところは、影を落とさず細いリングだけにする */
