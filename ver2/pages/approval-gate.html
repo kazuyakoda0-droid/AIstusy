@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>承認ゲートの置き方と、差し戻し｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="どこに何個置くか、画面に何を出すか、突き返されたらどこへ戻すか。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><span class="catpic catpic-kitten cat" aria-hidden="true"></span><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第9回 プロセスまるごとAIチームに / 承認ゲートの置き方と、差し戻し</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 09 · 設計</p>
+      <h1>承認は、<em>「押すだけの儀式」</em>になった瞬間に無意味になる</h1>
+      <span class="en">Design the gate, not just the button.</span>
+    </div>
+    <div class="side">
+      <p>「最後に人が承認します」——AI活用の説明で、いちばんよく出てくる一文です。そして、いちばん機能していない一文でもあります。</p>
+      <p>承認ゲートは、ボタンを置けば成立するものではありません。<strong>置く場所・出す情報・戻す道</strong>の3点セットで設計します。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">承認が機能するのは、<b>人が「何を見れば良し悪しが判定できるか」分かっているとき</b>だけです。それ以外は、ただのボタンです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Where</p>
+    <h2>どこに置くか / 全部に置いてはいけません</h2>
+    <p>工程の切れ目は承認ゲートの候補ですが、<strong>全部の切れ目に置くと、誰も中身を見なくなります。</strong>1日20回承認を求められる運用は、必ず形骸化します。</p>
+<p>数を絞るために、工程を3つに分類してください。</p>
+    <div class="dcards"><div><div class="h">MUST</div><div class="t">必ず置く</div><div class="d">外に出る前（送信・提出）、お金が動く前、消す前、人の評価が確定する前。ここは件数が多くても省きません。</div></div><div><div class="h">BATCH</div><div class="t">まとめて置く</div><div class="d">社内で完結する下書きや分類は、1件ずつではなく<strong>1日分をまとめて</strong>確認します。同じ形のものが並ぶので、かえって異常に気づきます。</div></div><div><div class="h">NONE</div><div class="t">置かない</div><div class="d">取り返しがつく作業（調べる・要約する・候補を出す）。ここに置くと、本当に見るべきゲートの集中力を削ります。</div></div></div>
+    <div class="dmeta"><span class="catpic catpic-silver cat" aria-hidden="true"></span><div><div class="h">たとえるなら</div><p><strong>空港の保安検査</strong>と同じ考え方です。全員のカバンを全部開けたら列が止まります。だから機械で通して、引っかかったものだけ人が開ける。<strong>人の目は、いちばん効くところに集める。</strong></p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">What</p>
+    <h2>承認画面に、何を出すか</h2>
+    <p>ここが設計のいちばんの勘所です。「AIの結論」だけ出しても、人には判定できません。</p>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">AIの判断結果（結論）</div><div class="dd">「部長決裁ルートと判定」。まず結論。ただし、これだけでは承認できません。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">根拠（どの資料のどこを見たか）</div><div class="dd">「稟議規程 第5条：100万円以上は部長決裁 ／ 本件 税込1,078,000円」。<strong>原文と、当てはめた数字を並べて出す。</strong></div></div></div><div class="st"><div class="n">3</div><div><div class="tt">確信が持てなかった点・例外</div><div class="dd">「納期の記載が見つかりませんでした」「印影と数字が重なっており読み取り精度が低い箇所があります」。ここを隠さず出させるのが最重要です。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">前回・原本との差分</div><div class="dd">毎月同じ取引先なら「先月と違う点」を出させる。人は差分を見るのが得意で、全文を読むのは苦手です。</div></div></div></div>
+    <div class="dnote"><div class="h">設計の一言</div><p><strong>承認者に「読ませる」のではなく「見比べさせる」。</strong>根拠と数字が並んでいれば5秒で判定できます。文章を読ませようとすると、30秒かかって、そのうち読まなくなります。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Back</p>
+    <h2>差し戻しの道を、先に作る</h2>
+    <p>承認しなかったとき、その書類はどこへ行くのか。ここを決めていない仕組みが、実は非常に多いです。</p>
+    <div class="dcode"> 抽出 → 照合 → 判定 → <b>［承認］</b> → 登録 → <b>［承認］</b> → 送信
+                        │
+                        └─ 差し戻し
+                             ├─ 読み取りが違う  → 抽出工程へ戻す
+                             ├─ 判定基準が違う  → 手順書（Skill）を直す
+                             └─ 書類自体が不備  → 取引先へ照会（人）
+
+<span class="cm"> 差し戻すときは、理由を1行だけ必ず書かせる（あとで集計する）</span></div>
+    <p>ポイントは<strong>「戻す先が3種類ある」</strong>ことです。読み取りミスなら工程をやり直せば済みますが、判定基準のズレは<strong>手順書を直さないと、来月また同じことが起きます。</strong></p>
+    <div class="dnote"><div class="h">差し戻し理由は、資産です</div><p>同じ理由が月に何度も出るなら、それは人の確認が足りないのではなく<strong>手順書に書いていないルールがある</strong>ということです。差し戻し理由の集計が、そのまま改善リストになります。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Trap</p>
+    <h2>形骸化のサイン</h2>
+    <div class="dcards"><div><div class="h">SIGN 1</div><div class="t">承認率が100%</div><div class="d">3か月間、1件も差し戻しがない。それは完璧なのではなく、<strong>見ていない</strong>可能性が高いです。</div></div><div><div class="h">SIGN 2</div><div class="t">承認までの平均時間が数秒</div><div class="d">根拠を読む時間がありません。画面の出し方に問題があるか、置く場所を間違えています。</div></div><div><div class="h">SIGN 3</div><div class="t">承認者が「とりあえず全部承認」と言う</div><div class="d">件数が多すぎるサインです。ゲートを減らして、まとめ承認に切り替えるべき局面です。</div></div><div><div class="h">SIGN 4</div><div class="t">誰が承認したか残っていない</div><div class="d">責任の所在が消えます。記録は必ず残す設計にしてください。</div></div></div>
+    <div class="dnote"><div class="h">見つけたときの直し方</div><p>ゲートを増やす方向に直してはいけません。<strong>数を減らして、1回の質を上げる。</strong>「1日1回、10件まとめて、根拠つきで」のほうが、都度承認より事故を止めます。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+      <a class="topic" href="task-decomposition.html"><span class="t">タスク分解とパイプライン</span><span class="d">複雑な仕事を、AIに渡せる大きさに切る方法。</span><span class="go">READ →</span></a>
+      <a class="topic" href="handoff.html"><span class="t">工程の受け渡し（バケツの形をそろえる）</span><span class="d">前の工程の出力が、そのまま次の入力になる形にしておく。</span><span class="go">READ →</span></a>
+      <a class="topic" href="governance.html"><span class="t">ガバナンスとシャドーAI</span><span class="d">禁止しても止まりません。使いやすい正規ルートを先に用意すること。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s9">第9回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s9">SESSION 09</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

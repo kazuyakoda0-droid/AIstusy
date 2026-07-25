@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>壊さずに試すための約束ごと｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="コピーで試す。元に戻せるようにする。危ない操作は人が承認する。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><span class="catpic catpic-kitten cat" aria-hidden="true"></span><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第7回 AIが自分でつくる時代 / 壊さずに試すための約束ごと</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 07 · 実践・道具立て</p>
+      <h1><em>元に戻せる形</em>で試すのが、いちばんの上達法</h1>
+      <span class="en">Make everything undoable.</span>
+    </div>
+    <div class="side">
+      <p>AIが自分でファイルを作り、動かすようになった——ということは、<strong>間違ったものも自分で動かせる</strong>ということです。</p>
+      <p>怖がって使わないのがいちばん損なので、<strong>怖がらずに試せる形</strong>を先に作ります。約束は3つだけです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>原本を触らせない・元に戻せるようにする・危ない操作は人が承認する。</b>この3つだけ守れば、非エンジニアがAIに作業させても大きな事故は起きません。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Rules</p>
+    <h2>3つの約束</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">原本のフォルダを、そのまま渡さない</div><div class="dd">作業用フォルダにコピーしてから渡します。「元データはここにしかない」状態で試すのが、唯一の本当に危ない行為です。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">実行する前に、何をするか言わせる</div><div class="dd">「実行する前に、これから何をするかを1行で説明して、確認を取ってください」。この一文を最初に付けるだけで、意図の食い違いがその場で見つかります。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">削除・上書き・送信は、必ず人が承認する</div><div class="dd">作る・読む・コピーするは任せる。<strong>消す・書き換える・外に出す</strong>は人が押す。ツール側の設定でも指定できます（第6回のハーネスの仕事です）。</div></div></div></div>
+    <div class="dmeta"><span class="catpic catpic-silver cat" aria-hidden="true"></span><div><div class="h">たとえるなら</div><p><strong>包丁を初めて渡すとき</strong>と同じ順番です。まず切っていい野菜を用意して、まな板の場所を決めて、それから渡す。「気をつけて」だけ言って渡す人はいません。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Undo</p>
+    <h2>「元に戻せる」を、いちばん簡単に用意する方法</h2>
+    <p>エンジニアはバージョン管理という仕組みを使いますが、最初はそこまで要りません。<strong>作業前のフォルダを、日付を付けてコピーしておく</strong>だけで十分です。</p>
+    <div class="dcode">見積書_2026年04月/            <span class="cm">← 原本（AIには渡さない）</span>
+見積書_2026年04月_作業用/       <span class="cm">← ここをAIに渡す</span>
+見積書_2026年04月_0715時点/     <span class="cm">← 作業前のコピー（戻る先）</span></div>
+    <div class="dnote"><div class="h">これで足りなくなったら</div><p>同じ作業を毎週やるようになったら、そのときにバージョン管理を覚えればいいです。<strong>順番はこれで正しい</strong>——先に道具を覚えると、たいてい続きません。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">First try</p>
+    <h2>最初に試す作業の、選び方</h2>
+    <div class="dcards"><div><div class="h">GOOD 1</div><div class="t">件数が少ない</div><div class="d">5件で試して、うまくいったら100件。最初から全件やらせると、間違いも全件に広がります。</div></div><div><div class="h">GOOD 2</div><div class="t">結果が目で見て分かる</div><div class="d">ファイル名が変わった、表ができた、写真に文字が入った。良し悪しが一目で分かる作業から始めます。</div></div><div><div class="h">GOOD 3</div><div class="t">間違っても誰にも迷惑がかからない</div><div class="d">自分だけが使うファイル、自分だけが見る集計。まずは自分の机の上で完結する作業を選んでください。</div></div><div><div class="h">BAD</div><div class="t">避けたほうがいい最初の一歩</div><div class="d">共有フォルダの整理、基幹システムへの入力、顧客に出す書類の生成。慣れてからで十分間に合います。</div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">FAQ</p>
+    <h2>よくある質問</h2>
+    <div class="faq"><details><summary>それでもファイルが消えてしまったら？</summary><div class="a">まず落ち着いて、<strong>そのフォルダで作業を続けないこと</strong>です。上書きが進むほど戻しにくくなります。共有ドライブなら以前のバージョンから復元できる場合が多いので、情報システム部門に相談してください。そして次からは作業用コピーで試すこと——これに勝る対策はありません。</div></details><details><summary>どこまで自動で実行させていいものですか？</summary><div class="a"><strong>「間違っていたら、やり直せばいい」で済む範囲まで</strong>です。やり直せない操作（送信・削除・支払い）は、慣れても人が押す側に残します。詳しくは<a href="human-in-the-loop.html">Human in the Loop</a>と<a href="autonomy-levels.html">任せる度合いの5段階</a>を。</div></details><details><summary>AIが書いたプログラムの中身を、読めなくても大丈夫ですか？</summary><div class="a">大丈夫です。ただし<strong>「何をするものなのか」は日本語で説明させて、それを読んでください。</strong>中身が読めないことより、何をするか分からないまま動かすことが問題です。</div></details></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="coding-agent.html"><span class="t">コーディングエージェント</span><span class="d">自分でコードを書き、動かし、エラーを直すAI。非エンジニアにこそ効きます。</span><span class="go">READ →</span></a>
+      <a class="topic" href="autonomy-levels.html"><span class="t">任せる度合いの5段階</span><span class="d">「全部任せる」の前に4つの段があります。今どこにいるかで、置く仕掛けが変わります。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+      <a class="topic" href="harness.html"><span class="t">ハーネス — AIに手足をつける仕組み</span><span class="d">頭脳だけでは仕事になりません。エージェントを支える「胴輪」の話。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s7">第7回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s7">SESSION 07</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>書類から項目を抜き出す｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="様式がバラバラな見積書・請求書から、必要な項目だけを取り出す。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><span class="catpic catpic-kitten cat" aria-hidden="true"></span><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第5回 AIを仕事の流れに組み込む / 書類から項目を抜き出す</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 05 · 業務連携</p>
+      <h1><em>様式がバラバラな書類</em>でも、項目を抜き出せる</h1>
+      <span class="en">Reading documents that were never standardized.</span>
+    </div>
+    <div class="side">
+      <p>第5回の見積書フローで、いちばん「本当にできるの？」と聞かれるのがこの工程です。</p>
+      <p>取引先ごとに様式が違う書類を、事前登録なしで読めるようになった——これが実務でいちばん大きな変化です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>「何を取りたいか」を項目名で伝えるだけで、初めて見る様式からでも値を取り出せます。</b>テンプレートの事前登録は要りません。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Change</p>
+    <h2>これまでの読み取りと、何が違うのか</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">従来のOCR / 帳票システム</div><q>「この位置に金額がある」と座標や様式を事前に登録しておく</q><div class="memo">取引先が増えるたびに登録作業。しかも様式が少し変わると、その日から読めなくなります。</div></div>
+<div class="good"><div class="h">生成AIによる読み取り</div><q>「取引先名と税込金額を取って」と項目名で頼む</q><div class="memo">位置ではなく意味で読むので、初めて見る様式でも取れます。登録作業がゼロになりました。</div></div>
+</div>
+    <p>違いは<strong>「どこにあるか」で読むか、「何であるか」で読むか</strong>です。人が初見の請求書を読めるのは、位置を覚えているからではなく「合計と書いてある横の数字が合計だ」と分かるからですよね。同じことをするようになりました。</p>
+    <div class="dmeta"><span class="catpic catpic-silver cat" aria-hidden="true"></span><div><div class="h">たとえるなら</div><p><strong>派遣で来た経理経験者</strong>。うちの様式は知らないけれど、請求書というものは知っている。だから初見でも「これが取引先で、これが税込ですね」と分かります。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">How</p>
+    <h2>頼み方は、欲しい項目を並べるだけ</h2>
+    <div class="dcode"><span class="p">依頼 &gt;</span> 添付の見積書PDFから、次の項目を取り出してください。
+書かれていない項目は「記載なし」と書いてください。
+値を推測して埋めないでください。
+
+  ・取引先名（「御中」「様」は除く）
+  ・見積番号 / 発行日 / 有効期限
+  ・明細（品目・数量・単価）を行ごとに
+  ・小計 / 消費税 / 税込合計
+  ・支払条件
+
+<span class="cm">→ 表形式で出力。取れなかった項目は「記載なし」。</span></div>
+    <div class="dnote"><div class="h">ここが実務のコツ</div><p><strong>「推測して埋めないでください」と「記載なしと書いてください」をセットで指定する。</strong>これがないと、空欄を埋めようとして、それらしい数字を作ってしまいます。取れなかったことが分かる状態のほうが、100倍安全です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Pitfall</p>
+    <h2>精度が落ちる、代表的な4つ</h2>
+    <div class="dcards"><div><div class="h">RISK 1</div><div class="t">手書き・かすれ・押印の重なり</div><div class="d">FAXで届いた注文書、印影が数字に重なった伝票。ここは今も苦手です。最初から人が見る前提にしておきます。</div></div><div><div class="h">RISK 2</div><div class="t">複数ページにまたがる明細</div><div class="d">2ページ目以降の明細が落ちる、という抜けが起きます。<strong>行数を数えさせて報告させる</strong>と気づけます。</div></div><div><div class="h">RISK 3</div><div class="t">単位と税の扱い</div><div class="d">千円単位の表記、税抜と税込の混在。人でも間違うところです。「単位も一緒に取り出して」と明示します。</div></div><div><div class="h">RISK 4</div><div class="t">似た数字の取り違え</div><div class="d">小計と合計、単価と金額。桁がそろっているので、間違っても見た目に違和感が出ません。いちばん怖いパターンです。</div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Ops</p>
+    <h2>業務に載せるときに決めておくこと</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">取り出した値の横に、元の記載箇所を残す</div><div class="dd">「税込合計：1,100,000円（3ページ目・合計欄）」。あとで人が確認するときに、この一行があるかないかで確認時間が10倍変わります。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">機械で検算できるものは、必ず検算する</div><div class="dd">小計＋消費税＝税込合計、単価×数量＝金額。<strong>合わなければ人に回す</strong>。AIの読み取りを、AIではなく計算で検証するのがポイントです。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">金額の大きいものは、必ず人が見る</div><div class="dd">「50万円以上は目視確認」のように、閾値で分けます。全件見るのは続きませんが、全件任せるのも危険です。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">読めなかった書類の置き場所を決める</div><div class="dd">止まったものが行方不明になるのが、いちばんよくある事故です。「読み取り失敗」フォルダに入れて、人が処理する動線まで作っておきます。</div></div></div></div>
+    <div class="dnote"><div class="h">第9回への伏線</div><p>この「取り出す」工程は、第9回のパイプラインでは PHASE 1 にあたります。<strong>後ろの工程は、ここで取れた値を信じて動きます。</strong>だから最初の工程に検算と人の目を置くのが、全体の設計として効いてきます。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="workflow.html"><span class="t">業務フローへの組み込み</span><span class="d">対話型AIから組み込み型AIへ。コピペで運ぶ作業をなくす。</span><span class="go">READ →</span></a>
+      <a class="topic" href="rag.html"><span class="t">RAG（検索してから答えさせる）</span><span class="d">AIに「カンペ持ち込みOKのテスト」を受けさせる仕組みです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="coding-agent.html"><span class="t">コーディングエージェント</span><span class="d">自分でコードを書き、動かし、エラーを直すAI。非エンジニアにこそ効きます。</span><span class="go">READ →</span></a>
+      <a class="topic" href="approval-gate.html"><span class="t">承認ゲートの置き方と、差し戻し</span><span class="d">どこに何個置くか、画面に何を出すか、突き返されたらどこへ戻すか。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s5">第5回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s5">SESSION 05</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

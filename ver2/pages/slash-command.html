@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>スラッシュコマンド（頼み方を登録しておく）｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="毎回打っている長い依頼文に名前を付けて、「/名前」で呼び出す。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><span class="catpic catpic-kitten cat" aria-hidden="true"></span><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第7回 AIが自分でつくる時代 / スラッシュコマンド（頼み方を登録しておく）</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 07 · 実践・道具立て</p>
+      <h1><em>/名前</em> で呼び出せる、自分専用の依頼文</h1>
+      <span class="en">Slash commands — your prompts, saved.</span>
+    </div>
+    <div class="side">
+      <p><strong>/goal</strong> や <strong>/loop</strong> の頭に付いている「/」は何なのか。ここを押さえると、この回の4つの部品が一本につながります。</p>
+      <p>結論から言うと、<strong>よく使う依頼文を登録して、短い名前で呼べるようにしたもの</strong>です。それだけです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>スラッシュコマンドは「登録済みの依頼文」</b>。/goal や /loop も、あらかじめ用意されたコマンドのひとつにすぎません。自分で作ることもできます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Basics</p>
+    <h2>打った瞬間に、裏で何が起きているか</h2>
+    <p>「/週報」と打つと、裏では<strong>登録しておいた長い依頼文が、そのまま展開されて実行されます。</strong>魔法の機能ではなく、単語登録や定型文と同じ発想です。</p>
+    <div class="dcode"><span class="p">＄</span> /週報 今週
+
+<span class="cm">-- 裏で実行されている内容 --</span>
+あなたは業務報告をまとめる担当者です。
+今週の作業ログを読み、次の形式で週報を作ってください。
+  1. 今週やったこと（3〜5行）
+  2. 数字（件数・時間）
+  3. 来週やること
+  4. 相談したいこと
+社内向けなので敬語、300字程度でお願いします。</div>
+    <div class="dmeta"><span class="catpic catpic-silver cat" aria-hidden="true"></span><div><div class="h">たとえるなら</div><p><strong>電話の短縮ダイヤル</strong>。番号を覚えているわけではなく、登録してある長い番号を短い操作で呼び出しているだけ。中身は自分で登録した内容そのままです。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Make</p>
+    <h2>作り方は、.md を1枚置くだけ</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">依頼文を .md ファイルに書く</div><div class="dd">毎回打っている内容を、そのまま貼るだけでかまいません。第7回の <strong>.md</strong> の話がここで効いてきます。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">決められた場所に置く</div><div class="dd">ツールごとに「コマンド置き場」のフォルダがあります。そこに置いたファイル名が、そのままコマンド名になります。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">引数を受け取れるようにする（任意）</div><div class="dd">「/週報 今週」の"今週"のような部分を、依頼文の中で受け取れます。使う側は短く打てて、中身は詳しく書けます。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">チームで共有する</div><div class="dd">ファイルを共有すれば、全員が同じコマンドを使えます。<strong>頼み方が揃うので、出てくるものも揃います。</strong></div></div></div></div>
+    <div class="dnote"><div class="h">効果が大きいのは、実は共有のほう</div><p>個人の時短より、<strong>「うちのチームの週報の頼み方はこれ」と決まること</strong>の効果が大きいです。人によって出来上がりがバラバラになる問題が、コマンドを配るだけで消えます。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">vs Skill</p>
+    <h2>Skill との違いは、呼ぶのが誰か</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">スラッシュコマンド</div><q>人が「/週報」と明示的に呼ぶ</q><div class="memo">使うタイミングを人が決めます。定型作業を自分の意思で始めるときの道具。</div></div>
+<div class="good"><div class="h">Skill（手順書）</div><q>AIが「この作業なら、あの手順書が要る」と自分で開く</q><div class="memo">呼ぶ判断もAIに任せます。どんな依頼が来ても、うちのやり方で処理させたいときの道具。</div></div>
+</div>
+    <p>どちらが優れているという話ではありません。<strong>「自分で始める作業」はコマンド、「どう頼まれても守ってほしいやり方」は Skill</strong>。この使い分けで十分です。</p>
+    <div class="dnote"><div class="h">迷ったときの決め方</div><p>毎回自分で打っているものはコマンドにする。「これ言い忘れると困るな」と思うものは Skill か .md に書く。<strong>言い忘れが怖いものは、人に思い出させない側に置く</strong>のが原則です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Tips</p>
+    <h2>作るときのコツ</h2>
+    <div class="dcards"><div><div class="h">TIP 1</div><div class="t">名前は短く、動詞で</div><div class="d">「/週報」「/議事録」「/見積チェック」。打つ気にならない長さの名前は、結局使われません。</div></div><div><div class="h">TIP 2</div><div class="t">1コマンド1仕事</div><div class="d">欲張って全部入れると、微妙に用途が違うときに使えなくなります。分けたほうが結局出番が多いです。</div></div><div><div class="h">TIP 3</div><div class="t">完成させてから配る</div><div class="d">自分で2〜3週間使って、直し終わったものをチームに配ります。作りかけを配ると、直すコストが人数分かかります。</div></div></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="goal-command.html"><span class="t">/goal — ゴールを宣言して、完走させる</span><span class="d">「終わりの定義」を先に渡すと、AIは途中で勝手に止まらなくなります。</span><span class="go">READ →</span></a>
+      <a class="topic" href="loop-command.html"><span class="t">/loop — 決めた作業を、くり返させる</span><span class="d">「5分ごとにこれを見て」。見張り役をAIに任せるコマンド。</span><span class="go">READ →</span></a>
+      <a class="topic" href="markdown.html"><span class="t">.md（マークダウン）— AIと人の共通言語</span><span class="d">「#」で見出し、「-」で箇条書き。人にもAIにも読めるテキスト形式。</span><span class="go">READ →</span></a>
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s7">第7回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s7">SESSION 07</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

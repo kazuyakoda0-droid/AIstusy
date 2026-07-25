@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>出典を出させる（確認できる答えにする）｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="社内で使えるかどうかは、答えの見た目ではなく、根拠が示せるかで決まります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><span class="catpic catpic-kitten cat" aria-hidden="true"></span><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第4回 社内のことを知っているAIをつくる / 出典を出させる（確認できる答えにする）</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 04 · 社内データ</p>
+      <h1>大事なのは正しさより、<em>確認できること</em></h1>
+      <span class="en">Grounding — answers you can verify.</span>
+    </div>
+    <div class="side">
+      <p>RAGを入れれば安心、ではありません。<strong>回答に根拠が付いていなければ、結局だれも信用できません。</strong></p>
+      <p>この回でつくる社内AIが実際に使われるかどうかは、ほぼこの一点で決まります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">「こう決まっています」ではなく<b>「規定集のこの条に、こう書いてあります」まで言わせる</b>。それが社内で使える答えの条件です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Why</p>
+    <h2>確認できない答えは、使えません</h2>
+    <p>社内の問い合わせに答えるAIを作ったとして、「経費は3万円までです」とだけ返ってきたら、担当者はどうするでしょうか。<strong>結局、規定を自分で開いて確かめます。</strong>それでは仕事が減っていません。</p>
+<p>一方「（人事規定集 2026年版 第12条）経費は1件3万円まで」と返ってくれば、その1行を見て終わりです。<strong>作業が減るのは、確認の手間が減ったときだけ</strong>です。</p>
+    <div class="dmeta"><span class="catpic catpic-silver cat" aria-hidden="true"></span><div><div class="h">たとえるなら</div><p>会議で<strong>「たしか3万円だったと思います」と言う人</strong>と、<strong>規定を開いて該当箇所を指す人</strong>の違い。前者の発言では、何も決められません。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">How</p>
+    <h2>そう振る舞わせるための、3つの指示</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">渡した資料の中だけで答えさせる</div><div class="dd">「以下の資料に書かれている内容のみを根拠に答えてください。一般的な知識で補わないでください」。この一文がないと、AIは足りない部分を"常識"で埋めてしまいます。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">該当箇所を、そのまま引用させる</div><div class="dd">「根拠となる原文を、そのまま引用して添えてください」。要約させると、そこで意味がズレる余地が生まれます。原文を出させるのが確実です。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">書かれていなければ、そう言わせる</div><div class="dd">「資料に記載がない場合は『資料に記載がありません』と答え、推測しないでください」。逃げ道を先に用意しておくのが、創作を防ぐいちばんの近道です。</div></div></div></div>
+    <div class="dcode"><span class="cm">-- 良い回答の形 --</span>
+<span class="p">質問 &gt;</span> 出張の日当はいくらですか
+
+<span class="p">回答 &gt;</span> 国内出張の日当は 2,500円 です。
+
+  <b>根拠（原文）：</b>
+  「国内出張における日当は1日あたり2,500円とする。
+    ただし宿泊を伴わない場合は半額とする。」
+  出典：旅費規程 2026年4月版 第8条
+
+  <span class="cm">※ 海外出張については、渡された資料に記載がありません。</span></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Check</p>
+    <h2>回答の質は、この3点で見る</h2>
+    <div class="dcards"><div><div class="h">CHECK 1</div><div class="t">出典の粒度</div><div class="d">「人事規定集より」では確認できません。<strong>版と条番号、できればページまで</strong>。どこを開けばいいかが分かる粒度が必要です。</div></div><div><div class="h">CHECK 2</div><div class="t">引用と原文の一致</div><div class="d">引用として出てきた文が、本当に原文どおりか。ここが違っていたら、根拠そのものが創作されています。導入時に必ず抜き取りで確認してください。</div></div><div><div class="h">CHECK 3</div><div class="t">版が古くないか</div><div class="d">いちばん多い事故です。内容は正しく引用できているのに、引いているのが3年前の版。<strong>間違いより見つけにくい</strong>ので厄介です。</div></div></div>
+    <div class="dnote"><div class="h">導入前にやる、いちばん地味で効く作業</div><p><strong>旧版のファイルを、AIが見る場所から消すこと。</strong>「最新版_最終_v3改.docx」が並んでいる状態では、どんな仕組みを入れても正しく答えられません。RAGの精度の話は、9割が資料の整理の話です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Ops</p>
+    <h2>運用でやること</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">ファイル名と冒頭に、版と日付を必ず入れる</div><div class="dd">AIは中身から日付を推測できません。書いていないものは判断できない、と考えてください。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">「記載がありません」と答えた質問を、リストで溜める</div><div class="dd">これは失敗ログではなく、<strong>資料に足りない項目の一覧</strong>です。社内文書を改善する材料としてそのまま使えます。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">答えの正しさを、担当部署が定期で抜き取り確認する</div><div class="dd">全件見る必要はありません。月に10件でも十分に傾向が見えます。</div></div></div></div>
+    <div class="dnote"><div class="h">ここだけは覚えて帰ってください</div><p><strong>出典が出せない社内AIは、便利な雑談相手にしかなりません。</strong>逆に、出典が出るだけで「あの人に聞かないと分からない」がひとつ減ります。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="rag.html"><span class="t">RAG（検索してから答えさせる）</span><span class="d">AIに「カンペ持ち込みOKのテスト」を受けさせる仕組みです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="hallucination.html"><span class="t">ハルシネーション（もっともらしい嘘）</span><span class="d">AIが自信満々に間違える現象。なぜ起きるのか、どう防ぐのか。</span><span class="go">READ →</span></a>
+      <a class="topic" href="security.html"><span class="t">安全に使うための線引き</span><span class="d">入れていい情報・ダメな情報。オプトアウトとは何か。</span><span class="go">READ →</span></a>
+      <a class="topic" href="approval-gate.html"><span class="t">承認ゲートの置き方と、差し戻し</span><span class="d">どこに何個置くか、画面に何を出すか、突き返されたらどこへ戻すか。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s4">第4回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s4">SESSION 04</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ペルソナ設計（AIに立場を持たせる）｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="「批判的なAI」ではなく「品質保証部長の立場のAI」。立場の書き方で議論の質が決まります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><span class="catpic catpic-kitten cat" aria-hidden="true"></span><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第8回 AIチームで考える / ペルソナ設計（AIに立場を持たせる）</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 08 · チーム化</p>
+      <h1>役割は、<em>性格ではなく「立場」</em>で与える</h1>
+      <span class="en">Give it a seat at the table, not a mood.</span>
+    </div>
+    <div class="side">
+      <p>マルチエージェントで良い議論が起きるかどうかは、ほぼ<strong>役割の書き方だけ</strong>で決まります。</p>
+      <p>そして失敗のパターンもほぼ1つです。<strong>性格を指定してしまうこと</strong>。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>誰の立場か・何を守る人か・何で評価される人か</b>——この3つを書くだけで、AIの視点が定まり、議論がかみ合いはじめます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Anti-pattern</p>
+    <h2>なぜ「批判的なAI」ではダメなのか</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">BAD — 性格を指定した</div><q>あなたは批判的な視点を持つAIです。この企画の問題点を指摘してください</q><div class="memo">どの立場から批判しているのか分からないので、一般論の羅列になります。「コストが不明確」「リスク管理が必要」——どの企画にも言える内容。</div></div>
+<div class="good"><div class="h">GOOD — 立場を指定した</div><q>あなたは当社の品質保証部長です。過去のクレーム対応の責任者でもあります。不具合が出た場合の責任と対応工数を守る立場から、この企画の問題点を指摘してください</q><div class="memo">「この納期だと出荷前検査が1回しか回せません」——その立場の人しか言わない、具体的な指摘が出てきます。</div></div>
+</div>
+    <p>性格は「どう喋るか」しか決めません。立場は<strong>「何を心配するか」</strong>を決めます。議論に必要なのは後者です。</p>
+    <div class="dmeta"><span class="catpic catpic-silver cat" aria-hidden="true"></span><div><div class="h">たとえるなら</div><p><strong>会議で誰を呼ぶか</strong>を決めるのと同じです。「厳しい人を呼ぼう」ではなく「製造部の人を呼ばないと決まらない」と考えますよね。呼ぶ理由は性格ではなく立場です。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Formula</p>
+    <h2>立場の書き方 / 4つの要素</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">① 肩書きと持ち場</div><div class="dd">「営業3課の課長」「品質保証部長」「経理課で支払処理を担当」。具体的なほど視点が定まります。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">② 守っているもの（関心）</div><div class="dd">「顧客との関係を守る」「不良を出さない」「締め日を守る」。この人が失いたくないものは何かを書きます。ここがいちばん効きます。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">③ 評価される指標</div><div class="dd">「受注額で評価される」「クレーム件数で評価される」。人の意見は評価軸に引っぱられます。AIも同じです。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">④ 知っている前提（任意）</div><div class="dd">「昨年、同じ条件で納期遅延を出した経験がある」。過去の事情を持たせると、指摘が急に生々しくなります。</div></div></div></div>
+    <div class="dcode"><span class="cm">-- ペルソナ指定のテンプレート --</span>
+あなたは【肩書き・持ち場】です。
+あなたが守るべきものは【関心】で、【指標】で評価されています。
+【知っている前提】という経験があります。
+
+この立場から、次の企画に対して指摘してください。
+・自分の立場から見て困ることを、具体的に3つ
+・ほかの立場の意見に対する反論があれば、1つ
+・結論は出さないでください（判断は人間が行います）</div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Casting</p>
+    <h2>何席、誰を用意するか</h2>
+    <div class="dcards"><div><div class="h">SEAT 1</div><div class="t">推す人</div><div class="d">前に進めたい立場（営業・企画）。メリットと機会損失を語らせます。これがないと議論が慎重論だけになります。</div></div><div><div class="h">SEAT 2</div><div class="t">守る人</div><div class="d">リスクを負う立場（品質・法務・経理）。実行したあとに困る人を置くのがコツです。</div></div><div><div class="h">SEAT 3</div><div class="t">使う人の代弁者</div><div class="d">顧客・現場作業者の立場。社内の力関係と無関係なので、いちばん素朴で痛い質問が出ます。</div></div><div><div class="h">HUMAN</div><div class="t">決める人（＝あなた）</div><div class="d">議事をまとめ、結論を出す席。ここはAIに渡しません。<strong>3席＋人間ひとり</strong>が、いちばん扱いやすい構成です。</div></div></div>
+    <div class="dnote"><div class="h">席を選ぶときの基準</div><p><strong>利害が実際にぶつかる立場を選ぶこと。</strong>仲の良い3席を並べても、褒め合って終わります。「この2人が揃うと会議が長くなる」——その組み合わせが、いちばん良い論点を出します。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Caution</p>
+    <h2>気をつけること</h2>
+    <p>立場を演じさせても、出てくるのは<strong>「その立場ならこう言いそうなこと」</strong>です。実在の同僚の考えではありません。「品質保証部長AIがOKと言った」は、何の根拠にもなりません。</p>
+<p>とくに、実在の個人を名指しでペルソナにするのは避けてください（「◯◯部長として答えて」）。その人が言っていないことが、その人の意見として残ってしまいます。</p>
+    <div class="dnote"><div class="h">使いどころ</div><p>AIチームの議論は<strong>「本番の会議の前に、論点を洗い出す道具」</strong>です。関係者に聞く手間を省くものではなく、聞くべきことを先に整理するもの。この位置づけを外さなければ、非常に強力です。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="multi-agent.html"><span class="t">マルチエージェント</span><span class="d">万能な1匹より、役割の違う複数匹。なぜそのほうが良い答えが出るのか。</span><span class="go">READ →</span></a>
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+      <a class="topic" href="prompt.html"><span class="t">伝わるプロンプトの4要素</span><span class="d">役割・文脈・タスク・形式。この4つを足すだけで、出力の質が変わります。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s8">第8回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s8">SESSION 08</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -62,7 +62,7 @@
     <div class="facts">
       <div><span class="n">04</span><span class="l">Chapters</span></div>
       <div><span class="n">10</span><span class="l">Sessions</span></div>
-      <div><span class="n">23</span><span class="l">Topic pages</span></div>
+      <div><span class="n">33</span><span class="l">Topic pages</span></div>
       <div><span class="n">00</span><span class="l">Code required</span></div>
     </div>
   </div>
@@ -381,7 +381,7 @@
           <div class="label">この回に出てくる言葉</div>
           <div class="agenda">
             <a href="pages/daily-hacks.html"><span class="i">01</span><span class="t">明日から使えるAI仕事術（実例集）<em>そのままコピーして使える依頼文つき</em></span><span class="go">READ →</span></a>
-            <a href="pages/prompt.html"><span class="i">02</span><span class="t">伝わるプロンプトの4要素<em>この回の依頼文も、全部この形でできています</em></span><span class="go">READ →</span></a>
+            <a href="pages/refine.html"><span class="i">02</span><span class="t">直しの頼み方（一発で決めない）<em>1回目は、たたき台。「ほかはそのまま」で2手目を頼む</em></span><span class="go">READ →</span></a>
           </div>
         </div>
 
@@ -454,7 +454,7 @@
           <div class="agenda">
             <a href="pages/rag.html"><span class="i">01</span><span class="t">RAG（検索してから答えさせる）<em>カンペ持ち込みOKのテスト、の正体</em></span><span class="go">READ →</span></a>
             <a href="pages/security.html"><span class="i">02</span><span class="t">安全に使うための線引き<em>入れていい情報・ダメな情報、オプトアウトの話</em></span><span class="go">READ →</span></a>
-            <a href="pages/hallucination.html"><span class="i">03</span><span class="t">ハルシネーション<em>RAGが必要になる、そもそもの理由</em></span><span class="go">READ →</span></a>
+            <a href="pages/grounding.html"><span class="i">03</span><span class="t">出典を出させる（確認できる答えにする）<em>社内で使われるかどうかは、根拠が示せるかで決まる</em></span><span class="go">READ →</span></a>
           </div>
         </div>
 
@@ -509,7 +509,7 @@
           <div class="label">この回に出てくる言葉</div>
           <div class="agenda">
             <a href="pages/workflow.html"><span class="i">01</span><span class="t">業務フローへの組み込み<em>対話型AIから組み込み型AIへ。API連携ってなに？</em></span><span class="go">READ →</span></a>
-            <a href="pages/rag.html"><span class="i">02</span><span class="t">RAG（検索してから答えさせる）<em>ルート判定の根拠になる社内規定はここから</em></span><span class="go">READ →</span></a>
+            <a href="pages/doc-extraction.html"><span class="i">02</span><span class="t">書類から項目を抜き出す<em>様式がバラバラな見積書でも、事前登録なしで読める</em></span><span class="go">READ →</span></a>
           </div>
         </div>
 
@@ -589,7 +589,7 @@
         <div class="blk">
           <div class="label">この回に出てくる言葉</div>
           <div class="agenda">
-            <a href="pages/ai-agent.html"><span class="i">01</span><span class="t">AIエージェントってなに？<em>「手順」ではなく「ゴール」を渡せる相手</em></span><span class="go">READ →</span></a>
+            <a href="pages/autonomy-levels.html"><span class="i">01</span><span class="t">任せる度合いの5段階<em>「全部任せる」の前に4つの段があります。今どこにいるか</em></span><span class="go">READ →</span></a>
             <a href="pages/react-loop.html"><span class="i">02</span><span class="t">思考 → 行動 → 観察のループ<em>エージェントが自分で進んでいく仕組み</em></span><span class="go">READ →</span></a>
             <a href="pages/harness.html"><span class="i">03</span><span class="t">ハーネス — AIに手足をつける仕組み<em>頭脳だけでは仕事にならない。エージェントの"胴輪"の話</em></span><span class="go">READ →</span></a>
             <a href="pages/tool-use.html"><span class="i">04</span><span class="t">ツールを使うAI（Tool Use / MCP）<em>AIが外の世界に手を伸ばすための共通の差し込み口</em></span><span class="go">READ →</span></a>
@@ -687,11 +687,8 @@
           <div class="label">この回に出てくる言葉</div>
           <div class="agenda">
             <a href="pages/coding-agent.html"><span class="i">01</span><span class="t">コーディングエージェント<em>自分でコードを書き、動かし、直すAI。開発の民主化とは</em></span><span class="go">READ →</span></a>
-            <a href="pages/markdown.html"><span class="i">02</span><span class="t">.md（マークダウン）<em>AIと人の共通言語。CLAUDE.md って何が書いてあるの？</em></span><span class="go">READ →</span></a>
-            <a href="pages/skill.html"><span class="i">03</span><span class="t">Skill（スキル）<em>必要なときだけ開く、AIのためのマニュアル棚</em></span><span class="go">READ →</span></a>
-            <a href="pages/goal-command.html"><span class="i">04</span><span class="t">/goal（ゴール宣言）<em>「終わりの定義」を先に渡して、完走させる</em></span><span class="go">READ →</span></a>
-            <a href="pages/loop-command.html"><span class="i">05</span><span class="t">/loop（くり返し）<em>定期的な確認作業を、AIに見張らせる</em></span><span class="go">READ →</span></a>
-            <a href="pages/harness.html"><span class="i">06</span><span class="t">ハーネス<em>この4つを支えている土台の話（第6回のおさらい）</em></span><span class="go">READ →</span></a>
+            <a href="pages/slash-command.html"><span class="i">02</span><span class="t">スラッシュコマンド<em>/goal や /loop の「/」の正体。自分の依頼文も登録できます</em></span><span class="go">READ →</span></a>
+            <a href="pages/try-safely.html"><span class="i">03</span><span class="t">壊さずに試すための約束ごと<em>コピーで試す・元に戻せるようにする・危ない操作は承認制</em></span><span class="go">READ →</span></a>
           </div>
         </div>
 
@@ -779,7 +776,7 @@
           <div class="label">この回に出てくる言葉</div>
           <div class="agenda">
             <a href="pages/multi-agent.html"><span class="i">01</span><span class="t">マルチエージェント<em>なぜ1匹より複数のほうが良い答えが出るのか</em></span><span class="go">READ →</span></a>
-            <a href="pages/skill.html"><span class="i">02</span><span class="t">Skill（スキル）<em>それぞれの役割の「やり方」を持たせる仕組み</em></span><span class="go">READ →</span></a>
+            <a href="pages/persona.html"><span class="i">02</span><span class="t">ペルソナ設計（立場を持たせる）<em>「批判的なAI」ではなく「品質保証部長の立場のAI」</em></span><span class="go">READ →</span></a>
           </div>
         </div>
 
@@ -831,8 +828,8 @@
           <div class="label">この回に出てくる言葉</div>
           <div class="agenda">
             <a href="pages/task-decomposition.html"><span class="i">01</span><span class="t">タスク分解とパイプライン<em>複雑な仕事を、AIに渡せる大きさに切る方法</em></span><span class="go">READ →</span></a>
-            <a href="pages/goal-command.html"><span class="i">02</span><span class="t">/goal（ゴール宣言）<em>各工程の「終わりの定義」をはっきりさせる</em></span><span class="go">READ →</span></a>
-            <a href="pages/human-in-the-loop.html"><span class="i">03</span><span class="t">Human in the Loop<em>どこに人間の承認を挟むか、という設計の話</em></span><span class="go">READ →</span></a>
+            <a href="pages/handoff.html"><span class="i">02</span><span class="t">工程の受け渡し（バケツの形をそろえる）<em>前の工程の出力が、そのまま次の入力になる形にする</em></span><span class="go">READ →</span></a>
+            <a href="pages/approval-gate.html"><span class="i">03</span><span class="t">承認ゲートの置き方と、差し戻し<em>何個置くか、画面に何を出すか、突き返されたらどこへ戻すか</em></span><span class="go">READ →</span></a>
           </div>
         </div>
 
@@ -918,7 +915,7 @@
             <a href="pages/governance.html"><span class="i">01</span><span class="t">ガバナンスとシャドーAI<em>ルールを作る側が知っておくべきこと</em></span><span class="go">READ →</span></a>
             <a href="pages/human-in-the-loop.html"><span class="i">02</span><span class="t">Human in the Loop<em>どこに人の確認を挟むか</em></span><span class="go">READ →</span></a>
             <a href="pages/ai-director.html"><span class="i">03</span><span class="t">AIディレクター<em>人に残る役割と、これから伸ばすべき力</em></span><span class="go">READ →</span></a>
-            <a href="pages/security.html"><span class="i">04</span><span class="t">安全に使うための線引き<em>入れていい情報・ダメな情報</em></span><span class="go">READ →</span></a>
+            <a href="pages/guideline.html"><span class="i">04</span><span class="t">社内ガイドラインの作り方（1枚版）<em>載せる5項目と、そのまま使える雛形</em></span><span class="go">READ →</span></a>
           </div>
         </div>
 
@@ -978,7 +975,7 @@
   <div class="wrap">
     <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
     <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
-    <p>全10回 · 4章構成 · 23トピック</p>
+    <p>全10回 · 4章構成 · 33トピック</p>
     <div class="links">
       <a href="#top">TOP</a>
       <a href="#roadmap">ROADMAP</a>

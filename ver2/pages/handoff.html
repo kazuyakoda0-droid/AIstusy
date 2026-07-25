@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工程の受け渡し（バケツの形をそろえる）｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="前の工程の出力が、そのまま次の入力になる形にしておく。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><span class="catpic catpic-kitten cat" aria-hidden="true"></span><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第9回 プロセスまるごとAIチームに / 工程の受け渡し（バケツの形をそろえる）</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 09 · 設計</p>
+      <h1>パイプラインが止まるのは、<em>受け渡しの形</em>が違うとき</h1>
+      <span class="en">Same bucket, every hand-off.</span>
+    </div>
+    <div class="side">
+      <p>工程に切るところまでは、みなさんすぐできます。つまずくのは、いつも次の一歩です。</p>
+      <p><strong>「で、前の工程から何がどんな形で来るんですか？」</strong>——ここを決めていないと、切った意味がなくなります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <span class="catpic catpic-kitten cat" aria-hidden="true"></span>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">工程を分けたら、次に決めるのは<b>「何を、どんな形で渡すか」</b>。人間の部署間の引き継ぎと、まったく同じ話です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Why</p>
+    <h2>人の職場でも、同じことが起きています</h2>
+    <p>「Excelで来ると思っていたら、PDFで送られてきた」「金額が税抜だと思っていたら税込だった」。部署をまたぐ仕事が遅れる原因は、たいてい作業そのものではなく<strong>受け渡しの食い違い</strong>です。</p>
+<p>AIに工程を分担させると、これがそのまま起きます。しかも人と違って、<strong>AIは「これ税抜ですよね？」と聞いてくれません。</strong>そのまま計算して、静かに間違えます。</p>
+    <div class="dmeta"><span class="catpic catpic-silver cat" aria-hidden="true"></span><div><div class="h">たとえるなら</div><p><strong>バケツリレー</strong>で、途中の人だけバケツの口が小さいと、そこで水がこぼれます。速さより、<strong>全員のバケツをそろえること</strong>が先です。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Contract</p>
+    <h2>決めておく4つのこと</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">項目名を決める</div><div class="dd">「取引先名」なのか「顧客名」なのか。工程ごとに呼び方が違うと、そこで対応表が必要になります。<strong>社内の呼び方に統一して、.md に書いておく</strong>のが定石です。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">単位と書式を決める</div><div class="dd">日付は 2026-10-01 の形、金額は税抜・円単位・カンマなし。「人が読んで分かる」ではなく<strong>「機械で計算できる」形</strong>にそろえます。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">無いときの書き方を決める</div><div class="dd">空欄なのか「記載なし」なのか。ここを決めておかないと、次の工程が「空欄＝ゼロ」と解釈して事故ります。<strong>取れなかったことが分かる形</strong>にしてください。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">中間成果物として、ファイルに残す</div><div class="dd">工程間のやり取りを、人が開いて読めるファイル（.md や CSV）で残します。どこで間違えたかを追えるようになり、途中から再開もできます。</div></div></div></div>
+    <div class="dcode"><span class="cm">-- 工程1 → 工程2 に渡すファイルの例（抽出結果.md）--</span>
+
+<span class="cm">## 見積書 Q-2026-0412</span>
+<span class="cm">- 元ファイル: 20260412_A社様_御見積.pdf（3ページ）</span>
+<span class="cm">- 取引先名: 株式会社A（1ページ目 宛名欄）</span>
+<span class="cm">- 発行日: 2026-04-12（1ページ目 右上）</span>
+<span class="cm">- 税抜合計: 980000（3ページ目 小計欄）</span>
+<span class="cm">- 消費税: 98000（3ページ目）</span>
+<span class="cm">- 納期: 記載なし</span>
+<span class="cm">- 検算: 税抜+税 = 1078000 / 記載の税込 = 1078000 → 一致</span></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Trace</p>
+    <h2>「どこから取ったか」を必ず連れて行く</h2>
+    <p>上の例で、各項目に<strong>元ファイルのどこから取ったか</strong>が付いているのがポイントです。これがあると、最後に人が承認するとき、疑わしい1項目だけをすぐ確認できます。</p>
+<p>逆にこれが無いと、人は<strong>全部を最初から見直す</strong>しかありません。そうなった時点で、自動化の効果はほぼ消えます。</p>
+    <div class="dnote"><div class="h">検算を、受け渡しに含める</div><p>「税抜＋税＝税込か」「明細の行数が合っているか」。<strong>計算で確かめられることは、渡す前に確かめさせて、結果も一緒に渡す。</strong>AIの出力をAIに検証させるより、計算で検証するほうが確実です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Failure</p>
+    <h2>途中でコケたときの決め</h2>
+    <p>どんなに整えても、読めない書類・想定外の値は必ず来ます。大事なのは<strong>そのとき何をするかを、工程ごとに先に決めておく</strong>ことです。</p>
+    <div class="dcards"><div><div class="h">STOP</div><div class="t">止めて、人に回す</div><div class="d">金額が読めない、検算が合わない。<strong>先に進めてはいけない</strong>種類の失敗です。専用の置き場所（要確認フォルダ）へ。</div></div><div><div class="h">SKIP</div><div class="t">飛ばして、あとで報告する</div><div class="d">任意項目が取れなかった程度なら、印を付けて先へ進めます。ただし必ず最後にまとめて報告させます。</div></div><div><div class="h">RETRY</div><div class="t">やり直す</div><div class="d">一時的な失敗（システムが混んでいた等）。回数を決めて再試行させます。無制限にすると永遠に回り続けます。</div></div></div>
+    <div class="dnote"><div class="h">いちばん多い事故</div><p><strong>止まったものが、行方不明になること。</strong>「エラーになった書類が、誰にも処理されずに1か月放置」。これはAIのせいではなく、<strong>止まった先の動線を作っていなかった</strong>設計の問題です。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="task-decomposition.html"><span class="t">タスク分解とパイプライン</span><span class="d">複雑な仕事を、AIに渡せる大きさに切る方法。</span><span class="go">READ →</span></a>
+      <a class="topic" href="approval-gate.html"><span class="t">承認ゲートの置き方と、差し戻し</span><span class="d">どこに何個置くか、画面に何を出すか、突き返されたらどこへ戻すか。</span><span class="go">READ →</span></a>
+      <a class="topic" href="doc-extraction.html"><span class="t">書類から項目を抜き出す</span><span class="d">様式がバラバラな見積書・請求書から、必要な項目だけを取り出す。</span><span class="go">READ →</span></a>
+      <a class="topic" href="markdown.html"><span class="t">.md（マークダウン）— AIと人の共通言語</span><span class="d">「#」で見出し、「-」で箇条書き。人にもAIにも読めるテキスト形式。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s9">第9回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s9">SESSION 09</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
