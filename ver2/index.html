@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>はじめてのAI勉強会 Ver.2 ｜ AIを「道具」から「チームメンバー」へ</title>
+<meta name="description" content="生成AIをほとんど使ったことがない人のための、全10回・4章のAI勉強会。専門用語をぜんぶ日常のたとえ話に置きかえて説明します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<!-- ねこアイコン定義 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ico-cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 44 L20 16 L42 30"/>
+    <path d="M78 44 L80 16 L58 30"/>
+    <path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+    <path d="M35 56q5-6 10 0"/>
+    <path d="M55 56q5-6 10 0"/>
+    <path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+    <path d="M50 71v3"/>
+    <path d="M50 74q-5 5-9 0"/>
+    <path d="M50 74q5 5 9 0"/>
+    <path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/>
+  </symbol>
+  <symbol id="ico-cat-sit" viewBox="0 0 200 260" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M68 238C58 210 62 168 80 148h40c18 20 22 62 12 90Z"/>
+    <path d="M132 238c36-2 50-28 40-52-6-14-22-14-24 0"/>
+    <path d="M76 238q10-10 20 0M104 238q10-10 20 0"/>
+    <path d="M68 84 64 50l26 16"/>
+    <path d="M132 84l4-34-26 16"/>
+    <path d="M62 100c0-22 17-38 38-38s38 16 38 38c0 20-17 34-38 34s-38-14-38-34Z"/>
+    <path d="M84 102q6-7 12 0M104 102q6-7 12 0"/>
+    <path d="M96 112h8l-4 5z" fill="currentColor" stroke="none"/>
+    <path d="M100 117v3M100 120q-5 5-9 0M100 120q5 5 9 0"/>
+    <path d="M64 106H40M64 113l-22 6M136 106h24M136 113l22 6"/>
+  </symbol>
+</svg>
+
+<div class="prog" id="prog"></div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#top">
+      <svg class="cat"><use href="#ico-cat"/></svg>
+      <span>AI STUDY</span>
+      <span class="ver">VER.2</span>
+    </a>
+    <nav class="navlinks" id="nav">
+      <a href="#roadmap">ROADMAP</a>
+      <a href="#ch1">CH.1 基礎</a>
+      <a href="#ch2">CH.2 社内データ</a>
+      <a href="#ch3">CH.3 自律型AI</a>
+      <a href="#ch4">CH.4 チーム化</a>
+      <a href="#closing">CLOSING</a>
+    </nav>
+    <button class="navtoggle" id="navToggle" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="wrap-wide hero-in">
+   <div class="hero-main">
+    <div class="hero-text">
+    <p class="kicker">全10回 / 4章構成 &nbsp;·&nbsp; はじめての人のための版</p>
+    <h1>From <em>Tool</em><br>to <em>Teammate</em>.</h1>
+    <p class="sub-jp">AIは「便利な道具」から、<br>いっしょに働く「チームメンバー」へ。</p>
+    <div class="hero-body">
+      <p>この勉強会は、<strong class="mark">生成AIをほとんど使ったことがない方</strong>を想定してつくりました。
+      むずかしい言葉は一度ぜんぶ日常のたとえ話に置きかえて、そのうえで「で、自分の仕事のどこに使えるの？」まで、10回かけてゆっくり降りていきます。</p>
+      <p>プログラミングの知識は要りません。必要なのは、<strong>自分の仕事を言葉で説明できること</strong>だけです。</p>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-fill" href="#roadmap">全10回を見る <span class="arw">→</span></a>
+      <a class="btn" href="#ch1">第1回からはじめる <span class="arw">→</span></a>
+    </div>
+    </div>
+    <svg class="hero-cat" viewBox="0 0 200 260" aria-hidden="true"><use href="#ico-cat-sit"/></svg>
+   </div>
+
+    <div class="facts">
+      <div><span class="n">04</span><span class="l">Chapters</span></div>
+      <div><span class="n">10</span><span class="l">Sessions</span></div>
+      <div><span class="n">23</span><span class="l">Topic pages</span></div>
+      <div><span class="n">00</span><span class="l">Code required</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ この勉強会について ============================ -->
+<section class="sec sec-alt">
+  <div class="wrap-wide">
+    <div class="sec-head rise">
+      <p class="eyebrow">About this program</p>
+      <h2 class="display">Three promises.</h2>
+      <p class="lede">この勉強会が、みなさんにお約束する3つのことです。</p>
+    </div>
+
+    <div class="promise rise">
+      <div>
+        <span class="num">01</span>
+        <h3>カタカナ語は、必ずたとえ話とセットで</h3>
+        <p>「RAG」「エージェント」「ハーネス」——出てくる言葉は多いですが、必ず身近なたとえに置きかえてから説明します。たとえば RAG は「カンペ持ち込みOKのテスト」。用語を覚えることがゴールではありません。</p>
+      </div>
+      <div>
+        <span class="num">02</span>
+        <h3>「うちの仕事だとこれだな」まで持っていく</h3>
+        <p>毎回、実際の業務シーン（見積書の処理、議事録、人事評価、受注判定など）で具体例を出します。聞いたその日に、自分の仕事のどこに当てはまるかを想像できる状態を目指します。</p>
+      </div>
+      <div>
+        <span class="num">03</span>
+        <h3>できないこと・危ないことも、正直に</h3>
+        <p>AIは平気で間違えますし、入れてはいけない情報もあります。「すごい」だけで終わらせず、どこで人が確認すべきかを最後の章でしっかり扱います。</p>
+      </div>
+    </div>
+
+    <div class="meow rise" style="margin-top:44px;max-width:820px">
+      <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+      <div class="bubble">
+        <span class="who">Navigator</span>
+        こんにちは、案内役のねこです。<br>
+        ページのあちこちに出てきて、<strong class="mark">「つまりどういうこと？」</strong>をひとことでまとめる係をやります。むずかしくなったら、ぼくの言うことだけ拾って読んでも大丈夫です。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ROADMAP ============================ -->
+<section class="sec" id="roadmap">
+  <div class="wrap-wide">
+    <div class="sec-head rise">
+      <p class="eyebrow">Roadmap / 全体の地図</p>
+      <h2 class="display">10 sessions,<br>4 chapters.</h2>
+      <p class="lede" style="max-width:720px">
+        流れは「自分ひとりで使う → 会社のデータとつなぐ → AIが自分で動く → AIのチームに任せる」の4段階です。
+        いきなり4章の話を聞くと飛躍に感じますが、1章から順に登るとちゃんと地続きになっています。
+      </p>
+    </div>
+
+    <div class="rm-grid">
+      <article class="rm-ch rise">
+        <svg class="glyph" viewBox="0 0 80 56" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="20" cy="28" r="11"/><path d="M35 28h12M52 22v12M52 22h16M52 34h16M52 28h11"/>
+        </svg>
+        <div class="cn">CHAPTER 01</div>
+        <h3>AIの基礎と、<br>まず自分の仕事を軽くする</h3>
+        <p class="cd">AIって結局なんなの？というところから、明日の自分のデスクで使えるところまで。</p>
+        <ul>
+          <li><a href="#s1"><span>01</span>AIは「道具」から「チームメンバー」へ</a></li>
+          <li><a href="#s2"><span>02</span>AIに伝わるお願いのしかた</a></li>
+          <li><a href="#s3"><span>03</span>明日から使えるAI仕事術</a></li>
+        </ul>
+      </article>
+
+      <article class="rm-ch rise">
+        <svg class="glyph" viewBox="0 0 80 56" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <rect x="8" y="14" width="26" height="28"/><path d="M12 21h18M12 28h18M12 35h12"/>
+          <path d="M38 28h12" stroke-dasharray="3 3"/><circle cx="62" cy="28" r="12"/><path d="M57 28l4 4 7-8"/>
+        </svg>
+        <div class="cn">CHAPTER 02</div>
+        <h3>社内のデータや<br>システムとつなぐ</h3>
+        <p class="cd">「うちの会社のことを知っているAI」をつくり、仕事の流れの中に置く。</p>
+        <ul>
+          <li><a href="#s4"><span>04</span>社内のことを知っているAIをつくる</a></li>
+          <li><a href="#s5"><span>05</span>AIを仕事の流れに組み込む</a></li>
+        </ul>
+      </article>
+
+      <article class="rm-ch rise">
+        <svg class="glyph" viewBox="0 0 80 56" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="40" cy="28" r="10"/><path d="M40 8v8M40 40v8M20 28h8M52 28h8M26 14l6 6M54 14l-6 6M26 42l6-6M54 42l-6-6"/>
+        </svg>
+        <div class="cn">CHAPTER 03</div>
+        <h3>指示待ちから、<br>自分で動くAIへ</h3>
+        <p class="cd">ゴールだけ渡せば、自分で段取りして道具を使い、終わるまで動くAI。</p>
+        <ul>
+          <li><a href="#s6"><span>06</span>指示待ちから自律型へ</a></li>
+          <li><a href="#s7"><span>07</span>AIが自分でつくる時代</a></li>
+        </ul>
+      </article>
+
+      <article class="rm-ch rise">
+        <svg class="glyph" viewBox="0 0 80 56" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="18" cy="18" r="7"/><circle cx="62" cy="18" r="7"/><circle cx="40" cy="42" r="7"/>
+          <path d="M25 18h30M22 24l14 14M58 24L44 38"/>
+        </svg>
+        <div class="cn">CHAPTER 04</div>
+        <h3>AIのチームで<br>組織を変える</h3>
+        <p class="cd">役割の違うAIが議論し、分担し、業務プロセスまるごとを回す。そして人の新しい役割。</p>
+        <ul>
+          <li><a href="#s8"><span>08</span>AIチームで考える</a></li>
+          <li><a href="#s9"><span>09</span>プロセスまるごとAIチームに</a></li>
+          <li><a href="#s10"><span>10</span>安全に使うルールと人の役割</a></li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="meow rise" style="margin-top:52px;max-width:860px">
+      <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+      <div class="bubble">
+        <span class="who">Navigator</span>
+        ざっくり言うと、<strong class="mark">「AIに手伝ってもらう」から「AIに任せる」へ</strong>という10回です。
+        1〜3回は自分の手元、4〜5回は会社のデータ、6〜7回はAIが自分で動く話、8〜10回はAIを何匹も並べる話。それだけ分かっていれば迷子になりません。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 1 ============================ -->
+<section class="sec sec-alt" id="ch1">
+  <div class="wrap-wide">
+    <header class="ch-banner rise">
+      <p class="big"><small>CHAPTER 01</small>01</p>
+      <div>
+        <h2>AIの基礎と、まず自分の仕事を軽くする</h2>
+        <p class="lede">
+          最初の3回は「AIってそもそも何なの？」から始めて、聞いたその週に自分の手元で効果が出るところまで持っていきます。
+          ここでいちど<strong>「AIを使うと本当に楽になる」という体験</strong>をしておくことが、あとの章すべての土台になります。
+        </p>
+      </div>
+    </header>
+
+    <!-- ---- 第1回 ---- -->
+    <article class="session" id="s1">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 01</small>01</span>
+        <span class="tag">はじめの一歩</span>
+        <h3>AIは「道具」から<br>「チームメンバー」へ</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            AIは、<strong class="mark">「言われたことをやる道具」から「目的を伝えると自分で段取りする相棒」</strong>に変わりつつあります。この10回はその移り変わりを追いかける旅です。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>AIがどうやってここまで来たのかを、たとえ話で一本の線につなぎます。歴史のクイズに答えられるようになる必要はありません。ゴールは、<strong>「今のAIは何ができて、この先どこへ行くのか」を自分の言葉で説明できる</strong>ことです。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">AIの進化 / 4つのステップ</div>
+          <div class="evolve">
+            <div>
+              <div class="era">STEP 1</div>
+              <div class="nm">ルールベース</div>
+              <div class="mt">人が決めた「もし〜なら」を、その通りに実行するだけ。<br><em>たとえるなら：自動販売機</em></div>
+            </div>
+            <div>
+              <div class="era">STEP 2</div>
+              <div class="nm">機械学習・深層学習</div>
+              <div class="mt">大量のデータを見て、共通する特徴を自分で掴む。<br><em>たとえるなら：目利きの鑑定士</em></div>
+            </div>
+            <div>
+              <div class="era">STEP 3</div>
+              <div class="nm">生成AI</div>
+              <div class="mt">前後の流れを読んで、ゼロから文章や絵をつくる。<br><em>たとえるなら：注文に応えるクリエイター</em></div>
+            </div>
+            <div>
+              <div class="era">STEP 4</div>
+              <div class="nm">AIエージェント</div>
+              <div class="mt">ゴールだけ渡すと、手順を自分で考えて最後までやる。<br><em>たとえるなら：段取りできる部下</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/ai-evolution.html"><span class="i">01</span><span class="t">AIの進化：4つのステップ<em>ルールベース／機械学習／生成AI／エージェントの違いを一枚で</em></span><span class="go">READ →</span></a>
+            <a href="pages/generative-ai.html"><span class="i">02</span><span class="t">生成AIってなに？<em>「見分けるAI」と「つくるAI」は、まったく別の生きもの</em></span><span class="go">READ →</span></a>
+            <a href="pages/ai-agent.html"><span class="i">03</span><span class="t">AIエージェントってなに？<em>手順ではなく「ゴール」を渡せる相手</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例</div>
+          <p><strong>画像AIの場合。</strong>「これは猫です」と言い当てるのが今までのAI（見分ける）。「宇宙服を着てスケボーに乗る猫を描いて」に応えるのが生成AI（つくる）。同じ"画像AI"でも、やっていることは正反対です。</p>
+          <p style="margin-top:18px"><strong>仕事の場合。</strong>「資料の誤字を探して」（見分ける）→「このメモからプレゼンの構成をつくって」（つくる）→「◯◯の件、関係者にヒアリングして資料にまとめておいて」（自分で段取りする）。この3段目が、今まさに現実になりつつあるところです。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">機械学習</span><span class="kw">深層学習</span><span class="kw">生成AI</span><span class="kw">パラダイムシフト</span><span class="kw">AIエージェント</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- 第2回 ---- -->
+    <article class="session" id="s2">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 02</small>02</span>
+        <span class="tag">伝え方</span>
+        <h3>AIに伝わる<br>お願いのしかた</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            AIは意味を「分かって」いません。<strong class="mark">次に来そうな言葉を、確率でつないでいるだけ</strong>です。だから、頼み方しだいで結果がガラッと変わります。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>AIの中身を、ブラックボックスのままにしないための回です。仕組みが少し分かると、「なぜ平気で嘘をつくのか」「なぜ計算が苦手なのか」「なぜ丁寧に頼むと精度が上がるのか」が全部つながります。</p>
+          <p>この回のAI像は、<strong>「知識は膨大だけど、こちらの事情はまったく知らない、超優秀な新入社員」</strong>です。優秀な新人に仕事を頼むときと、コツは同じです。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">伝わるお願いの4要素</div>
+          <div class="flow">
+            <div class="step"><div class="n">1</div><div><div class="tt">役割（Role）— 誰として答えてほしいか</div><div class="dd">「あなたはベテランのコピーライターです」。立場を決めるだけで、言葉づかいも切り口も変わります。</div></div></div>
+            <div class="step"><div class="n">2</div><div><div class="tt">文脈（Context）— どういう状況か</div><div class="dd">「20代女性向けの時短スキンケアを発売します」。AIはあなたの会社の事情を1ミリも知りません。省略しないのがコツ。</div></div></div>
+            <div class="step"><div class="n">3</div><div><div class="tt">タスク（Task）— 何をしてほしいか</div><div class="dd">「キャッチコピーを提案してください」。ひとつのお願いに、ひとつのタスク。</div></div></div>
+            <div class="step"><div class="n">4</div><div><div class="tt">形式（Format）— どんな形で欲しいか</div><div class="dd">「箇条書きで5つ、それぞれ解説つきで」。形を指定しないと、だいたい長い散文で返ってきます。</div></div></div>
+          </div>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例 / 同じ依頼でこれだけ違う</div>
+          <div class="ba">
+            <div class="bad">
+              <div class="h">BEFORE — 丸投げ</div>
+              <q>新商品のキャッチコピー考えて</q>
+              <p style="margin-top:12px;font-size:12.5px">→ 誰向けか分からないので、当たりさわりのない一般論が返ってくる。</p>
+            </div>
+            <div class="good">
+              <div class="h">AFTER — 4要素入り</div>
+              <q>あなたはベテランのコピーライターです。20代女性向けの時短スキンケアコスメを発売します。商品の魅力を伝えるキャッチコピーを、箇条書きで5つ、それぞれ狙いの解説つきで提案してください</q>
+              <p style="margin-top:12px;font-size:12.5px">→ 狙いの違う案が5つ並び、そのまま会議に出せる。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/llm.html"><span class="i">01</span><span class="t">LLM（大規模言語モデル）の仕組み<em>「意味を理解している」のではなく「確率で言葉を選んでいる」</em></span><span class="go">READ →</span></a>
+            <a href="pages/hallucination.html"><span class="i">02</span><span class="t">ハルシネーション<em>もっともらしい嘘。なぜ起きるのか、どう防ぐのか</em></span><span class="go">READ →</span></a>
+            <a href="pages/prompt.html"><span class="i">03</span><span class="t">伝わるプロンプトの4要素<em>役割・文脈・タスク・形式。これだけで十分</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">LLM</span><span class="kw">ハルシネーション</span><span class="kw">プロンプト</span><span class="kw">構造化された指示</span><span class="kw">得意・不得意</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- 第3回 ---- -->
+    <article class="session" id="s3">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 03</small>03</span>
+        <span class="tag">すぐ効く</span>
+        <h3>明日から使える<br>AI仕事術</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            まずは<strong class="mark">「文章を書く・まとめる・整える」</strong>の3つから。ここだけで、たいていの人は1日30分〜1時間ぶん軽くなります。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>この回だけは、理屈より手を動かすのが主役です。むずかしい設定も、特別なツールも要りません。いつも使っているチャット画面に貼りつけるだけで終わる話ばかりを集めました。</p>
+          <p>大事なのは「すごいことをやる」ことではなく、<strong>小さくても自分で成功体験をつくる</strong>ことです。ここでの手応えが、4章まで走りきる燃料になります。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">4つの使いどころ</div>
+          <div class="flow">
+            <div class="step"><div class="n">1</div><div><div class="tt">文書づくりを速くする</div><div class="dd">雑な箇条書きのメモを渡して、「社外向けのメールに整えて」。ゼロから書く時間がなくなり、直す時間だけになります。</div></div></div>
+            <div class="step"><div class="n">2</div><div><div class="tt">長いものを圧縮する</div><div class="dd">会議の文字起こしや長いPDFを渡して、「決定事項・未決事項・次の行動を表にして」。読む時間が数十分から数分に。</div></div></div>
+            <div class="step"><div class="n">3</div><div><div class="tt">Excel・データ処理</div><div class="dd">「こういう集計がしたい」と日本語で伝えると、関数やマクロを書いてくれます。関数を暗記する必要はもうありません。</div></div></div>
+            <div class="step"><div class="n">4</div><div><div class="tt">考えごとの壁打ち相手</div><div class="dd">「企画のターゲットで悩んでいる。ぼくに3つ質問して、絞り込ませて」。答えをもらうのではなく、質問してもらう使い方です。</div></div></div>
+          </div>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例 / 会議の文字起こし → 議事録</div>
+          <p>録音の文字起こしは、たいてい「えー」「あの」だらけで読めたものではありません。それをそのまま貼りつけて、こうお願いします。</p>
+          <p style="margin-top:14px"><strong>「この文字起こしから、①決定事項 ②未決事項 ③Next Action（誰が・いつまでに・何を）を表形式で抽出してください」</strong></p>
+          <p style="margin-top:14px">30分の会議の議事録づくりが、1分もかからず終わります。人がやるのは、出てきた表の事実確認だけです。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/daily-hacks.html"><span class="i">01</span><span class="t">明日から使えるAI仕事術（実例集）<em>そのままコピーして使える依頼文つき</em></span><span class="go">READ →</span></a>
+            <a href="pages/prompt.html"><span class="i">02</span><span class="t">伝わるプロンプトの4要素<em>この回の依頼文も、全部この形でできています</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">ドラフト生成</span><span class="kw">要約・抽出</span><span class="kw">関数生成</span><span class="kw">壁打ち</span><span class="kw">逆に質問させる</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 2 ============================ -->
+<section class="sec" id="ch2">
+  <div class="wrap-wide">
+    <header class="ch-banner rise">
+      <p class="big"><small>CHAPTER 02</small>02</p>
+      <div>
+        <h2>社内のデータやシステムとつなぐ</h2>
+        <p class="lede">
+          1章のAIは「よその優秀な人」でした。ここからは、その人に<strong>うちの会社の資料を渡し、うちの仕事の流れの中に席を用意します</strong>。
+          「ChatGPTは知らないことは答えられないよね」で止まっていた話が、ここで一気に自分ごとになります。
+        </p>
+      </div>
+    </header>
+
+    <!-- ---- 第4回 ---- -->
+    <article class="session" id="s4">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 04</small>04</span>
+        <span class="tag">社内知識</span>
+        <h3>社内のことを<br>知っているAIをつくる</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            RAG（ラグ）は、AIに<strong class="mark">「カンペ持ち込みOKのテスト」</strong>を受けさせる仕組みです。暗記させるのではなく、その場で社内資料を引かせます。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>「うちの出張規定ってどうなってる？」と一般のAIに聞いても、答えられません。知らないからです。もっと困るのは、<strong>知らないのに、それっぽい規定を創作してくる</strong>ことです。</p>
+          <p>この回では、それを防ぐいちばん現実的な方法である RAG（検索してから答えさせる仕組み）を、図の1枚レベルで理解します。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">RAGの流れ</div>
+          <div class="flow">
+            <div class="step"><div class="n">1</div><div><div class="tt">社員が質問する</div><div class="dd">「来月から産休に入ります。必要な手続きを教えて」</div></div></div>
+            <div class="step"><div class="n">2</div><div><div class="tt">まず社内資料を検索する</div><div class="dd">AIが答える前に、就業規則や社内ポータルから関係しそうな箇所を探してきます。ここが"カンペを取りに行く"工程。</div></div></div>
+            <div class="step"><div class="n">3</div><div><div class="tt">カンペを読ませたうえで答えさせる</div><div class="dd">「この文章だけを根拠に答えて」と渡すので、勝手な創作が起きにくくなります。</div></div></div>
+            <div class="step"><div class="n">4</div><div><div class="tt">出典つきで返す</div><div class="dd">「（出典：人事規定集2026年版 第◯条）」。出典が出せることが、社内利用ではいちばん大事です。</div></div></div>
+          </div>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例 / 社内RAGボットの回答</div>
+          <p><strong>質問：</strong>「来月から産休に入ります。必要な手続きを教えて」</p>
+          <p style="margin-top:14px"><strong>回答：</strong>「当社の就業規則第◯条にもとづき、次の手続きが必要です。1. ◯◯申請フォームの提出（社内ポータル ＞ 人事）、2. 上長への申し出（開始日の6週間前まで）… <strong>（出典：社内ポータル／人事規定集 2026年版）</strong>」</p>
+          <p style="margin-top:18px">ここまでできると、「あの人に聞かないと分からない」がひとつ減ります。ベテランの頭の中にしかなかった知識を、24時間だれでも引ける状態に近づけていくのが、この回のねらいです。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/rag.html"><span class="i">01</span><span class="t">RAG（検索してから答えさせる）<em>カンペ持ち込みOKのテスト、の正体</em></span><span class="go">READ →</span></a>
+            <a href="pages/security.html"><span class="i">02</span><span class="t">安全に使うための線引き<em>入れていい情報・ダメな情報、オプトアウトの話</em></span><span class="go">READ →</span></a>
+            <a href="pages/hallucination.html"><span class="i">03</span><span class="t">ハルシネーション<em>RAGが必要になる、そもそもの理由</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">RAG</span><span class="kw">ベクトル検索</span><span class="kw">社内ナレッジ</span><span class="kw">出典表示</span><span class="kw">オプトアウト</span><span class="kw">セキュア環境</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- 第5回 ---- -->
+    <article class="session" id="s5">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 05</small>05</span>
+        <span class="tag">業務フロー</span>
+        <h3>AIを仕事の<br>流れに組み込む</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            AIをチャット画面から出してあげる回です。<strong class="mark">人間がコピペで運んでいた部分</strong>を、そのまま自動でつなぎます。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>1〜4回のAIは、こちらが画面を開いて、貼りつけて、結果をコピーして、別のシステムに入力していました。よく考えると、<strong>いちばん面倒なのはAIの前後にある「運ぶ作業」</strong>です。</p>
+          <p>この回では、その運ぶ作業をなくす考え方（対話型AI → 組み込み型AI）を学びます。ここも、コードを書く話ではなく「どこを自動にすると効くか」を見極める話です。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">具体例 / 見積書の承認フロー</div>
+          <div class="flow">
+            <div class="step"><div class="n">1</div><div><div class="tt">メール添付のPDFを、システムが自動で拾う</div><div class="dd">今まで：担当者が受信箱を見て、開いて、目視で確認していた。</div></div></div>
+            <div class="step"><div class="n">2</div><div><div class="tt">AIがPDFから会社名・品目・金額を抜き出す</div><div class="dd">レイアウトがバラバラでも読めるのが、生成AIになって大きく変わった点です。</div></div></div>
+            <div class="step"><div class="n">3</div><div><div class="tt">社内規定（RAG）と照らして、承認ルートを判定</div><div class="dd">「100万円以上なので部長決裁」。4回で作った"社内のことを知っているAI"がここで効いてきます。</div></div></div>
+            <div class="step"><div class="n">4</div><div><div class="tt">ワークフローに自動入力し、部長へ通知</div><div class="dd">部長のチャットに承認リクエストが届く。人がやるのは、承認ボタンを押すことだけ。</div></div></div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">人とAIの分担</div>
+          <p class="pull">AIは「仕分けと下ごしらえ」を担当する。<br>人は「最終判断と、責任を持つこと」に集中する。</p>
+          <p style="margin-top:20px">この分担の線は、10回目のガバナンスの話まで、ずっと同じです。自動化するのは"判断の材料をそろえるところまで"で、決めるのは人。これを最初から決めておくと、あとで揉めません。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/workflow.html"><span class="i">01</span><span class="t">業務フローへの組み込み<em>対話型AIから組み込み型AIへ。API連携ってなに？</em></span><span class="go">READ →</span></a>
+            <a href="pages/rag.html"><span class="i">02</span><span class="t">RAG（検索してから答えさせる）<em>ルート判定の根拠になる社内規定はここから</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">組み込み型AI</span><span class="kw">API連携</span><span class="kw">RPA</span><span class="kw">自動ルーティング</span><span class="kw">人とAIの分担</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 3 ============================ -->
+<section class="sec sec-alt" id="ch3">
+  <div class="wrap-wide">
+    <header class="ch-banner rise">
+      <p class="big"><small>CHAPTER 03</small>03</p>
+      <div>
+        <h2>指示待ちから、自分で動くAIへ</h2>
+        <p class="lede">
+          ここが、この勉強会でいちばん大きな段差です。5回目までのAIは、こちらが1手ずつ指示を出す相手でした。
+          ここから先のAIは、<strong>ゴールだけ渡すと、手順を自分で考え、道具を使い、終わるまで動きます</strong>。
+          「AIってチャットでしょ？」という感覚が、この2回でだいぶ変わります。
+        </p>
+      </div>
+    </header>
+
+    <!-- ---- 第6回 ---- -->
+    <article class="session" id="s6">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 06</small>06</span>
+        <span class="tag">自律型AI</span>
+        <h3>指示待ちから<br>自律型へ</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            エージェントとは、<strong class="mark">「手順」ではなく「ゴール」を渡せる相手</strong>のこと。あとは自分で考え、道具を使い、確かめながら進みます。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>「AIエージェント」という言葉は、ここ数年でいちばん濫用されている言葉かもしれません。この回では、定義を暗記するのではなく、<strong>何ができるようになると"エージェント"と呼ぶのか</strong>を、動きから理解します。</p>
+          <p>ポイントは2つだけです。①自分で計画を立てる ②自分で道具を使う。この2つがそろうと、こちらは1手ずつ指示を出さなくてよくなります。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">エージェントの頭の中 / 思考 → 行動 → 観察</div>
+          <div class="flow">
+            <div class="step"><div class="n">1</div><div><div class="tt">思考（Thought）— 次に何をすべきか考える</div><div class="dd">「まずA社のIR情報を探そう」</div></div></div>
+            <div class="step"><div class="n">2</div><div><div class="tt">行動（Action）— 道具を実際に使う</div><div class="dd">Web検索する、PDFを開く、表計算する、社内DBを見る。</div></div></div>
+            <div class="step"><div class="n">3</div><div><div class="tt">観察（Observation）— 結果を見て、次を決める</div><div class="dd">「決算資料が取れた。次はB社だ」／「ページが見つからない。別の探し方をしよう」</div></div></div>
+            <div class="step"><div class="n">↺</div><div><div class="tt">これをゴールに着くまでくり返す</div><div class="dd">人間が「次はこうして」と言わなくても回り続けるのが、いちばんの違いです。</div></div></div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">では、その「道具」はどこから来るのか</div>
+          <p>ここで、この勉強会でぜひ覚えて帰ってほしい言葉が出てきます。<strong>ハーネス</strong>です。</p>
+          <p>AIモデル（頭脳）は、それ単体では文章を返すことしかできません。ファイルを開くことも、検索することも、システムに書き込むこともできない。
+          その頭脳に<strong class="mark">「手足」と「作業机」と「安全のためのひも」をつけて、実際の仕事場に連れていく仕組み</strong>——それがハーネスです。</p>
+          <p>犬やねこに付ける胴輪（ハーネス）と同じ言葉です。力を仕事にきちんと伝えつつ、行ってほしくない方向には行かせない。エージェントが「動ける」のは、賢いモデルがあるからではなく、その周りにハーネスがあるからです。</p>
+          <div class="meow" style="margin-top:26px">
+            <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+            <div class="bubble">
+              <span class="who">Navigator</span>
+              「AIエージェント」として世に出ている製品は、だいたい<strong class="mark">賢いモデル＋よくできたハーネス</strong>の組み合わせです。同じモデルでも、ハーネスの出来で仕事の質がまるで変わります。道具選びのときは、ここを見てください。
+            </div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/ai-agent.html"><span class="i">01</span><span class="t">AIエージェントってなに？<em>「手順」ではなく「ゴール」を渡せる相手</em></span><span class="go">READ →</span></a>
+            <a href="pages/react-loop.html"><span class="i">02</span><span class="t">思考 → 行動 → 観察のループ<em>エージェントが自分で進んでいく仕組み</em></span><span class="go">READ →</span></a>
+            <a href="pages/harness.html"><span class="i">03</span><span class="t">ハーネス — AIに手足をつける仕組み<em>頭脳だけでは仕事にならない。エージェントの"胴輪"の話</em></span><span class="go">READ →</span></a>
+            <a href="pages/tool-use.html"><span class="i">04</span><span class="t">ツールを使うAI（Tool Use / MCP）<em>AIが外の世界に手を伸ばすための共通の差し込み口</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例 / 「競合2社の決算を比べてサマリーを作って」</div>
+          <p>この一文だけを渡します。あとは、こちらは何も言いません。</p>
+          <p style="margin-top:14px">
+            ① A社のIRページをWebで探す → ② 決算PDFを開いて読む → ③ B社のIRページを探す → ④ 同じくPDFを読む →
+            ⑤ 数字を並べて比較する → ⑥ 表とコメントにまとめて出す。
+          </p>
+          <p style="margin-top:14px"><strong>この6ステップを、途中で聞き返さずに自分で走りきります。</strong>
+          今までなら「まずA社を調べて」「次にB社」「はい次は比較」と、人が6回指示していたところです。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">AIエージェント</span><span class="kw">自律型AI</span><span class="kw">思考→行動→観察</span><span class="kw">Tool Use</span><span class="kw">ハーネス</span><span class="kw">MCP</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- 第7回 ---- -->
+    <article class="session" id="s7">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 07</small>07</span>
+        <span class="tag">実践・道具立て</span>
+        <h3>AIが自分で<br>つくる時代</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            AIが自分でファイルを書き、動かし、エラーを直すようになりました。つまり<strong class="mark">プログラムを書けない人でも、言葉だけで自分用の道具を作れる</strong>ということです。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>これは「エンジニア向けの回」ではありません。むしろ逆で、<strong>今まで「システム部門にお願いするしかなかった」人にとって、いちばん影響が大きい回</strong>です。</p>
+          <p>「Excelのこの手作業、月に4時間かかってるんだよな」というものが、その日の午後に片づくようになります。この回では、そのために覚えておくと得をする4つの部品を紹介します。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">AIが自分でエラーを直す（自律デバッグ）</div>
+          <div class="flow">
+            <div class="step"><div class="n">1</div><div><div class="tt">人が日本語でお願いする</div><div class="dd">「このフォルダの写真100枚すべての右下に『2026年工事完了』と入れて、別フォルダに保存して」</div></div></div>
+            <div class="step"><div class="n">2</div><div><div class="tt">AIが処理の手順（プログラム）を書く</div><div class="dd">人はコードを見なくてかまいません。</div></div></div>
+            <div class="step"><div class="n">3</div><div><div class="tt">AIが自分で動かしてみる</div><div class="dd">ここが昔との決定的な違い。書いて終わりではなく、実際に走らせます。</div></div></div>
+            <div class="step"><div class="n">4</div><div><div class="tt">エラーが出たら、AIが自分で読んで直す</div><div class="dd">「日本語フォントが無いですね。別のフォントに変えます」→ 直して再実行。完成するまで、このループを自分で回します。</div></div></div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">覚えておくと得をする、4つの部品</div>
+          <p>ここからは、AIエージェントを"うちの仕事"に慣らしていくための道具立てです。どれも見た目は地味ですが、使うか使わないかで結果がはっきり変わるものばかりです。</p>
+          <div class="agenda" style="margin-top:22px">
+            <a href="pages/markdown.html"><span class="i">.md</span><span class="t">.md（マークダウン）— AIと人の共通言語<em>見出しは「#」、箇条書きは「-」だけのテキスト。人が読んでも、AIが読んでも分かる形式。指示書もルールもここに書きます</em></span><span class="go">READ →</span></a>
+            <a href="pages/skill.html"><span class="i">SKL</span><span class="t">Skill — 「うちのやり方」をAIに教える手順書<em>よくやる作業の進め方を書いた手順書のセット。棚に置いておくと、AIが必要なときだけ取り出して読みます</em></span><span class="go">READ →</span></a>
+            <a href="pages/goal-command.html"><span class="i">/</span><span class="t">/goal — ゴールを宣言して、完走させる<em>「これが終わりの定義です」と先に渡すコマンド。条件を満たすまで、途中で勝手に終わらなくなります</em></span><span class="go">READ →</span></a>
+            <a href="pages/loop-command.html"><span class="i">/</span><span class="t">/loop — 決めた作業を、くり返させる<em>「5分ごとにこれを確認して」のように、同じ作業を定期的に回すコマンド。見張り役をAIに任せられます</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">4つがつながると、どうなるか</div>
+          <div class="cmd">
+            <div class="ln"><span class="p">＄</span><span class="c">/goal 今月の請求書PDFを全部読んで、一覧表にして、金額が合わない行だけ赤くして</span></div>
+            <div class="out">→ ゴールを受け取りました。完了条件を満たすまで作業を続けます。</div>
+            <div class="out">→ 社内ルール（<b>.md</b>）を確認 … 「請求書の項目名は経理の呼び方に統一」を反映</div>
+            <div class="out">→ <b>Skill</b>「請求書チェックの手順」を読み込み … 突合ルールを適用</div>
+            <div class="out">→ 43件を処理。3件で金額差を検出。一覧表を作成しました。</div>
+            <div class="ln" style="margin-top:14px"><span class="p">＄</span><span class="c">/loop 30m 新しい請求書が届いていないか確認して、同じ処理をして</span></div>
+            <div class="out">→ 30分ごとに同じ作業をくり返します。</div>
+          </div>
+          <p style="margin-top:20px">
+            <strong>.md</strong> に「うちのルール」を書き、<strong>Skill</strong> に「うちのやり方」をしまい、<strong>/goal</strong> で終わりの定義を渡し、<strong>/loop</strong> で見張りを任せる。
+            この4つがそろうと、AIは「毎回ゼロから説明しないと動かない相手」から、<strong class="mark">「うちのやり方を知っている担当者」</strong>に変わります。
+          </p>
+          <div class="meow" style="margin-top:26px">
+            <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+            <div class="bubble">
+              <span class="who">Navigator</span>
+              ここ、プログラミングの話に見えて、実は<strong class="mark">「新しく入った人への引き継ぎ資料の作り方」</strong>とまったく同じ話です。ルールを書いて、手順書を渡して、ゴールを伝えて、定期の仕事をお願いする。人に頼むときにやっていることを、AI向けにやるだけ。
+            </div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/coding-agent.html"><span class="i">01</span><span class="t">コーディングエージェント<em>自分でコードを書き、動かし、直すAI。開発の民主化とは</em></span><span class="go">READ →</span></a>
+            <a href="pages/markdown.html"><span class="i">02</span><span class="t">.md（マークダウン）<em>AIと人の共通言語。CLAUDE.md って何が書いてあるの？</em></span><span class="go">READ →</span></a>
+            <a href="pages/skill.html"><span class="i">03</span><span class="t">Skill（スキル）<em>必要なときだけ開く、AIのためのマニュアル棚</em></span><span class="go">READ →</span></a>
+            <a href="pages/goal-command.html"><span class="i">04</span><span class="t">/goal（ゴール宣言）<em>「終わりの定義」を先に渡して、完走させる</em></span><span class="go">READ →</span></a>
+            <a href="pages/loop-command.html"><span class="i">05</span><span class="t">/loop（くり返し）<em>定期的な確認作業を、AIに見張らせる</em></span><span class="go">READ →</span></a>
+            <a href="pages/harness.html"><span class="i">06</span><span class="t">ハーネス<em>この4つを支えている土台の話（第6回のおさらい）</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">コーディングエージェント</span><span class="kw">自律デバッグ</span><span class="kw">.md</span><span class="kw">Skill</span><span class="kw">/goal</span><span class="kw">/loop</span><span class="kw">スラッシュコマンド</span><span class="kw">開発の民主化</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 4 ============================ -->
+<section class="sec" id="ch4">
+  <div class="wrap-wide">
+    <header class="ch-banner rise">
+      <p class="big"><small>CHAPTER 04</small>04</p>
+      <div>
+        <h2>AIのチームで、組織を変える</h2>
+        <p class="lede">
+          最後の章では、AIを1匹ではなく<strong>何匹も並べます</strong>。役割の違うAIに議論させ、業務プロセスを分担させ、そして——
+          いちばん大事なこととして、<strong>人間がどこに残るのか</strong>をはっきりさせます。
+        </p>
+      </div>
+    </header>
+
+    <!-- ---- 第8回 ---- -->
+    <article class="session" id="s8">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 08</small>08</span>
+        <span class="tag">チーム化</span>
+        <h3>AIチームで<br>考える</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            <strong class="mark">万能なねこ1匹より、役割の違うねこ3匹</strong>。立場を分けて議論させたほうが、思い込みも減って、結論が強くなります。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>「もっと良い答えが欲しい」とき、多くの人はプロンプトを長くしようとします。でも、それより効くのが<strong>AIを複数用意して、立場を分けて議論させる</strong>やり方です。</p>
+          <p>1匹のAIに「あらゆる観点で完璧に考えて」と頼むと、だいたい薄い答えになります。人間の会議と同じで、視点が分かれているほうが良い結論に着きます。</p>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例 / 人事評価を、AIチームで多角化する</div>
+          <p><strong>今までの課題：</strong>評価者（直属の課長ひとり）の視点に、どうしても偏りが出る。</p>
+          <p style="margin-top:16px"><strong>AIチームでやると：</strong>課長が対象者の実績を入力すると——</p>
+          <div class="ba" style="grid-template-columns:1fr">
+            <div class="good">
+              <div class="h">AGENT A — 次長の立場</div>
+              <q>短期の売上は良いが、後進育成の評価が甘くないか？ 半年後にこの人が抜けたとき、チームは回るのか</q>
+            </div>
+            <div class="good">
+              <div class="h">AGENT B — 人事部長の立場</div>
+              <q>来期の全社戦略を考えると、個人成績よりチーム全体の底上げへの貢献も評価軸に入れるべきだ</q>
+            </div>
+          </div>
+          <p style="margin-top:18px">AI同士が意見をぶつけ、最終的に人間の評価者へ<strong>「多角的に見直すための材料」</strong>として提出されます。
+          <strong>評価を決めるのは、あくまで人間です。</strong>AIがやるのは、見落としを潰すことだけ。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">もうひとつの使い方 / 会議にAIを同席させる</div>
+          <p>企画会議や経営会議に、「批判的に考えるAI」「顧客の立場で考えるAI」を1席ぶん用意しておく、という使い方もあります。
+          社内の力関係に忖度せず、素朴で痛い質問をしてくれる存在は、それだけで会議の質を上げます。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/multi-agent.html"><span class="i">01</span><span class="t">マルチエージェント<em>なぜ1匹より複数のほうが良い答えが出るのか</em></span><span class="go">READ →</span></a>
+            <a href="pages/skill.html"><span class="i">02</span><span class="t">Skill（スキル）<em>それぞれの役割の「やり方」を持たせる仕組み</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">マルチエージェント</span><span class="kw">ペルソナ</span><span class="kw">AIボードメンバー</span><span class="kw">意思決定支援</span><span class="kw">思い込みの補正</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- 第9回 ---- -->
+    <article class="session" id="s9">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 09</small>09</span>
+        <span class="tag">総合演習</span>
+        <h3>プロセスまるごと<br>AIチームに</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            複雑な仕事は、<strong class="mark">小さく切って、1工程に1匹ずつ</strong>。バケツリレーの形にすると、まるごと自動化できます。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>この勉強会の集大成です。ここまでに出てきたもの——RAG（4回）、業務フロー連携（5回）、エージェント（6回）、道具立て（7回）、チーム化（8回）——が、ひとつの業務プロセスの上で全部つながります。</p>
+          <p>設計のコツはひとつだけ。<strong>「1匹に全部やらせない」</strong>。工程ごとに切って、それぞれ専門のAIを置きます。</p>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例 / 仕様書を受け取ってから、受注登録まで</div>
+          <p>今まで、部署をまたいで数日かかっていた確認作業です。</p>
+          <div class="ba" style="grid-template-columns:1fr;margin-top:20px">
+            <div class="good"><div class="h">PHASE 1 — 読み取り担当</div><q>お客様から届いた仕様書PDFから「検査項目A」「納期10/1」などの要件を抜き出す</q></div>
+            <div class="good"><div class="h">PHASE 2 — 規格・法令チェック担当</div><q>抜き出した項目を、最新のJIS規格や法令の規制値と照らし合わせる（RAGを使用）→ 法的に問題なし</q></div>
+            <div class="good"><div class="h">PHASE 3 — キャパシティ判定担当</div><q>社内の稼働状況データベースを見て、今のラボの余力で10/1納期が可能か判定する</q></div>
+            <div class="good"><div class="h">PHASE 4 — システム入力担当</div><q>受注可能と判断されたので、基幹システムに必要情報を下書きとして起票する</q></div>
+          </div>
+          <p style="margin-top:20px"><strong>そして人間は、上がってきた内容を見て、承認ボタンを押します。</strong>
+          数日かかっていた工程が、数分になります。ただし——最後の判断は、必ず人間です。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/task-decomposition.html"><span class="i">01</span><span class="t">タスク分解とパイプライン<em>複雑な仕事を、AIに渡せる大きさに切る方法</em></span><span class="go">READ →</span></a>
+            <a href="pages/goal-command.html"><span class="i">02</span><span class="t">/goal（ゴール宣言）<em>各工程の「終わりの定義」をはっきりさせる</em></span><span class="go">READ →</span></a>
+            <a href="pages/human-in-the-loop.html"><span class="i">03</span><span class="t">Human in the Loop<em>どこに人間の承認を挟むか、という設計の話</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">タスク分解</span><span class="kw">エージェントパイプライン</span><span class="kw">バケツリレー</span><span class="kw">承認ゲート</span><span class="kw">業務プロセス設計</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- 第10回 ---- -->
+    <article class="session" id="s10">
+      <div class="s-rail">
+        <span class="no"><small>SESSION 10</small>10</span>
+        <span class="tag">まとめ</span>
+        <h3>安全に使うルールと、<br>人の新しい役割</h3>
+      </div>
+      <div class="s-body">
+        <div class="meow">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">ひとことで言うと</span>
+            AIが作業をするようになると、人の仕事は<strong class="mark">「自分でやること」から「設計して、確かめて、責任を取ること」</strong>に移ります。
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">目的</div>
+          <p>最終回は、いちばん地味で、いちばん大事な回です。ここまでの9回で「できること」をたくさん見てきました。最後に、<strong>やってはいけないこと</strong>と、<strong>人間が絶対に手放してはいけないもの</strong>を確認します。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">気をつける3つのリスク</div>
+          <div class="flow">
+            <div class="step"><div class="n">1</div><div><div class="tt">情報漏えい（シャドーAI）</div><div class="dd">会社が把握していないところで、社員が個人アカウントのAIに顧客情報を貼りつけてしまう。悪意ではなく、善意の効率化として起きるのが厄介なところです。</div></div></div>
+            <div class="step"><div class="n">2</div><div><div class="tt">著作権・権利まわり</div><div class="dd">生成物をそのまま外に出す前に、確認が必要な場面があります。</div></div></div>
+            <div class="step"><div class="n">3</div><div><div class="tt">もっともらしい嘘による判断ミス</div><div class="dd">2回目に出てきたハルシネーション。自信満々に間違えるので、慣れるほど危ない。</div></div></div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">Human in the Loop（人が必ず入る）</div>
+          <p class="pull">完全自動は、いちばん危ない設計です。<br>重要な判断には、必ず人間が入る。</p>
+          <p style="margin-top:20px">法令確認の最終チェック、人事評価の最終決定、契約書の押印——このあたりは、どれだけAIが賢くなっても人が押さえる場所です。
+          9回目のパイプラインで<strong>「承認ボタン」を残していたのは、このためです</strong>。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">人の役割は「作業者」から「AIディレクター」へ</div>
+          <div class="evolve" style="grid-template-columns:1fr 1fr">
+            <div>
+              <div class="era">BEFORE</div>
+              <div class="nm">作業者</div>
+              <div class="mt">自分の手を動かして、成果物をつくる。速さと正確さが価値だった。</div>
+            </div>
+            <div>
+              <div class="era">AFTER</div>
+              <div class="nm">AIディレクター</div>
+              <div class="mt">業務プロセスを設計し、AIチームに適切に指示を出し、上がってきた結果の質を評価し、最終的な責任を持つ。</div>
+            </div>
+          </div>
+          <div class="meow" style="margin-top:28px">
+            <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+            <div class="bubble">
+              <span class="who">Navigator</span>
+              必要になるのはプログラミング能力ではありません。<strong class="mark">仕事を整理する力、良い問いを立てる力、そして判断する力</strong>。
+              つまり、今までも大事だったけれど後回しにされがちだった能力が、まっすぐ価値になります。
+            </div>
+          </div>
+        </div>
+
+        <div class="example blk">
+          <div class="label">具体例 / 最終確認をしなかったら</div>
+          <p>AIに契約書を作らせ、中身を確認せずそのまま先方に送ってしまい、条項の食い違いから法的トラブルに——という事例が、実際に起きています。</p>
+          <p style="margin-top:14px"><strong>AIは責任を取れません。</strong>だから最後は人が見る。この一行だけは、どの回の話にも共通する前提です。</p>
+        </div>
+
+        <div class="blk">
+          <div class="label">この回に出てくる言葉</div>
+          <div class="agenda">
+            <a href="pages/governance.html"><span class="i">01</span><span class="t">ガバナンスとシャドーAI<em>ルールを作る側が知っておくべきこと</em></span><span class="go">READ →</span></a>
+            <a href="pages/human-in-the-loop.html"><span class="i">02</span><span class="t">Human in the Loop<em>どこに人の確認を挟むか</em></span><span class="go">READ →</span></a>
+            <a href="pages/ai-director.html"><span class="i">03</span><span class="t">AIディレクター<em>人に残る役割と、これから伸ばすべき力</em></span><span class="go">READ →</span></a>
+            <a href="pages/security.html"><span class="i">04</span><span class="t">安全に使うための線引き<em>入れていい情報・ダメな情報</em></span><span class="go">READ →</span></a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="label">キーワード</div>
+          <div class="kw-list">
+            <span class="kw">ガバナンス</span><span class="kw">シャドーAI</span><span class="kw">Human in the Loop</span><span class="kw">AIディレクター</span><span class="kw">責任あるAI</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================ CLOSING ============================ -->
+<section class="sec sec-dark" id="closing">
+  <div class="wrap-wide">
+    <div class="closing-grid">
+      <div class="rise">
+        <p class="eyebrow">Closing</p>
+        <h2 class="display">Design the work.<br>Not just do it.</h2>
+        <p class="lede" style="margin-top:26px">
+          この勉強会のゴールは、AIに詳しくなることではありません。<br>
+          <strong style="color:#faecbe;font-weight:400">自分の仕事を、人に説明できるくらい分解できるようになること</strong>です。
+        </p>
+        <p class="lede" style="margin-top:20px">
+          分解できた仕事は、人にもAIにも任せられます。分解できていない仕事は、誰にも任せられません。
+          結局のところ、10回かけてやっているのはその練習です。
+        </p>
+        <div class="meow on-dark" style="margin-top:38px">
+          <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+          <div class="bubble">
+            <span class="who">Navigator</span>
+            おつかれさまでした。<br>
+            最後にひとつだけ宿題を。<strong>「自分の仕事のうち、来週AIに渡してみるもの、ひとつ」</strong>を決めてみてください。小さくていいです。むしろ小さいほうがいいです。
+          </div>
+        </div>
+      </div>
+      <div class="rise">
+        <p class="eyebrow">Where to start</p>
+        <ul class="act">
+          <li><a href="#s1">まず全体像をつかむ（第1回）<span>SESSION 01</span></a></li>
+          <li><a href="pages/prompt.html">今日から使える頼み方を覚える<span>PROMPT</span></a></li>
+          <li><a href="pages/daily-hacks.html">明日の自分の仕事を軽くする<span>HACKS</span></a></li>
+          <li><a href="pages/harness.html">エージェントの正体を知る<span>HARNESS</span></a></li>
+          <li><a href="pages/skill.html">うちのやり方をAIに教える<span>SKILL</span></a></li>
+          <li><a href="pages/goal-command.html">ゴールを宣言して完走させる<span>/GOAL</span></a></li>
+          <li><a href="pages/loop-command.html">くり返し作業を任せる<span>/LOOP</span></a></li>
+          <li><a href="pages/ai-director.html">人に残る役割を考える<span>DIRECTOR</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <svg class="cat" aria-hidden="true"><use href="#ico-cat"/></svg>
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <p>全10回 · 4章構成 · 23トピック</p>
+    <div class="links">
+      <a href="#top">TOP</a>
+      <a href="#roadmap">ROADMAP</a>
+      <a href="#closing">CLOSING</a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script src="scripts/site.js" defer></script>
+</body>
+</html>

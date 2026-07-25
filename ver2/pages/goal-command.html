@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/goal — ゴールを宣言して、完走させる｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="「終わりの定義」を先に渡すと、AIは途中で勝手に止まらなくなります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第7回 AIが自分でつくる時代 / /goal — ゴールを宣言して、完走させる</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 07 · 実践・道具立て</p>
+      <h1><em>/goal</em> は、<em>「終わりの定義」</em>を先に渡すコマンド</h1>
+      <span class="en">Declare the finish line first.</span>
+    </div>
+    <div class="side">
+      <p>AIエージェントに長い作業を頼むと、よくこうなります。<strong>途中まで やって「できました」と言ってくる。</strong></p>
+      <p>それを防ぐのが /goal です。ゴール条件を先に宣言しておくと、満たすまで止まらなくなります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>/goal は「これが達成できたら終わり」を先に宣言するコマンド</b>。AIは条件を満たすまで、途中で終わらずに作業を続けます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Problem</p>
+    <h2>なぜ必要になるのか</h2>
+    <p>エージェントは「考える → 動く → 結果を見る」をくり返しますが、<strong>どこで止まるかは、AI自身の判断</strong>です。そして、その判断はときどき甘い。</p>
+<p>10個お願いしたのに7個で「完了しました」。テストを通していないのに「できました」。——これが起きるのは、<strong>「終わり」の定義があいまいだから</strong>です。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>仕事を頼むときの「完了条件」</strong>と同じです。「資料まとめといて」だけだと人によって出来上がりがバラバラですが、「A社とB社の比較表を作って、数字は出典つきで」と言えば揃います。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">How</p>
+    <h2>使い方は、拍子抜けするほど簡単です</h2>
+    <div class="dcode"><span class="p">＄</span> /goal 今月の請求書PDFを全部読んで一覧表にする。
+        金額が発注データと合わない行は赤くする。
+        43件すべて処理し終わるまで終わらないこと。
+
+<span class="cm">→ ゴールを受け取りました。条件を満たすまで作業を続けます。</span>
+
+<span class="cm">   … 20件処理  … 35件処理  … 43件処理完了</span>
+<span class="cm">   → 3件で差額を検出。一覧表を作成しました。</span>
+<span class="cm">   → ゴール条件を満たしたので、終了します。</span></div>
+    <p>仕組みとしては、<strong>「作業を終わろうとしたとき、条件を満たしているか毎回チェックする」</strong>という見張りが付くイメージです。満たしていなければ、AIは作業に戻されます。</p>
+    <div class="dnote"><div class="h">途中でやめたくなったら</div><p>ゴールは途中で取り消せます（ツールによって <code>/goal clear</code> など）。条件を満たしたときは自動で外れるので、通常は何もしなくて大丈夫です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Writing</p>
+    <h2>良いゴールの書き方 / 悪いゴールの書き方</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">BAD — 判定できない</div><q>請求書をいい感じにチェックして</q><div class="memo">「いい感じ」を誰が判定するのでしょうか。AIは「まあこれでいいか」で止まります。</div></div>
+<div class="good"><div class="h">GOOD — 判定できる</div><q>43件すべての請求書を処理し、差額のある行を一覧表に赤字で出す。処理件数を最後に報告すること</q><div class="memo">数と形が決まっているので、達成したかどうかが機械的に判定できます。</div></div>
+</div>
+    <div class="dcards"><div><div class="h">TIP 1</div><div class="t">数を入れる</div><div class="d">「43件すべて」「3案」「全ファイル」。数があると、途中で止まったことが一目で分かります。</div></div><div><div class="h">TIP 2</div><div class="t">成果物の形を書く</div><div class="d">「一覧表にして」「Markdownで」「表形式で」。形が決まると、判定が明確になります。</div></div><div><div class="h">TIP 3</div><div class="t">確認方法まで書く</div><div class="d">「最後に処理件数を報告すること」。自己申告させると、AI自身が抜けに気づきます。</div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Caution</p>
+    <h2>気をつけること</h2>
+    <p>止まらなくなる、ということは<strong>間違った方向にも走り続ける</strong>ということです。長時間の作業を任せる前に、必ず小さい範囲で試してください。</p>
+<p>また、「送る」「消す」「支払う」といった取り返しのつかない操作は、ゴールに含めないでください。そこは人の承認を挟む場所です（<a href="human-in-the-loop.html">Human in the Loop</a>）。</p>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="loop-command.html"><span class="t">/loop — 決めた作業を、くり返させる</span><span class="d">「5分ごとにこれを見て」。見張り役をAIに任せるコマンド。</span><span class="go">READ →</span></a>
+      <a class="topic" href="react-loop.html"><span class="t">思考 → 行動 → 観察のループ</span><span class="d">エージェントが自分で進んでいくときの、頭の中の回し方。</span><span class="go">READ →</span></a>
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s7">第7回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s7">SESSION 07</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

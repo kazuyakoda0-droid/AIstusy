@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/loop — 決めた作業を、くり返させる｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="「5分ごとにこれを見て」。見張り役をAIに任せるコマンド。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第7回 AIが自分でつくる時代 / /loop — 決めた作業を、くり返させる</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 07 · 実践・道具立て</p>
+      <h1><em>/loop</em> は、<em>同じ作業をくり返させる</em>コマンド</h1>
+      <span class="en">Do this. Again. And again.</span>
+    </div>
+    <div class="side">
+      <p>仕事には「1回やって終わり」ではないものがあります。定期的な確認、監視、締め切り前のチェック。</p>
+      <p>そういう<strong>気にし続ける仕事</strong>を、そのままAIに預けるのが /loop です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>/loop は「この作業を、決めた間隔でくり返して」と頼むコマンド</b>。人が気にし続けなくてよくなります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">How</p>
+    <h2>使い方</h2>
+    <div class="dcode"><span class="cm"># 間隔を決めて回す</span>
+<span class="p">＄</span> /loop 5m テスト結果を確認して、失敗があれば原因を報告して
+<span class="cm">→ 5分ごとにこの作業をくり返します。</span>
+
+<span class="cm"># 間隔を指定しないと、AIが自分でペースを決める</span>
+<span class="p">＄</span> /loop 新しい問い合わせメールが来ていないか見て、
+        緊急のものがあれば要約して知らせて
+<span class="cm">→ 状況に応じて自分で間隔を決めながら、くり返します。</span></div>
+    <p>間隔を指定すれば、その通りに。指定しなければ、<strong>AIが状況を見てペースを決めます</strong>（変化が速いものは短く、そうでないものは長く）。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>「気にしておいて」と頼める後輩</strong>。ずっと画面に張りついて見ている必要がなくなります。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Use cases</p>
+    <h2>効く場面</h2>
+    <div class="dcards"><div><div class="h">CASE 1</div><div class="t">待ちが発生する作業の見張り</div><div class="d">時間のかかる処理が終わったか、定期的に確認して報告させる。人は別の仕事をしていられます。</div></div><div><div class="h">CASE 2</div><div class="t">定期チェック</div><div class="d">「毎朝、前日の数字を集計して差分を報告」。日次・週次のルーチンをまるごと任せられます。</div></div><div><div class="h">CASE 3</div><div class="t">受信箱の見張り</div><div class="d">新しく届いたものを拾って、緊急度で仕分けして知らせる。</div></div><div><div class="h">CASE 4</div><div class="t">長い作業の分割実行</div><div class="d">一度に終わらない量の処理を、少しずつ進めさせる。</div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">With goal</p>
+    <h2>/goal と組み合わせると強い</h2>
+    <p>この2つは、性格が正反対です。<strong>/goal は「終わりを決める」、/loop は「終わらせない」。</strong>組み合わせると、業務の形にぴったりはまります。</p>
+    <div class="dcode"><span class="p">＄</span> /goal 今日届いた請求書を全部処理して、差額があるものを報告する
+<span class="cm">→ 今日ぶんを完走させる（終わりが決まっている仕事）</span>
+
+<span class="p">＄</span> /loop 30m 新しい請求書が届いていないか確認して、同じ処理をする
+<span class="cm">→ 明日も明後日も回り続ける（終わらない仕事）</span></div>
+    <div class="dnote"><div class="h">止めるとき</div><p>くり返しは、こちらから止めるまで続きます。不要になったら必ず止めてください。<strong>始めるより、止め忘れないことのほうが大事</strong>です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Caution</p>
+    <h2>気をつけること</h2>
+    <p>間隔を短くしすぎないでください。1分ごとに回しても、たいていは何も変わっていません。<strong>「その状況が実際にどれくらいで変わるか」に合わせる</strong>のがコツです。</p>
+<p>そして /goal と同じく、<strong>くり返しの中に「送る」「消す」を入れないこと。</strong>1回の事故が、繰り返しぶん増えてしまいます。</p>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="goal-command.html"><span class="t">/goal — ゴールを宣言して、完走させる</span><span class="d">「終わりの定義」を先に渡すと、AIは途中で勝手に止まらなくなります。</span><span class="go">READ →</span></a>
+      <a class="topic" href="coding-agent.html"><span class="t">コーディングエージェント</span><span class="d">自分でコードを書き、動かし、エラーを直すAI。非エンジニアにこそ効きます。</span><span class="go">READ →</span></a>
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s7">第7回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s7">SESSION 07</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

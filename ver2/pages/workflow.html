@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>業務フローへの組み込み｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="対話型AIから組み込み型AIへ。コピペで運ぶ作業をなくす。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第5回 AIを仕事の流れに組み込む / 業務フローへの組み込み</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 05 · 業務連携</p>
+      <h1>いちばん面倒なのは、<em>AIの前後にある「運ぶ作業」</em></h1>
+      <span class="en">From chatting with AI to building with it.</span>
+    </div>
+    <div class="side">
+      <p>ここまでのAI活用には、共通の弱点がありました。<strong>人間が画面を開いて、貼って、コピーして、別のシステムに入れている</strong>ことです。</p>
+      <p>この回では、その運ぶ作業そのものをなくす考え方を扱います。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">AIをチャット画面から出して、<b>仕事の流れの中に直接置く</b>。人がコピペで運んでいた部分を、自動でつなぎます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Shift</p>
+    <h2>対話型AI → 組み込み型AI</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">対話型（今まで）</div><q>メールを開く → PDFをダウンロード → AIの画面を開く → 貼りつける → 結果をコピー → 基幹システムに入力</q><div class="memo">AIの作業は10秒でも、前後の運搬に10分かかっている。</div></div>
+<div class="good"><div class="h">組み込み型（これから）</div><q>メールが届いた瞬間、自動でPDFが読まれ、判定され、システムに下書きが入り、承認依頼が届く</q><div class="memo">人がやるのは、承認ボタンを押すことだけ。</div></div>
+</div>
+    <p>この「つなぐ」部分を担うのが API連携 や RPA、Zapier / Make のような自動化ツールです。<strong>用語を覚える必要はありません。</strong>大事なのは「運ぶ作業は自動にできる」と知っていることだけです。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Case</p>
+    <h2>ケーススタディ / 見積書の承認フロー</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">メール添付の見積書PDFを、システムが自動で検知する</div><div class="dd">今まで：担当者が受信箱を見て、開いて、目視で確認していた。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">AIがPDFから会社名・品目・金額を抜き出す</div><div class="dd">レイアウトが会社ごとにバラバラでも読めるのが、生成AIになって大きく変わった点です。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">社内規定（RAG）と照らして、承認ルートを判定する</div><div class="dd">「100万円以上なので部長決裁」。第4回でつくった"社内のことを知っているAI"がここで効いてきます。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">ワークフローツールに自動入力し、部長のチャットに通知</div><div class="dd">部長のところに承認リクエストが届く。</div></div></div><div class="st"><div class="n">5</div><div><div class="tt">人が承認ボタンを押す</div><div class="dd">判断は人。ここは自動化しません。</div></div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Principle</p>
+    <h2>人とAIの分担ライン</h2>
+    <p>AIは<strong>「情報の仕分けと下ごしらえ」</strong>を担当する。人は<strong>「最終判断と、責任を持つこと」</strong>に集中する。</p>
+<p>この線は、第10回のガバナンスの話まで、ずっと同じです。<strong>最初にこの線を決めておく</strong>と、導入時に揉めません。</p>
+    <div class="dnote"><div class="h">どこから手を付けるか</div><p>「毎日やっている」「手順が決まっている」「間違えても取り返しがつく」——この3つがそろう作業から始めてください。逆に、判断が要る作業・年に数回の作業・失敗すると取り返しがつかない作業は、後回しでかまいません。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="rag.html"><span class="t">RAG（検索してから答えさせる）</span><span class="d">AIに「カンペ持ち込みOKのテスト」を受けさせる仕組みです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="task-decomposition.html"><span class="t">タスク分解とパイプライン</span><span class="d">複雑な仕事を、AIに渡せる大きさに切る方法。</span><span class="go">READ →</span></a>
+      <a class="topic" href="ai-agent.html"><span class="t">AIエージェントってなに？</span><span class="d">「手順」ではなく「ゴール」を渡せる相手。それがエージェントです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s5">第5回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s5">SESSION 05</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

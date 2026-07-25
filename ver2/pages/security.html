@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安全に使うための線引き｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="入れていい情報・ダメな情報。オプトアウトとは何か。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第4回 社内のことを知っているAIをつくる / 安全に使うための線引き</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 04 · 社内データ</p>
+      <h1><em>どこに、何を入れるか</em>。それがすべてです</h1>
+      <span class="en">Where you paste it matters more than what you paste.</span>
+    </div>
+    <div class="side">
+      <p>AI活用でいちばん事故が起きるのは、技術ではなく<strong>運用</strong>です。</p>
+      <p>難しいルールは要りません。「どの環境なら、何を入れていいか」の一枚さえあれば足ります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">危ないのは<b>AIそのものではなく、「会社が把握していない場所に、機密情報を貼ること」</b>です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Basics</p>
+    <h2>まず、この3つを分けて考える</h2>
+    <div class="dcards"><div><div class="h">LEVEL 1</div><div class="t">個人アカウントの一般向けサービス</div><div class="d">公開情報・一般的な調べもの・自分の文章の推敲まで。顧客情報や社内数字は絶対に入れない。</div></div><div><div class="h">LEVEL 2</div><div class="t">会社が契約した法人向けサービス</div><div class="d">入力内容が学習に使われない契約になっているのが普通です。社内文書もここなら扱えることが多い。必ず自社の規定を確認。</div></div><div><div class="h">LEVEL 3</div><div class="t">社内・専用環境（オンプレミス等）</div><div class="d">外に出ないので、いちばん機密性の高い情報も扱えます。そのぶんコストと運用の手間がかかります。</div></div></div>
+    <div class="dnote"><div class="h">迷ったときの判断基準</div><p><strong>「これ、社外の人に見せていい情報か？」</strong>と自分に聞いてください。答えがNOなら、Level 1の環境には入れない。それだけで、事故の9割は防げます。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Opt-out</p>
+    <h2>オプトアウトって何ですか</h2>
+    <p>「入力した内容を、AIの学習に使わないでください」という設定のことです。</p>
+<p>個人向けサービスの多くは、初期状態だと入力内容が改善のために使われる場合があります。<strong>設定画面でオフにできる</strong>ことが多いので、業務で使う前に必ず確認してください。</p>
+<p>法人向けの契約では、はじめから学習に使わない条件になっているのが一般的です。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Shadow AI</p>
+    <h2>いちばん怖いのは、悪意のない人</h2>
+    <p>会社が把握していないところで、社員が個人アカウントのAIを業務に使っている状態を<strong>シャドーAI</strong>と呼びます。</p>
+<p>これは、サボりたい人が起こす問題ではありません。むしろ逆で、<strong>早く終わらせたい真面目な人</strong>が起こします。だから「禁止」だけでは絶対に止まりません。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>近道の獣道</strong>と同じです。舗装された道が遠回りだと、みんな芝生を踏んで近道します。柵を立てるより、<strong>使いやすい正規ルートを用意する</strong>ほうが効きます。</p></div></div>
+    <div class="dnote"><div class="h">組織としての正解</div><p>「禁止する」ではなく<strong>「安全に使える環境を、禁止より先に用意する」</strong>。これが、いま多くの会社が到達している結論です。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="rag.html"><span class="t">RAG（検索してから答えさせる）</span><span class="d">AIに「カンペ持ち込みOKのテスト」を受けさせる仕組みです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="governance.html"><span class="t">ガバナンスとシャドーAI</span><span class="d">禁止しても止まりません。使いやすい正規ルートを先に用意すること。</span><span class="go">READ →</span></a>
+      <a class="topic" href="daily-hacks.html"><span class="t">明日から使えるAI仕事術</span><span class="d">そのままコピーして使える依頼文つき。まずここから始めてください。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s4">第4回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s4">SESSION 04</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

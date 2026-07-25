@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIの進化：4つのステップ｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="ルールベース → 機械学習 → 生成AI → エージェント。違いをたとえ話で一枚に。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第1回 AIは「道具」から「チームメンバー」へ / AIの進化：4つのステップ</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 01 · 土台</p>
+      <h1>AIの進化を、<em>4つのステップ</em>で見る</h1>
+      <span class="en">From rules, to learning, to creating, to acting.</span>
+    </div>
+    <div class="side">
+      <p>「AI」とひとことで言っても、中身は時代ごとにまったく別ものです。ここを混ぜたまま話すと、話が噛み合わなくなります。</p>
+      <p>ここでは歴史の細かい年号ではなく、<strong>何ができるようになったか</strong>だけを4段階で押さえます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">AIは<b>「決められた通りに動く」→「データから学ぶ」→「ゼロからつくる」→「自分で段取りする」</b>の順に進化してきました。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Step 1</p>
+    <h2>ルールベース — 人が決めた通りに動くだけ</h2>
+    <p>いちばん古いタイプのAIです。「もし〜なら、こうする」という条件を人間がぜんぶ書いておき、その通りに動きます。</p>
+<p>融通は一切利きません。書いていない状況が来たら、止まるか、変な動きをします。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>自動販売機</strong>。ボタンを押されたら、その飲みものを出す。それ以上でも以下でもありません。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Step 2</p>
+    <h2>機械学習・深層学習 — たくさん見て、特徴をつかむ</h2>
+    <p>人が条件を書くのをやめて、<strong>大量のデータを見せて、共通点を自分で見つけさせる</strong>ようにしたものです。</p>
+<p>「猫の写真を何万枚も見せると、猫っぽさを掴んで、初めて見る写真も猫だと分かる」。これが機械学習です。深層学習は、そのやり方をもっと層を重ねて強力にしたもの、くらいの理解で十分です。</p>
+<p>ただし、このAIができるのは基本的に<strong>「見分ける・予測する」</strong>ことです。新しいものを作ることはできません。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>目利きの鑑定士</strong>。本物を何千点も見てきたから、パッと見て真贋が分かる。でも、自分で絵は描けません。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Step 3</p>
+    <h2>生成AI — ゼロからつくれるようになった</h2>
+    <p>2022年ごろから急に世の中がざわつき始めたのが、ここです。<strong>見分けるだけだったAIが、文章や画像を「つくる」ようになりました。</strong></p>
+<p>ここが決定的な分かれ目です。今までのAIは「用意された選択肢から選ぶ」道具でしたが、生成AIは「白紙から出してくる」道具になりました。</p>
+    <div class="dcompare">
+<div class="bad"><div class="h">これまで（見分ける）</div><q>この資料の誤字を探して</q><div class="memo">正解が決まっている作業。速く正確にこなすのが価値。</div></div>
+<div class="good"><div class="h">生成AI（つくる）</div><q>このメモから、プレゼン資料の構成をつくって</q><div class="memo">正解がひとつではない作業。ここに踏み込めたのが大きな変化。</div></div>
+</div>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>注文に応えるクリエイター</strong>。「こんな感じで」と伝えると、たたき台を出してくれます。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Step 4</p>
+    <h2>AIエージェント — 自分で段取りするようになった</h2>
+    <p>生成AIは、こちらが1回頼むと1回答える相手でした。エージェントは、<strong>ゴールを渡すと、そこに着くまでの手順を自分で考えて動きます。</strong></p>
+<p>調べる、開く、計算する、書き込む——といった作業を、途中でいちいち確認せずに進めます。この勉強会の第3章以降は、ずっとこの話です。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>段取りのできる部下</strong>。「◯◯の件、関係者に聞いて資料にまとめておいて」で伝わる相手。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">FAQ</p>
+    <h2>よくある質問</h2>
+    <div class="faq"><details><summary>古いタイプのAIは、もう要らないということですか？</summary><div class="a">いいえ。むしろ現役です。ルールベースは「絶対にこう動いてほしい」場面で今も最適ですし、機械学習は不良品の検出や需要予測など、精度が命の場面で使われ続けています。新しいものが古いものを置き換えたのではなく、<strong>できることの種類が増えた</strong>と考えてください。</div></details><details><summary>深層学習と生成AIは、どう違うのですか？</summary><div class="a">対立する概念ではありません。生成AIは深層学習の技術を使って作られています。「深層学習＝つくり方」「生成AI＝その結果できた、つくれるAI」くらいの関係です。ここは細かく分からなくても実務上まったく困りません。</div></details></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="generative-ai.html"><span class="t">生成AIってなに？</span><span class="d">「見分けるAI」と「つくるAI」は、まったく別の生きものです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="ai-agent.html"><span class="t">AIエージェントってなに？</span><span class="d">「手順」ではなく「ゴール」を渡せる相手。それがエージェントです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="llm.html"><span class="t">LLM（大規模言語モデル）の仕組み</span><span class="d">AIは意味を理解していません。次に来そうな言葉を確率で選んでいるだけです。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s1">第1回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s1">SESSION 01</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

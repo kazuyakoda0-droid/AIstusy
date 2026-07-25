@@ -1,0 +1,296 @@
+@charset "utf-8";
+
+/* ============================================================
+   AI勉強会 Ver.2 — 用語詳細ページ 共通スタイル
+   ============================================================ */
+
+.dbar {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: rgba(247, 246, 244, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--hair);
+}
+.dbar-in {
+  width: min(var(--w-wide), 92vw);
+  margin-inline: auto;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.dbar .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.13em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.dbar .back .cat { width: 22px; height: 22px; color: var(--accent); }
+.dbar .back:hover { color: var(--accent); }
+.dbar .crumb {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-left: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- ヒーロー ---------- */
+
+.dhero { padding: 84px 0 72px; }
+.dhero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.dhero h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  line-height: 1.6;
+  margin: 0;
+}
+.dhero h1 em { font-style: normal; color: var(--accent); }
+.dhero .en {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-style: italic;
+  display: block;
+  margin-top: 18px;
+}
+.dhero .side {
+  border-left: 2px solid var(--accent-soft);
+  padding-left: 26px;
+  font-size: 14.5px;
+  line-height: 2.25;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+.dhero .side p { margin: 0; }
+.dhero .side p + p { margin-top: 14px; }
+
+/* ---------- ひとことで言うと（濃色帯） ---------- */
+
+.oneline {
+  background: var(--dark);
+  color: #f4efe9;
+  padding: 62px 0;
+}
+.oneline-in {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 30px;
+  align-items: center;
+}
+.oneline .cat { width: 92px; height: 92px; color: var(--butter); }
+.oneline .lb {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  color: #a89c96;
+  display: block;
+  margin-bottom: 16px;
+}
+.oneline .big {
+  font-size: clamp(19px, 2.6vw, 28px);
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.oneline .big b { color: var(--butter); font-weight: 500; }
+
+/* ---------- セクション ---------- */
+
+.dsec { padding: 76px 0; border-bottom: 1px solid var(--hair); }
+.dsec:last-of-type { border-bottom: 0; }
+.dsec > .wrap > .label,
+.dsec .label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 18px;
+}
+.dsec h2 {
+  font-size: clamp(21px, 2.8vw, 28px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+  margin: 0 0 26px;
+}
+.dsec p {
+  font-size: 15px;
+  line-height: 2.25;
+  letter-spacing: 0.04em;
+  margin: 0 0 18px;
+  max-width: 860px;
+}
+.dsec p:last-child { margin-bottom: 0; }
+.dsec strong { font-weight: 500; }
+
+/* 番号つき手順 */
+.dsteps { margin: 26px 0 0; }
+.dsteps .st {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px dashed var(--hair-strong);
+}
+.dsteps .st:last-child { border-bottom: 0; }
+.dsteps .n {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--r);
+  height: 27px;
+  display: grid;
+  place-items: center;
+}
+.dsteps .tt { font-size: 15px; font-weight: 500; letter-spacing: 0.05em; margin-bottom: 8px; line-height: 1.75; }
+.dsteps .dd { font-size: 14px; line-height: 2.1; color: var(--ink-soft); letter-spacing: 0.03em; }
+
+/* 2列カード */
+.dcards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 26px;
+}
+.dcards > div {
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: var(--r);
+  padding: 26px 26px;
+}
+.dcards .h {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.dcards .t { font-size: 15px; font-weight: 500; letter-spacing: 0.05em; line-height: 1.75; margin-bottom: 10px; }
+.dcards .d { font-size: 13.5px; line-height: 2.05; color: var(--ink-soft); letter-spacing: 0.03em; }
+
+/* 比較（ダメ／良い） */
+.dcompare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 26px; }
+.dcompare > div { border: 1px solid var(--hair); border-radius: var(--r); padding: 26px; background: var(--paper); }
+.dcompare .bad { border-color: #dcc7c1; background: #fbf6f5; }
+.dcompare .good { border-color: #c9bd93; background: #fdfaef; }
+.dcompare .h { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; margin-bottom: 14px; }
+.dcompare .bad .h { color: #a8635a; }
+.dcompare .good .h { color: #8a7430; }
+.dcompare q { font-size: 14px; line-height: 2.1; quotes: "「" "」"; letter-spacing: 0.03em; }
+.dcompare .memo { font-size: 13px; line-height: 2; color: var(--ink-soft); margin-top: 14px; }
+
+/* コード／ターミナル風 */
+.dcode {
+  background: var(--dark);
+  color: #f4efe9;
+  border-radius: var(--r);
+  padding: 26px 28px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 2.05;
+  margin-top: 26px;
+  overflow-x: auto;
+  white-space: pre;
+}
+.dcode .p { color: var(--butter); }
+.dcode .cm { color: #9a8f89; }
+.dcode b { color: var(--butter); font-weight: 400; }
+
+/* 注意ボックス */
+.dnote {
+  border: 1px solid var(--hair-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r);
+  background: var(--paper);
+  padding: 24px 28px;
+  margin-top: 26px;
+}
+.dnote .h {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.dnote p { font-size: 14px; line-height: 2.1; margin: 0; }
+
+/* たとえ話ボックス */
+.dmeta {
+  background: var(--accent-tint);
+  border-radius: var(--r);
+  padding: 28px 30px;
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.dmeta .cat { width: 56px; height: 56px; color: var(--accent); }
+.dmeta .h { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 8px; }
+.dmeta p { font-size: 14.5px; line-height: 2.05; margin: 0; letter-spacing: 0.04em; }
+
+/* よくある質問 */
+.faq { margin-top: 26px; border-top: 1px solid var(--hair); }
+.faq details { border-bottom: 1px solid var(--hair); }
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 20px 34px 20px 0;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.85;
+  position: relative;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px; top: 19px;
+  font-family: var(--mono);
+  color: var(--accent);
+  font-size: 16px;
+}
+.faq details[open] summary::after { content: "–"; }
+.faq .a { padding: 0 0 22px; font-size: 14px; line-height: 2.15; color: var(--ink-soft); letter-spacing: 0.03em; max-width: 820px; }
+
+/* 関連ページ */
+.dnext { padding: 76px 0 96px; background: var(--bg-alt); }
+.dnext .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; color: var(--muted); margin: 0 0 26px; }
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width: 900px) {
+  .dhero { padding: 52px 0 44px; }
+  .dhero-grid { grid-template-columns: 1fr; gap: 28px; }
+  .dhero .side { padding-left: 18px; }
+  .oneline { padding: 44px 0; }
+  .oneline-in { grid-template-columns: 58px 1fr; gap: 18px; }
+  .oneline .cat { width: 58px; height: 58px; }
+  .dsec { padding: 52px 0; }
+  .dcompare { grid-template-columns: 1fr; }
+  .dbar .crumb { display: none; }
+  .dmeta { grid-template-columns: 44px 1fr; gap: 14px; padding: 22px 20px; }
+  .dmeta .cat { width: 44px; height: 44px; }
+  .dcode { padding: 20px 18px; font-size: 11.5px; }
+}

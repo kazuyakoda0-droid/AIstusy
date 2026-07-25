@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ハーネス — AIに手足をつける仕組み｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="頭脳だけでは仕事になりません。エージェントを支える「胴輪」の話。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第6回 指示待ちから自律型へ / ハーネス — AIに手足をつける仕組み</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 06 · 自律型AI</p>
+      <h1>ハーネスとは、AIという頭脳に<em>手足と作業机をつける</em>もの</h1>
+      <span class="en">The harness — what turns a model into a worker.</span>
+    </div>
+    <div class="side">
+      <p>この勉強会でいちばん「聞いたことがない」であろう言葉です。でも、エージェントの正体を理解するのに、これほど効く言葉はありません。</p>
+      <p>犬やねこに付ける胴輪（ハーネス）と、まったく同じ言葉・同じ発想です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">AIモデルは<b>頭脳だけ</b>。そこに手足と作業机と安全ひもを付けて、実際の仕事場に連れていく仕組みが<b>ハーネス</b>です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Why</p>
+    <h2>モデルだけでは、何もできない</h2>
+    <p>GPT や Claude といった「AIモデル」は、文章を受け取って文章を返すことしかできません。ファイルを開くことも、検索することも、システムに書き込むこともできない。<strong>本当に、それだけ</strong>です。</p>
+<p>では、なぜ「AIエージェント」は勝手に調べたりファイルを作ったりできるのか。答えは、<strong>モデルの周りにプログラムがあるから</strong>です。そのプログラムのことを、ハーネスと呼びます。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>ねこの胴輪</strong>。ねこ本体（モデル）はそのままで、胴輪（ハーネス）を付けると、外に一緒に行けるようになる。力はきちんと伝わり、行ってほしくない方向には行かない。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">What it does</p>
+    <h2>ハーネスがやっている4つのこと</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">道具を渡す</div><div class="dd">ファイルを読む・書く、コマンドを動かす、検索する、社内システムを見る。「AIができること」の範囲は、ここで決まります。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">ループを回す</div><div class="dd">「考える → 動く → 結果を見る」をくり返させ、ゴールに着いたら止める。この繰り返しを実際に回しているのはハーネスです。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">記憶を管理する</div><div class="dd">AIが一度に見られる文章量には上限があります。何を渡し、何を要約し、何を忘れさせるかを差配します。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">安全を守る</div><div class="dd">「消す」「送る」といった危ない操作の前に人の承認を求める。触ってはいけない場所に行かせない。ここがいちばん重要です。</div></div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">So what</p>
+    <h2>なぜ、この言葉を覚えておくと得なのか</h2>
+    <p>道具を選ぶときの見方が変わるからです。世に出ている「AIエージェント」製品は、ほぼすべてが<strong>賢いモデル ＋ よくできたハーネス</strong>の組み合わせでできています。</p>
+<p>そして——<strong>同じモデルを使っていても、ハーネスの出来で仕事の質はまるで変わります。</strong>「どのAIモデルを使っているか」だけで比べても、実はあまり意味がありません。</p>
+    <div class="dcards"><div><div class="h">CHECK 1</div><div class="t">どんな道具が使えるか</div><div class="d">自社のシステムやファイルにつながるか。ここが合わないと、どれだけ賢くても仕事になりません。</div></div><div><div class="h">CHECK 2</div><div class="t">危ない操作を止めてくれるか</div><div class="d">承認なしで外部に送信できてしまう作りは危険。権限の設計を必ず確認してください。</div></div><div><div class="h">CHECK 3</div><div class="t">うちのやり方を覚えさせられるか</div><div class="d">ルールを書いたファイル（.md）や手順書（Skill）を読ませられるか。第7回の話につながります。</div></div></div>
+    <div class="dnote"><div class="h">ひとことで</div><p><strong>「AIが賢くなった」より「AIの周りが整った」ほうが、この数年の変化としては大きい。</strong>ハーネスという言葉は、その変化を指す言葉です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">FAQ</p>
+    <h2>よくある質問</h2>
+    <div class="faq"><details><summary>ハーネスは、自分たちで作るものですか？</summary><div class="a">基本は既製品を使います。Claude Code、Cursor などのツールが、そのままハーネスです。自社向けに作り込むのは、それらを一通り使ってからで十分間に合います。</div></details><details><summary>「エージェント」と「ハーネス」は、どう違いますか？</summary><div class="a">「エージェント」は振る舞いの呼び名（自分で計画して動くAI）、「ハーネス」はそれを可能にしている中身の呼び名です。同じものを、外から見るか中から見るかの違いだと思ってください。</div></details></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="ai-agent.html"><span class="t">AIエージェントってなに？</span><span class="d">「手順」ではなく「ゴール」を渡せる相手。それがエージェントです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="tool-use.html"><span class="t">ツールを使うAI（Tool Use / MCP）</span><span class="d">AIが外の世界に手を伸ばすための、道具と差し込み口の話。</span><span class="go">READ →</span></a>
+      <a class="topic" href="coding-agent.html"><span class="t">コーディングエージェント</span><span class="d">自分でコードを書き、動かし、エラーを直すAI。非エンジニアにこそ効きます。</span><span class="go">READ →</span></a>
+      <a class="topic" href="markdown.html"><span class="t">.md（マークダウン）— AIと人の共通言語</span><span class="d">「#」で見出し、「-」で箇条書き。人にもAIにも読めるテキスト形式。</span><span class="go">READ →</span></a>
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s6">第6回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s6">SESSION 06</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

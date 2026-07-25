@@ -1,0 +1,426 @@
+@charset "utf-8";
+
+/* ============================================================
+   AI勉強会 Ver.2 — 共通デザインシステム
+   トンマナ参考: mock-jpn.com（あたたかいニュートラル / 余白 / 細い明朝 + モノラベル）
+   ============================================================ */
+
+:root {
+  /* --- 色 --- */
+  --bg:            #f7f6f4;   /* ベース（あたたかいオフホワイト） */
+  --bg-alt:        #ece8e4;   /* セクション交互背景 */
+  --paper:         #ffffff;   /* カード面 */
+  --ink:           #382623;   /* 主文字（深い焦茶） */
+  --ink-soft:      #6b5852;   /* 副文字 */
+  --muted:         #989795;   /* ラベル・補助 */
+  --hair:          #dad7d2;   /* 罫線 */
+  --hair-strong:   #cdc9c3;   /* 強めの罫線 */
+  --accent:        #8e5641;   /* アクセント（テラコッタ） */
+  --accent-soft:   #d0c3ba;   /* アクセント薄 */
+  --accent-tint:   #f0e7e1;   /* アクセント面 */
+  --butter:        #faecbe;   /* ハイライト（バター色） */
+  --dark:          #2d282a;   /* 濃色バンド */
+  --dark-soft:     #4a4244;
+
+  /* --- 書体 --- */
+  --serif: "Cormorant Garamond", "Noto Serif JP", "Times New Roman", serif;
+  --sans:  "Inter", "Noto Sans JP", -apple-system, "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+  --mono:  "Azeret Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* --- 形 --- */
+  --r: 3px;
+  --pad-y: 120px;
+  --w: 1040px;
+  --w-wide: 1240px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 2;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg { max-width: 100%; }
+a { color: var(--accent); text-decoration: none; }
+code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--accent-tint);
+  border-radius: var(--r);
+  padding: 2px 6px;
+  letter-spacing: 0;
+}
+
+/* ---------- 共通パーツ ---------- */
+
+.wrap { width: min(var(--w), 88vw); margin-inline: auto; }
+.wrap-wide { width: min(var(--w-wide), 92vw); margin-inline: auto; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--accent-soft);
+  flex: none;
+}
+
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(38px, 5.4vw, 62px);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.h-jp {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(21px, 2.6vw, 30px);
+  line-height: 1.75;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.lede {
+  font-size: 15.5px;
+  line-height: 2.2;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.mark {
+  background: linear-gradient(transparent 62%, var(--butter) 62%);
+  padding: 0 2px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  border: 1px solid #c0aa94;
+  border-radius: var(--r);
+  padding: 13px 22px;
+  background: transparent;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+.btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn .arw { transition: transform .3s ease; }
+.btn:hover .arw { transform: translateX(4px); }
+.btn-fill { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn-fill:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---------- ねこ ---------- */
+
+.cat-line { color: var(--accent); }
+
+/* ふきだし（ねこの解説） */
+.meow {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 20px;
+  align-items: start;
+  margin: 34px 0;
+}
+.meow .cat {
+  width: 74px;
+  height: 74px;
+  color: var(--accent);
+  flex: none;
+}
+.meow .bubble {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  font-size: 15px;
+  line-height: 2.05;
+  letter-spacing: 0.04em;
+}
+.meow .bubble::before,
+.meow .bubble::after {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 26px;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 8px 9px 8px 0;
+  border-color: transparent var(--hair) transparent transparent;
+}
+.meow .bubble::after {
+  left: -8px;
+  border-right-color: var(--paper);
+}
+.meow .bubble .who {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.meow.on-dark .bubble {
+  background: var(--dark-soft);
+  border-color: #5c5254;
+  color: #efe9e4;
+}
+.meow.on-dark .bubble::before { border-right-color: #5c5254; }
+.meow.on-dark .bubble::after { border-right-color: var(--dark-soft); }
+.meow.on-dark .cat { color: var(--butter); }
+
+/* ---------- ヘッダー ---------- */
+
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  background: rgba(247, 246, 244, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--hair);
+}
+.topbar-in {
+  width: min(var(--w-wide), 92vw);
+  margin-inline: auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  margin-right: auto;
+}
+.brand .cat { width: 26px; height: 26px; color: var(--accent); }
+.brand .ver {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--r);
+  padding: 2px 7px;
+}
+.navlinks { display: flex; gap: 26px; align-items: center; }
+.navlinks a {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+  transition: color .25s;
+}
+.navlinks a:hover, .navlinks a.active { color: var(--accent); }
+
+.navtoggle {
+  display: none;
+  width: 40px; height: 40px;
+  border: 1px solid var(--hair-strong);
+  border-radius: var(--r);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+.navtoggle span {
+  position: absolute;
+  left: 11px; right: 11px;
+  height: 1px;
+  background: var(--ink);
+  transition: transform .3s, opacity .3s;
+}
+.navtoggle span:nth-child(1) { top: 15px; }
+.navtoggle span:nth-child(2) { top: 20px; }
+.navtoggle span:nth-child(3) { top: 25px; }
+.navtoggle.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.navtoggle.open span:nth-child(2) { opacity: 0; }
+.navtoggle.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+/* 読了プログレス */
+.prog {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--accent);
+  z-index: 200;
+  transition: width .12s linear;
+}
+
+/* ---------- セクション ---------- */
+
+.sec { padding: var(--pad-y) 0; }
+.sec-alt { background: var(--bg-alt); }
+.sec-dark { background: var(--dark); color: #efe9e4; }
+.sec-dark .lede { color: #c3b8b2; }
+.sec-dark .display { color: #f4efe9; }
+.sec-dark .eyebrow { color: #a89c96; }
+
+.sec-head { margin-bottom: 64px; }
+.sec-head .display { margin-bottom: 20px; }
+
+/* 出現アニメーション
+   JSが動いているときだけ隠す（.js は head のインラインスクリプトが付ける）。
+   JSが止まっても本文が消えないようにするための保険。 */
+.js .rise {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+}
+.js .rise.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .rise { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- カード ---------- */
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--hair);
+  border-radius: var(--r);
+  padding: 30px 32px;
+}
+
+.kw {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  border: 1px solid var(--hair-strong);
+  border-radius: var(--r);
+  padding: 6px 12px;
+  margin: 0 8px 8px 0;
+  background: var(--paper);
+}
+.kw-list { margin-top: 6px; }
+
+/* 用語リンクカード */
+.topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.topic {
+  display: block;
+  border: 1px solid var(--hair);
+  border-radius: var(--r);
+  background: var(--paper);
+  padding: 17px 19px;
+  color: var(--ink);
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+.topic:hover {
+  border-color: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56,38,35,.06);
+}
+.topic .t {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  margin-bottom: 5px;
+}
+.topic .d {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+.topic .go {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-top: 10px;
+}
+
+/* ---------- フッター ---------- */
+
+.foot {
+  border-top: 1px solid var(--hair);
+  padding: 54px 0 60px;
+  text-align: center;
+}
+.foot .cat { width: 46px; height: 46px; color: var(--accent-soft); margin-bottom: 16px; }
+.foot p {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+.foot .links { margin-top: 20px; display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; }
+.foot .links a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--ink-soft); }
+.foot .links a:hover { color: var(--accent); }
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width: 900px) {
+  :root { --pad-y: 76px; }
+  body { font-size: 15px; line-height: 1.95; }
+  .navtoggle { display: block; }
+  .navlinks {
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    background: var(--dark);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0 16px;
+    display: none;
+  }
+  .navlinks.open { display: flex; }
+  .navlinks a {
+    color: #ddd4cf;
+    padding: 13px 6vw;
+    border-bottom: 1px solid #423b3d;
+  }
+  .meow { grid-template-columns: 54px 1fr; gap: 14px; }
+  .meow .cat { width: 54px; height: 54px; }
+  .meow .bubble { padding: 16px 18px; font-size: 14px; }
+  .card { padding: 24px 22px; }
+  .sec-head { margin-bottom: 44px; }
+}

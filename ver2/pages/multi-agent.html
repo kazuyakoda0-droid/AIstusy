@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マルチエージェント｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="万能な1匹より、役割の違う複数匹。なぜそのほうが良い答えが出るのか。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第8回 AIチームで考える / マルチエージェント</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 08 · チーム化</p>
+      <h1>万能な1匹より、<em>役割の違う3匹</em></h1>
+      <span class="en">One generalist loses to three specialists.</span>
+    </div>
+    <div class="side">
+      <p>「もっと良い答えが欲しい」とき、多くの人はプロンプトを長くしようとします。</p>
+      <p>でも実は、<strong>AIを複数用意して、立場を分けて議論させる</strong>ほうがずっと効きます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>役割を与えた複数のAIに議論させると、思い込みが減り、結論が強くなります。</b>人間の会議と、まったく同じ理屈です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Why</p>
+    <h2>なぜ複数のほうが良いのか</h2>
+    <p>1匹のAIに「あらゆる観点から完璧に考えて」と頼むと、だいたい<strong>広く浅い、当たりさわりのない答え</strong>が返ってきます。全方位に気を配ろうとして、どの視点も掘り下がらないからです。</p>
+<p>一方、「あなたは慎重な法務担当です」と立場を固定すると、その視点を深く掘ります。それを複数用意して、ぶつけ合わせる。すると、<strong>1匹では絶対に出てこなかった論点</strong>が出てきます。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>会議室に3匹のねこ</strong>。攻めたい営業ねこ、リスクが気になる法務ねこ、お客様の顔が浮かぶサポートねこ。1匹で3役を演じるより、3匹に喋らせたほうが良い結論になります。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Case</p>
+    <h2>ケーススタディ / 人事評価を多角化する</h2>
+    <p><strong>今までの課題：</strong>評価者（直属の課長ひとり）の視点に、どうしても偏りが出る。本人に悪気はなくても、見えている面が限られます。</p>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">課長（人間）が、対象者の実績を入力する</div><div class="dd">数字と、日々の観察を書き出します。ここは人間の仕事。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">エージェントA（次長の立場）が指摘する</div><div class="dd">「短期の売上は良いが、後進育成の評価が甘くないか？ 半年後にこの人が抜けたとき、チームは回るのか」</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">エージェントB（人事部長の立場）が指摘する</div><div class="dd">「来期の全社戦略を考えると、個人成績よりチーム全体の底上げへの貢献も評価軸に入れるべきだ」</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">AI同士が議論し、論点を整理する</div><div class="dd">意見が食い違うところが、そのまま「よく考えるべき論点」として浮かび上がります。</div></div></div><div class="st"><div class="n">5</div><div><div class="tt">人間の評価者に「再検討の材料」として提出</div><div class="dd">評価を決めるのは、あくまで人間です。</div></div></div></div>
+    <div class="dnote"><div class="h">大事な線引き</div><p>AIチームがやるのは<strong>「見落としを潰すこと」だけ</strong>です。評価そのものを決めさせてはいけません。人事評価は、責任を取れる人間が決めるものです（<a href="human-in-the-loop.html">Human in the Loop</a>）。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Another</p>
+    <h2>もうひとつの使い方 / 会議に1席用意する</h2>
+    <p>企画会議や経営会議に、「批判的に考えるAI」「顧客の立場で考えるAI」を1席ぶん用意しておく、という使い方もあります。</p>
+<p><strong>社内の力関係に忖度せず、素朴で痛い質問をしてくれる存在</strong>は、それだけで会議の質を上げます。「それ、お客様は本当に困っていますか？」と、誰も言えなかった一言を言ってくれます。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">How to</p>
+    <h2>実際に組むときのコツ</h2>
+    <div class="dcards"><div><div class="h">TIP 1</div><div class="t">役割は「立場」で分ける</div><div class="d">「楽観的なAI」より「営業部長の立場のAI」。具体的な立場のほうが、視点が定まります。</div></div><div><div class="h">TIP 2</div><div class="t">3〜4匹まで</div><div class="d">増やしすぎると議論が発散します。人間の会議と同じで、意見が出る最小人数がちょうどいい。</div></div><div><div class="h">TIP 3</div><div class="t">それぞれに Skill を持たせる</div><div class="d">「その立場のやり方」を手順書にしておくと、役割の演じ分けが安定します。</div></div><div><div class="h">TIP 4</div><div class="t">結論を出させない</div><div class="d">AIには論点整理まで。決めるのは人間、と最初に決めておきます。</div></div></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+      <a class="topic" href="task-decomposition.html"><span class="t">タスク分解とパイプライン</span><span class="d">複雑な仕事を、AIに渡せる大きさに切る方法。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+      <a class="topic" href="ai-agent.html"><span class="t">AIエージェントってなに？</span><span class="d">「手順」ではなく「ゴール」を渡せる相手。それがエージェントです。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s8">第8回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s8">SESSION 08</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

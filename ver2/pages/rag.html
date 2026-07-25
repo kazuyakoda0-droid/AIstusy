@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG（検索してから答えさせる）｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="AIに「カンペ持ち込みOKのテスト」を受けさせる仕組みです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第4回 社内のことを知っているAIをつくる / RAG（検索してから答えさせる）</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 04 · 社内データ</p>
+      <h1>RAGは、<em>カンペ持ち込みOKのテスト</em></h1>
+      <span class="en">Retrieval-Augmented Generation.</span>
+    </div>
+    <div class="side">
+      <p>RAG（ラグ）＝Retrieval-Augmented Generation。日本語にすると「検索して、その結果を足してから生成する」。</p>
+      <p>名前は難しいですが、やっていることは<strong>「答える前に、まず資料を見てこい」</strong>だけです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">AIに社内資料を暗記させるのではなく、<b>質問のたびに社内資料を検索させて、その箇所を読ませてから答えさせる</b>仕組みです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Problem</p>
+    <h2>なぜ必要になるのか</h2>
+    <p>「うちの会社の出張規定はどうなってる？」と一般のAIに聞いても、答えられません。学習していないからです。</p>
+<p>もっと困るのは、<strong>知らないのに、それっぽい規定を創作してくる</strong>ことです（ハルシネーション）。社内利用では、これは致命的です。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>閉じたテスト</strong>と<strong>カンペ持ち込みOKのテスト</strong>の違い。前者は記憶頼みなので、うろ覚えのまま書いてしまう。後者は手元の資料を見て書けるので、間違えようがありません。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Flow</p>
+    <h2>中で起きていること</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">社員が質問する</div><div class="dd">「来月から産休に入ります。必要な手続きを教えて」</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">（AIが答える前に）社内文書を検索する</div><div class="dd">就業規則・社内ポータル・過去のFAQなどから、関係しそうな箇所を探してきます。ここが「カンペを取りに行く」工程。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">見つけた文章を、AIに読ませる</div><div class="dd">「この文章だけを根拠に答えてください」と一緒に渡します。だから勝手な創作が起きにくくなります。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">出典つきで回答する</div><div class="dd">「（出典：人事規定集 2026年版 第◯条）」。社内利用では、この出典が出せることがいちばん重要です。</div></div></div></div>
+    <div class="dnote"><div class="h">「AIに社内データを学習させる」との違い</div><p>よく混同されますが別ものです。学習（ファインチューニング）は時間もお金もかかり、規定が変わるたびにやり直しになります。RAGなら<strong>元のファイルを差し替えるだけ</strong>で最新になります。まずRAGを検討するのが現実的です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Example</p>
+    <h2>実際の回答イメージ</h2>
+    <div class="dcode"><span class="p">質問 &gt;</span> 来月から産休に入ります。必要な手続きを教えて
+
+<span class="p">回答 &gt;</span> 当社の就業規則 第◯条にもとづき、次の手続きが必要です。
+
+  1. 産前産後休業 申請フォームの提出
+     （社内ポータル ＞ 人事 ＞ 各種申請）
+  2. 上長への申し出（開始日の6週間前まで）
+  3. 健康保険 出産手当金の事前確認
+
+  <b>出典：社内ポータル／人事規定集 2026年版 第◯条</b></div>
+    <p>ここまでできると、「あの人に聞かないと分からない」がひとつ減ります。ベテランの頭の中にしかなかった知識を、<strong>24時間だれでも引ける状態</strong>に近づけていくのが、RAGの本当の価値です。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">FAQ</p>
+    <h2>よくある質問</h2>
+    <div class="faq"><details><summary>社内文書がバラバラで整理されていません。それでも作れますか？</summary><div class="a">作れますが、精度は元の資料の質に引きずられます。「古い規定と新しい規定が両方置いてある」状態だと、AIも混乱します。RAGの導入は、<strong>社内文書を棚卸しする良い機会</strong>だと考えるとうまくいきます。</div></details><details><summary>機密文書を入れても大丈夫ですか？</summary><div class="a">「どこに置くか」次第です。社内に閉じた環境や、学習に使わない契約になっているサービスなら扱えます。逆に、個人アカウントの一般向けサービスに入れるのは論外です。詳しくは<a href="security.html">安全に使うための線引き</a>を。</div></details></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="hallucination.html"><span class="t">ハルシネーション（もっともらしい嘘）</span><span class="d">AIが自信満々に間違える現象。なぜ起きるのか、どう防ぐのか。</span><span class="go">READ →</span></a>
+      <a class="topic" href="security.html"><span class="t">安全に使うための線引き</span><span class="d">入れていい情報・ダメな情報。オプトアウトとは何か。</span><span class="go">READ →</span></a>
+      <a class="topic" href="workflow.html"><span class="t">業務フローへの組み込み</span><span class="d">対話型AIから組み込み型AIへ。コピペで運ぶ作業をなくす。</span><span class="go">READ →</span></a>
+      <a class="topic" href="llm.html"><span class="t">LLM（大規模言語モデル）の仕組み</span><span class="d">AIは意味を理解していません。次に来そうな言葉を確率で選んでいるだけです。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s4">第4回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s4">SESSION 04</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

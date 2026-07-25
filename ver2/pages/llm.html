@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM（大規模言語モデル）の仕組み｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="AIは意味を理解していません。次に来そうな言葉を確率で選んでいるだけです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第2回 AIに伝わるお願いのしかた / LLM（大規模言語モデル）の仕組み</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 02 · しくみ</p>
+      <h1>AIは意味を理解していない。<em>確率で言葉を選んでいる</em></h1>
+      <span class="en">A very, very good autocomplete.</span>
+    </div>
+    <div class="side">
+      <p>LLM＝Large Language Model（大規模言語モデル）。ChatGPT などの中で動いている本体です。</p>
+      <p>仕組みを一段だけ知っておくと、<strong>AIが嘘をつく理由も、頼み方で結果が変わる理由も、全部つながります。</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">LLMは、<b>「この続きに来る確率がいちばん高い言葉」を1個ずつ選んでいるだけ</b>。ものすごく賢い予測変換だと思ってください。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">How it works</p>
+    <h2>やっていることは、驚くほど単純です</h2>
+    <p>「昨日の会議は、とても」——この続きに何が来ると思いますか。「有意義でした」「長かったです」あたりが浮かんだはずです。</p>
+<p>LLMがやっているのは、まさにこれです。膨大な文章を読んで、<strong>どの言葉のあとに、どの言葉が来やすいか</strong>を学んでいます。そして1語ずつ、確率が高いものを選んでつないでいく。それだけです。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>スマホの予測変換の、とてつもなく賢い版</strong>。原理は同じで、規模と精度がけた違いなだけです。</p></div></div>
+    <p>ここで大事なのは、<strong>AIは「正しいこと」を選んでいるのではなく「もっともらしいこと」を選んでいる</strong>という点です。この2つは、たいてい一致しますが、ときどきズレます。そのズレがハルシネーションです。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Strong / Weak</p>
+    <h2>得意なことと、苦手なこと</h2>
+    <div class="dcards"><div><div class="h">GOOD AT</div><div class="t">要約・翻訳・言い換え</div><div class="d">元の情報がこちらから渡されている作業。材料があるので、ほぼ外しません。</div></div><div><div class="h">GOOD AT</div><div class="t">たたき台づくり・アイデア出し</div><div class="d">正解がひとつではない作業。数で勝負できるのが強みです。</div></div><div><div class="h">BAD AT</div><div class="t">事実の確認</div><div class="d">「もっともらしさ」で選ぶので、知らないことも自信満々に答えます。裏取りは必須。</div></div><div><div class="h">BAD AT</div><div class="t">正確な計算・数え上げ</div><div class="d">計算しているのではなく、計算式っぽい文字列を予測しています。数字は電卓や表計算に任せるべき。</div></div></div>
+    <div class="dnote"><div class="h">使い分けのコツ</div><p><strong>「こちらが材料を渡す仕事」は得意、「AIの記憶を頼る仕事」は苦手。</strong>この線で頼む相手を選ぶと、失敗がかなり減ります。第4回のRAGは、まさに「材料を渡す」ための仕組みです。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">FAQ</p>
+    <h2>よくある質問</h2>
+    <div class="faq"><details><summary>AIは、こちらの言うことを「分かって」いるのですか？</summary><div class="a">人間が言う意味での理解はしていない、と考えるのが安全です。ただ、結果として理解しているのと区別がつかない振る舞いをします。実務上は「理解していない前提で、丁寧に伝える」ほうが得をします。</div></details><details><summary>前に話した内容を覚えていないことがあります。なぜ？</summary><div class="a">AIが一度に見られる文章の量には上限があるからです（この上限をコンテキストと呼びます）。会話が長くなると、古い部分から押し出されていきます。長い作業では、大事な前提を書いたファイルを渡しておくのが有効です（第7回の <strong>.md</strong> の話につながります）。</div></details></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="hallucination.html"><span class="t">ハルシネーション（もっともらしい嘘）</span><span class="d">AIが自信満々に間違える現象。なぜ起きるのか、どう防ぐのか。</span><span class="go">READ →</span></a>
+      <a class="topic" href="prompt.html"><span class="t">伝わるプロンプトの4要素</span><span class="d">役割・文脈・タスク・形式。この4つを足すだけで、出力の質が変わります。</span><span class="go">READ →</span></a>
+      <a class="topic" href="rag.html"><span class="t">RAG（検索してから答えさせる）</span><span class="d">AIに「カンペ持ち込みOKのテスト」を受けさせる仕組みです。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s2">第2回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s2">SESSION 02</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

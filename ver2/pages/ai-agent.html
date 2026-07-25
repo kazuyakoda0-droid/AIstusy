@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIエージェントってなに？｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="「手順」ではなく「ゴール」を渡せる相手。それがエージェントです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第1回 AIは「道具」から「チームメンバー」へ / AIエージェントってなに？</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 01 · 土台</p>
+      <h1>エージェントとは、<em>「ゴール」を渡せる相手</em>のこと</h1>
+      <span class="en">An agent plans, acts, and checks — on its own.</span>
+    </div>
+    <div class="side">
+      <p>この勉強会でいちばん大事な言葉です。そして、いちばん雑に使われている言葉でもあります。</p>
+      <p>定義を覚える必要はありません。<strong>何ができるようになったら「エージェント」なのか</strong>だけ押さえてください。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">エージェントとは、<b>手順を1つずつ教えなくても、ゴールから逆算して自分で動くAI</b>のことです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Definition</p>
+    <h2>2つそろえば、エージェントです</h2>
+    <div class="dcards"><div><div class="h">CONDITION 1</div><div class="t">自分で計画を立てる</div><div class="d">「まずこれを調べて、次にこれを比べて……」という段取りを、人に言われる前に自分で考えます。</div></div><div><div class="h">CONDITION 2</div><div class="t">自分で道具を使う</div><div class="d">Web検索、ファイルを開く、計算する、社内システムを見る。必要な道具を、自分の判断で使います。</div></div></div>
+    <p>この2つがそろうと、こちらは1手ずつ指示を出す必要がなくなります。<strong>「何をしてほしいか」ではなく「どうなっていてほしいか」を伝えればよくなる</strong>——これがいちばん大きな変化です。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>新人アルバイトと、任せられる社員の違い</strong>。前者には「次はこれ、その次はこれ」と言い続ける必要がありますが、後者には「これ、金曜までにお願い」で通じます。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Example</p>
+    <h2>実際の動きを見てみる</h2>
+    <p>こちらが渡すのは、この一文だけです。</p>
+    <div class="dcode"><span class="p">依頼 &gt;</span> 競合のA社とB社の最新の決算を比較して、サマリーを作って
+
+<span class="cm">-- ここから先は、AIが自分で判断して動きます --</span>
+ 1. A社のIRページをWeb検索      <b>[検索する]</b>
+ 2. 決算資料のPDFを開いて読む     <b>[ファイルを読む]</b>
+ 3. B社のIRページをWeb検索      <b>[検索する]</b>
+ 4. 決算資料のPDFを開いて読む     <b>[ファイルを読む]</b>
+ 5. 売上・利益・伸び率を並べて計算   <b>[計算する]</b>
+ 6. 表とコメントにまとめて提出     <b>[文書を作る]</b></div>
+    <p>今までなら、人間が6回に分けて指示していた作業です。エージェントは、この6ステップを<strong>途中で聞き返さずに走りきります</strong>。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Caution</p>
+    <h2>万能ではありません</h2>
+    <p>自分で動く、ということは<strong>間違った方向にも自分で進んでしまう</strong>ということです。だから実務では、必ず途中に人の確認ポイントを置きます。</p>
+<p>とくに「消す」「送る」「お金が動く」操作は、人が承認してから実行させるのが基本です。</p>
+    <div class="dnote"><div class="h">設計の鉄則</div><p><strong>取り返しがつく作業は任せる。取り返しがつかない作業は、人が承認してから。</strong>この線引きさえ守れば、エージェントはかなり安全に使えます。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="react-loop.html"><span class="t">思考 → 行動 → 観察のループ</span><span class="d">エージェントが自分で進んでいくときの、頭の中の回し方。</span><span class="go">READ →</span></a>
+      <a class="topic" href="harness.html"><span class="t">ハーネス — AIに手足をつける仕組み</span><span class="d">頭脳だけでは仕事になりません。エージェントを支える「胴輪」の話。</span><span class="go">READ →</span></a>
+      <a class="topic" href="tool-use.html"><span class="t">ツールを使うAI（Tool Use / MCP）</span><span class="d">AIが外の世界に手を伸ばすための、道具と差し込み口の話。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s1">第1回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s1">SESSION 01</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>コーディングエージェント｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="自分でコードを書き、動かし、エラーを直すAI。非エンジニアにこそ効きます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第7回 AIが自分でつくる時代 / コーディングエージェント</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 07 · 実践・道具立て</p>
+      <h1>AIが<em>自分で書いて、動かして、直す</em>ようになった</h1>
+      <span class="en">It writes, runs, and fixes its own code.</span>
+    </div>
+    <div class="side">
+      <p>「コーディング」と聞くと自分には関係ないと思うかもしれませんが、逆です。</p>
+      <p><strong>今まで「システム部門にお願いするしかなかった人」にこそ、いちばん効く話</strong>です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">AIが自分でプログラムを書き、実行し、エラーを読んで直すようになりました。つまり<b>コードが書けない人でも、言葉だけで自分用の道具を作れる</b>ということです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Change</p>
+    <h2>何が変わったのか</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">これまで</div><q>AIにコードを書いてもらう → 人がコピーして貼る → 動かす → エラーが出る → エラー文をコピーしてAIに聞く → …</q><div class="memo">結局、人が運搬役をやっていました。動かない理由が分からないと、そこで詰みます。</div></div>
+<div class="good"><div class="h">いま</div><q>AIが自分で書く → 自分で動かす → エラーを自分で読む → 自分で直す → 完成するまで繰り返す</q><div class="memo">人がやるのは、最初のお願いと、最後の確認だけになりました。</div></div>
+</div>
+    <p>この「自分で動かして、自分で直す」を<strong>自律デバッグ</strong>と呼びます。地味に見えますが、非エンジニアにとっては決定的な変化です。<strong>エラーで詰まらなくなった</strong>からです。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Example</p>
+    <h2>具体例 / 写真100枚に日付を入れる</h2>
+    <div class="dcode"><span class="p">依頼 &gt;</span> このフォルダの現場写真100枚すべての右下に
+「2026年 工事完了」と白文字で入れて、別フォルダに保存して
+
+<span class="cm">-- AIの作業 --</span>
+ 1. 処理する手順（プログラム）を書いた
+ 2. 試しに1枚で動かしてみた
+ 3. <b>エラー：日本語フォントが見つかりません</b>
+ 4. 「システムのフォントに切り替えます」→ 自分で修正
+ 5. もう一度1枚でテスト → OK
+ 6. 100枚に対して実行 → 完了しました</div>
+    <p>3〜4行目がポイントです。<strong>エラーが出た瞬間、人に聞きに来ませんでした。</strong>自分で読んで、自分で直しています。</p>
+<p>手作業なら丸一日、外注すれば数万円かかっていた作業が、数分で終わります。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">For you</p>
+    <h2>非エンジニアの、現実的な使いどころ</h2>
+    <div class="dcards"><div><div class="h">CASE 1</div><div class="t">ファイルの一括処理</div><div class="d">リネーム、形式変換、フォルダ分け、透かし入れ。「100個あるから諦めていた」作業が全部対象です。</div></div><div><div class="h">CASE 2</div><div class="t">Excel / CSV の整形</div><div class="d">複数ファイルの結合、表記ゆれの統一、突合チェック。手作業でやると丸一日かかるやつ。</div></div><div><div class="h">CASE 3</div><div class="t">小さな社内ツール</div><div class="d">入力フォーム、集計画面、チェックリスト。1人〜1課で使うものなら、その日の午後にできます。</div></div><div><div class="h">CASE 4</div><div class="t">定型レポートの自動作成</div><div class="d">毎週同じ形でまとめている資料。一度作れば、あとは <strong>/loop</strong> で回せます。</div></div></div>
+    <div class="dnote"><div class="h">「開発の民主化」とは</div><p>道具を作れる人が、エンジニアだけではなくなること。<strong>いちばん困っている人が、自分で道具を作れる</strong>のが、実は最短ルートです。仕様を説明する手間がゼロなので。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Caution</p>
+    <h2>気をつけること</h2>
+    <p>自分で動かせるということは、<strong>間違ったものも自分で動かせてしまう</strong>ということです。とくにファイルの削除・上書きは注意してください。</p>
+<p>最初のうちは、<strong>コピーしたフォルダで試す</strong>のが鉄則です。元データに直接やらせないこと。これだけ守れば、大きな事故は起きません。</p>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="markdown.html"><span class="t">.md（マークダウン）— AIと人の共通言語</span><span class="d">「#」で見出し、「-」で箇条書き。人にもAIにも読めるテキスト形式。</span><span class="go">READ →</span></a>
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+      <a class="topic" href="goal-command.html"><span class="t">/goal — ゴールを宣言して、完走させる</span><span class="d">「終わりの定義」を先に渡すと、AIは途中で勝手に止まらなくなります。</span><span class="go">READ →</span></a>
+      <a class="topic" href="loop-command.html"><span class="t">/loop — 決めた作業を、くり返させる</span><span class="d">「5分ごとにこれを見て」。見張り役をAIに任せるコマンド。</span><span class="go">READ →</span></a>
+      <a class="topic" href="harness.html"><span class="t">ハーネス — AIに手足をつける仕組み</span><span class="d">頭脳だけでは仕事になりません。エージェントを支える「胴輪」の話。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s7">第7回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s7">SESSION 07</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

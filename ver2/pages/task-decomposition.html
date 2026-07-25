@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>タスク分解とパイプライン｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="複雑な仕事を、AIに渡せる大きさに切る方法。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第9回 プロセスまるごとAIチームに / タスク分解とパイプライン</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 09 · 設計</p>
+      <h1>複雑な仕事は、<em>小さく切って、1工程に1匹</em></h1>
+      <span class="en">Cut it small. One agent per step.</span>
+    </div>
+    <div class="side">
+      <p>ここが、この勉強会でいちばん実務に効く考え方かもしれません。</p>
+      <p><strong>「AIに任せられるかどうか」は、AIの賢さより、仕事の切り方で決まります。</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">大きい仕事をそのまま渡すと失敗します。<b>工程ごとに切って、それぞれに専門の担当を置く</b>——これが唯一のコツです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Principle</p>
+    <h2>鉄則はひとつ / 1匹に全部やらせない</h2>
+    <p>「この業務プロセス全体を自動化して」と丸ごと渡すと、まず失敗します。途中で何をしているか分からなくなり、どこで間違えたかも追えません。</p>
+<p>正解は、<strong>人間の組織と同じように分けること</strong>です。読み取る人、照合する人、判定する人、入力する人。それぞれに一つの役目だけ持たせます。</p>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>バケツリレー</strong>。1人が水を汲んで運んで消火までやると、途中で力尽きます。並んで手渡すから、遠くまで届く。</p></div></div>
+    <div class="dcards"><div><div class="h">MERIT 1</div><div class="t">どこで失敗したか分かる</div><div class="d">工程が分かれていれば、間違いの発生箇所が特定できます。丸ごと1匹だと、これができません。</div></div><div><div class="h">MERIT 2</div><div class="t">直しやすい</div><div class="d">「照合のルールだけ変えたい」が、その工程の手順書を直すだけで済みます。</div></div><div><div class="h">MERIT 3</div><div class="t">承認を挟みやすい</div><div class="d">工程の切れ目が、そのまま人の確認ポイントになります。</div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Case</p>
+    <h2>ケーススタディ / 仕様書を受け取ってから、受注登録まで</h2>
+    <p>今まで、部署をまたいで数日かかっていた確認作業です。</p>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">PHASE 1 — 要件抽出エージェント</div><div class="dd">お客様から届いた非定型の仕様書PDFから、「検査項目A」「納期10/1」といった要件を抜き出す。（第7回のPDF読み取り）</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">PHASE 2 — 規格・法令確認エージェント</div><div class="dd">抜き出した項目を、最新のJIS規格や特定物質の規制値と照らし合わせる。RAGを使うので、根拠が出せます。（第4回）</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">PHASE 3 — キャパシティ判定エージェント</div><div class="dd">社内の稼働状況データベースを見て、今のラボの余力で10/1納期が可能かを判定する。（第5回のシステム連携）</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">PHASE 4 — システム入力エージェント</div><div class="dd">受注可能と判断されたら、基幹システムに必要情報を下書きとして起票する。</div></div></div><div class="st"><div class="n">人</div><div><div class="tt">人間が確認して、承認ボタンを押す</div><div class="dd">数日かかっていた工程が数分になります。ただし、最後の判断は必ず人間です。</div></div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Practice</p>
+    <h2>自分の仕事を切ってみる</h2>
+    <p>最終回のワークにもつながる話です。自分の担当業務をひとつ選んで、次の3つを書き出してみてください。</p>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">工程に分ける</div><div class="dd">「情報を集める」「照らし合わせる」「判断する」「入力する」「連絡する」。だいたいこの5つくらいに分かれるはずです。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">各工程に、判断が要るかどうかの印を付ける</div><div class="dd">判断が要らない工程が、AIに渡せる候補です。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">取り返しがつくかどうかの印を付ける</div><div class="dd">取り返しがつく工程から任せます。つかない工程には、承認ゲートを置きます。</div></div></div></div>
+    <div class="dnote"><div class="h">ここがいちばん大事です</div><p><strong>分解できた仕事は、人にもAIにも任せられます。分解できていない仕事は、誰にも任せられません。</strong>この勉強会が10回かけてやっているのは、結局この練習です。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="multi-agent.html"><span class="t">マルチエージェント</span><span class="d">万能な1匹より、役割の違う複数匹。なぜそのほうが良い答えが出るのか。</span><span class="go">READ →</span></a>
+      <a class="topic" href="workflow.html"><span class="t">業務フローへの組み込み</span><span class="d">対話型AIから組み込み型AIへ。コピペで運ぶ作業をなくす。</span><span class="go">READ →</span></a>
+      <a class="topic" href="human-in-the-loop.html"><span class="t">Human in the Loop（人が必ず入る）</span><span class="d">どこに人の承認を挟むか。完全自動が、いちばん危ない設計です。</span><span class="go">READ →</span></a>
+      <a class="topic" href="goal-command.html"><span class="t">/goal — ゴールを宣言して、完走させる</span><span class="d">「終わりの定義」を先に渡すと、AIは途中で勝手に止まらなくなります。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s9">第9回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s9">SESSION 09</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

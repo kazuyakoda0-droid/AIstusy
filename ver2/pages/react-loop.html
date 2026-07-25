@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>思考 → 行動 → 観察のループ｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="エージェントが自分で進んでいくときの、頭の中の回し方。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第6回 指示待ちから自律型へ / 思考 → 行動 → 観察のループ</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 06 · 自律型AI</p>
+      <h1>エージェントは、<em>考えて・やって・見て</em>をくり返す</h1>
+      <span class="en">Think, act, observe. Repeat.</span>
+    </div>
+    <div class="side">
+      <p>エージェントが「自分で進める」といっても、魔法ではありません。ごく単純なループを高速で回しているだけです。</p>
+      <p>この形を知っておくと、<strong>AIが今どこで詰まっているのかが分かる</strong>ようになります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>考える → 道具を使う → 結果を見る</b>。この3つをゴールに着くまでくり返すだけ。仕組みとしては、驚くほど素朴です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">The loop</p>
+    <h2>3ステップのくり返し</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">思考（Thought）— 次に何をすべきか決める</div><div class="dd">「まずA社のIR情報を探そう」。人間が段取りを考えるのと同じことを、言葉で書き出しています。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">行動（Action）— 道具を実際に使う</div><div class="dd">Web検索する、ファイルを開く、計算する、社内DBを見る。使える道具は、ハーネスが用意した範囲に限られます。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">観察（Observation）— 結果を見て、次を決める</div><div class="dd">「取れた。次はB社だ」／「ページが無い。別の探し方をしよう」。ここで軌道修正が入ります。</div></div></div><div class="st"><div class="n">↺</div><div><div class="tt">ゴールに着くまで、これをくり返す</div><div class="dd">人間が「次はこうして」と言わなくても回り続ける。ここがエージェントの本体です。</div></div></div></div>
+    <div class="dmeta"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><div><div class="h">たとえるなら</div><p><strong>料理をする人</strong>と同じです。レシピを頭に浮かべ（思考）、鍋に入れ（行動）、味を見て（観察）、塩を足す。この繰り返し。</p></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Why it matters</p>
+    <h2>この形を知っていると、何が良いのか</h2>
+    <p>エージェントの作業ログには、たいていこの「思考」の部分が表示されます。つまり<strong>AIが何を考えて、なぜその行動をしたのかが読める</strong>ということです。</p>
+<p>うまくいかないとき、原因はだいたい3つのどこかにあります。</p>
+    <div class="dcards"><div><div class="h">CASE 1</div><div class="t">思考でズレている</div><div class="d">前提の伝え方が足りていません。文脈をもっと渡すか、ゴールの書き方を見直します。</div></div><div><div class="h">CASE 2</div><div class="t">行動できていない</div><div class="d">必要な道具が与えられていません。ハーネス側の設定の問題です。</div></div><div><div class="h">CASE 3</div><div class="t">観察で気づけていない</div><div class="d">成功したつもりで先へ進んでいます。「終わったら必ず確認して」と条件を足すと直ります。</div></div></div>
+    <div class="dnote"><div class="h">実務的なコツ</div><p>長い作業ほど、<strong>途中の確認ポイントを自分で決めさせる</strong>と安定します。「1工程ごとに、できたかどうか確認してから次へ進んで」と最初に言っておくだけで、暴走がかなり減ります。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="ai-agent.html"><span class="t">AIエージェントってなに？</span><span class="d">「手順」ではなく「ゴール」を渡せる相手。それがエージェントです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="harness.html"><span class="t">ハーネス — AIに手足をつける仕組み</span><span class="d">頭脳だけでは仕事になりません。エージェントを支える「胴輪」の話。</span><span class="go">READ →</span></a>
+      <a class="topic" href="tool-use.html"><span class="t">ツールを使うAI（Tool Use / MCP）</span><span class="d">AIが外の世界に手を伸ばすための、道具と差し込み口の話。</span><span class="go">READ →</span></a>
+      <a class="topic" href="goal-command.html"><span class="t">/goal — ゴールを宣言して、完走させる</span><span class="d">「終わりの定義」を先に渡すと、AIは途中で勝手に止まらなくなります。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s6">第6回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s6">SESSION 06</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

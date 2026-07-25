@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>生成AIってなに？｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="「見分けるAI」と「つくるAI」は、まったく別の生きものです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第1回 AIは「道具」から「チームメンバー」へ / 生成AIってなに？</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 01 · 土台</p>
+      <h1>生成AIは、<em>「見分ける」ではなく「つくる」</em>AI</h1>
+      <span class="en">Generative AI — from judging to making.</span>
+    </div>
+    <div class="side">
+      <p>ニュースで「AI」と言われるとき、今はほぼこの生成AIのことを指しています。</p>
+      <p>いちばんの特徴は、<strong>正解がひとつに決まっていない仕事に踏み込めるようになった</strong>ことです。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big">生成AIは、<b>白紙から文章や絵を出せるAI</b>。今までのAIが「選ぶ」道具だったのに対して、こちらは「出す」道具です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Basics</p>
+    <h2>いちばん分かりやすい違いは、画像で見ること</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">これまでの画像AI（認識）</div><q>この写真に写っているのは……猫です</q><div class="memo">写っているものを言い当てる。答えはひとつ。</div></div>
+<div class="good"><div class="h">生成AI（生成）</div><q>宇宙服を着てスケートボードに乗る猫を描いて</q><div class="memo">この世に存在しない絵が出てくる。答えは無限。</div></div>
+</div>
+    <p>同じ「画像のAI」でも、やっていることは正反対です。前者は<strong>すでにあるものを見る</strong>、後者は<strong>まだないものを出す</strong>。</p>
+<p>文章でも同じことが起きています。「迷惑メールかどうか判定する」のが前者、「返信メールの下書きを書く」のが後者です。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">At work</p>
+    <h2>仕事で言うと、こういう段階になります</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">資料の誤字を探して（見分ける）</div><div class="dd">正解が決まっている作業。今までのAIでもできました。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">このメモからプレゼンの構成をつくって（つくる）</div><div class="dd">生成AIになって、ここができるようになりました。今この勉強会の1〜3回で扱う範囲です。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">◯◯の件、関係者にヒアリングして資料にまとめておいて（自分で段取りする）</div><div class="dd">AIエージェントの領域。第6回以降で扱います。</div></div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Caution</p>
+    <h2>「つくれる」ことの裏返し</h2>
+    <p>白紙から出せるということは、<strong>知らないことも、それっぽく出せてしまう</strong>ということです。これがハルシネーション（もっともらしい嘘）の正体です。</p>
+<p>つくれる能力と、嘘をつく性質は、同じコインの裏表です。だから使うときは必ず「人が確かめる」工程がセットになります。</p>
+    <div class="dnote"><div class="h">ここだけは覚えて帰ってください</div><p>生成AIの出力は、<strong>成果物ではなく「たたき台」</strong>です。0を1にする作業を肩代わりしてくれるだけで、最後に整えて責任を持つのは人間の側です。</p></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">FAQ</p>
+    <h2>よくある質問</h2>
+    <div class="faq"><details><summary>ChatGPT と 生成AI は同じものですか？</summary><div class="a">「生成AI」が種類の名前で、ChatGPT はその中のひとつの製品名です。「車」と「特定の車種」の関係だと思ってください。ほかに Claude、Gemini、Copilot などがあります。</div></details><details><summary>無料のものと有料のもので、そんなに違いますか？</summary><div class="a">かなり違います。有料版は賢いモデルが使えるほか、ファイルを読ませる、長い文章を扱う、といった業務で効いてくる機能が開放されます。試すのは無料で十分ですが、仕事で本気で使うなら有料版を前提にしてください。</div></details></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="ai-evolution.html"><span class="t">AIの進化：4つのステップ</span><span class="d">ルールベース → 機械学習 → 生成AI → エージェント。違いをたとえ話で一枚に。</span><span class="go">READ →</span></a>
+      <a class="topic" href="llm.html"><span class="t">LLM（大規模言語モデル）の仕組み</span><span class="d">AIは意味を理解していません。次に来そうな言葉を確率で選んでいるだけです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="hallucination.html"><span class="t">ハルシネーション（もっともらしい嘘）</span><span class="d">AIが自信満々に間違える現象。なぜ起きるのか、どう防ぐのか。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s1">第1回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s1">SESSION 01</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

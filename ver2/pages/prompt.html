@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>伝わるプロンプトの4要素｜はじめてのAI勉強会 Ver.2</title>
+<meta name="description" content="役割・文脈・タスク・形式。この4つを足すだけで、出力の質が変わります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/detail.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="dbar">
+  <div class="dbar-in">
+    <a class="back" href="../index.html"><svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg><span>← AI勉強会 Ver.2</span></a>
+    <span class="crumb">第2回 AIに伝わるお願いのしかた / 伝わるプロンプトの4要素</span>
+  </div>
+</div>
+
+<main>
+<section class="dhero">
+  <div class="wrap-wide dhero-grid">
+    <div>
+      <p class="eyebrow">SESSION 02 · 実践</p>
+      <h1>頼み方は、<em>4つの要素</em>だけ覚えれば十分</h1>
+      <span class="en">Role, Context, Task, Format.</span>
+    </div>
+    <div class="side">
+      <p>プロンプトエンジニアリング、という言葉に構える必要はありません。</p>
+      <p>要するに<strong>「優秀だけどこちらの事情を何も知らない新人に、仕事を頼むときのコツ」</strong>です。</p>
+    </div>
+  </div>
+</section>
+
+<section class="oneline">
+  <div class="wrap-wide oneline-in">
+    <svg class="cat" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M22 44 L20 16 L42 30"/><path d="M78 44 L80 16 L58 30"/>
+<path d="M18 56C18 38 32 26 50 26s32 12 32 30c0 16-14 28-32 28S18 72 18 56Z"/>
+<path d="M35 56q5-6 10 0"/><path d="M55 56q5-6 10 0"/>
+<path d="M46 66h8l-4 5z" fill="currentColor" stroke="none"/>
+<path d="M50 71v3"/><path d="M50 74q-5 5-9 0"/><path d="M50 74q5 5 9 0"/>
+<path d="M20 60H4M20 67L5 72M80 60h16M80 67l15 5"/></svg>
+    <div>
+      <span class="lb">ひとことで言うと</span>
+      <p class="big"><b>役割・文脈・タスク・形式</b>。この4つを書き足すだけで、返ってくるものが別ものになります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">The 4</p>
+    <h2>4つの要素</h2>
+    <div class="dsteps"><div class="st"><div class="n">1</div><div><div class="tt">① 役割（Role）— 誰として答えてほしいか</div><div class="dd">「あなたはベテランのコピーライターです」「あなたは慎重な法務担当です」。立場を決めると、言葉づかいも視点も切り替わります。</div></div></div><div class="st"><div class="n">2</div><div><div class="tt">② 文脈（Context）— どういう状況か</div><div class="dd">誰向けか、何のためか、前提は何か。AIはあなたの会社の事情を1ミリも知りません。省略しないのが最大のコツです。</div></div></div><div class="st"><div class="n">3</div><div><div class="tt">③ タスク（Task）— 何をしてほしいか</div><div class="dd">動詞で明確に。「提案して」「表にして」「3案出して」。ひとつの依頼に、ひとつのタスク。</div></div></div><div class="st"><div class="n">4</div><div><div class="tt">④ 形式（Format）— どんな形で欲しいか</div><div class="dd">「箇条書きで5つ」「300字以内」「表形式で」。指定しないと、たいてい長い散文で返ってきます。</div></div></div></div>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Before / After</p>
+    <h2>同じ依頼で、これだけ変わります</h2>
+    <div class="dcompare">
+<div class="bad"><div class="h">BEFORE — 丸投げ</div><q>新商品のキャッチコピー考えて</q><div class="memo">誰向けか分からないので、当たりさわりのない一般論が返ってくる。「うーん、違うな」と何度も打ち直すことになります。</div></div>
+<div class="good"><div class="h">AFTER — 4要素入り</div><q>あなたはベテランのコピーライターです。20代女性向けの時短スキンケアコスメを発売します。商品の魅力を伝えるキャッチコピーを、箇条書きで5つ、それぞれ狙いの解説つきで提案してください</q><div class="memo">狙いの違う案が5つ並び、そのまま会議に出せる状態で返ってきます。</div></div>
+</div>
+    <p>長く書くのが偉いわけではありません。<strong>足りない情報を足しているだけ</strong>です。人に頼むときも同じですよね。</p>
+  </div>
+</section>
+
+<section class="dsec">
+  <div class="wrap-wide">
+    <p class="label">Extra</p>
+    <h2>もう少し慣れてきたら、この3つ</h2>
+    <div class="dcards"><div><div class="h">TIP 1</div><div class="t">悪い例も見せる</div><div class="d">「こういうのは避けてください」と具体例を出すと、外れが減ります。良い例と悪い例をセットで渡すのがいちばん効きます。</div></div><div><div class="h">TIP 2</div><div class="t">一度で完成させようとしない</div><div class="d">「まず構成案だけ出して」→「2案目を膨らませて」。会話で詰めていくほうが、長い呪文より速く着きます。</div></div><div><div class="h">TIP 3</div><div class="t">逆に質問させる</div><div class="d">「ぼくに3つ質問して、条件を絞り込ませて」。自分でも整理できていないときに、いちばん役に立つ使い方です。</div></div></div>
+    <div class="dnote"><div class="h">毎回書くのが面倒になったら</div><p>よく使う前提や役割は、毎回打ち直す必要はありません。ファイル（<strong>.md</strong>）に書いて置いておく、手順書（<strong>Skill</strong>）にまとめておく、という方法があります。第7回で扱います。</p></div>
+  </div>
+</section>
+</main>
+
+<section class="dnext">
+  <div class="wrap-wide">
+    <p class="label">Related topics / つづけて読む</p>
+    <div class="topics">
+      <a class="topic" href="llm.html"><span class="t">LLM（大規模言語モデル）の仕組み</span><span class="d">AIは意味を理解していません。次に来そうな言葉を確率で選んでいるだけです。</span><span class="go">READ →</span></a>
+      <a class="topic" href="daily-hacks.html"><span class="t">明日から使えるAI仕事術</span><span class="d">そのままコピーして使える依頼文つき。まずここから始めてください。</span><span class="go">READ →</span></a>
+      <a class="topic" href="markdown.html"><span class="t">.md（マークダウン）— AIと人の共通言語</span><span class="d">「#」で見出し、「-」で箇条書き。人にもAIにも読めるテキスト形式。</span><span class="go">READ →</span></a>
+      <a class="topic" href="skill.html"><span class="t">Skill — 「うちのやり方」をAIに教える</span><span class="d">必要なときだけ開く、AIのためのマニュアル棚。</span><span class="go">READ →</span></a>
+    </div>
+    <p style="margin-top:38px"><a class="btn" href="../index.html#s2">第2回にもどる <span class="arw">→</span></a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>AI STUDY PROGRAM — VER.2 / FOR BEGINNERS</p>
+    <div class="links">
+      <a href="../index.html">TOP</a>
+      <a href="../index.html#roadmap">ROADMAP</a>
+      <a href="../index.html#s2">SESSION 02</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

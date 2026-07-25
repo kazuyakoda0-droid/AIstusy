@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ver2-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "http-server", "ver2", "-p", "4321", "-c-1"],
+      "port": 4321
+    }
+  ]
+}
